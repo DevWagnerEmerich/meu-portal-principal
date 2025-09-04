@@ -1,0 +1,507 @@
+:root {
+    --bg-body: #f0f2f5;
+    --bg-content: #ffffff;
+    --primary: #007bff;
+    --primary-hover: #0056b3;
+    --text-heading: #1c1e21;
+    --text-body: #495057;
+    --text-muted: #6c757d;
+    --border-color: #e0e0e0;
+    --gradient-start: #8A2BE2; /* Roxo */
+    --gradient-end: #4169E1;   /* Azul Royal */
+    --sidebar-width: 280px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-body);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
+}
+
+/* --- Layout --- */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 120px); /* Full height minus navbar and footer */
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--bg-content);
+    padding: 0.75rem 1rem; /* Reduced horizontal padding */
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Distributes items to ends */
+    align-items: center;
+    /* max-width: 1200px; Removed this line */
+    margin: 0 auto;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-heading);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    /* margin-left: auto; Removed this line */
+    margin-right: auto; /* Pushes brand to center */
+}
+
+.site-logo {
+    height: 30px; /* Adjust as needed */
+    margin-right: 8px;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* --- Sidebar --- */
+#sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100%;
+    background-color: var(--bg-content);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar-menu.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.sidebar-header span {
+    font-size: 1.1rem;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 1rem;
+}
+
+.sidebar-links li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-links a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-body);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-links a:hover {
+    background-color: var(--bg-body);
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Buttons (Hamburger & Close) --- */
+#open-menu-btn, #close-menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-heading);
+    padding: 0 0.5rem;
+}
+
+#open-menu-btn {
+    /* margin-right: 1rem; Removed to allow brand to center */
+}
+
+#close-menu-btn {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+/* --- Typography & Gradient --- */
+.gradient-text {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* --- Welcome Section --- */
+.welcome-section {
+    margin-bottom: 4rem;
+}
+
+.welcome-section h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+}
+
+.welcome-section p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 1rem auto 0;
+}
+
+/* --- Section Titles --- */
+.section-container {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* --- Game Grid & Cards --- */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.game-card {
+    background-color: var(--bg-content);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease;
+    position: relative; /* For badge positioning */
+}
+
+.game-card:hover {
+    border-color: #c0c0c0;
+}
+
+.game-card .card-title {
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
+}
+
+.game-card .card-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.game-card .btn {
+    margin-top: auto; /* Push button to bottom */
+}
+
+.featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(45deg, #FFD700, #FFA500); /* Gold/Orange gradient */
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* --- Forms --- */
+.form-card {
+    max-width: 420px;
+    margin: 0 auto;
+    background-color: var(--bg-content);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: var(--text-heading);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-body);
+    margin-bottom: 1.5rem; /* Spacing between form fields */
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--gradient-end);
+    box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.15);
+}
+
+.footer-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* --- Buttons --- */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-gradient {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+}
+
+.btn-gradient:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #e4e6eb;
+    color: var(--text-heading);
+}
+
+.btn-secondary:hover {
+    background-color: #d8dbdf;
+    transform: translateY(-1px);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navbar-brand {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .welcome-section h1 {
+        font-size: 2.2rem;
+    }
+
+    .welcome-section p {
+        font-size: 1rem;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.75rem 0.5rem; /* Further reduced padding on very small screens */
+    }
+
+    .navbar-container {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to start for stacking */
+    }
+
+    #open-menu-btn {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-brand {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%; /* Ensure buttons take full width */
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .main-container {
+        padding: 1rem 0.5rem;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .welcome-section p {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .form-card {
+        padding: 1rem;
+    }
+}
+
+/* Custom CSS to ensure modal centering */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 1rem); /* Adjust as needed, 1rem for top/bottom padding */
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        min-height: calc(100vh - 3.5rem); /* Adjust for larger screens */
+    }
+}
+
+/* Custom styles for Fullscreen and Close buttons in modal (Revised) */
+.modal-header .btn { /* Target both buttons in the modal header */
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border-radius: 8px; /* Consistent with other elements */
+}
+
+.modal-header .btn:hover {
+    background-color: var(--border-color); /* Subtle hover background */
+    transform: translateY(-1px);
+}
+
+#fullscreenBtn svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--text-muted); /* Use a muted text color for the icon */
+}
+
+#fullscreenBtn:hover svg {
+    fill: var(--text-heading); /* Darker on hover */
+}
+
+.btn-close {
+    /* Bootstrap's default btn-close is already quite good. */
+    /* We'll just ensure it respects our hover and focus styles */
+    opacity: 1; /* Override Bootstrap default opacity if it's lower */
+}
+
+.btn-close:focus {
+    box-shadow: none; /* Remove default focus outline */
+}
+
+/* Custom styles for Login Prompt Modal */
+#loginPromptModal .modal-content {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#loginPromptModal .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+}
+
+#loginPromptModal .modal-title {
+    color: var(--text-heading);
+    font-weight: 600;
+}
+
+#loginPromptModal .modal-body {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--text-body);
+}
+
+#loginPromptModal .modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+}
+
+#loginPromptModal .modal-footer .btn {
+    min-width: 100px; /* Ensure buttons have a decent size */
+}
