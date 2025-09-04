@@ -312,4 +312,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Handle user account modal
+    const userAccountModalElement = document.getElementById('userAccountModal');
+    const userAccountModal = userAccountModalElement ? new bootstrap.Modal(userAccountModalElement) : null;
+
+    if (usernameDisplay) {
+        usernameDisplay.style.cursor = 'pointer'; // Indicate it's clickable
+        usernameDisplay.addEventListener('click', () => {
+            if (userAccountModal) {
+                userAccountModal.show();
+            }
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (event) => {
+            event.preventDefault();
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    window.location.href = '/'; // Redirect to homepage after logout
+                } else {
+                    alert(`Erro ao fazer logout: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Erro ao fazer logout:', error);
+                alert('Erro de rede ao tentar fazer logout.');
+            }
+        });
+    }
 });
