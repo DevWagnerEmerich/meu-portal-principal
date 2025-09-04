@@ -521,3 +521,38 @@ body {
 #userAccountModal .list-group-item a:hover {
     color: var(--primary);
 }
+
+/* Custom styles for Subscription Options Modal */
+#subscriptionOptionsModal .card {
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease-in-out;
+}
+
+#subscriptionOptionsModal .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+#subscriptionOptionsModal .card-header {
+    background-color: var(--bg-body);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#subscriptionOptionsModal .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#subscriptionOptionsModal .pricing-card-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+#subscriptionOptionsModal .pricing-card-title small {
+    font-size: 60%;
+}
+
+#subscriptionOptionsModal .list-unstyled li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}

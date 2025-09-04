@@ -112,7 +112,8 @@
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    
+                    <h5 class="modal-title" id="gameModalLabel"></h5>
+                    <div id="game-timer" class="badge bg-primary text-white me-3" style="display: none;"></div>
                     <button type="button" class="btn btn-secondary btn-sm me-2" id="fullscreenBtn" title="Tela Cheia">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0L1.5 14.5H4.5a.5.5 0 0 0 0-1H1.5l.672-.672a.5.5 0 0 0-.707-.707L.172 14.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0L14.5 1.5H11.5a.5.5 0 0 0 0 1h3l-.672.672a.5.5 0 0 0 .707.707L15.828 1.879a.5.5 0 0 0 0-.707zM.172.172A.5.5 0 0 1 .879.172L1.5 1.5H4.5a.5.5 0 0 1 0 1H1.5l.672.672a.5.5 0 0 1-.707.707L.172 1.879a.5.5 0 0 1 0-.707zM15.828 15.828a.5.5 0 0 1-.707 0L14.5 14.5H11.5a.5.5 0 0 1 0-1h3l-.672-.672a.5.5 0 0 1 .707-.707L15.828 14.121a.5.5 0 0 1 0 .707z"/>
@@ -153,26 +154,6 @@
         </div>
     </div>
 
-    <!-- Login/Register Prompt Modal -->
-    <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-labelledby="loginPromptModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginPromptModalLabel">Acesso Restrito</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <p>Você precisa estar logado para jogar!</p>
-                    <p>Faça login ou cadastre-se para continuar.</p>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <a href="/login.html" class="btn btn-primary me-2">Login</a>
-                    <a href="/register.html" class="btn btn-gradient">Cadastro</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- User Account Modal -->
     <div class="modal fade" id="userAccountModal" tabindex="-1" aria-labelledby="userAccountModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -187,6 +168,69 @@
                         <li class="list-group-item"><a href="/subscription.html" class="text-decoration-none text-dark">Minhas Assinaturas</a></li>
                         <li class="list-group-item"><a href="#" id="logout-link" class="text-decoration-none text-danger">Sair</a></li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Options Modal -->
+    <div class="modal fade" id="subscriptionOptionsModal" tabindex="-1" aria-labelledby="subscriptionOptionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subscriptionOptionsModalLabel">Escolha seu Plano de Assinatura</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                        <div class="col">
+                            <div class="card mb-4 rounded-3 shadow-sm">
+                                <div class="card-header py-3">
+                                    <h4 class="my-0 fw-normal">Mensal</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title">R$19<small class="text-muted fw-light">/mês</small></h1>
+                                    <ul class="list-unstyled mt-3 mb-4">
+                                        <li>Acesso ilimitado</li>
+                                        <li>Suporte por e-mail</li>
+                                    </ul>
+                                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Assinar Mensal</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                                <div class="card-header py-3 text-white bg-primary border-primary">
+                                    <h4 class="my-0 fw-normal">Semestral</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title">R$99<small class="text-muted fw-light">/6 meses</small></h1>
+                                    <ul class="list-unstyled mt-3 mb-4">
+                                        <li>Acesso ilimitado</li>
+                                        <li>Suporte prioritário</li>
+                                        <li>5% de desconto</li>
+                                    </ul>
+                                    <button type="button" class="w-100 btn btn-lg btn-primary">Assinar Semestral</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card mb-4 rounded-3 shadow-sm">
+                                <div class="card-header py-3">
+                                    <h4 class="my-0 fw-normal">Anual</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title">R$179<small class="text-muted fw-light">/ano</small></h1>
+                                    <ul class="list-unstyled mt-3 mb-4">
+                                        <li>Acesso ilimitado</li>
+                                        <li>Suporte 24/7</li>
+                                        <li>10% de desconto</li>
+                                    </ul>
+                                    <button type="button" class="w-100 btn btn-lg btn-outline-primary">Assinar Anual</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

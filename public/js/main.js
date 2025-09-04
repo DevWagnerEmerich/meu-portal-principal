@@ -217,6 +217,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameModal = document.getElementById('gameModal');
     const gameIframe = gameModal ? gameModal.querySelector('#gameIframe') : null;
     const gameLoader = gameModal ? gameModal.querySelector('#gameLoader') : null;
+    const gameTimerDisplay = document.getElementById('game-timer');
+
+    let countdownInterval;
+    let remainingTime = 0; // In seconds
+    let gameSessionStartTime = 0; // To track actual game session duration
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const startCountdown = (duration) => {
+        remainingTime = duration;
+        gameTimerDisplay.style.display = 'block';
+        gameTimerDisplay.textContent = formatTime(remainingTime);
+
+        countdownInterval = setInterval(() => {
+            remainingTime--;
+            gameTimerDisplay.textContent = formatTime(remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                gameTimerDisplay.style.display = 'none';
+                // Time's up, close game and open subscription modal
+                if (gameModalElement) {
+                    const bsGameModal = bootstrap.Modal.getInstance(gameModalElement);
+                    if (bsGameModal) bsGameModal.hide();
+                }
+                if (subscriptionOptionsModal) {
+                    subscriptionOptionsModal.show();
+                }
+            }
+        }, 1000);
+    };
+
+    const stopCountdown = () => {
+        clearInterval(countdownInterval);
+        gameTimerDisplay.style.display = 'none';
+    };
 
     // Function to handle game loading and display
     const loadAndShowGame = (gameSrc) => {
@@ -224,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameIframe) gameIframe.style.visibility = 'hidden';
 
         let iframeLoaded = false;
-        let timerElapsed = false;
+        let timerElapsed = false; // This timer is for the loading spinner, not the game countdown
 
         const showGameContent = () => {
             if (iframeLoaded && timerElapsed) {
@@ -263,18 +303,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const gameSrc = button.getAttribute('data-game-src');
 
             try {
-                const response = await fetch('/api/user-status');
+                const response = await fetch('/api/game-start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ gameSrc: gameSrc }) // Send game identifier
+                });
                 const data = await response.json();
 
-                if (data.loggedIn) {
+                if (response.ok) {
+                    gameSessionStartTime = Date.now(); // Record actual game session start time
+                    if (data.subscriptionType === 'none' && data.dailyTimeLeft > 0) {
+                        startCountdown(data.dailyTimeLeft);
+                    } else if (data.subscriptionType === 'none' && data.dailyTimeLeft <= 0) {
+                        // No time left for free users
+                        if (subscriptionOptionsModal) {
+                            subscriptionOptionsModal.show();
+                        }
+                        return; // Stop execution
+                    }
+                    // For subscribed users or free users with time, load game
                     loadAndShowGame(gameSrc);
                 } else {
-                    const loginPromptModal = new bootstrap.Modal(document.getElementById('loginPromptModal'));
-                    loginPromptModal.show();
+                    // Handle errors from /api/game-start (e.g., unauthorized, no time left)
+                    alert(`Erro ao iniciar o jogo: ${data.message || response.statusText}`);
+                    if (data.message && data.message.includes('tempo diário')) {
+                        if (subscriptionOptionsModal) {
+                            subscriptionOptionsModal.show();
+                        }
+                    }
                 }
             } catch (error) {
-                console.error('Erro ao verificar status de login:', error);
-                alert('Ocorreu um erro ao verificar seu status de login. Tente novamente.');
+                console.error('Erro ao verificar status de jogo:', error);
+                alert('Ocorreu um erro ao verificar seu status de jogo. Tente novamente.');
             }
         });
     });
@@ -282,16 +342,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle game modal closing
     if (gameModal) {
         gameModal.addEventListener('hidden.bs.modal', event => {
-            if (gameIframe) gameIframe.src = ''; // Clear src to stop game
+            stopCountdown(); // Stop any running countdown
+            if (gameIframe) {
+                const currentPlayingGameSrc = gameIframe.src; // Capture the src before clearing
+                gameIframe.src = ''; // Clear src to stop game
 
-            // Send game stop signal to backend
-            fetch('/api/game-stop', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gameSrc: gameIframe.src }) // Send game identifier
-            }).then(response => {
-                if (!response.ok) console.error('Failed to send game stop signal');
-            }).catch(error => console.error('Error sending game stop signal:', error));
+                // Calculate duration and send game stop signal to backend
+                const gameDuration = Math.floor((Date.now() - gameSessionStartTime) / 1000);
+                fetch('/api/game-stop', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ gameSrc: currentPlayingGameSrc, duration: gameDuration }) // Send game identifier and duration
+                }).then(response => {
+                    if (!response.ok) console.error('Failed to send game stop signal');
+                }).catch(error => console.error('Error sending game stop signal:', error));
+            }
         });
     }
 
@@ -342,6 +407,23 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Erro ao fazer logout:', error);
                 alert('Erro de rede ao tentar fazer logout.');
+            }
+        });
+    }
+
+    // Handle subscription options modal
+    const subscriptionOptionsModalElement = document.getElementById('subscriptionOptionsModal');
+    const subscriptionOptionsModal = subscriptionOptionsModalElement ? new bootstrap.Modal(subscriptionOptionsModalElement) : null;
+    const subscriptionLink = document.querySelector('#userAccountModal a[href="/subscription.html"]');
+
+    if (subscriptionLink) {
+        subscriptionLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            if (userAccountModal) {
+                userAccountModal.hide(); // Close user account modal
+            }
+            if (subscriptionOptionsModal) {
+                subscriptionOptionsModal.show(); // Open subscription options modal
             }
         });
     }

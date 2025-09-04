@@ -85,6 +85,25 @@ router.post('/login', (req, res) => {
                 // Senha correta, cria a sessão
                 req.session.userId = user.id;
                 req.session.username = user.username;
+
+                // --- Trial Logic: Reset daily_time_left if new day ---
+                const today = new Date().setHours(0, 0, 0, 0); // Start of today
+                const lastLoginDay = user.last_login_date ? new Date(user.last_login_date).setHours(0, 0, 0, 0) : 0;
+
+                if (today > lastLoginDay) {
+                    const resetSql = 'UPDATE users SET daily_time_left = ?, last_login_date = ? WHERE id = ?';
+                    const initialDailyTime = 900; // 15 minutes in seconds
+                    const now = Date.now();
+                    db.run(resetSql, [initialDailyTime, now, user.id], (updateErr) => {
+                        if (updateErr) {
+                            console.error('Erro ao resetar daily_time_left:', updateErr.message);
+                        } else {
+                            console.log(`daily_time_left resetado para o usuário ${user.username}`);
+                        }
+                    });
+                }
+                // --- End Trial Logic ---
+
                 res.json({ message: 'Login bem-sucedido!', username: user.username });
             } else {
                 res.status(401).json({ message: 'Senha incorreta.' });

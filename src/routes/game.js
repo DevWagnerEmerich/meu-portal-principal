@@ -9,9 +9,24 @@ router.post('/game-start', (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-    // Store the start time in session
-    req.session.gameStartTime = Date.now();
-    res.json({ message: 'Game start recorded' });
+
+    db.get('SELECT subscription_type, daily_time_left FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+        if (err) {
+            console.error('Error fetching user data for game start:', err.message);
+            return res.status(500).json({ message: 'Server error' });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.subscription_type === 'none' && user.daily_time_left <= 0) {
+            return res.status(403).json({ message: 'Seu tempo diário de jogo acabou. Considere assinar para acesso ilimitado!' });
+        }
+
+        // Store the start time in session
+        req.session.gameStartTime = Date.now();
+        res.json({ message: 'Game start recorded', dailyTimeLeft: user.daily_time_left, subscriptionType: user.subscription_type });
+    });
 });
 
 // API to signal game stop and update daily_time_left
