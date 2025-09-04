@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navbar action elements
     const loggedOutActions = document.getElementById('logged-out-actions');
-    const loggedInActions = document.getElementById('logged-in-actions');
+    const loggedInActions = document.getElementById('loggedIn-actions');
     const usernameDisplay = document.getElementById('username-display');
     const logoutBtn = document.getElementById('logout-btn');
 
@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const startCountdown = (duration) => {
+        console.log('startCountdown called with duration:', duration);
         remainingTime = duration;
         gameTimerDisplay.style.display = 'block';
         gameTimerDisplay.textContent = formatTime(remainingTime);
@@ -254,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const stopCountdown = () => {
+        console.log('stopCountdown called');
         clearInterval(countdownInterval);
         gameTimerDisplay.style.display = 'none';
     };
@@ -301,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Prevent default Bootstrap modal behavior
 
             const gameSrc = button.getAttribute('data-game-src');
+            console.log('Play game button clicked. gameSrc:', gameSrc);
 
             try {
                 const response = await fetch('/api/game-start', {
@@ -308,14 +311,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ gameSrc: gameSrc }) // Send game identifier
                 });
+                console.log('Raw response status:', response.status);
                 const data = await response.json();
+                console.log('Response from /api/game-start:', data);
 
                 if (response.ok) {
                     gameSessionStartTime = Date.now(); // Record actual game session start time
-                    if (data.subscriptionType === 'none' && data.dailyTimeLeft > 0) {
+                    // Timer should appear for all users if dailyTimeLeft > 0
+                    if (data.dailyTimeLeft > 0) { // Removed data.subscriptionType === 'none'
+                        console.log('User has time left. Starting countdown.');
                         startCountdown(data.dailyTimeLeft);
-                    } else if (data.subscriptionType === 'none' && data.dailyTimeLeft <= 0) {
-                        // No time left for free users
+                    } else { // No time left
+                        console.log('User has no time left. Showing subscription modal.');
                         if (subscriptionOptionsModal) {
                             subscriptionOptionsModal.show();
                         }
@@ -325,10 +332,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     loadAndShowGame(gameSrc);
                 } else {
                     // Handle errors from /api/game-start (e.g., unauthorized, no time left)
-                    alert(`Erro ao iniciar o jogo: ${data.message || response.statusText}`);
-                    if (data.message && data.message.includes('tempo diário')) {
-                        if (subscriptionOptionsModal) {
-                            subscriptionOptionsModal.show();
+                    if (response.status === 401) {
+                        console.log('User not logged in. Showing login prompt modal.');
+                        const loginPromptModal = new bootstrap.Modal(document.getElementById('loginPromptModal'));
+                        if (loginPromptModal) {
+                            loginPromptModal.show();
+                        }
+                    } else {
+                        alert(`Erro ao iniciar o jogo: ${data.message || response.statusText}`);
+                        if (data.message && data.message.includes('tempo diário')) {
+                            if (subscriptionOptionsModal) {
+                                subscriptionOptionsModal.show();
+                            }
                         }
                     }
                 }
@@ -349,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Calculate duration and send game stop signal to backend
                 const gameDuration = Math.floor((Date.now() - gameSessionStartTime) / 1000);
+                console.log('Game session duration:', gameDuration, 'seconds.');
                 fetch('/api/game-stop', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
