@@ -1,4 +1,6 @@
 
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
@@ -7,6 +9,7 @@ const { checkGameAccess } = require('./middleware.js');
 const authRoutes = require('./routes/auth.js');
 const userRoutes = require('./routes/user.js');
 const gameRoutes = require('./routes/game.js');
+const paymentRoutes = require('./routes/payment.js');
 
 const app = express();
 const PORT = 3000;
@@ -38,6 +41,7 @@ app.use((req, res, next) => {
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', gameRoutes);
+app.use('/api', paymentRoutes);
 
 // Rota para servir as páginas HTML principais
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Para servir arquivos estáticos

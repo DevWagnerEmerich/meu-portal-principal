@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navbar action elements
     const loggedOutActions = document.getElementById('logged-out-actions');
-    const loggedInActions = document.getElementById('loggedIn-actions');
+    const loggedInActions = document.getElementById('logged-in-actions');
     const usernameDisplay = document.getElementById('username-display');
     const logoutBtn = document.getElementById('logout-btn');
 
@@ -442,5 +442,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 subscriptionOptionsModal.show(); // Open subscription options modal
             }
         });
+    }
+});
+
+// --- LÓGICA DE PAGAMENTO MERCADO PAGO ---
+document.addEventListener('DOMContentLoaded', () => {
+    const subscribeButtons = document.querySelectorAll('.subscribe-btn');
+    if (subscribeButtons.length === 0) {
+        return; // Sai se não houver botões de assinatura
+    }
+
+    // Adiciona o evento de clique a cada botão
+    subscribeButtons.forEach(button => {
+        button.addEventListener('click', handleSubscriptionClick);
+    });
+
+    // Função para lidar com o clique no botão de assinatura
+    async function handleSubscriptionClick(event) {
+        const button = event.currentTarget;
+        const originalText = button.textContent;
+        try {
+            button.disabled = true;
+            button.textContent = 'Carregando...';
+
+            // Pega os dados do plano a partir dos data-attributes do botão
+            const { id, title, price } = button.dataset;
+
+            const response = await fetch('/api/create_preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, title, price })
+            });
+
+            if (!response.ok) {
+                throw new Error('Falha ao criar a preferência de pagamento no servidor.');
+            }
+
+            const data = await response.json();
+
+            // Redireciona o usuário para a URL de checkout
+            window.location.href = data.checkout_url;
+
+        } catch (error) {
+            console.error('Erro no processo de assinatura:', error);
+            alert('Ocorreu um erro ao iniciar o pagamento. Tente novamente.');
+            button.disabled = false;
+            button.textContent = originalText;
+        }
     }
 });

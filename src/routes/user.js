@@ -90,4 +90,41 @@ router.delete('/profile', (req, res) => {
     });
 });
 
+// Rota para assinar um plano
+router.post('/subscribe', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+
+    const { subscriptionType } = req.body;
+    if (!subscriptionType) {
+        return res.status(400).json({ message: 'Tipo de assinatura é obrigatório.' });
+    }
+
+    // Basic validation for subscription type (can be expanded)
+    const validSubscriptionTypes = ['monthly', 'semestral', 'annual'];
+    if (!validSubscriptionTypes.includes(subscriptionType)) {
+        return res.status(400).json({ message: 'Tipo de assinatura inválido.' });
+    }
+
+    // Calculate subscription end date (example: 1 month from now for monthly)
+    let subscriptionEndDate = Date.now(); // Current timestamp
+    if (subscriptionType === 'monthly') {
+        subscriptionEndDate += 30 * 24 * 60 * 60 * 1000; // +30 days
+    } else if (subscriptionType === 'semestral') {
+        subscriptionEndDate += 6 * 30 * 24 * 60 * 60 * 1000; // +6 months
+    } else if (subscriptionType === 'annual') {
+        subscriptionEndDate += 12 * 30 * 24 * 60 * 60 * 1000; // +12 months
+    }
+
+    const sql = 'UPDATE users SET subscription_type = ?, subscription_end_date = ? WHERE id = ?';
+    db.run(sql, [subscriptionType, subscriptionEndDate, req.session.userId], function(err) {
+        if (err) {
+            console.error('Erro ao atualizar assinatura:', err.message);
+            return res.status(500).json({ message: 'Erro ao processar a assinatura.' });
+        }
+        res.json({ message: `Assinatura ${subscriptionType} ativada com sucesso!` });
+    });
+});
+
 module.exports = router;
