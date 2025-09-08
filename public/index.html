@@ -56,45 +56,16 @@
             <!-- Seção de Destaques -->
             <div class="section-container">
                 <h2 class="section-title">Destaques</h2>
-                <div class="game-grid">
-                    <div class="game-card">
-                        <div class="featured-badge">Destaque</div>
-                        <h5 class="card-title">Jogo de Álgebra</h5>
-                        <p class="card-text">Resolva equações e domine a álgebra de forma divertida.</p>
-                        <a href="#" class="btn btn-secondary disabled mt-auto play-game-btn">Jogar</a>
-                    </div>
-                    <div class="game-card">
-                        <h5 class="card-title">Biomas do Mundo</h5>
-                        <p class="card-text">Explore os diferentes biomas do planeta Terra.</p>
-                        <a href="#" class="btn btn-secondary disabled mt-auto play-game-btn">Jogar</a>
-                    </div>
+                <div class="game-grid" id="featured-games-grid">
+                    <!-- Jogos em destaque serão carregados aqui -->
                 </div>
             </div>
 
             <!-- Seção de Todos os Jogos -->
             <div class="section-container">
                 <h2 class="section-title">Todos os Jogos</h2>
-                <div class="game-grid">
-                    <div class="game-card">
-                        <h5 class="card-title">Jogo de Álgebra</h5>
-                        <p class="card-text">Resolva equações e domine a álgebra de forma divertida.</p>
-                        <a href="#" class="btn btn-secondary disabled mt-auto play-game-btn">Jogar</a>
-                    </div>
-                    <div class="game-card">
-                        <h5 class="card-title">Biomas do Mundo</h5>
-                        <p class="card-text">Explore os diferentes biomas do planeta Terra.</p>
-                        <a href="#" class="btn btn-secondary disabled mt-auto play-game-btn">Jogar</a>
-                    </div>
-                    <div class="game-card">
-                        <h5 class="card-title">Revoluções Históricas</h5>
-                        <p class="card-text">Aprenda sobre as grandes revoluções que mudaram o mundo.</p>
-                        <a href="#" class="btn btn-secondary disabled mt-auto play-game-btn">Jogar</a>
-                    </div>
-                    <div class="game-card">
-                        <h5 class="card-title">Tabela Periódica Bingo</h5>
-                        <p class="card-text">Aprenda os elementos da tabela periódica de forma divertida!</p>
-                        <a href="#" class="btn btn-primary mt-auto play-game-btn" data-game-src="/games/tabela-periodica-bingo/index.html">Jogar</a>
-                    </div>
+                <div class="game-grid" id="all-games-grid">
+                    <!-- Todos os jogos serão carregados aqui -->
                 </div>
             </div>
         </div>
@@ -166,7 +137,7 @@
                 <div class="modal-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href="/profile.html" class="text-decoration-none text-dark">Meu Perfil</a></li>
-                        <li class="list-group-item"><a href="/subscription.html" class="text-decoration-none text-dark">Minhas Assinaturas</a></li>
+                        <li class="list-group-item"><a href="#" id="my-subscriptions-link" class="text-decoration-none text-dark">Minhas Assinaturas</a></li>
                         <li class="list-group-item"><a href="#" id="logout-link" class="text-decoration-none text-danger">Sair</a></li>
                     </ul>
                 </div>
