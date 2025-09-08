@@ -42,6 +42,7 @@ router.post('/create_preference', (req, res) => {
         failure: 'http://localhost:3000/index.html?status=failure',
         pending: 'http://localhost:3000/index.html?status=pending',
       },
+      
     },
   })
   .then(response => {

@@ -445,6 +445,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Garante que os botões de assinatura sejam reativados ao voltar para a página (cache do navegador)
+window.addEventListener('pageshow', function(event) {
+    const subscribeButtons = document.querySelectorAll('.subscribe-btn');
+    subscribeButtons.forEach(button => {
+        if (button.disabled) {
+            button.disabled = false;
+            const originalText = `Assinar ${button.dataset.title.split(' ')[1]}`;
+            button.textContent = originalText;
+        }
+    });
+});
+
 // --- LÓGICA DE PAGAMENTO MERCADO PAGO ---
 document.addEventListener('DOMContentLoaded', () => {
     const subscribeButtons = document.querySelectorAll('.subscribe-btn');
