@@ -1,32 +1,5 @@
 [
   {
-    "id": "algebra",
-    "title": "Jogo de Álgebra",
-    "description": "Resolva equações e domine a álgebra de forma divertida.",
-    "thumbnail": "/path/to/algebra-thumb.jpg", 
-    "game_url": "#",
-    "is_premium": true,
-    "is_featured": true
-  },
-  {
-    "id": "biomas",
-    "title": "Biomas do Mundo",
-    "description": "Explore os diferentes biomas do planeta Terra.",
-    "thumbnail": "/path/to/biomas-thumb.jpg",
-    "game_url": "#",
-    "is_premium": true,
-    "is_featured": false
-  },
-  {
-    "id": "revolucoes",
-    "title": "Revoluções Históricas",
-    "description": "Aprenda sobre as grandes revoluções que mudaram o mundo.",
-    "thumbnail": "/path/to/revolucoes-thumb.jpg",
-    "game_url": "#",
-    "is_premium": true,
-    "is_featured": false
-  },
-  {
     "id": "tabela-periodica-bingo",
     "title": "Tabela Periódica Bingo",
     "description": "Aprenda os elementos da tabela periódica de forma divertida!",
@@ -34,5 +7,14 @@
     "game_url": "/games/tabela-periodica-bingo/index.html",
     "is_premium": false,
     "is_featured": true
+  },
+  {
+    "id": "roda-a-roda",
+    "title": "Roda a Roda",
+    "description": "Gire a roleta, adivinhe as palavras e ganhe pontos!",
+    "thumbnail": "/games/roda-a-roda/thumbnail.jpg",
+    "game_url": "/games/roda-a-roda/index.html",
+    "is_premium": false,
+    "is_featured": false
   }
 ]

@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Card para a lista "Todos os Jogos" (sem o selo de destaque)
                 const allGamesCardHTML = `
-                    <div class="game-card">
+                    <div class="game-card" id="${game.id}">
                         <h5 class="card-title">${game.title}</h5>
                         <p class="card-text">${game.description}</p>
                         <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Se for um destaque, cria uma versão especial com o selo para a seção de destaques
                 if(game.is_featured && featuredGrid) {
                     const featuredCardHTML = `
-                        <div class="game-card">
+                        <div class="game-card" id="${game.id}">
                             <div class="featured-badge">Destaque</div>
                             <h5 class="card-title">${game.title}</h5>
                             <p class="card-text">${game.description}</p>

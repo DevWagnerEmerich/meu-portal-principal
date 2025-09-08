@@ -47,7 +47,10 @@ app.use('/api', paymentRoutes);
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Para servir arquivos estáticos
 
 // Apply middleware to game routes
-app.use('/games', checkGameAccess, express.static(path.join(__dirname, '..', 'public', 'games')));
+app.use('/games', express.static(path.join(__dirname, '..', 'public', 'games')));
+
+// Apply middleware to specific game routes that require access control
+app.use('/games', checkGameAccess);
 
 // Rota para servir as páginas HTML principais
 app.get('/', (req, res) => {

@@ -1,0 +1,1388 @@
+/* Estilos Gerais */
+body.game-body {
+  background-image: url('assets/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-y: hidden; /* Tenta esconder scroll */
+  overflow-x: hidden; /* Evita scroll horizontal com grid à esquerda */
+}
+
+/* Container Principal do Jogo */
+.game-area {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* display: flex; /* Adicionar se quiser controlar posições filhas com flex */
+  /* justify-content: space-between; /* Exemplo: Espaçar grid-section e roleta */
+  /* padding: 20px; /* Adicionar padding se necessário */
+  box-sizing: border-box;
+}
+
+ 
+.game-mode-menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* Controlado por JS */
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+}
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/images/background.jpg');
+  background-size: 200% 100%;
+  animation: slideBackground 40s linear infinite;
+  z-index: -1;
+  opacity: 0.6;
+}
+@keyframes slideBackground {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+.game-mode-menu {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+}
+.game-mode-menu h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #003d82;
+}
+.mode-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.mode-button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+.mode-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* --- Modal de Configuração Inicial --- */
+#initial-config-modal {
+  /* Estilos mantidos */
+  /* display: flex; /* Controlado por JS */
+}
+#initial-config-modal .improved-start-modal {
+  max-width: 650px;
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+#initial-config-modal h2 {
+  color: #003d82;
+}
+#initial-config-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+#csv-status-initial, #logo-status-initial { /* #logo-status-initial pode ser removido se o elemento HTML for removido */
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* --- Título do Jogo (Roleta) --- */
+.titulo-roleta {
+  position: fixed;
+  top: 10px;
+  right: 30px; /* Mantém na direita */
+  width: 380px;
+  text-align: center;
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px;
+  border-radius: 6px;
+  z-index: 10; /* Acima da roleta e grid-section */
+}
+
+/* ======================================= */
+/* === NOVA SEÇÃO PARA GRID E ELEMENTOS RELACIONADOS === */
+/* ======================================= */
+.grid-section {
+    display: flex;             /* Habilita Flexbox */
+    flex-direction: column;    /* Empilha os itens verticalmente */
+    align-items: center;       /* Centraliza os itens horizontalmente */
+    gap: 20px;                 /* Espaço vertical entre os itens (ajuste conforme necessário) */
+
+    /* Posicionamento da seção inteira na tela */
+    position: absolute;        /* Ou relative, dependendo do container .game-area */
+    top: 25px;                 /* Espaço do topo */
+    left: 25px;                /* Espaço da esquerda */
+    /* Não defina width/max-width fixo aqui para permitir centralização correta */
+    /* A largura será definida pelo conteúdo (principalmente a grade) */
+    /* width: max-content; /* Pode ser útil se houver problemas de largura */
+    z-index: 5;                /* Garante que fique abaixo do título/roleta/modais */
+    box-sizing: border-box;
+}
+
+/* --- Alfabeto --- */
+.alphabet {
+  /* position: absolute; */ /* REMOVIDO */
+  /* top: 25px; */ /* REMOVIDO */
+  /* left: 25px; */ /* REMOVIDO */
+  /* z-index: 8; */ /* REMOVIDO (Controlado pelo z-index do .grid-section) */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center; /* Centraliza as letras dentro */
+  width: auto;
+  max-width: 850px; /* Mantém um limite */
+  padding: 15px;
+  background-color: rgba(0, 0, 50, 0.7);
+  border-radius: 10px;
+  /* O grid-section já tem gap, talvez não precise de margin */
+  /* margin-bottom: 20px; */ /* Se precisar de mais espaço */
+}
+.alphabet-letter {
+  width: 55px;
+  height: 55px;
+  background-color: #0056b3;
+  border: 1.5px solid #003d82;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.alphabet-letter:hover:not(.disabled) {
+  background-color: #007bff;
+  transform: scale(1.1);
+}
+.alphabet-letter.disabled {
+  background-color: #6c757d;
+  border-color: #495057;
+  color: #adb5bd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* --- Grade de Letras (Letreiro) --- */
+/* O container da grade */
+.outer-frame {
+     /* position: absolute; */ /* REMOVIDO */
+     /* top: 186px; */ /* Calculado anteriormente, agora definido pelo flex gap */ /* REMOVIDO */
+     /* left: 25px; */ /* REMOVIDO */
+     /* z-index: 7; */ /* REMOVIDO */
+     /* A largura será determinada pelo conteúdo interno (inner-frame/grid) */
+     /* Não precisa de width ou max-width aqui */
+}
+.inner-frame {
+  position: relative; /* Mantém para os pseudo-elementos */
+  padding: 13px;
+  border-radius: 19.5px;
+  box-shadow: 6.5px 6.5px 19.5px rgba(0, 0, 0, 0.3);
+}
+/* ======================================= */
+/* MODIFICAÇÃO: Aumentando a Grade (Mantida) */
+/* ======================================= */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 78px);
+  grid-template-rows: repeat(3, 78px);
+  gap: 7px;
+  position: relative;
+}
+.inner-frame::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 13px solid #ccc;
+  border-radius: 19.5px;
+  z-index: -2;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  clip-path: polygon( 0px 78px, 78px 0px, calc(100% - 78px) 0px, 100% 78px, 100% calc(100% - 78px), calc(100% - 78px) 100%, 78px 100%, 0px calc(100% - 78px) );
+}
+.inner-frame::after {
+  content: '';
+  position: absolute;
+  top: 6.5px; left: 6.5px; right: 6.5px; bottom: 6.5px;
+  border: 6.5px solid #0000ff;
+  border-radius: 13px;
+  z-index: -1;
+  background: linear-gradient(145deg, #0000ff, #0000cc);
+  clip-path: polygon( 0px 39px, 39px 0px, calc(100% - 39px) 0px, 100% 39px, 100% calc(100% - 39px), calc(100% - 39px) 100%, 39px 100%, 0px calc(100% - 39px) );
+}
+.grid-item {
+  width: 78px;
+  height: 78px;
+  background-color: #0000ff;
+  border: 2.5px solid #000;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(30px, 3.8vw, 38px);
+  font-weight: bold;
+  color: white;
+  perspective: 1000px;
+}
+/* ======================================= */
+/* FIM DA MODIFICAÇÃO DA GRADE             */
+/* ======================================= */
+.grid-item.empty { background-color: white; color: white; }
+.grid-item.revealed { background-color: #ffffff !important; color: black !important; }
+.grid-item.space { background-color: transparent; border: none; box-shadow: none; }
+.grid-item.hidden-corner { visibility: hidden; }
+.grid-item.highlight { animation: blinkWin 1s infinite; }
+.grid-item.revealing { animation: flipReveal 1s forwards; }
+@keyframes blinkWin {
+  0%, 100% { background-color: #00ff00; transform: scale(1.1); color: black; }
+  50% { background-color: #ffffff; transform: scale(1); color: black; }
+}
+@keyframes flipReveal {
+  0% { transform: rotateY(0deg); background-color: #0000cc; color: white; }
+  50% { transform: rotateY(90deg); background-color: white; color: black; }
+  100% { transform: rotateY(0deg); background-color: white; color: black; }
+}
+
+/* --- Dica --- */
+.hint {
+  /* position: absolute; */ /* REMOVIDO */
+  /* top: 480px; */ /* Calculado anteriormente, agora definido pelo flex gap */ /* REMOVIDO */
+  /* left: 25px; */ /* REMOVIDO */
+  /* z-index: 6; */ /* REMOVIDO */
+  font-weight: bold;
+  color: white;
+  /* MODIFICADO: Alinhamento e Largura */
+  text-align: left; /* Alinha texto à esquerda dentro da caixa da dica */
+  max-width: 1013px; /* Largura máxima igual à largura da grade (12*78 + 11*7) */
+  width: 100%; /* Ocupa o espaço disponível até o max-width */
+  margin: 0 auto; /* Centraliza o bloco da dica se for menor que o grid-section */
+  /* FIM MODIFICADO */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: clamp(20px, 2vw, 22px); /* Ajustado levemente */
+  box-sizing: border-box;
+  min-height: 1.5em; /* Garante altura mínima para evitar colapso */
+  overflow-wrap: break-word; /* Quebra palavras longas se necessário */
+  white-space: normal; /* Permite quebras de linha normais */
+}
+
+/* Ajuste no span interno da dica para herdar estilos */
+#hint-text {
+    display: inline-block; /* Permite quebras de linha via <br> e alinhamento */
+    /* width: 100%; */    /* REMOVIDO/COMENTADO para que "Dica:" e o texto fiquem na mesma linha */
+    vertical-align: baseline; /* Opcional: para melhor alinhamento vertical com "Dica:" */
+}
+
+/* NOVO ESTILO: Para exibir pontos da palavra no modo "Resposta Rápida" */
+.word-points-display {
+  text-align: center;
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: bold;
+  color: #ffeb3b; /* Um amarelo para destacar */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 15px;
+  border-radius: 8px;
+  margin-top: 10px; /* Espaço abaixo da dica ou do elemento anterior */
+  /* Controlado via JS (display: none/block ou visibility) */
+}
+
+
+/* --- Placar --- */
+.scoreboard {
+  /* position: absolute; */ /* REMOVIDO */
+  /* bottom: 30px; */ /* Agora posicionado pelo gap do flex */ /* REMOVIDO */
+  /* left: 50px; */ /* REMOVIDO */
+  /* z-index: 5; */ /* REMOVIDO */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centraliza os scores dentro do container */
+  gap: 8px;
+  width: auto; /* Largura baseada no conteúdo */
+  max-width: 95%; /* Define uma largura máxima */
+  /* max-width: 1013px; */ /* Removido para testar centralização do pai */
+  padding-bottom: 20px; /* Adiciona um respiro na parte inferior */
+  box-sizing: border-box;
+}
+.score {
+  padding: 8px 12px;
+  border: 2px solid #003d82;
+  border-radius: 8px;
+  background-color: rgba(240, 248, 255, 0.95);
+  font-size: clamp(14px, 1.7vw, 15px);
+  font-weight: bold;
+  text-align: center;
+  min-height: 60px;
+  min-width: 120px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative; /* Mantido para o timer */
+  color: #333;
+}
+.score.active {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.08);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+  border-color: #ffffff;
+}
+.score-value {
+  font-size: clamp(15px, 2.1vw, 18px);
+  color: #0056b3;
+  margin-top: 5px;
+  font-weight: bold;
+}
+.score.active .score-value {
+  color: white;
+}
+
+/* ======================================= */
+/* === FIM DA SEÇÃO GRID === */
+/* ======================================= */
+
+
+/* --- Roleta (Mantida na Direita) --- */
+.roleta-container {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 420px;
+  height: 420px;
+  z-index: 9; /* Acima do grid-section */
+}
+.roleta-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.roleta-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 6s cubic-bezier(0.17, 0.67, 0.21, 0.99);
+  transform: rotate(0deg);
+  cursor: pointer;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+.logo-space {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  background-color: #d4af37;
+  border-radius: 50%;
+  z-index: 10; /* Acima da imagem da roleta */
+  border: 2px solid #8b6914;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  cursor: pointer;
+}
+.spin-button {
+  background-color: white;
+  color: black;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 11; /* Acima do logo space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/* Esconde botão se logo for carregado (controlado via JS/inline style) */
+#logo-space[style*="background-image"] #spin-button {
+  display: none;
+}
+.ponto-referencia {
+  position: absolute;
+  top: 50%;
+  right: -3px;
+  width: 0;
+  height: 0;
+  border-right: 18px solid red;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  transform: translateY(-50%);
+  z-index: 20; /* Bem na frente */
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+  animation: simple-neon-glow 2s infinite alternate;
+}
+@keyframes simple-neon-glow {
+  from { filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.8)); }
+  to { filter: drop-shadow(0 0 8px rgba(255, 0, 0, 1)); }
+}
+
+
+/* --- Modal Genérico --- */
+.modal {
+  display: none; /* Controlado por JS */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000; /* Acima de quase tudo */
+  justify-content: center;
+  align-items: center;
+  animation: modalFadeIn 0.4s ease-out;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.modal-content {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 90%;
+  width: 600px; /* Ajustado para o novo modal com abas, pode precisar ser maior */
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal h2, .modal h3 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #0056b3;
+}
+.modal h3 { /* Estilo para H3 dentro das abas */
+  font-size: 22px;
+  margin-top: 0; /* H3 agora é o título da aba, não precisa de tanto espaço acima */
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  text-align: left; /* Títulos das seções das abas à esquerda */
+}
+.modal p {
+  font-size: 18px;
+  margin-bottom: 25px;
+  color: #555;
+}
+.modal .input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.modal .improved-label {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #444;
+}
+.modal .improved-input, .modal .improved-select {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+}
+.modal .improved-input:focus, .modal .improved-select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+.modal button.improved-button {
+  padding: 12px 25px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.modal button.primary-btn {
+  background-color: #007bff;
+  color: white;
+}
+.modal button.primary-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+.modal button.secondary-btn {
+  background-color: #e9ecef;
+  color: #333;
+  border: 1px solid #ced4da;
+}
+.modal button.secondary-btn:hover {
+  background-color: #dee2e6;
+  transform: translateY(-1px);
+}
+.modal button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  padding: 0;
+}
+.close-button:hover {
+  color: #333;
+}
+
+/* Estilos para o Modal In-Game e Estatísticas */
+#ingame-config-modal .modal-content {
+  max-width: 750px; /* Aumentar um pouco para acomodar as abas */
+  width: 90%;
+}
+#stats-display-area {
+  text-align: left;
+  max-height: 250px; /* Pode ser ajustado conforme o conteúdo da aba */
+  overflow-y: auto;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  margin-top: 10px; /* Reduzido, pois o H3 da aba já dá espaço */
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+#stats-display-area strong {
+  color: #0056b3;
+}
+#stats-display-area p {
+  margin-bottom: 8px;
+  font-size: 15px; /* Consistente com o texto da área */
+}
+
+/* --- Botões de Ação (Mantidos Fixos) --- */
+.action-buttons-container {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 500; /* Acima da roleta e grid-section */
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 25px;
+}
+.action-button, .sound-toggle, .config-button-ingame {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+.action-button:hover:not(:disabled), .sound-toggle:hover, .config-button-ingame:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+#reveal-button { background-color: #28a745; }
+#pass-button { background-color: #dc3545; }
+#timer-button { background-color: #ffc107; color: #333; } /* Botão que aciona o timer flutuante */
+.sound-toggle { background-color: #17a2b8; }
+.config-button-ingame { background-color: #6c757d; }
+#reveal-button:hover:not(:disabled) { background-color: #218838; }
+#pass-button:hover:not(:disabled) { background-color: #c82333; }
+#timer-button:hover:not(:disabled) { background-color: #e0a800; }
+.sound-toggle:hover { background-color: #138496; }
+.config-button-ingame:hover { background-color: #5a6268; }
+.action-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* --- Indicador de Status (Mantido Próximo à Roleta) --- */
+.status-indicator {
+  position: fixed;
+  /* Ajustar posição se a roleta também mudar */
+  top: calc(50% + (420px / 2) + 10px); /* Posição relativa à altura da roleta */
+  right: calc(30px + (420px / 2));   /* Posição relativa à largura/posição da roleta */
+  transform: translate(50%, 0);
+  background-color: rgba(0, 86, 179, 0.9);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  z-index: 460; /* Abaixo dos botões de ação, mas acima do resto */
+  font-size: 14px;
+  max-width: 300px;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: opacity 0.3s ease;
+}
+/* Estados do indicador */
+.status-indicator[data-state="loading"]::after { content: "Carregando Jogo..."; }
+.status-indicator[data-state="login"]::after { content: "Aguardando Login..."; }
+.status-indicator[data-state="modeSelection"]::after { content: "Selecione o Modo de Jogo"; }
+.status-indicator[data-state="configuring"]::after { content: "Configure a Partida"; }
+.status-indicator[data-state="spinningWheel"]::after { content: "Gire a roleta!"; }
+.status-indicator[data-state="choosingLetter"]::after { content: "Escolha uma letra"; }
+.status-indicator[data-state="gameOver"]::after { content: "Fim de Jogo!"; }
+
+/* --- Timer (Posicionado em relação ao .score.active) --- */
+/* Este é o timer original, que aparece no placar do jogador. */
+/* O novo #floating-timer-container é diferente e centralizado. */
+.countdown-timer {
+  position: absolute; /* Relativo ao .score pai */
+  top: -20px;         /* Acima do score */
+  left: -20px;        /* À esquerda do score */
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: 3px solid white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex; /* Usado para centralizar o número */
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  opacity: 0; /* Começa invisível */
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  z-index: 15; /* Acima do score */
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.7);
+  pointer-events: none; /* Não interagir com cliques */
+}
+.countdown-timer.active {
+  opacity: 1;
+  transform: scale(1.1); /* Efeito de aparecer */
+}
+
+/* --- Toast Notifications --- */
+.toast-container {
+  position: fixed;
+  top: 70px; /* Abaixo do título */
+  right: 30px; /* No canto superior direito */
+  z-index: 1100; /* Acima de tudo */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: auto;
+  max-width: 350px;
+  align-items: flex-end; /* Alinha toasts à direita */
+}
+.toast {
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateX(120%); /* Inicia fora da tela */
+  animation: slideInToastRight 0.4s forwards cubic-bezier(0.25, 0.8, 0.25, 1), fadeOutToastRight 0.5s forwards 3.5s ease-in; /* fadeOut começa após 3.5s */
+  max-width: 350px;
+  min-width: 250px;
+  border-left: 6px solid;
+}
+.toast i, .toast .toast-icon {
+  font-size: 24px;
+  font-style: normal; /* Para garantir que ícones de texto não fiquem itálicos */
+}
+.toast-success { background: linear-gradient(135deg, #28a745, #218838); border-left-color: #155724; }
+.toast-warning { background: linear-gradient(135deg, #ffc107, #e0a800); border-left-color: #856404; color: #333; }
+.toast-error   { background: linear-gradient(135deg, #dc3545, #c82333); border-left-color: #721c24; }
+.toast-info    { background: linear-gradient(135deg, #17a2b8, #138496); border-left-color: #0c5460; }
+.toast-pass    { background: linear-gradient(135deg, #6c757d, #5a6268); border-left-color: #343a40; }
+.toast-loseall { background: linear-gradient(135deg, #343a40, #23272b); border-left-color: #1d2124; }
+/* Animação renomeada para evitar conflito com nome antigo */
+@keyframes slideInToastRight {
+  from { transform: translateX(120%); }
+  to { transform: translateX(0); }
+}
+@keyframes fadeOutToastRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(20px); } /* Leve movimento ao sumir */
+}
+
+/* --- Media Queries --- */
+/* Ajuste para telas onde grid-section + roleta podem colidir */
+@media (max-width: 1450px) {
+     /* Reduzir tamanho da roleta */
+     .roleta-container {
+       right: 15px;
+       width: 300px; /* Reduzido */
+       height: 300px; /* Reduzido */
+     }
+     .titulo-roleta {
+       right: 15px;
+       width: 300px; /* Reduzido */
+     }
+     .status-indicator {
+       /* Recalcular posição baseada na roleta menor */
+       top: calc(50% + (300px / 2) + 10px);
+       right: calc(15px + (300px / 2));
+     }
+     .toast-container {
+       right: 15px;
+     }
+
+     /* Opcional: Ajustar posição/tamanho do grid-section se necessário */
+     .grid-section {
+         left: 15px; /* Menos espaço à esquerda */
+         /* Talvez reduzir o gap se a tela ficar muito apertada */
+         /* gap: 15px; */
+     }
+     /* Se a grade ainda for muito larga, pode ser necessário reduzir o tamanho dos grid-items aqui */
+     /* Lembre-se que isso exigiria recalcular os clip-paths */
+
+     /* Ajustar max-width da dica para telas menores */
+     .hint {
+         max-width: 90%; /* Usar porcentagem pode ser mais flexível aqui */
+         /* Ou calcular baseado no tamanho reduzido da grade se ela mudar */
+     }
+     .word-points-display { /* Ajustar também para telas menores */
+        max-width: 90%;
+     }
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 992px) {
+    body.game-body { overflow-y: auto; } /* Permite scroll vertical */
+
+    .game-area {
+        /* Reorganizar para fluxo vertical */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .titulo-roleta {
+      position: relative; /* Tira do fixed */
+      order: 1; /* Ordem no flex container */
+      margin: 10px auto;
+      width: 90%;
+      max-width: 350px;
+      right: auto; top: auto; /* Reseta */
+    }
+
+    .roleta-container {
+      position: relative; /* Tira do fixed */
+      order: 2; /* Ordem no flex container */
+      margin: 20px auto;
+      width: 90%; /* Responsivo */
+      max-width: 300px; /* Limite */
+      height: auto; /* Altura automática */
+      transform: none; /* Resetar transform */
+      top: auto; right: auto; /* Resetar posições */
+    }
+     .roleta-image { aspect-ratio: 1 / 1; } /* Mantém proporção quadrada */
+     .logo-space { width: 30%; height: 30%; } /* Logo responsivo */
+     .ponto-referencia { display: none; } /* Esconder ponteiro fixo */
+
+    .status-indicator {
+      position: relative; /* Tira do fixed */
+      order: 3; /* Ordem no flex container */
+      left: 50%; transform: translateX(-50%);
+      margin-top: -10px; margin-bottom: 15px;
+      top: auto; right: auto; /* Resetar posições */
+      width: auto; /* Largura automática */
+      white-space: normal; /* Permitir quebra de linha */
+      z-index: auto; /* Resetar z-index */
+    }
+
+    /* Seção da grade e relacionados */
+    .grid-section {
+        position: relative; /* Tira do absolute */
+        order: 4; /* Ordem no flex container */
+        width: 100%; /* Ocupa a largura disponível */
+        max-width: 650px; /* Limita a largura máxima em telas menores */
+        top: auto; left: auto; /* Reseta */
+        gap: 15px; /* Ajuste o gap se necessário */
+        margin-bottom: 20px; /* Espaço antes dos botões */
+        z-index: auto; /* Resetar z-index */
+    }
+
+    .alphabet {
+        max-width: 100%; /* Ocupa largura do pai */
+        padding: 10px;
+    }
+    .alphabet-letter {
+        width: 40px; height: 40px; /* Letras menores */
+        font-size: clamp(18px, 4vw, 22px);
+    }
+
+    /* Ajustes na grade para telas menores */
+    .outer-frame { width: 100%; } /* Ocupa largura do pai */
+    .inner-frame { padding: 8px; } /* Menos padding */
+    .inner-frame::before, .inner-frame::after { display: none; } /* Esconde moldura complexa */
+
+    .grid-container {
+        /* Usar fr para colunas flexíveis */
+        grid-template-columns: repeat(12, minmax(0, 1fr)); /* Colunas flexíveis */
+        grid-template-rows: repeat(3, auto); /* Altura automática */
+        gap: 4px; /* Espaço menor */
+        /* A largura total será controlada pelo .grid-section */
+    }
+    .grid-item {
+       width: 100%; /* Ocupa a coluna do grid */
+       padding-bottom: 100%; /* Truque para manter proporção 1:1 */
+       height: 0; /* Necessário para o truque de padding-bottom */
+       font-size: clamp(16px, 3.5vw, 24px); /* Reduzir fonte */
+       border-radius: 5px; /* Menor */
+       border-width: 1.5px;
+       box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .hint {
+        max-width: 100%; /* Ocupa largura do pai */
+        font-size: clamp(16px, 3vw, 18px);
+        padding: 10px 15px;
+        text-align: left; /* Mantém alinhamento esquerdo */
+    }
+    .word-points-display { /* Ajustar também para telas menores */
+        max-width: 100%;
+        font-size: clamp(16px, 3.2vw, 20px);
+        padding: 8px 12px;
+    }
+    .scoreboard {
+        max-width: 100%; /* Ocupa largura do pai */
+        padding-bottom: 0; /* Resetar padding extra */
+    }
+    .score {
+       min-width: 90px; /* Permitir que sejam menores */
+       font-size: clamp(12px, 2.5vw, 14px);
+       min-height: 50px;
+    }
+     .score-value {
+       font-size: clamp(13px, 3vw, 16px);
+    }
+    /* Ajuste posição timer no mobile */
+    .countdown-timer {
+         width: 45px; height: 45px; font-size: 22px;
+         top: -15px; left: -15px;
+    }
+
+
+    /* Botões e Toasts */
+    .toast-container {
+      top: 10px; right: 10px; left: 10px; /* Ocupar largura */
+      bottom: auto;
+      width: auto; /* Largura automática */
+      max-width: none; /* Sem limite */
+      align-items: center; /* Centralizar toasts */
+      z-index: 1100; /* Mantém na frente */
+    }
+     .toast { max-width: 90%; }
+
+    .action-buttons-container {
+       position: fixed; /* Manter fixo na base */
+       order: 5; /* Último elemento no fluxo normal, mas fixed o sobrepõe */
+       bottom: 10px;
+       left: 50%;
+       transform: translateX(-50%);
+       right: auto; /* Resetar right */
+       width: auto; /* Largura baseada no conteúdo */
+       z-index: 500; /* Mantém na frente */
+    }
+
+     /* Modal In-Game em telas menores */
+    #ingame-config-modal .modal-content {
+        max-width: 95%;
+        padding: 20px 15px; /* Menos padding */
+    }
+    .config-tabs {
+        margin-bottom: 15px;
+    }
+    .tab-link {
+        padding: 10px 12px;
+        font-size: 14px; /* Reduzir fonte das abas */
+    }
+    .sub-tab-link {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    .tab-content .input-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* Outras media queries podem ser adicionadas/ajustadas conforme necessário */
+
+/* =================================================================== */
+/* === NOVOS ESTILOS PARA CRONÔMETRO FLUTUANTE E ABAS DE CONFIGURAÇÃO === */
+/* =================================================================== */
+
+/* --- Cronômetro Flutuante --- */
+.floating-timer-container {
+  position: fixed; /* Posição fixa em relação à viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza o elemento */
+  background-color: rgba(28, 30, 33, 0.92); /* Um fundo escuro semi-transparente */
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 50%; /* Faz o container principal circular */
+  width: 180px;  /* Largura do círculo */
+  height: 180px; /* Altura do círculo */
+  display: flex; /* Para centralizar o conteúdo interno (o número) */
+  justify-content: center;
+  align-items: center;
+  z-index: 1200; /* Garante que fique acima da maioria dos outros elementos */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 0 5px rgba(255, 193, 7, 0.7); /* Sombra e borda amarela temática */
+  opacity: 0; /* Começa invisível para animação */
+  pointer-events: none; /* Não interage com cliques quando invisível */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transição suave */
+  /* display: none; é controlado via JavaScript para mostrar/esconder */
+}
+
+.floating-timer-container.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1); /* Efeito de escala ao aparecer */
+}
+
+.floating-timer-container.hidden { /* Esta classe pode ser usada para a animação de saída antes do display:none */
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.8); /* Efeito de escala ao desaparecer */
+}
+
+#floating-timer-countdown {
+  font-size: 72px; /* Tamanho bem grande para o número */
+  font-weight: bold;
+  font-family: 'Arial Black', Gadget, sans-serif; /* Uma fonte mais impactante */
+  color: #ffc107; /* Cor amarela, como o botão do timer */
+  text-shadow: 0 0 10px rgba(0,0,0,0.7), 2px 2px 3px rgba(0,0,0,0.5);
+}
+
+/* --- Estilos para Abas no Modal de Configuração In-Game --- */
+.config-tabs {
+  display: flex;
+  margin-bottom: 25px; /* Espaço maior antes do conteúdo da aba */
+  border-bottom: 3px solid #0056b3; /* Linha separadora mais grossa */
+  flex-wrap: wrap; /* Permite que as abas quebrem linha em telas menores */
+}
+
+.tab-link {
+  padding: 12px 20px; /* Mais padding para um clique mais fácil */
+  cursor: pointer;
+  background-color: #f0f2f5; /* Um cinza bem claro */
+  border: 1px solid #d1d9e0;
+  border-bottom: none;
+  margin-right: 6px;
+  margin-bottom: -3px; /* Para sobrepor a borda inferior do container de abas */
+  border-radius: 10px 10px 0 0; /* Cantos superiores mais arredondados */
+  font-size: 16px;
+  font-weight: 500;
+  color: #0056b3;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  position: relative; /* Para o efeito de "levantar" */
+  z-index: 1;
+}
+
+.tab-link:hover {
+  background-color: #e4e8eb;
+  color: #003d82;
+  transform: translateY(-2px); /* Leve levantada ao passar o mouse */
+}
+
+.tab-link.active {
+  background-color: #ffffff; /* Fundo branco para aba ativa */
+  color: #007bff; /* Cor azul primária */
+  border-color: #0056b3 #0056b3 #ffffff; /* Borda da aba ativa se conecta com o conteúdo */
+  font-weight: 700; /* Mais destaque para o texto */
+  z-index: 2; /* Garante que a aba ativa fique sobre as outras e a borda */
+  transform: translateY(0); /* Reseta a transformação do hover */
+}
+
+.tab-content {
+  display: none; /* Todas as abas de conteúdo começam escondidas */
+  padding: 25px 10px; /* Padding interno */
+  border: 1px solid #d1d9e0; /* Borda sutil ao redor do conteúdo */
+  border-top: none; /* Remove a borda superior pois já temos a das abas */
+  border-radius: 0 0 10px 10px; /* Cantos inferiores arredondados */
+  background-color: #ffffff;
+  animation: tabContentFadeIn 0.4s ease-out;
+}
+
+@keyframes tabContentFadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content.active {
+  display: block; /* Apenas a aba ativa é mostrada */
+}
+
+/* Estilos para Sub-Abas (Tutorial) */
+.tutorial-sub-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.sub-tab-link {
+  padding: 10px 18px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent; /* Borda inferior sutil para indicar seleção */
+  margin-right: 12px;
+  font-size: 15px;
+  color: #555;
+  transition: color 0.25s ease, border-bottom-color 0.25s ease;
+  font-weight: 500;
+}
+
+.sub-tab-link:hover:not(:disabled) {
+  color: #0056b3;
+  border-bottom-color: #0056b3; /* Mostra a borda no hover */
+}
+
+.sub-tab-link.active {
+  color: #007bff;
+  font-weight: 700;
+  border-bottom-color: #007bff; /* Borda destacada para sub-aba ativa */
+}
+
+.sub-tab-link:disabled {
+  color: #aaaaaa;
+  cursor: not-allowed;
+  border-bottom-color: transparent !important; /* Garante que não haja borda para desabilitados */
+}
+
+.sub-tab-content {
+  display: none;
+  padding: 15px 5px; /* Padding para o conteúdo da sub-aba */
+  animation: tabContentFadeIn 0.3s ease-out;
+}
+
+.sub-tab-content.active {
+  display: block;
+}
+
+/* Estilos para o conteúdo do tutorial (dentro das sub-abas) */
+.sub-tab-content h4 {
+  margin-top: 5px;
+  margin-bottom: 18px;
+  color: #003d82; /* Um azul mais escuro para o título */
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.sub-tab-content p {
+  text-align: left;
+  margin-bottom: 12px;
+  line-height: 1.65;
+  color: #333;
+  font-size: 15px;
+}
+
+.sub-tab-content ul {
+  list-style-position: outside;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.sub-tab-content ul li {
+  margin-bottom: 10px;
+  line-height: 1.65;
+  color: #333;
+  font-size: 15px;
+}
+.sub-tab-content ul li strong {
+  color: #0056b3;
+}
+
+
+/* --- Switch para Modo Escuro --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;  /* Ligeiramente maior */
+  height: 30px;
+  vertical-align: middle;
+  margin-left: 10px; /* Espaço do label */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ced4da; /* Cinza um pouco mais escuro */
+  transition: .3s;
+  border-radius: 30px; /* Totalmente arredondado */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px; /* Círculo interno */
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+  background-color: #007bff; /* Azul primário quando ativo */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 2px #007bff, 0 0 5px rgba(0, 123, 255, 0.4); /* Efeito de foco */
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px); /* Distância de movimento do círculo */
+}
+
+/* Melhorias gerais para os input-groups dentro das abas */
+.tab-content .input-group {
+  margin-bottom: 22px;
+  text-align: left;
+}
+.tab-content .input-group .improved-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600; /* Label um pouco mais forte */
+  color: #495057;
+}
+
+/* Botão de Som dentro do Modal */
+#toggle-sound-ingame {
+  min-width: 180px; /* Espaço para o texto e ícone */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espaço entre ícone e texto */
+}
+
+/* Select de Idioma */
+#language-select.improved-select { /* Garante especificidade se necessário */
+  width: 100%;
+  background-color: #f8f9fa; /* Fundo claro para o select */
+}
+
+/* Status de CSV e Logo no Modal */
+#csv-status-ingame, #logo-status-ingame {
+  display: block;
+  font-size: 14px;
+  color: #6c757d; /* Um cinza mais suave */
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Adicionando um estilo base para o modo escuro (Exemplo) */
+body.dark-mode {
+  background-image: none; /* Remover imagem de fundo no modo escuro */
+  background-color: #121212;
+  color: #e0e0e0;
+}
+body.dark-mode .game-mode-menu,
+body.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+body.dark-mode .game-mode-menu h2,
+body.dark-mode .modal h2,
+body.dark-mode .modal h3,
+body.dark-mode .sub-tab-content h4 {
+  color: #00aaff; /* Um azul claro para títulos no modo escuro */
+}
+body.dark-mode .improved-label,
+body.dark-mode .improved-input,
+body.dark-mode .improved-select {
+  color: #d0d0d0;
+  background-color: #2c2c2c;
+  border-color: #444;
+}
+body.dark-mode .improved-input::placeholder {
+  color: #777;
+}
+body.dark-mode .mode-button,
+body.dark-mode .modal button.improved-button.primary-btn {
+  background-color: #007bff; /* Manter azul para botões primários */
+}
+body.dark-mode .modal button.improved-button.secondary-btn {
+  background-color: #333;
+  color: #ccc;
+  border-color: #555;
+}
+
+body.dark-mode .titulo-roleta,
+body.dark-mode .hint {
+  color: #f0f0f0;
+  background-color: rgba(30, 30, 30, 0.7);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+}
+/* Estilo para modo escuro do word-points-display */
+body.dark-mode .word-points-display {
+    color: #ffeb3b; /* Mantém a cor amarela vibrante */
+    background-color: rgba(45, 45, 45, 0.75); /* Um pouco mais escuro que o hint */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+}
+
+body.dark-mode .alphabet {
+  background-color: rgba(10, 10, 30, 0.7);
+}
+body.dark-mode .alphabet-letter {
+  background-color: #004c8c;
+  border-color: #002a4c;
+  color: #e0e0e0;
+}
+body.dark-mode .alphabet-letter:hover:not(.disabled) {
+  background-color: #005fa8;
+}
+body.dark-mode .alphabet-letter.disabled {
+  background-color: #4a4a4a;
+  border-color: #333;
+  color: #888;
+}
+body.dark-mode .score {
+  background-color: rgba(40, 48, 55, 0.95);
+  border-color: #0056b3;
+  color: #ccc;
+}
+body.dark-mode .score.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #66aaff;
+}
+body.dark-mode .score-value {
+  color: #66aaff;
+}
+body.dark-mode .score.active .score-value {
+  color: white;
+}
+
+body.dark-mode .tab-link {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #bbb;
+}
+body.dark-mode .tab-link.active {
+  background-color: #1e1e1e; /* Fundo do conteúdo */
+  color: #00aaff;
+  border-color: #0056b3 #0056b3 #1e1e1e; /* Ajustar para conectar com a borda do conteúdo */
+}
+body.dark-mode .tab-content {
+    background-color: #1e1e1e;
+    border-color: #444; /* Borda do conteúdo */
+}
+body.dark-mode .sub-tab-link {
+    color: #aaa;
+}
+body.dark-mode .sub-tab-link:hover:not(:disabled),
+body.dark-mode .sub-tab-link.active {
+    color: #00aaff;
+    border-bottom-color: #00aaff;
+}
+body.dark-mode .sub-tab-content p,
+body.dark-mode .sub-tab-content ul li {
+    color: #ccc;
+}
+body.dark-mode .sub-tab-content ul li strong {
+    color: #00aaff;
+}
+body.dark-mode #stats-display-area {
+  background: #252525;
+  border-color: #444;
+  color: #ccc;
+}
+body.dark-mode #stats-display-area strong {
+  color: #00aaff;
+}
+body.dark-mode .action-buttons-container {
+  background-color: rgba(20, 20, 20, 0.6);
+}
+body.dark-mode .status-indicator {
+  background-color: rgba(0, 66, 129, 0.9); /* Um pouco mais escuro que o azul claro */
+}
+/* Necessário para o texto descritivo do cronômetro flutuante para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+/* ... mais estilos de dark-mode podem ser necessários para cobrir tudo ... */

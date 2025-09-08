@@ -229,25 +229,43 @@ body {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    min-height: 280px; /* Altura mínima para manter o tamanho consistente */
     transition: border-color 0.3s ease;
     position: relative; /* For badge positioning */
+    overflow: hidden; /* Garante que o overlay não vaze */
 }
 
-.game-card:hover {
-    border-color: #c0c0c0;
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Overlay escuro semi-transparente (mais opaco) */
+    z-index: 1;
+}
+
+.game-card .card-title,
+.game-card .card-text,
+.game-card .btn {
+    position: relative;
+    z-index: 2; /* Garante que o conteúdo fique acima do overlay */
 }
 
 .game-card .card-title {
     font-weight: 600;
-    color: var(--text-heading);
+    color: #FFFFFF; /* Texto branco puro */
     margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra para destacar o texto */
 }
 
 .game-card .card-text {
-    color: var(--text-muted);
+    color: #FFFFFF; /* Texto branco puro */
     font-size: 0.9rem;
     flex-grow: 1;
     margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra para destacar o texto */
 }
 
 .game-card .btn {
@@ -574,4 +592,24 @@ body {
 
 .password-toggle-icon.visible {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236c757d'%3e%3cpath d='m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.938 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z'/%3e%3cpath d='M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z'/%3e%3c/svg%3e");
+}
+
+@media (min-width: 769px) {
+    .game-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+#tabela-periodica-bingo {
+    background-image: url('/games/tabela-periodica-bingo/imagens/tamb.png');
+    background-size: cover; /* Ajusta a imagem para cobrir todo o card */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+}
+
+#roda-a-roda {
+    background-image: url('/games/roda-a-roda/assets/images/tamb.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }

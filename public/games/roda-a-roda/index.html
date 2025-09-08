@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roda a Roda</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0000ff">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="game-body">
+
+  
+
+  <div class="game-mode-menu-container" id="game-mode-menu" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="game-mode-title-h2">
+    <div class="background-animation"></div>
+    <div class="game-mode-menu">
+      <h2 id="game-mode-title-h2">Escolha o Modo de Jogo</h2>
+      <button class="mode-button" data-mode="classic">Clássico</button>
+      <button class="mode-button" data-mode="quick">Resposta Rápida</button>
+      <button class="mode-button" data-mode="concept" disabled aria-disabled="true">Conceitual (Em Breve)</button>
+    </div>
+  </div>
+
+  <div class="modal" id="initial-config-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="initial-config-title">
+    <div class="modal-content improved-start-modal">
+      <h2 class="improved-modal-title" id="initial-config-title">Configurar Jogo: Modo Clássico</h2>
+      <div class="input-group">
+        <label for="game-title" class="improved-label">Título do Jogo:</label>
+        <input type="text" id="game-title" class="improved-input" placeholder="Digite o título do jogo" value="Roda a Roda">
+      </div>
+
+      <div class="input-group">
+        <label for="player-count" class="improved-label">Número de Jogadores:</label>
+        <select id="player-count" class="improved-select">
+          <option value="3" selected>3 Jogadores</option>
+          <option value="4">4 Jogadores</option>
+          <option value="5">5 Jogadores</option>
+          <option value="6">6 Jogadores</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <button id="load-csv-initial" class="improved-button">Carregar Planilha</button>
+        <input type="file" id="csv-upload-initial" accept=".csv" style="display: none;" aria-hidden="true">
+        <span id="csv-status-initial">Nenhuma planilha carregada.</span>
+      </div>
+
+      <div class="input-group">
+        <label for="theme-initial" class="improved-label">Escolha um tema:</label>
+        <select id="theme-initial" class="improved-select" disabled aria-disabled="true">
+          <option value="" selected>Carregue uma planilha primeiro</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <button id="start-game-btn" class="improved-button primary-btn" disabled aria-disabled="true">Iniciar Jogo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-area" id="game-area" style="display: none;">
+
+    <div class="titulo-roleta" id="titulo-roleta">Roda a Roda</div>
+
+    <div class="grid-section">
+
+        <div class="alphabet" id="alphabet" role="group" aria-label="Alfabeto para seleção de letras">
+          <button class="alphabet-letter" data-letter="A" aria-label="Letra A">A</button> <button class="alphabet-letter" data-letter="B" aria-label="Letra B">B</button>
+          <button class="alphabet-letter" data-letter="C" aria-label="Letra C">C</button> <button class="alphabet-letter" data-letter="D" aria-label="Letra D">D</button>
+          <button class="alphabet-letter" data-letter="E" aria-label="Letra E">E</button> <button class="alphabet-letter" data-letter="F" aria-label="Letra F">F</button>
+          <button class="alphabet-letter" data-letter="G" aria-label="Letra G">G</button> <button class="alphabet-letter" data-letter="H" aria-label="Letra H">H</button>
+          <button class="alphabet-letter" data-letter="I" aria-label="Letra I">I</button> <button class="alphabet-letter" data-letter="J" aria-label="Letra J">J</button>
+          <button class="alphabet-letter" data-letter="K" aria-label="Letra K">K</button> <button class="alphabet-letter" data-letter="L" aria-label="Letra L">L</button>
+          <button class="alphabet-letter" data-letter="M" aria-label="Letra M">M</button> <button class="alphabet-letter" data-letter="N" aria-label="Letra N">N</button>
+          <button class="alphabet-letter" data-letter="O" aria-label="Letra O">O</button> <button class="alphabet-letter" data-letter="P" aria-label="Letra P">P</button>
+          <button class="alphabet-letter" data-letter="Q" aria-label="Letra Q">Q</button> <button class="alphabet-letter" data-letter="R" aria-label="Letra R">R</button>
+          <button class="alphabet-letter" data-letter="S" aria-label="Letra S">S</button> <button class="alphabet-letter" data-letter="T" aria-label="Letra T">T</button>
+          <button class="alphabet-letter" data-letter="U" aria-label="Letra U">U</button> <button class="alphabet-letter" data-letter="V" aria-label="Letra V">V</button>
+          <button class="alphabet-letter" data-letter="W" aria-label="Letra W">W</button> <button class="alphabet-letter" data-letter="X" aria-label="Letra X">X</button>
+          <button class="alphabet-letter" data-letter="Y" aria-label="Letra Y">Y</button> <button class="alphabet-letter" data-letter="Z" aria-label="Letra Z">Z</button>
+        </div>
+
+        <div class="outer-frame">
+            <div class="inner-frame">
+              <div class="grid-container" id="grid-container" aria-label="Painel da palavra ou frase">
+                </div>
+            </div>
+        </div>
+
+        <div class="hint" id="hint" aria-live="polite">Dica: <span id="hint-text"></span></div>
+        <div class="word-points-display" id="word-points-display" style="display: none;" aria-live="polite"></div>
+
+        <div class="scoreboard" id="scoreboard" aria-live="polite" aria-atomic="true">
+           </div>
+
+    </div>
+    <div class="roleta-container">
+      <div class="roleta-wrapper">
+        <img src="assets/images/roleta.png" alt="Roleta Roda a Roda" class="roleta-image" id="roleta">
+        <div class="logo-space" id="logo-space" role="button" tabindex="0" aria-label="Girar a roleta">
+          <button id="spin-button" class="spin-button">Girar</button>
+        </div>
+      </div>
+      <div class="ponto-referencia" aria-hidden="true"></div>
+    </div>
+
+    <div class="status-indicator" id="status-indicator" data-state="loading" aria-live="polite" aria-atomic="true">Carregando...</div>
+    
+    <div class="countdown-timer" id="countdown-timer" aria-live="polite" aria-atomic="true">10</div> 
+    
+    <div class="action-buttons-container" id="action-buttons-container" role="toolbar" aria-label="Ações do jogo">
+      <button class="action-button" id="pass-button" title="Passar a vez" aria-label="Passar a vez">❌</button>
+      <button class="action-button" id="reveal-button" title="Revelar palavra" aria-label="Revelar palavra" disabled aria-disabled="true">✔️</button>
+      <button class="action-button" id="timer-button" title="Usar Timer Flutuante" aria-label="Ativar cronômetro flutuante">⏱️</button>
+      <button class="sound-toggle" id="sound-toggle" aria-label="Alternar som">🔊</button>
+      <button class="action-button config-button-ingame" id="ingame-config-button" title="Configurações Durante o Jogo" aria-label="Abrir configurações do jogo">⚙️</button>
+    </div>
+
+  </div>
+
+  <div class="modal" id="ingame-config-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="ingame-config-title-h2">
+    <div class="modal-content">
+      <button class="close-button" id="close-ingame-config-modal" aria-label="Fechar configurações">×</button>
+      <h2 id="ingame-config-title-h2">Configurações Durante o Jogo</h2>
+
+      <div class="config-tabs" role="tablist" aria-label="Navegação das configurações do jogo">
+        <button class="tab-link active" data-tab="tab-csv" role="tab" aria-selected="true" aria-controls="tab-csv" id="tab-csv-button">Planilha</button>
+        <button class="tab-link" data-tab="tab-stats" role="tab" aria-selected="false" aria-controls="tab-stats" id="tab-stats-button">Estatísticas</button>
+        <button class="tab-link" data-tab="tab-game-settings" role="tab" aria-selected="false" aria-controls="tab-game-settings" id="tab-game-settings-button">Jogo</button>
+        <button class="tab-link" data-tab="tab-tutorial" role="tab" aria-selected="false" aria-controls="tab-tutorial" id="tab-tutorial-button">Tutorial</button>
+      </div>
+
+      <div id="tab-csv" class="tab-content active" role="tabpanel" aria-labelledby="tab-csv-button">
+        <h3>Trocar Planilha e Tema</h3>
+        <div class="input-group">
+          <button id="load-csv-ingame" class="improved-button">Carregar Nova Planilha</button>
+          <input type="file" id="csv-upload-ingame" accept=".csv" style="display: none;" aria-hidden="true">
+          <span id="csv-status-ingame">Nenhuma planilha carregada ou a atual está em uso.</span>
+        </div>
+        <div class="input-group">
+          <label for="theme-ingame" class="improved-label">Escolha um Tema:</label>
+          <select id="theme-ingame" class="improved-select" disabled aria-disabled="true">
+            <option value="">Carregue uma planilha e selecione um tema</option>
+          </select>
+        </div>
+        <div class="input-group"> <button id="apply-theme-and-restart-btn" class="improved-button primary-btn" disabled aria-disabled="true">Aplicar Tema e Reiniciar Jogo</button>
+        </div>
+      </div>
+
+      <div id="tab-stats" class="tab-content" role="tabpanel" aria-labelledby="tab-stats-button">
+        <h3>Estatísticas do Jogo</h3>
+        <div id="stats-display-area" style="text-align: left; max-height: 250px; overflow-y: auto; background: #f0f0f0; padding: 10px; border-radius: 5px;" aria-live="polite">
+          Carregando estatísticas...
+        </div>
+      </div>
+
+      <div id="tab-game-settings" class="tab-content" role="tabpanel" aria-labelledby="tab-game-settings-button">
+        <h3>Configurações do Jogo</h3>
+        <div class="input-group">
+          <button id="load-logo-ingame" class="improved-button secondary-btn">Carregar/Alterar Logo</button>
+          <input type="file" id="logo-upload-ingame" accept="image/*" style="display: none;" aria-hidden="true">
+          <span id="logo-status-ingame">Nenhum logo personalizado carregado.</span>
+        </div>
+        <div class="input-group">
+          <label class="improved-label" id="sound-control-label">Controle de Som Geral:</label>
+          <button id="toggle-sound-ingame" class="improved-button" aria-labelledby="sound-control-label">🔊 Som Ativado</button>
+          </div>
+        <div class="input-group">
+          <label for="dark-mode-toggle" class="improved-label">Modo Escuro:</label>
+          <label class="switch">
+            <input type="checkbox" id="dark-mode-toggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="input-group">
+          <label for="language-select" class="improved-label">Idioma:</label>
+          <select id="language-select" class="improved-select">
+            <option value="pt-br">Português (Brasil)</option>
+            <option value="en" disabled aria-disabled="true">Inglês (Em breve)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="tab-tutorial" class="tab-content" role="tabpanel" aria-labelledby="tab-tutorial-button">
+        <h3>Tutorial dos Modos de Jogo</h3>
+        <div class="tutorial-sub-tabs" role="tablist" aria-label="Navegação do tutorial">
+          <button class="sub-tab-link active" data-subtab="tutorial-classic" role="tab" aria-selected="true" aria-controls="tutorial-classic" id="tutorial-classic-button">Clássico</button>
+          <button class="sub-tab-link" data-subtab="tutorial-quick" role="tab" aria-selected="false" aria-controls="tutorial-quick" id="tutorial-quick-button">Resposta Rápida</button>
+          <button class="sub-tab-link" data-subtab="tutorial-concept" role="tab" aria-selected="false" aria-controls="tutorial-concept" disabled aria-disabled="true" id="tutorial-concept-button">Conceitual</button>
+        </div>
+
+        <div id="tutorial-classic" class="sub-tab-content active" role="tabpanel" aria-labelledby="tutorial-classic-button">
+          <h4>Modo Clássico</h4>
+          <p>Gire a roleta, escolha letras e acumule pontos para adivinhar a palavra ou frase!</p>
+          <p><strong>Como Jogar:</strong></p>
+          <ul>
+            <li>Clique em "Girar" na roleta ou no logo central.</li>
+            <li>Se cair em um valor, escolha uma letra no alfabeto. Cada letra correta multiplica o valor sorteado.</li>
+            <li>Se cair em "Passou a Vez", o próximo jogador continua.</li>
+            <li>Se cair em "Perdeu Tudo", você perde os pontos acumulados na rodada e passa a vez.</li>
+            <li>Use o botão ⏱️ para um cronômetro de 10 segundos caso precise de tempo para pensar.</li>
+            <li>Após revelar pelo menos duas letras, você pode usar o botão ✔️ para tentar revelar a palavra inteira (se errar, perde a vez).</li>
+            <li>Use o botão ❌ para passar a vez a qualquer momento antes de girar ou após acertar uma letra.</li>
+            <li>O jogador que completar a palavra ganha os pontos acumulados.</li>
+          </ul>
+        </div>
+        <div id="tutorial-quick" class="sub-tab-content" role="tabpanel" aria-labelledby="tutorial-quick-button">
+          <h4>Modo Resposta Rápida</h4>
+          <p>Acelere o jogo com este modo eletrizante! As regras são similares ao modo Clássico, mas com algumas reviravoltas:</p>
+          <ul>
+            <li><strong>Pontuação da Palavra:</strong> Cada palavra começa valendo <strong>2000 pontos</strong>.</li>
+            <li><strong>Decremento de Pontos:</strong> A cada letra revelada no painel, o valor da palavra diminui. Seja rápido para maximizar seus ganhos!</li>
+            <li><strong>Adivinhe Primeiro:</strong> O jogador que conseguir adivinhar a palavra corretamente leva o valor atualizado da palavra.</li>
+            <li><strong>"Perdeu Tudo" Diferente:</strong> Se cair em "Perdeu Tudo" na roleta, o jogador perde apenas os pontos acumulados com as letras *nesta rodada específica*, mas não afeta a pontuação principal da palavra que está em jogo.</li>
+            <li><strong>Outras Regras:</strong>
+              <ul>
+                <li>Gire a roleta para obter valores ou ações.</li>
+                <li>Escolha letras para revelar no painel. Pontos da roleta são acumulados na rodada.</li>
+                <li>Use o botão ✔️ para tentar adivinhar a palavra. Se errar, perde a vez.</li>
+                <li>Use o botão ❌ para passar a vez.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>O objetivo é adivinhar a palavra o mais rápido possível para garantir a maior quantidade de pontos da palavra!</p>
+        </div>
+        <div id="tutorial-concept" class="sub-tab-content" role="tabpanel" aria-labelledby="tutorial-concept-button">
+          <h4>Modo Conceitual (Em Breve)</h4>
+          <p>Instruções para o modo Conceitual aparecerão aqui.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-timer-container" id="floating-timer-container" style="display: none;" role="alertdialog" aria-modal="true" aria-labelledby="floating-timer-countdown" aria-describedby="floating-timer-desc">
+    <div class="floating-timer-content">
+      <span id="floating-timer-countdown">10</span>
+      <p id="floating-timer-desc" class="sr-only">Cronômetro flutuante</p> </div>
+  </div>
+
+  <audio id="spin-sound" src="assets/audio/roleta.mp3" preload="auto"></audio>
+  <audio id="win-sound" src="assets/audio/resposta-certa-roda-a-roda.mp3" preload="auto"></audio>
+  <audio id="lose-sound" src="assets/audio/letraerrada.wav" preload="auto"></audio>
+  <audio id="letter-reveal-sound" src="assets/audio/letrarodaaroda.mp3" preload="auto"></audio>
+  <audio id="block-reveal-sound" src="assets/audio/resposta-certa-roda-a-roda.mp3" preload="auto"></audio>
+  <audio id="reveal-sound" src="assets/audio/resposta-certa-roda-a-roda.mp3" preload="auto"></audio>
+  <audio id="pass-sound" src="assets/audio/letraerrada.wav" preload="auto"></audio>
+  <audio id="lose-all-sound" src="assets/audio/perdeutudo.mp3" preload="auto"></audio>
+  <audio id="pass-turn-sound" src="assets/audio/passouavez.mp3" preload="auto"></audio>
+  <audio id="timer-sound" src="assets/audio/timer.mp3" preload="auto"></audio> 
+  <audio id="word-complete-sound" src="assets/audio/resposta-certa-roda-a-roda.mp3" preload="auto"></audio>
+
+
+  <div class="toast-container" id="toast-container" aria-live="assertive" aria-atomic="true">
+    </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
