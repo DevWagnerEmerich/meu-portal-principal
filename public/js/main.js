@@ -107,16 +107,29 @@ document.addEventListener('DOMContentLoaded', () => {
             games.forEach(game => {
                 const isPlayable = game.game_url && game.game_url !== '#';
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
-                const gameCardHTML = `
+                
+                // Card para a lista "Todos os Jogos" (sem o selo de destaque)
+                const allGamesCardHTML = `
                     <div class="game-card">
-                        ${game.is_featured ? '<div class="featured-badge">Destaque</div>' : ''}
                         <h5 class="card-title">${game.title}</h5>
                         <p class="card-text">${game.description}</p>
                         <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
                     </div>
                 `;
-                if (allGamesGrid) allGamesGrid.innerHTML += gameCardHTML;
-                if (game.is_featured && featuredGrid) featuredGrid.innerHTML += gameCardHTML;
+                if(allGamesGrid) allGamesGrid.innerHTML += allGamesCardHTML;
+
+                // Se for um destaque, cria uma versão especial com o selo para a seção de destaques
+                if(game.is_featured && featuredGrid) {
+                    const featuredCardHTML = `
+                        <div class="game-card">
+                            <div class="featured-badge">Destaque</div>
+                            <h5 class="card-title">${game.title}</h5>
+                            <p class="card-text">${game.description}</p>
+                            <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                        </div>
+                    `;
+                    featuredGrid.innerHTML += featuredCardHTML;
+                }
             });
             initializeGameButtons();
         } catch (error) {
@@ -168,7 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openMenuBtn) openMenuBtn.addEventListener('click', openSidebar);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeSidebar);
     if (overlay) overlay.addEventListener('click', closeSidebar);
-    if (logoutBtn) { logoutBtn.addEventListener('click', async () => { await fetch('/api/logout', { method: 'POST' }); window.location.href = '/'; }); }
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) { logoutLink.addEventListener('click', async () => { await fetch('/api/logout', { method: 'POST' }); window.location.href = '/'; }); }
     if (fullscreenBtn) { fullscreenBtn.addEventListener('click', () => { if (gameIframe && gameIframe.requestFullscreen) { if (!document.fullscreenElement) { gameIframe.requestFullscreen().catch(err => alert(`Não foi possível entrar em tela cheia: ${err.message}`)); } else { document.exitFullscreen(); } } }); }
     if (usernameDisplay) { usernameDisplay.style.cursor = 'pointer'; usernameDisplay.addEventListener('click', () => { if (userAccountModal) userAccountModal.show(); }); }
     if (mySubscriptionsLink) { mySubscriptionsLink.addEventListener('click', (event) => { event.preventDefault(); if (userAccountModal) userAccountModal.hide(); if (subscriptionOptionsModal) subscriptionOptionsModal.show(); }); }
@@ -176,7 +190,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FORM LISTENERS ---
     if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { alert(j.message); window.location.href = '/login.html'; } else { alert(`Erro: ${j.message}`); } }); }
-    if (loginForm) { loginForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, p = document.getElementById('password').value; const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, password: p }) }); if (r.ok) { window.location.href = '/index.html'; } else { const j = await r.json(); alert(`Erro: ${j.message}`); } }); }
+    if (loginForm) {
+        // Ao carregar a página, preenche o usuário se ele estiver salvo
+        const rememberedUsername = localStorage.getItem('rememberedUsername');
+        if (rememberedUsername) {
+            document.getElementById('username').value = rememberedUsername;
+            document.getElementById('remember-me').checked = true;
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const rememberMeCheckbox = document.getElementById('remember-me');
+
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            const response = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            
+            if (response.ok) {
+                // Se o login for bem-sucedido, salva ou remove o username do localStorage
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem('rememberedUsername', username);
+                } else {
+                    localStorage.removeItem('rememberedUsername');
+                }
+                window.location.href = '/index.html';
+            } else {
+                const result = await response.json();
+                alert(`Erro: ${result.message}`);
+            }
+        });
+    }
+    const togglePasswordIcon = document.getElementById('toggle-password');
+    if (togglePasswordIcon) {
+        togglePasswordIcon.addEventListener('click', () => {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePasswordIcon.classList.add('visible');
+            } else {
+                passwordInput.type = 'password';
+                togglePasswordIcon.classList.remove('visible');
+            }
+        });
+    }
     if (forgotPasswordForm) { forgotPasswordForm.addEventListener('submit', async (e) => { e.preventDefault(); const E = document.getElementById('email').value; const r = await fetch('/api/forgot-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: E }) }); const j = await r.json(); if (r.ok) { alert(j.message); } else { alert(`Erro: ${j.message}`); } }); }
     if (resetPasswordForm) { resetPasswordForm.addEventListener('submit', async (e) => { e.preventDefault(); const p = document.getElementById('password').value; if (p !== document.getElementById('confirm-password').value) { alert('As senhas não coincidem.'); return; } const t = new URLSearchParams(window.location.search).get('token'); if (!t) { alert('Token não encontrado.'); return; } const r = await fetch('/api/reset-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: t, newPassword: p }) }); const j = await r.json(); if (r.ok) { alert(j.message); window.location.href = '/login.html'; } else { alert(`Erro: ${j.message}`); } }); }
 

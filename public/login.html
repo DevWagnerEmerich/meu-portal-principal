@@ -48,13 +48,23 @@
             <div class="form-card">
                 <h3 class="form-title">Login</h3>
                 <form id="login-form">
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label for="username" class="form-label">Usuário</label>
                         <input type="text" class="form-control" id="username" required>
                     </div>
-                    <div class="mb-4">
+                    <div class="text-end mb-3">
+                        <div class="form-check d-inline-flex align-items-center gap-2">
+                            <input type="checkbox" class="form-check-input" id="remember-me">
+                            <label class="form-check-label" for="remember-me" style="font-size: 0.9rem;">Lembrar usuário</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 position-relative">
                         <label for="password" class="form-label">Senha</label>
                         <input type="password" class="form-control" id="password" required>
+                        <span id="toggle-password" class="password-toggle-icon">
+                            <!-- Ícone de olho (será controlado via CSS e JS) -->
+                        </span>
                     </div>
                     <button type="submit" class="btn btn-gradient w-100">Entrar</button>
                 </form>
