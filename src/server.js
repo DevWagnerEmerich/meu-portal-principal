@@ -1,5 +1,13 @@
 
+console.log('SERVER.JS FILE IS EXECUTING');
+
+console.log('SERVER.JS FILE IS EXECUTING');
 require('dotenv').config();
+const { setupEmail } = require('./email.js');
+
+// Initialize the email service
+console.log("Attempting to set up email service...");
+setupEmail();
 
 const express = require('express');
 const path = require('path');

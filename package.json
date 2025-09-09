@@ -17,6 +17,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "mercadopago": "^2.8.0",
+    "nodemailer": "^7.0.6",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

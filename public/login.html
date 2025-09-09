@@ -46,6 +46,7 @@
     <div class="main-container">
         <div class="content-wrapper">
             <div class="form-card">
+                <div id="message-container" class="mb-3"></div> <!-- Container para mensagens dinâmicas -->
                 <h3 class="form-title">Login</h3>
                 <form id="login-form">
                     <div class="mb-3">
@@ -74,5 +75,18 @@
         </div>
     </div>
     <script src="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const messageContainer = document.getElementById('message-container');
+
+            if (status === 'email_confirmed') {
+                messageContainer.innerHTML = `<div class="alert alert-success" role="alert">E-mail confirmado com sucesso! Faça o login para continuar.</div>`;
+            } else if (status === 'password_reset_success') {
+                messageContainer.innerHTML = `<div class="alert alert-success" role="alert">Senha redefinida com sucesso! Faça o login com sua nova senha.</div>`;
+            }
+        });
+    </script>
 </body>
 </html>
