@@ -3,6 +3,12 @@ const db = require('./database.js');
 
 // Middleware to check user access for games
 const checkGameAccess = (req, res, next) => {
+    // Only apply this check to the main game HTML files, not static assets like images or CSS
+    const path = req.path;
+    if (!path.endsWith('.html') && !path.endsWith('/')) {
+        return next();
+    }
+
     if (!req.session.userId) {
         return res.status(401).send('Unauthorized: Please log in to play games.');
     }

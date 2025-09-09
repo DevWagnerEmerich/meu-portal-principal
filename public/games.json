@@ -3,7 +3,7 @@
     "id": "tabela-periodica-bingo",
     "title": "Tabela Periódica Bingo",
     "description": "Aprenda os elementos da tabela periódica de forma divertida!",
-    "thumbnail": "/path/to/bingo-thumb.jpg",
+    "thumbnail": "/games/tabela-periodica-bingo/imagens/tamb.png",
     "game_url": "/games/tabela-periodica-bingo/index.html",
     "is_premium": false,
     "is_featured": true
@@ -12,7 +12,7 @@
     "id": "roda-a-roda",
     "title": "Roda a Roda",
     "description": "Gire a roleta, adivinhe as palavras e ganhe pontos!",
-    "thumbnail": "/games/roda-a-roda/thumbnail.jpg",
+    "thumbnail": "/games/roda-a-roda/assets/images/tamb.png",
     "game_url": "/games/roda-a-roda/index.html",
     "is_premium": false,
     "is_featured": false

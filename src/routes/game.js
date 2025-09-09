@@ -1,8 +1,38 @@
-
 const express = require('express');
 const db = require('../database.js');
+const fs = require('fs').promises;
+const path = require('path');
 
 const router = express.Router();
+
+// API to get the most accessed games
+router.get('/games/most-accessed', async (req, res) => {
+    try {
+        const statsPath = path.join(__dirname, '..', 'data', 'game_access_stats.json');
+        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
+
+        const [statsData, gamesData] = await Promise.all([
+            fs.readFile(statsPath, 'utf8'),
+            fs.readFile(gamesPath, 'utf8')
+        ]);
+
+        const stats = JSON.parse(statsData);
+        const games = JSON.parse(gamesData);
+
+        const sortedGameIds = Object.keys(stats).sort((a, b) => stats[b] - stats[a]);
+        
+        const top3GameIds = sortedGameIds.slice(0, 3);
+
+        const topGames = top3GameIds.map(id => {
+            return games.find(game => game.id === id);
+        }).filter(game => game); // Filter out any games that might not be found
+
+        res.json(topGames);
+    } catch (error) {
+        console.error('Error fetching most accessed games:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 // API to signal game start
 router.post('/game-start', (req, res) => {

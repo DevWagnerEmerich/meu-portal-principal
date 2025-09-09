@@ -613,3 +613,50 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+/* Custom styles for the featured games carousel */
+#featured-games-carousel {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#featured-games-carousel .carousel-item {
+    height: 400px; /* You can adjust this value as needed */
+    background-color: #222; /* A background color for when images are loading or if they don't cover fully */
+}
+
+#featured-games-carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This is the key property */
+    object-position: center; /* Center the image within the frame */
+}
+
+#featured-games-carousel .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.75); /* Opacidade aumentada */
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#featured-games-carousel .carousel-caption h5,
+#featured-games-carousel .carousel-caption p {
+    color: #fff;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.9); /* Sombra mais forte */
+}
+
+/* Custom styles for carousel controls */
+#featured-games-carousel .carousel-control-prev,
+#featured-games-carousel .carousel-control-next {
+    width: 3rem;
+    height: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+#featured-games-carousel .carousel-control-prev:hover,
+#featured-games-carousel .carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}

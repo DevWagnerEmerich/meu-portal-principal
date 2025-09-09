@@ -97,18 +97,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadGames() {
         try {
-            const response = await fetch('/games.json');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const games = await response.json();
-            const featuredGrid = document.getElementById('featured-games-grid');
+            // Fetch most accessed and all games concurrently
+            const [mostAccessedResponse, allGamesResponse] = await Promise.all([
+                fetch('/api/games/most-accessed'),
+                fetch('/games.json')
+            ]);
+
+            if (!mostAccessedResponse.ok) throw new Error(`HTTP error! status: ${mostAccessedResponse.status}`);
+            if (!allGamesResponse.ok) throw new Error(`HTTP error! status: ${allGamesResponse.status}`);
+
+            const featuredGames = await mostAccessedResponse.json();
+            const allGames = await allGamesResponse.json();
+
             const allGamesGrid = document.getElementById('all-games-grid');
-            if (featuredGrid) featuredGrid.innerHTML = '';
+            const carouselInner = document.querySelector('#featured-games-carousel .carousel-inner');
+            const carouselIndicators = document.querySelector('#featured-games-carousel .carousel-indicators');
+
+            // Clear existing content
             if (allGamesGrid) allGamesGrid.innerHTML = '';
-            games.forEach(game => {
+            if (carouselInner) carouselInner.innerHTML = '';
+            if (carouselIndicators) carouselIndicators.innerHTML = '';
+
+            // Populate carousel with most accessed games
+            featuredGames.forEach((game, index) => {
+                const isActive = index === 0;
+                const btnClass = game.is_premium ? 'btn-secondary disabled' : (game.game_url && game.game_url !== '#' ? 'btn-primary' : 'btn-secondary disabled');
+
+                const carouselItemHTML = `
+                    <div class="carousel-item ${isActive ? 'active' : ''}">
+                        <img src="${game.thumbnail}" class="d-block w-100" alt="${game.title}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>${game.title}</h5>
+                            <p>${game.description}</p>
+                            <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                        </div>
+                    </div>
+                `;
+                if (carouselInner) carouselInner.innerHTML += carouselItemHTML;
+
+                const indicatorHTML = `
+                    <button type="button" data-bs-target="#featured-games-carousel" data-bs-slide-to="${index}" class="${isActive ? 'active' : ''}" aria-current="${isActive ? 'true' : 'false'}" aria-label="Slide ${index + 1}"></button>
+                `;
+                if (carouselIndicators) carouselIndicators.innerHTML += indicatorHTML;
+            });
+
+            // Populate all games grid
+            allGames.forEach(game => {
                 const isPlayable = game.game_url && game.game_url !== '#';
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
                 
-                // Card para a lista "Todos os Jogos" (sem o selo de destaque)
                 const allGamesCardHTML = `
                     <div class="game-card" id="${game.id}">
                         <h5 class="card-title">${game.title}</h5>
@@ -117,20 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 if(allGamesGrid) allGamesGrid.innerHTML += allGamesCardHTML;
-
-                // Se for um destaque, cria uma versão especial com o selo para a seção de destaques
-                if(game.is_featured && featuredGrid) {
-                    const featuredCardHTML = `
-                        <div class="game-card" id="${game.id}">
-                            <div class="featured-badge">Destaque</div>
-                            <h5 class="card-title">${game.title}</h5>
-                            <p class="card-text">${game.description}</p>
-                            <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
-                        </div>
-                    `;
-                    featuredGrid.innerHTML += featuredCardHTML;
-                }
             });
+
             initializeGameButtons();
         } catch (error) {
             console.error('Falha ao carregar a lista de jogos:', error);
