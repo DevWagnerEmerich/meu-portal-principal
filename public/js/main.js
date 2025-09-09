@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (game.thumbnail) {
                     carouselItemHTML = `
                         <div class="carousel-item ${isActive ? 'active' : ''}">
-                            <img src="${game.thumbnail}" class="d-block w-100" alt="${game.title}">
+                            <img src="${encodeURI(game.thumbnail)}" class="d-block w-100" alt="${game.title}">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${game.title}</h5>
                                 <p>${game.description}</p>
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allGames.forEach(game => {
                 const isPlayable = game.game_url && game.game_url !== '#';
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
-                const cardStyle = game.thumbnail ? `style="background-image: url('${game.thumbnail}');"` : '';
+                const cardStyle = game.thumbnail ? `style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${encodeURI(game.thumbnail)}'); background-size: cover; background-position: center;"` : '';
                 const cardClass = game.thumbnail ? 'has-image' : 'no-image';
 
                 const allGamesCardHTML = `

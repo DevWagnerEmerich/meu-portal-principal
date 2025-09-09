@@ -233,18 +233,10 @@ body {
     transition: border-color 0.3s ease;
     position: relative; /* For badge positioning */
     overflow: hidden; /* Garante que o overlay não vaze */
+    background-size: cover;
+    background-position: center;
 }
 
-.game-card.has-image::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Overlay escuro semi-transparente (mais opaco) */
-    z-index: 1;
-}
 
 .game-card.has-image .card-title,
 .game-card.has-image .card-text,
@@ -613,8 +605,6 @@ body {
     }
 }
 
-
-
 /* Custom styles for the featured games carousel */
 #featured-games-carousel {
     border-radius: 12px;
@@ -661,3 +651,4 @@ body {
 #featured-games-carousel .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
+

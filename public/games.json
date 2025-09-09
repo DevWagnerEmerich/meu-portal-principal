@@ -18,20 +18,20 @@
     "is_featured": false
   },
   {
-    "id": "Desafio dos Exploradores - geografia",
+    "id": "desafio-exploradores",
     "title": "Desafio dos Exploradores",
     "description": "Teste seus conhecimentos de geografia neste desafio emocionante.",
-    "thumbnail": "/games/Desafio dos Exploradores - geografia/assets/images/tamb.png",
-    "game_url": "/games/Desafio dos Exploradores - geografia/index.html",
+    "thumbnail": "/games/desafio-exploradores/assets/imagens/tamb.png",
+    "game_url": "/games/desafio-exploradores/index.html",
     "is_premium": false,
     "is_featured": false
   },
   {
-    "id": "Detector de Fatos - portugues",
+    "id": "detector-fatos",
     "title": "Detector de Fatos",
     "description": "Aprenda a diferenciar fatos de opiniões em textos.",
-    "thumbnail": "/games/Detector de Fatos - portugues/assets/images/tamb.png",
-    "game_url": "/games/Detector de Fatos - portugues/index.html",
+    "thumbnail": "/games/detector-fatos/assets/imagens/tamb.png",
+    "game_url": "/games/detector-fatos/index.html",
     "is_premium": false,
     "is_featured": false
   }
