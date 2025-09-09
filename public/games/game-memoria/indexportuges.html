@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre das Palavras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background-color: #fdf6e3; /* Cor de pergaminho */
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            color: #4a2c2a; /* Cor de tinta sépia escura */
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .paper-panel {
+            background-color: rgba(253, 246, 227, 0.8); /* Cor de papel com transparência */
+            border: 1px solid #dcd3b8;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-choice {
+            background-color: #8b4513; /* SaddleBrown */
+            color: #fdf6e3;
+            border-bottom: 4px solid #5a2d0c;
+            transition: all 0.1s ease-in-out;
+        }
+        .btn-choice:hover {
+            transform: translateY(-2px);
+            border-bottom-width: 6px;
+        }
+        .btn-choice:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+        #timer-bar-inner {
+            transition: width 0.1s linear;
+        }
+        .feedback-correct {
+            animation: flash-green 0.5s ease;
+        }
+        .feedback-incorrect {
+            animation: flash-red 0.5s ease;
+        }
+        @keyframes flash-green {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(4, 120, 87, 0.3); } /* emerald-700 com opacidade */
+        }
+        @keyframes flash-red {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(185, 28, 28, 0.3); } /* red-700 com opacidade */
+        }
+        .difficulty-btn {
+            background-color: #d2b48c; /* Tan */
+            border: 2px solid transparent;
+            color: #5a2d0c;
+        }
+        .difficulty-btn.selected {
+            background-color: #8b4513;
+            color: #fdf6e3;
+            border-color: #5a2d0c;
+            transform: scale(1.05);
+        }
+        input[type="text"] {
+            background-color: #f5ead6;
+            border: 1px solid #dcd3b8;
+        }
+        input[type="text"]:focus {
+            border-color: #8b4513;
+        }
+        .btn-primary {
+            background-color: #a0522d; /* Sienna */
+            border-bottom: 4px solid #5a2d0c;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="game-container" class="w-full max-w-xl mx-auto">
+
+        <!-- Tela Inicial -->
+        <div id="start-screen" class="text-center paper-panel p-8 rounded-lg shadow-2xl">
+            <h1 class="text-6xl md:text-7xl font-playfair text-amber-900 mb-4">Mestre das Palavras</h1>
+            <p class="mb-6 text-lg">Classifique as palavras corretamente para provar seu conhecimento!</p>
+            
+            <div class="mb-4">
+                <input type="text" id="player-name" placeholder="Escreva seu nome" class="w-full px-4 py-3 rounded-lg text-center text-xl focus:outline-none transition-colors">
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-2xl font-playfair text-amber-900 mb-3">Escolha a Dificuldade</h3>
+                <div class="flex justify-center gap-2 md:gap-4">
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold transition-all" data-difficulty="facil">Fácil</button>
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold transition-all selected" data-difficulty="medio">Médio</button>
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold transition-all" data-difficulty="dificil">Difícil</button>
+                </div>
+            </div>
+
+            <button id="start-btn" class="btn-primary w-full text-white font-bold py-4 px-12 rounded-lg text-2xl transform">Começar</button>
+        
+            <div class="mt-10">
+                <h2 class="text-3xl font-playfair text-amber-900 mb-3">Ranking (Mais Pontos)</h2>
+                <ol id="high-scores-list" class="text-xl list-decimal list-inside text-left max-w-sm mx-auto">
+                    <!-- Scores serão populados aqui -->
+                </ol>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="game-screen" class="hidden">
+            <header class="flex justify-between items-center mb-4">
+                <div class="text-2xl font-bold">Pontos: <span id="score">0</span></div>
+                <div class="text-2xl font-bold"><span id="word-number">1</span> / <span id="total-words">15</span></div>
+            </header>
+            
+            <div id="timer-bar" class="w-full bg-black bg-opacity-10 rounded-full h-3 mb-6 shadow-inner">
+                <div id="timer-bar-inner" class="bg-amber-800 h-3 rounded-full" style="width: 100%;"></div>
+            </div>
+
+            <main class="paper-panel p-8 rounded-lg shadow-xl text-center mb-6 min-h-[150px] flex items-center justify-center">
+                <h2 id="word-text" class="text-5xl font-bold"></h2>
+            </main>
+
+            <footer class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button data-choice="substantivo" class="btn-choice w-full font-bold py-5 px-4 rounded-lg text-xl">Substantivo</button>
+                <button data-choice="verbo" class="btn-choice w-full font-bold py-5 px-4 rounded-lg text-xl">Verbo</button>
+                <button data-choice="adjetivo" class="btn-choice w-full font-bold py-5 px-4 rounded-lg text-xl">Adjetivo</button>
+            </footer>
+        </div>
+        
+        <!-- Tela Final -->
+        <div id="end-screen" class="hidden text-center paper-panel p-8 rounded-lg shadow-2xl">
+            <h2 class="text-6xl font-playfair text-amber-900 mb-4">Fim de Jogo!</h2>
+            <p id="end-message" class="text-3xl mb-6"></p>
+            <p class="text-3xl mb-2">Sua pontuação final:</p>
+            <p id="final-score" class="text-7xl font-bold text-amber-900 mb-8"></p>
+            <div class="flex flex-col md:flex-row gap-4 mt-8">
+                <button id="restart-btn" class="btn-primary w-full text-white font-bold py-4 px-12 rounded-lg text-2xl transform">Jogar Novamente</button>
+                <button id="home-btn" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-12 rounded-lg text-2xl transition-all transform hover:scale-105 shadow-lg">Tela Inicial</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- ELEMENTOS DO DOM ---
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const homeBtn = document.getElementById('home-btn');
+        const playerNameInput = document.getElementById('player-name');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+
+        const scoreEl = document.getElementById('score');
+        const wordNumberEl = document.getElementById('word-number');
+        const totalWordsEl = document.getElementById('total-words');
+        const timerBarInner = document.getElementById('timer-bar-inner');
+        const wordTextEl = document.getElementById('word-text');
+        const choiceButtons = document.querySelectorAll('.btn-choice');
+        
+        const endMessageEl = document.getElementById('end-message');
+        const finalScoreEl = document.getElementById('final-score');
+        const highScoresList = document.getElementById('high-scores-list');
+
+        // --- DADOS DO JOGO ---
+        const words = [
+            { text: "Casa", type: "substantivo" }, { text: "Correr", type: "verbo" }, { text: "Bonito", type: "adjetivo" },
+            { text: "Mesa", type: "substantivo" }, { text: "Pular", type: "verbo" }, { text: "Inteligente", type: "adjetivo" },
+            { text: "Cachorro", type: "substantivo" }, { text: "Comer", type: "verbo" }, { text: "Grande", type: "adjetivo" },
+            { text: "Amor", type: "substantivo" }, { text: "Estudar", type: "verbo" }, { text: "Feliz", type: "adjetivo" },
+            { text: "Rio", type: "substantivo" }, { text: "Dormir", type: "verbo" }, { text: "Triste", type: "adjetivo" },
+            { text: "Computador", type: "substantivo" }, { text: "Escrever", type: "verbo" }, { text: "Pequeno", type: "adjetivo" },
+            { text: "Felicidade", type: "substantivo" }, { text: "Andar", type: "verbo" }, { text: "Rápido", type: "adjetivo" },
+            { text: "País", type: "substantivo" }, { text: "Falar", type: "verbo" }, { text: "Azul", type: "adjetivo" },
+            { text: "Justiça", type: "substantivo" }, { text: "Existir", type: "verbo" }, { text: "Honesto", type: "adjetivo" },
+            { text: "Liberdade", type: "substantivo" }, { text: "Acontecer", type: "verbo" }, { text: "Belo", type: "adjetivo" },
+            { text: "Saudade", type: "substantivo" }, { text: "Meditar", type: "verbo" }, { text: "Sábio", type: "adjetivo" },
+            { text: "Governo", type: "substantivo" }, { text: "Parecer", type: "verbo" }, { text: "Complexo", type: "adjetivo" }
+        ];
+        let shuffledWords = [];
+        const HIGH_SCORES_KEY = 'wordMasterHighScores';
+        const difficultyConfig = {
+            facil:   { time: 10, questions: 10 },
+            medio:   { time: 7,  questions: 15 },
+            dificil: { time: 5,  questions: 20 }
+        };
+
+        // --- ESTADO DO JOGO ---
+        let score = 0;
+        let currentWordIndex = 0;
+        let totalWords = 0;
+        let timer;
+        let timeLeft;
+        let selectedDifficulty = 'medio';
+        let playerName = "Jogador";
+
+        // --- FUNÇÕES DO JOGO ---
+        function shuffleArray(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function startGame() {
+            playerName = playerNameInput.value || "Jogador";
+            score = 0;
+            currentWordIndex = 0;
+            totalWords = difficultyConfig[selectedDifficulty].questions;
+            shuffledWords = shuffleArray(words).slice(0, totalWords);
+            
+            scoreEl.textContent = '0';
+            totalWordsEl.textContent = totalWords;
+            startScreen.classList.add('hidden');
+            endScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            nextWord();
+        }
+
+        function nextWord() {
+            if (currentWordIndex >= totalWords) {
+                endGame();
+                return;
+            }
+
+            clearInterval(timer);
+            timeLeft = difficultyConfig[selectedDifficulty].time;
+            updateTimerBar();
+            timer = setInterval(updateGame, 100);
+
+            wordTextEl.textContent = shuffledWords[currentWordIndex].text;
+            wordNumberEl.textContent = currentWordIndex + 1;
+        }
+
+        function updateGame() {
+            timeLeft -= 0.1;
+            updateTimerBar();
+
+            if (timeLeft <= 0) {
+                handleChoice(null);
+            }
+        }
+        
+        function updateTimerBar() {
+            const timeForWord = difficultyConfig[selectedDifficulty].time;
+            const percentage = (timeLeft / timeForWord) * 100;
+            timerBarInner.style.width = `${percentage}%`;
+        }
+
+        function handleChoice(event) {
+            clearInterval(timer);
+            const playerChoice = event ? event.currentTarget.dataset.choice : null;
+            const correctType = shuffledWords[currentWordIndex].type;
+
+            if (playerChoice === correctType) {
+                score += 100 + Math.round(timeLeft * 10);
+                scoreEl.textContent = score;
+                gameScreen.classList.add('feedback-correct');
+            } else {
+                gameScreen.classList.add('feedback-incorrect');
+            }
+            
+            setTimeout(() => {
+                gameScreen.classList.remove('feedback-correct', 'feedback-incorrect');
+                currentWordIndex++;
+                nextWord();
+            }, 500);
+        }
+        
+        function endGame() {
+            gameScreen.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            finalScoreEl.textContent = score;
+            endMessageEl.textContent = `Muito bem, ${playerName}!`;
+            updateHighScores({ name: playerName, score: score });
+        }
+        
+        function updateHighScores(newScore) {
+            const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES_KEY)) || [];
+            highScores.push(newScore);
+            highScores.sort((a, b) => b.score - a.score); // Maior pontuação é melhor
+            const topScores = highScores.slice(0, 5);
+            localStorage.setItem(HIGH_SCORES_KEY, JSON.stringify(topScores));
+        }
+
+        function displayHighScores() {
+            const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES_KEY)) || [];
+            highScoresList.innerHTML = '';
+            if (highScores.length === 0) {
+                highScoresList.innerHTML = '<li class="text-gray-500">Jogue para entrar no ranking!</li>';
+            } else {
+                highScores.forEach(score => {
+                    const li = document.createElement('li');
+                    li.textContent = `${score.name} - ${score.score} pontos`;
+                    highScoresList.appendChild(li);
+                });
+            }
+        }
+        
+        function showHomeScreen() {
+            endScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            displayHighScores();
+        }
+
+        function selectDifficulty(event) {
+            selectedDifficulty = event.currentTarget.dataset.difficulty;
+            difficultyBtns.forEach(btn => btn.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+
+        // --- EVENT LISTENERS ---
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+        homeBtn.addEventListener('click', showHomeScreen);
+        choiceButtons.forEach(button => button.addEventListener('click', handleChoice));
+        difficultyBtns.forEach(btn => btn.addEventListener('click', selectDifficulty));
+
+        // --- INICIALIZAÇÃO ---
+        displayHighScores();
+
+    </script>
+</body>
+</html>

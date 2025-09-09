@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gênio da Memória Matemática</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a; /* Cor de fundo principal (slate-900) */
+            background-image: radial-gradient(circle at top, #1e293b, #0f172a);
+            color: #e2e8f0; /* slate-200 */
+        }
+        .font-bebas {
+            font-family: 'Bebas Neue', cursive;
+        }
+        .glass-panel {
+            background-color: rgba(30, 41, 59, 0.5); /* slate-800 com transparência */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-face--front {
+            background-image: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+        .card-face--back {
+            background-color: #e0e7ff; /* indigo-100 */
+            transform: rotateY(180deg);
+        }
+        .card.is-matched {
+            transform: scale(0.95);
+            cursor: default;
+        }
+        .card.is-matched .card-face {
+            box-shadow: 0 0 20px #22d3ee; /* Glow ciano */
+        }
+        .card.is-matched .card-face--back {
+             background-color: #1e293b; /* slate-800 */
+             border: 2px solid #22d3ee; /* cyan-400 */
+             color: #e5e7eb; /* gray-200 */
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #2563eb, #3b82f6);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        .difficulty-btn {
+            background-color: #334155; /* slate-700 */
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .difficulty-btn:hover {
+            background-color: #475569; /* slate-600 */
+        }
+        .difficulty-btn.selected {
+            background-color: #3b82f6;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+            border-color: #60a5fa;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="game-container" class="w-full max-w-2xl mx-auto">
+
+        <!-- Tela Inicial -->
+        <div id="start-screen" class="text-center glass-panel p-8 rounded-2xl shadow-2xl">
+            <h1 class="text-6xl md:text-7xl font-bebas text-cyan-300 mb-4">Gênio da Memória</h1>
+            <p class="mb-6 text-lg text-slate-300">Encontre os pares de expressões e resultados para vencer!</p>
+            
+            <div class="mb-4">
+                <input type="text" id="player-name" placeholder="Digite seu nome" class="w-full px-4 py-3 rounded-lg bg-slate-700 text-white text-center text-xl border-2 border-slate-600 focus:outline-none focus:border-cyan-400 transition-colors">
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-2xl font-bebas text-cyan-300 mb-3">Escolha a Dificuldade</h3>
+                <div class="flex justify-center gap-2 md:gap-4">
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold" data-difficulty="facil">Fácil (12)</button>
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold selected" data-difficulty="medio">Médio (16)</button>
+                    <button class="difficulty-btn w-full md:w-auto px-6 py-2 rounded-lg font-bold" data-difficulty="dificil">Difícil (20)</button>
+                </div>
+            </div>
+
+            <button id="start-btn" class="btn-primary w-full text-white font-bold py-4 px-12 rounded-lg text-2xl transform">Começar Jogo</button>
+        
+            <div class="mt-10">
+                <h2 class="text-3xl font-bebas text-cyan-300 mb-3">Ranking (Menor Tempo)</h2>
+                <ol id="high-scores-list" class="text-xl text-slate-200 list-decimal list-inside text-left max-w-sm mx-auto">
+                    <!-- Scores serão populados aqui -->
+                </ol>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="game-screen" class="hidden">
+            <header class="flex flex-col md:flex-row justify-between items-center mb-4 glass-panel p-4 rounded-lg">
+                <div class="text-2xl font-bold">Jogador: <span id="display-player-name" class="text-cyan-300"></span></div>
+                <div class="text-2xl font-bold">Tempo: <span id="timer">0s</span></div>
+                <div class="text-2xl font-bold">Jogadas: <span id="moves">0</span></div>
+            </header>
+            
+            <main id="game-board" class="grid gap-4 perspective-1000">
+                <!-- Cards serão gerados aqui -->
+            </main>
+        </div>
+        
+        <!-- Tela Final -->
+        <div id="end-screen" class="hidden text-center glass-panel p-8 rounded-2xl shadow-2xl">
+            <h2 class="text-6xl font-bebas text-cyan-300 mb-4">Parabéns!</h2>
+            <p id="end-message" class="text-3xl mb-6"></p>
+            <div class="text-2xl mb-8">
+                <p>Seu tempo: <span id="final-time" class="font-bold text-yellow-300"></span></p>
+                <p>Total de jogadas: <span id="final-moves" class="font-bold text-yellow-300"></span></p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 mt-8">
+                <button id="restart-btn" class="btn-primary w-full text-white font-bold py-4 px-12 rounded-lg text-2xl transform">Jogar Novamente</button>
+                <button id="home-btn" class="w-full bg-slate-600 hover:bg-slate-700 text-white font-bold py-4 px-12 rounded-lg text-2xl transition-all transform hover:scale-105 shadow-lg">Tela Inicial</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- ELEMENTOS DO DOM ---
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const homeBtn = document.getElementById('home-btn');
+        const playerNameInput = document.getElementById('player-name');
+        const displayPlayerName = document.getElementById('display-player-name');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+        const gameBoard = document.getElementById('game-board');
+        const timerEl = document.getElementById('timer');
+        const movesEl = document.getElementById('moves');
+        const endMessageEl = document.getElementById('end-message');
+        const finalTimeEl = document.getElementById('final-time');
+        const finalMovesEl = document.getElementById('final-moves');
+        const highScoresList = document.getElementById('high-scores-list');
+
+        // --- CONFIGURAÇÃO DO JOGO ---
+        const HIGH_SCORES_KEY = 'mathMemoryHighScores';
+        const difficultyConfig = {
+            facil:   { pairs: 6,  grid: 'grid-cols-4 grid-rows-3' },
+            medio:   { pairs: 8,  grid: 'grid-cols-4 grid-rows-4' },
+            dificil: { pairs: 10, grid: 'grid-cols-5 grid-rows-4' }
+        };
+
+        // --- ESTADO DO JOGO ---
+        let playerName = "Jogador";
+        let selectedDifficulty = 'medio';
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let timerInterval;
+        let seconds = 0;
+        let isBoardLocked = false;
+
+        // --- LÓGICA DE GERAÇÃO DE PARES ---
+        function generatePairs(numPairs) {
+            const pairs = new Set();
+            while (pairs.size < numPairs) {
+                const num1 = Math.ceil(Math.random() * 10);
+                const num2 = Math.ceil(Math.random() * 10);
+                const opSelector = Math.random();
+                let expression, result;
+
+                if (opSelector < 0.4) { // Adição
+                    result = num1 + num2;
+                    expression = `${num1} + ${num2}`;
+                } else if (opSelector < 0.7) { // Subtração
+                    if (num1 < num2) {
+                        result = num2 - num1;
+                        expression = `${num2} - ${num1}`;
+                    } else {
+                        result = num1 - num2;
+                        expression = `${num1} - ${num2}`;
+                    }
+                } else { // Multiplicação
+                    result = num1 * num2;
+                    expression = `${num1} × ${num2}`;
+                }
+                
+                // Evita resultados duplicados
+                const existingResults = Array.from(pairs).map(p => p.result);
+                if (!existingResults.includes(result)) {
+                    pairs.add({ expression, result });
+                }
+            }
+            return Array.from(pairs);
+        }
+        
+        // --- FUNÇÕES DO JOGO ---
+        function startGame() {
+            playerName = playerNameInput.value || "Jogador";
+            displayPlayerName.textContent = playerName;
+
+            moves = 0;
+            seconds = 0;
+            matchedPairs = 0;
+            flippedCards = [];
+            isBoardLocked = false;
+            
+            movesEl.textContent = moves;
+            timerEl.textContent = `${seconds}s`;
+
+            const config = difficultyConfig[selectedDifficulty];
+            const pairs = generatePairs(config.pairs);
+            cards = [];
+            pairs.forEach((pair, index) => {
+                cards.push({ id: index, value: pair.expression, type: 'expression' });
+                cards.push({ id: index, value: pair.result, type: 'result' });
+            });
+            
+            shuffleCards();
+            setupBoard();
+
+            startScreen.classList.add('hidden');
+            endScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            timerInterval = setInterval(() => {
+                seconds++;
+                timerEl.textContent = `${seconds}s`;
+            }, 1000);
+        }
+
+        function shuffleCards() {
+            cards.sort(() => Math.random() - 0.5);
+        }
+
+        function setupBoard() {
+            gameBoard.innerHTML = '';
+            gameBoard.className = `grid gap-4 perspective-1000 ${difficultyConfig[selectedDifficulty].grid}`;
+            cards.forEach((cardData, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card', 'w-full', 'h-24', 'relative');
+                cardElement.dataset.index = index;
+
+                cardElement.innerHTML = `
+                    <div class="card-face card-face--front flex items-center justify-center rounded-lg">
+                        <span class="text-4xl font-bebas">?</span>
+                    </div>
+                    <div class="card-face card-face--back flex items-center justify-center rounded-lg text-gray-800">
+                        <span class="text-3xl font-bold">${cardData.value}</span>
+                    </div>
+                `;
+                cardElement.addEventListener('click', handleCardClick);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function handleCardClick(e) {
+            if (isBoardLocked) return;
+            const clickedCard = e.currentTarget;
+            if (clickedCard.classList.contains('is-flipped') || clickedCard.classList.contains('is-matched')) {
+                return;
+            }
+
+            clickedCard.classList.add('is-flipped');
+            flippedCards.push(clickedCard);
+
+            if (flippedCards.length === 2) {
+                isBoardLocked = true;
+                moves++;
+                movesEl.textContent = moves;
+                // Espera a animação de 0.6s da carta terminar antes de checar a correspondência
+                setTimeout(checkForMatch, 600);
+            }
+        }
+
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            const data1 = cards[card1.dataset.index];
+            const data2 = cards[card2.dataset.index];
+
+            if (data1.id === data2.id) {
+                matchedPairs++;
+                card1.classList.add('is-matched');
+                card2.classList.add('is-matched');
+                flippedCards = [];
+                isBoardLocked = false;
+                if (matchedPairs === difficultyConfig[selectedDifficulty].pairs) {
+                    endGame();
+                }
+            } else {
+                setTimeout(() => {
+                    card1.classList.remove('is-flipped');
+                    card2.classList.remove('is-flipped');
+                    flippedCards = [];
+                    isBoardLocked = false;
+                }, 1200);
+            }
+        }
+        
+        function endGame() {
+            clearInterval(timerInterval);
+            gameScreen.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            
+            endMessageEl.textContent = `Você conseguiu, ${playerName}!`;
+            finalTimeEl.textContent = `${seconds} segundos`;
+            finalMovesEl.textContent = moves;
+
+            updateHighScores({ name: playerName, score: seconds });
+        }
+        
+        function updateHighScores(newScore) {
+            const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES_KEY)) || [];
+            highScores.push(newScore);
+            highScores.sort((a, b) => a.score - b.score); // Menor tempo é melhor
+            const topScores = highScores.slice(0, 5);
+            localStorage.setItem(HIGH_SCORES_KEY, JSON.stringify(topScores));
+        }
+
+        function displayHighScores() {
+            const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES_KEY)) || [];
+            highScoresList.innerHTML = '';
+            if (highScores.length === 0) {
+                highScoresList.innerHTML = '<li class="text-slate-400">Seja o primeiro a entrar no ranking!</li>';
+            } else {
+                highScores.forEach(score => {
+                    const li = document.createElement('li');
+                    li.textContent = `${score.name} - ${score.score}s`;
+                    highScoresList.appendChild(li);
+                });
+            }
+        }
+        
+        function showHomeScreen() {
+            endScreen.classList.add('hidden');
+            gameScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            displayHighScores();
+        }
+
+        function selectDifficulty(event) {
+            selectedDifficulty = event.currentTarget.dataset.difficulty;
+            difficultyBtns.forEach(btn => btn.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+
+        // --- EVENT LISTENERS ---
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+        homeBtn.addEventListener('click', showHomeScreen);
+        difficultyBtns.forEach(btn => btn.addEventListener('click', selectDifficulty));
+
+        // --- INICIALIZAÇÃO ---
+        displayHighScores();
+
+    </script>
+</body>
+</html>
+
