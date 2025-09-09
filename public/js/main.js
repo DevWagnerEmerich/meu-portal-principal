@@ -122,17 +122,31 @@ document.addEventListener('DOMContentLoaded', () => {
             featuredGames.forEach((game, index) => {
                 const isActive = index === 0;
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (game.game_url && game.game_url !== '#' ? 'btn-primary' : 'btn-secondary disabled');
+                let carouselItemHTML = '';
 
-                const carouselItemHTML = `
-                    <div class="carousel-item ${isActive ? 'active' : ''}">
-                        <img src="${game.thumbnail}" class="d-block w-100" alt="${game.title}">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>${game.title}</h5>
-                            <p>${game.description}</p>
-                            <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                if (game.thumbnail) {
+                    carouselItemHTML = `
+                        <div class="carousel-item ${isActive ? 'active' : ''}">
+                            <img src="${game.thumbnail}" class="d-block w-100" alt="${game.title}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>${game.title}</h5>
+                                <p>${game.description}</p>
+                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    // Placeholder slide for games without a thumbnail
+                    carouselItemHTML = `
+                        <div class="carousel-item ${isActive ? 'active' : ''} d-flex align-items-center justify-content-center" style="background-color: #495057; height: 400px;">
+                            <div class="carousel-caption">
+                                <h5>${game.title}</h5>
+                                <p>${game.description}</p>
+                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                            </div>
+                        </div>
+                    `;
+                }
                 if (carouselInner) carouselInner.innerHTML += carouselItemHTML;
 
                 const indicatorHTML = `
@@ -145,9 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
             allGames.forEach(game => {
                 const isPlayable = game.game_url && game.game_url !== '#';
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
-                
+                const cardStyle = game.thumbnail ? `style="background-image: url('${game.thumbnail}');"` : '';
+                const cardClass = game.thumbnail ? 'has-image' : 'no-image';
+
                 const allGamesCardHTML = `
-                    <div class="game-card" id="${game.id}">
+                    <div class="game-card ${cardClass}" id="${game.id}" ${cardStyle}>
                         <h5 class="card-title">${game.title}</h5>
                         <p class="card-text">${game.description}</p>
                         <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
