@@ -41,7 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.loggedIn) {
                 if (loggedOutActions) loggedOutActions.style.display = 'none';
                 if (loggedInActions) loggedInActions.style.display = 'flex';
-                if (usernameDisplay) usernameDisplay.textContent = `Olá, ${data.username}`;
+                if (usernameDisplay) {
+                    usernameDisplay.href = '/profile.html'; // Garante que é um link
+                    usernameDisplay.textContent = `Olá, ${data.username}`;
+                }
+                // Exporta a função updateUsername para ser acessível globalmente
+                window.updateUsername = (newUsername) => {
+                    if (usernameDisplay) usernameDisplay.textContent = `Olá, ${newUsername}`;
+                };
             } else {
                 if (loggedOutActions) loggedOutActions.style.display = 'flex';
                 if (loggedInActions) loggedInActions.style.display = 'none';

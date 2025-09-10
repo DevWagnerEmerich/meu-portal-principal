@@ -293,8 +293,7 @@ body {
 
 /* --- Forms --- */
 .form-card {
-    max-width: 420px;
-    margin: 0 auto;
+    
     background-color: var(--bg-content);
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -652,3 +651,27 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* Estilos para o contêiner principal da página de perfil */
+.main-content-wrapper {
+    max-width: 900px; /* Largura máxima para o conteúdo */
+    margin: 40px auto; /* Centraliza e adiciona espaçamento superior/inferior */
+    padding: 0 20px; /* Espaçamento interno nas laterais */
+}
+/* Novas regras para Grid no main-content-wrapper */
+.main-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão de uma coluna para telas pequenas */
+    gap: 20px; /* Espaçamento entre os cards */
+}
+
+@media (min-width: 768px) {
+    .main-content-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Duas colunas em telas maiores */
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-content-wrapper {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Ajuste para telas ainda maiores, se necessário */
+    }
+}

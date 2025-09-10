@@ -127,4 +127,51 @@ router.post('/subscribe', (req, res) => {
     });
 });
 
+// Rota para mudar a senha do usuário
+router.put('/profile/password', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+        return res.status(400).json({ message: 'Senha atual e nova senha são obrigatórias.' });
+    }
+
+    const saltRounds = 10; // Mesmo saltRounds usado no auth.js
+
+    db.get('SELECT password FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro no servidor.' });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+
+        // Compara a senha atual fornecida com o hash armazenado
+        bcrypt.compare(currentPassword, user.password, (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: 'Erro ao comparar senhas.' });
+            }
+            if (!result) {
+                return res.status(401).json({ message: 'Senha atual incorreta.' });
+            }
+
+            // Hashea a nova senha e atualiza no banco de dados
+            bcrypt.hash(newPassword, saltRounds, (err, hash) => {
+                if (err) {
+                    return res.status(500).json({ message: 'Erro ao hashear nova senha.' });
+                }
+
+                db.run('UPDATE users SET password = ? WHERE id = ?', [hash, req.session.userId], function(err) {
+                    if (err) {
+                        return res.status(500).json({ message: 'Erro ao atualizar a senha.' });
+                    }
+                    res.json({ message: 'Senha atualizada com sucesso!' });
+                });
+            });
+        });
+    });
+});
+
 module.exports = router;
