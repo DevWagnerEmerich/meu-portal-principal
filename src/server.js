@@ -12,6 +12,9 @@ setupEmail();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const passport = require('passport');
+require('./passport-setup.js'); // Carrega a configuração do Passport
+
 const { checkGameAccess } = require('./middleware.js');
 
 const authRoutes = require('./routes/auth.js');

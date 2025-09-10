@@ -1,9 +1,9 @@
-
 const express = require('express');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const db = require('../database.js');
 const { sendEmail } = require('../email.js');
+const passport = require('passport');
 
 const router = express.Router();
 const saltRounds = 10;
@@ -46,7 +46,6 @@ router.post('/register', async (req, res) => {
                     return res.status(500).json({ message: 'Erro ao registrar o usuário (token).', detail: err.message });
                 }
 
-                // Envia o e-mail de confirmação
                 const confirmationLink = `http://localhost:${PORT}/api/confirm-email?token=${confirmationToken}`;
                 try {
                     await sendEmail({
@@ -58,8 +57,6 @@ router.post('/register', async (req, res) => {
                     res.status(201).json({ message: 'Usuário registrado com sucesso! Verifique seu e-mail para confirmar o cadastro.' });
                 } catch (emailError) {
                     console.error('Falha ao enviar e-mail de confirmação:', emailError);
-                    // Mesmo que o e-mail falhe, o usuário foi criado.
-                    // Poderíamos ter uma lógica para reenviar ou alertar o admin.
                     res.status(201).json({ message: 'Usuário registrado, mas houve um problema ao enviar o e-mail de confirmação.' });
                 }
             });
@@ -78,42 +75,23 @@ router.post('/login', (req, res) => {
 
     const sql = 'SELECT * FROM users WHERE username = ?';
     db.get(sql, [username], (err, user) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro no servidor.' });
-        }
-        if (!user) {
-            return res.status(404).json({ message: 'Usuário não encontrado.' });
-        }
-
-        // Opcional: Verificar se o e-mail foi confirmado antes de logar
-        // if (user.is_confirmed === 0) {
-        //     return res.status(403).json({ message: 'Por favor, confirme seu e-mail antes de fazer login.' });
-        // }
+        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
+        if (!user) { return res.status(404).json({ message: 'Usuário não encontrado.' }); }
 
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                // Senha correta, cria a sessão
                 req.session.userId = user.id;
                 req.session.username = user.username;
 
-                // --- Trial Logic: Reset daily_time_left if new day ---
-                const today = new Date().setHours(0, 0, 0, 0); // Start of today
+                const today = new Date().setHours(0, 0, 0, 0);
                 const lastLoginDay = user.last_login_date ? new Date(user.last_login_date).setHours(0, 0, 0, 0) : 0;
 
                 if (today > lastLoginDay) {
                     const resetSql = 'UPDATE users SET daily_time_left = ?, last_login_date = ? WHERE id = ?';
-                    const initialDailyTime = 900; // 15 minutes in seconds
+                    const initialDailyTime = 900;
                     const now = Date.now();
-                    db.run(resetSql, [initialDailyTime, now, user.id], (updateErr) => {
-                        if (updateErr) {
-                            console.error('Erro ao resetar daily_time_left:', updateErr.message);
-                        } else {
-                            console.log(`daily_time_left resetado para o usuário ${user.username}`);
-                        }
-                    });
+                    db.run(resetSql, [initialDailyTime, now, user.id]);
                 }
-                // --- End Trial Logic ---
-
                 res.json({ message: 'Login bem-sucedido!', username: user.username });
             } else {
                 res.status(401).json({ message: 'Senha incorreta.' });
@@ -125,82 +103,51 @@ router.post('/login', (req, res) => {
 // Rota para solicitar recuperação de senha
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
-    if (!email) {
-        return res.status(400).json({ message: 'E-mail é obrigatório.' });
-    }
+    if (!email) { return res.status(400).json({ message: 'E-mail é obrigatório.' }); }
 
-    try {
-        db.get('SELECT id, username FROM users WHERE email = ?', [email], (err, user) => {
-            if (err) {
-                return res.status(500).json({ message: 'Erro no servidor.' });
+    db.get('SELECT id, username FROM users WHERE email = ?', [email], (err, user) => {
+        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
+        if (!user) { return res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' }); }
+
+        const resetToken = generateToken();
+        const expiresAt = Date.now() + (1 * 60 * 60 * 1000);
+
+        db.run('INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)', [user.id, resetToken, expiresAt], async (err) => {
+            if (err) { return res.status(500).json({ message: 'Erro ao solicitar recuperação de senha.' }); }
+
+            const resetLink = `http://localhost:${PORT}/reset_password.html?token=${resetToken}`;
+            try {
+                await sendEmail({
+                    to: email,
+                    subject: 'Recuperação de Senha - Educatech',
+                    text: `Olá ${user.username}, você solicitou a recuperação de senha. Clique no link a seguir para redefinir sua senha: ${resetLink}`,
+                    html: `<p>Olá ${user.username},</p><p>Você solicitou a recuperação de senha. Clique no link abaixo para redefinir sua senha:</p><a href="${resetLink}">Redefinir Senha</a>`
+                });
+            } catch (emailError) {
+                console.error('Falha ao enviar e-mail de recuperação:', emailError);
             }
-            if (!user) {
-                // Para segurança, sempre retorne uma mensagem genérica
-                return res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' });
-            }
-
-            const resetToken = generateToken();
-            const expiresAt = Date.now() + (1 * 60 * 60 * 1000); // Token válido por 1 hora
-
-            db.run('INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)', [user.id, resetToken, expiresAt], async (err) => {
-                if (err) {
-                    console.error('Erro ao salvar token de recuperação', err.message);
-                    return res.status(500).json({ message: 'Erro ao solicitar recuperação de senha.' });
-                }
-
-                // Envia o e-mail de recuperação de senha
-                const resetLink = `http://localhost:${PORT}/reset_password.html?token=${resetToken}`;
-                try {
-                    await sendEmail({
-                        to: email,
-                        subject: 'Recuperação de Senha - Educatech',
-                        text: `Olá ${user.username}, você solicitou a recuperação de senha. Clique no link a seguir para redefinir sua senha: ${resetLink}`,
-                        html: `<p>Olá ${user.username},</p><p>Você solicitou a recuperação de senha. Clique no link abaixo para redefinir sua senha:</p><a href="${resetLink}">Redefinir Senha</a>`
-                    });
-                } catch (emailError) {
-                    console.error('Falha ao enviar e-mail de recuperação:', emailError);
-                    // Não revele ao cliente que o envio do e-mail falhou por segurança
-                }
-
-                res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' });
-            });
+            res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' });
         });
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao processar a solicitação.' });
-    }
+    });
 });
 
 // Rota para redefinir a senha
 router.post('/reset-password', (req, res) => {
     const { token, newPassword } = req.body;
-    if (!token || !newPassword) {
-        return res.status(400).json({ message: 'Token e nova senha são obrigatórios.' });
-    }
+    if (!token || !newPassword) { return res.status(400).json({ message: 'Token e nova senha são obrigatórios.' }); }
 
     const now = Date.now();
     db.get('SELECT user_id FROM password_resets WHERE token = ? AND expires_at > ?', [token, now], (err, resetEntry) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro no servidor.' });
-        }
-        if (!resetEntry) {
-            return res.status(400).json({ message: 'Token inválido ou expirado.' });
-        }
+        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
+        if (!resetEntry) { return res.status(400).json({ message: 'Token inválido ou expirado.' }); }
 
         bcrypt.hash(newPassword, saltRounds, (err, hash) => {
-            if (err) {
-                return res.status(500).json({ message: 'Erro ao processar a nova senha.' });
-            }
+            if (err) { return res.status(500).json({ message: 'Erro ao processar a nova senha.' }); }
 
             db.run('UPDATE users SET password = ? WHERE id = ?', [hash, resetEntry.user_id], (err) => {
-                if (err) {
-                    return res.status(500).json({ message: 'Erro ao redefinir a senha.' });
-                }
+                if (err) { return res.status(500).json({ message: 'Erro ao redefinir a senha.' }); }
 
-                // Invalida o token após o uso
-                db.run('DELETE FROM password_resets WHERE token = ?', [token], (err) => {
-                    if (err) console.error('Erro ao deletar token de recuperação', err.message);
-                });
-
+                db.run('DELETE FROM password_resets WHERE token = ?', [token]);
                 res.status(200).json({ message: 'Senha redefinida com sucesso!' });
             });
         });
@@ -210,42 +157,42 @@ router.post('/reset-password', (req, res) => {
 // Rota para logout
 router.post('/logout', (req, res) => {
     req.session.destroy(err => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro ao fazer logout.' });
-        }
+        if (err) { return res.status(500).json({ message: 'Erro ao fazer logout.' }); }
         res.json({ message: 'Logout bem-sucedido.' });
     });
 });
 
-// Rota para confirmar e-mail (exemplo)
+// Rota para confirmar e-mail
 router.get('/confirm-email', (req, res) => {
     const { token } = req.query;
-    if (!token) {
-        return res.status(400).send('Token de confirmação ausente.');
-    }
+    if (!token) { return res.status(400).send('Token de confirmação ausente.'); }
 
     const now = Date.now();
     db.get('SELECT user_id FROM email_confirmations WHERE token = ? AND expires_at > ?', [token, now], (err, confirmationEntry) => {
-        if (err) {
-            return res.status(500).send('Erro no servidor.');
-        }
-        if (!confirmationEntry) {
-            return res.status(400).send('Token inválido ou expirado.');
-        }
+        if (err) { return res.status(500).send('Erro no servidor.'); }
+        if (!confirmationEntry) { return res.status(400).send('Token inválido ou expirado.'); }
 
         db.run('UPDATE users SET is_confirmed = 1 WHERE id = ?', [confirmationEntry.user_id], (err) => {
-            if (err) {
-                return res.status(500).send('Erro ao confirmar e-mail.');
-            }
+            if (err) { return res.status(500).send('Erro ao confirmar e-mail.'); }
 
-            // Invalida o token após o uso
-            db.run('DELETE FROM email_confirmations WHERE token = ?', [token], (err) => {
-                if (err) console.error('Erro ao deletar token de confirmação', err.message);
-            });
-
+            db.run('DELETE FROM email_confirmations WHERE token = ?', [token]);
             res.redirect('/login.html?status=email_confirmed');
         });
     });
 });
+
+// Rotas de autenticação com Google
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login.html?status=google_auth_failed' }),
+  (req, res) => {
+    if (req.user) {
+        req.session.userId = req.user.id;
+        req.session.username = req.user.username;
+    }
+    res.redirect('/');
+  }
+);
 
 module.exports = router;
