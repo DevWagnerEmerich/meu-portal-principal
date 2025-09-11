@@ -1,6 +1,6 @@
 /* Estilos Gerais */
 body.game-body {
-  background-image: url('assets/images/background.jpg');
+  background-image: url('assets/images/background.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -42,7 +42,7 @@ body.game-body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/images/background.jpg');
+  background-image: url('assets/images/background.webp');
   background-size: 200% 100%;
   animation: slideBackground 40s linear infinite;
   z-index: -1;
@@ -91,29 +91,37 @@ body.game-body {
   cursor: not-allowed;
 }
 
-/* --- Modal de Configuração Inicial --- */
-#initial-config-modal {
-  /* Estilos mantidos */
-  /* display: flex; /* Controlado por JS */
-}
+/* --- Modal de Configuração Inicial (MELHORADO) --- */
 #initial-config-modal .improved-start-modal {
   max-width: 650px;
   height: auto;
   max-height: 90vh;
   overflow-y: auto;
 }
+
 #initial-config-modal h2 {
   color: #003d82;
+  font-weight: 700; /* Título mais forte */
 }
+
 #initial-config-title {
   font-size: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 30px; /* Mais espaço abaixo do título */
+  padding-bottom: 15px; /* Espaçamento no padding */
+  border-bottom: 2px solid #007bff; /* Linha azul abaixo do título */
+  display: inline-block; /* Para a borda funcionar corretamente */
 }
-#csv-status-initial, #logo-status-initial { /* #logo-status-initial pode ser removido se o elemento HTML for removido */
+
+#csv-status-initial {
   display: block;
-  font-size: 14px;
-  color: #555;
-  margin-top: 5px;
+  font-size: 15px; /* Fonte maior */
+  color: #6c757d; /* Cor cinza mais sutil */
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #f8f9fa; /* Fundo claro */
+  border-radius: 6px;
+  border-left: 4px solid #007bff; /* Destaque azul à esquerda */
+  font-style: italic; /* Itálico para dar um ar de status */
 }
 
 /* --- Título do Jogo (Roleta) --- */
@@ -461,7 +469,7 @@ body.game-body {
 }
 
 
-/* --- Modal Genérico --- */
+/* --- Modal Genérico (MELHORADO) --- */
 .modal {
   display: none; /* Controlado por JS */
   position: fixed;
@@ -469,103 +477,171 @@ body.game-body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 1000; /* Acima de quase tudo */
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo um pouco mais escuro */
+  backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+  z-index: 1000;
   justify-content: center;
   align-items: center;
   animation: modalFadeIn 0.4s ease-out;
   padding: 20px;
   box-sizing: border-box;
 }
+
 .modal-content {
-  background-color: white;
-  padding: 30px 40px;
-  border-radius: 12px;
+  background: linear-gradient(145deg, #fdfdfd, #f0f0f0); /* Gradiente sutil */
+  padding: 35px 45px; /* Mais padding */
+  border-radius: 16px; /* Bordas mais arredondadas */
   text-align: center;
   max-width: 90%;
-  width: 600px; /* Ajustado para o novo modal com abas, pode precisar ser maior */
+  width: 600px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Borda clara sutil */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Sombra mais pronunciada */
 }
+
 @keyframes modalFadeIn {
-  from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+  from { opacity: 0; transform: scale(0.9) translateY(-20px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
+
 .modal h2, .modal h3 {
-  font-size: 26px;
-  margin-bottom: 20px;
-  color: #0056b3;
+  font-size: 28px; /* Fonte maior */
+  margin-bottom: 25px;
+  color: #004a99; /* Azul mais escuro e vibrante */
+  font-weight: 700; /* Mais forte */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil no texto */
 }
-.modal h3 { /* Estilo para H3 dentro das abas */
-  font-size: 22px;
-  margin-top: 0; /* H3 agora é o título da aba, não precisa de tanto espaço acima */
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
-  text-align: left; /* Títulos das seções das abas à esquerda */
+
+.modal h3 {
+  font-size: 24px;
+  margin-top: 0;
+  border-bottom: 2px solid #007bff; /* Borda inferior azul */
+  padding-bottom: 12px;
+  text-align: left;
 }
+
 .modal p {
   font-size: 18px;
   margin-bottom: 25px;
-  color: #555;
+  color: #495057; /* Cinza mais escuro para melhor leitura */
 }
+
 .modal .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Mais espaço entre os grupos */
   text-align: left;
+  padding-bottom: 20px; /* Espaço inferior */
+  border-bottom: 1px solid #e0e0e0; /* Linha separadora */
+  position: relative;
 }
+
+.modal .input-group:last-of-type {
+  border-bottom: none; /* Remove a borda do último item */
+  padding-bottom: 0;
+}
+
 .modal .improved-label {
-  font-size: 16px;
-  margin-bottom: 6px;
-  color: #444;
+  font-size: 17px; /* Fonte um pouco maior */
+  margin-bottom: 8px;
+  color: #343a40; /* Cor mais escura */
+  font-weight: 600; /* Mais forte */
 }
+
 .modal .improved-input, .modal .improved-select {
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
+  padding: 14px 18px; /* Mais padding interno */
+  font-size: 16px;
+  border-radius: 8px; /* Bordas mais suaves */
+  border: 1px solid #ced4da; /* Borda cinza padrão */
+  background-color: #ffffff; /* Fundo branco puro */
   color: #333;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
 }
+
 .modal .improved-input:focus, .modal .improved-select:focus {
-  border-color: #007bff;
+  border-color: #007bff; /* Borda azul no foco */
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25); /* Sombra externa azul */
 }
+
+.modal .improved-input::placeholder {
+  color: #999; /* Placeholder mais sutil */
+}
+
 .modal button.improved-button {
-  padding: 12px 25px;
-  margin: 5px;
-  font-size: 16px;
+  padding: 14px 30px; /* Botões maiores */
+  margin: 8px 5px;
+  font-size: 17px;
+  font-weight: bold; /* Texto do botão em negrito */
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase; /* Letras maiúsculas */
+  letter-spacing: 0.5px; /* Espaçamento entre letras */
 }
+
 .modal button.primary-btn {
-  background-color: #007bff;
+  background: linear-gradient(145deg, #007bff, #0056b3); /* Gradiente azul */
   color: white;
 }
+
 .modal button.primary-btn:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: translateY(-1px);
+  background: linear-gradient(145deg, #0069d9, #004a99);
+  transform: translateY(-3px); /* Efeito de levantar mais pronunciado */
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); /* Sombra no hover */
 }
+
 .modal button.secondary-btn {
-  background-color: #e9ecef;
+  background: linear-gradient(145deg, #f8f9fa, #e9ecef); /* Gradiente cinza claro */
   color: #333;
   border: 1px solid #ced4da;
 }
-.modal button.secondary-btn:hover {
-  background-color: #dee2e6;
-  transform: translateY(-1px);
+
+.modal button.secondary-btn:hover:not(:disabled) {
+  background: linear-gradient(145deg, #ffffff, #e2e6ea);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
+
 .modal button:disabled {
-  background-color: #cccccc;
+  background: #ced4da; /* Cinza para desabilitado */
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.8;
+  box-shadow: none;
+  transform: none;
 }
+
+/* --- DESTAQUE PARA BOTÃO DE CARREGAR PLANILHA --- */
+#load-csv-initial,
+#load-csv-ingame {
+  background: linear-gradient(145deg, #28a745, #218838); /* Gradiente verde */
+  color: white;
+  animation: pulse-animation 2s infinite;
+}
+
+#load-csv-initial:hover:not(:disabled),
+#load-csv-ingame:hover:not(:disabled) {
+  background: linear-gradient(145deg, #218838, #1e7e34);
+  transform: translateY(-3px) scale(1.05); /* Efeito de levantar e aumentar */
+  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4); /* Sombra verde no hover */
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  50% {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
 .close-button {
   position: absolute;
   top: 15px;

@@ -3,54 +3,60 @@
     "id": "tabela-periodica-bingo",
     "title": "Tabela Periódica Bingo",
     "description": "Aprenda os elementos da tabela periódica de forma divertida!",
-    "thumbnail": "/games/tabela-periodica-bingo/imagens/tamb.png",
+    "thumbnail": "/games/tabela-periodica-bingo/imagens/tamb.webp",
     "game_url": "/games/tabela-periodica-bingo/index.html",
     "is_premium": false,
-    "is_featured": true
+    "is_featured": true,
+    "category": "Química"
   },
   {
     "id": "roda-a-roda",
     "title": "Roda a Roda",
     "description": "Gire a roleta, adivinhe as palavras e ganhe pontos!",
-    "thumbnail": "/games/roda-a-roda/assets/images/tamb.png",
+    "thumbnail": "/games/roda-a-roda/assets/images/tamb.webp",
     "game_url": "/games/roda-a-roda/index.html",
     "is_premium": false,
-    "is_featured": false
+    "is_featured": false,
+    "category": "Híbrido"
   },
   {
     "id": "desafio-exploradores",
     "title": "Desafio dos Exploradores",
     "description": "Teste seus conhecimentos de geografia neste desafio emocionante.",
-    "thumbnail": "/games/desafio-exploradores/assets/imagens/tamb.png",
+    "thumbnail": "/games/desafio-exploradores/assets/imagens/tamb.webp",
     "game_url": "/games/desafio-exploradores/index.html",
     "is_premium": false,
-    "is_featured": false
+    "is_featured": false,
+    "category": "Geografia"
   },
   {
     "id": "detector-fatos",
     "title": "Detector de Fatos",
     "description": "Aprenda a diferenciar fatos de opiniões em textos.",
-    "thumbnail": "/games/detector-fatos/assets/imagens/tamb.png",
+    "thumbnail": "/games/detector-fatos/assets/imagens/tamb.webp",
     "game_url": "/games/detector-fatos/index.html",
     "is_premium": false,
-    "is_featured": false
+    "is_featured": false,
+    "category": "Português"
   },
   {
     "id": "jogo-da-memoria-matematica",
     "title": "Jogo da Memória - Matemática",
     "description": "Teste sua memória e suas habilidades matemáticas.",
-    "thumbnail": "/games/game-memoria/assets/imagens/tamb-m.png",
+    "thumbnail": "/games/game-memoria/assets/imagens/tamb-m.webp",
     "game_url": "/games/game-memoria/indexmatematica.html",
     "is_premium": false,
-    "is_featured": false
+    "is_featured": false,
+    "category": "Matemática"
   },
   {
     "id": "jogo-da-memoria-portugues",
     "title": "Jogo da Memória - Português",
     "description": "Teste sua memória e seus conhecimentos de português.",
-    "thumbnail": "/games/game-memoria/assets/imagens/tamb-p.png",
+    "thumbnail": "/games/game-memoria/assets/imagens/tamb-p.webp",
     "game_url": "/games/game-memoria/indexportuges.html",
     "is_premium": false,
-    "is_featured": false
+    "is_featured": false,
+    "category": "Português"
   }
 ]

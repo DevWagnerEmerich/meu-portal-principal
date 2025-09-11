@@ -28,6 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginPromptModalElement = document.getElementById('loginPromptModal');
     const loginPromptModal = loginPromptModalElement ? new bootstrap.Modal(loginPromptModalElement) : null;
 
+    // Função para exibir toasts
+    function showToast(message, type = 'success') {
+        const toastContainer = document.querySelector('.toast-container');
+        if (!toastContainer) {
+            console.warn('Toast container not found. Message:', message);
+            return;
+        }
+
+        const toastId = `toast-${Date.now()}`;
+        const toastHtml = `
+            <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        `;
+        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+        const toastEl = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+
+        // Remover o toast do DOM após ele ser escondido
+        toastEl.addEventListener('hidden.bs.toast', () => {
+            toastEl.remove();
+        });
+    }
+
     // Variáveis de estado
     let countdownInterval;
     let gameSessionStartTime = 0;
@@ -102,7 +132,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameModal) gameModal.show();
     };
 
-    async function loadGames() {
+    async function handleGamePlay(gameSrc) {
+        if (!gameSrc || gameSrc === '#') {
+            if(loginPromptModal) loginPromptModal.show();
+            return;
+        }
+        try {
+            const response = await fetch('/api/game-start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gameSrc }) });
+            const data = await response.json();
+            if (response.ok) {
+                gameSessionStartTime = Date.now();
+                if (data.dailyTimeLeft > 0) {
+                    startCountdown(data.dailyTimeLeft);
+                } else {
+                    if (subscriptionOptionsModal) subscriptionOptionsModal.show();
+                    return;
+                }
+                loadAndShowGame(gameSrc);
+            } else {
+                if (response.status === 401) {
+                    if (loginPromptModal) loginPromptModal.show();
+                } else {
+                    showToast(`Erro: ${data.message || response.statusText}`, 'danger');
+                    if (data.message && data.message.includes('tempo diário')) {
+                        if (subscriptionOptionsModal) subscriptionOptionsModal.show();
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao verificar status de jogo:', error);
+        }
+    }
+
+    async function loadGames(filterCategory = 'all') {
         try {
             // Fetch most accessed and all games concurrently
             const [mostAccessedResponse, allGamesResponse] = await Promise.all([
@@ -114,7 +176,52 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!allGamesResponse.ok) throw new Error(`HTTP error! status: ${allGamesResponse.status}`);
 
             const featuredGames = await mostAccessedResponse.json();
-            const allGames = await allGamesResponse.json();
+            window.allGames = await allGamesResponse.json(); // Use window.allGames for the full list
+
+            // Group games by category (using the full list - window.allGames)
+            const gamesByCategory = window.allGames.reduce((acc, game) => {
+                const category = game.category || 'Outros'; // Default category if not defined
+                if (!acc[category]) {
+                    acc[category] = [];
+                }
+                acc[category].push(game);
+                return acc;
+            }, {});
+
+            const sidebarAccordion = document.getElementById('sidebarAccordion');
+            if (sidebarAccordion) {
+                // Clear existing dynamic categories (keep "Todos os Jogos" accordion item)
+                sidebarAccordion.querySelectorAll('.accordion-item:not(:first-child)').forEach(item => item.remove());
+
+                for (const category in gamesByCategory) {
+                    const categoryId = category.replace(/\s+/g, '-').toLowerCase(); // Sanitize for ID
+                    const accordionItem = `
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading-${categoryId}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryId}" aria-expanded="false" aria-controls="collapse-${categoryId}" data-category="${category}">
+                                    ${category}
+                                </button>
+                            </h2>
+                            <div id="collapse-${categoryId}" class="accordion-collapse collapse" aria-labelledby="heading-${categoryId}" data-bs-parent="#sidebarAccordion">
+                                <div class="accordion-body">
+                                    <ul class="list-unstyled">
+                                        ${gamesByCategory[category].map(game => `
+                                            <li><a href="#" class="game-link" data-game-id="${game.id}">${game.title}</a></li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    sidebarAccordion.innerHTML += accordionItem;
+                }
+            }
+
+            // Filter games for the main grid based on filterCategory
+            let gamesToDisplay = window.allGames; // Start with the full list
+            if (filterCategory !== 'all') {
+                gamesToDisplay = window.allGames.filter(game => game.category === filterCategory);
+            }
 
             const allGamesGrid = document.getElementById('all-games-grid');
             const carouselInner = document.querySelector('#featured-games-carousel .carousel-inner');
@@ -134,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (game.thumbnail) {
                     carouselItemHTML = `
                         <div class="carousel-item ${isActive ? 'active' : ''}">
-                            <img src="${encodeURI(game.thumbnail)}" class="d-block w-100" alt="${game.title}">
+                            <img src="${encodeURI(game.thumbnail)}" class="d-block w-100" alt="${game.title}" ${index === 0 ? '' : 'loading="lazy"'}>
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${game.title}</h5>
                                 <p>${game.description}</p>
@@ -162,8 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (carouselIndicators) carouselIndicators.innerHTML += indicatorHTML;
             });
 
-            // Populate all games grid
-            allGames.forEach(game => {
+            // Populate all games grid (using gamesToDisplay)
+            gamesToDisplay.forEach(game => {
                 const isPlayable = game.game_url && game.game_url !== '#';
                 const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
                 const cardStyle = game.thumbnail ? `style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${encodeURI(game.thumbnail)}'); background-size: cover; background-position: center;"` : '';
@@ -192,35 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
             newButton.addEventListener('click', async (event) => {
                 event.preventDefault();
                 const gameSrc = newButton.getAttribute('data-game-src');
-                if (!gameSrc || gameSrc === '#') {
-                    if(loginPromptModal) loginPromptModal.show();
-                    return;
-                }
-                try {
-                    const response = await fetch('/api/game-start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gameSrc }) });
-                    const data = await response.json();
-                    if (response.ok) {
-                        gameSessionStartTime = Date.now();
-                        if (data.dailyTimeLeft > 0) {
-                            startCountdown(data.dailyTimeLeft);
-                        } else {
-                            if (subscriptionOptionsModal) subscriptionOptionsModal.show();
-                            return;
-                        }
-                        loadAndShowGame(gameSrc);
-                    } else {
-                        if (response.status === 401) {
-                            if (loginPromptModal) loginPromptModal.show();
-                        } else {
-                            alert(`Erro: ${data.message || response.statusText}`);
-                            if (data.message && data.message.includes('tempo diário')) {
-                                if (subscriptionOptionsModal) subscriptionOptionsModal.show();
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.error('Erro ao verificar status de jogo:', error);
-                }
+                handleGamePlay(gameSrc); // Call the new centralized function
             });
         });
     }
@@ -231,10 +310,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (overlay) overlay.addEventListener('click', closeSidebar);
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) { logoutLink.addEventListener('click', async () => { await fetch('/api/logout', { method: 'POST' }); window.location.href = '/'; }); }
-    if (fullscreenBtn) { fullscreenBtn.addEventListener('click', () => { if (gameIframe && gameIframe.requestFullscreen) { if (!document.fullscreenElement) { gameIframe.requestFullscreen().catch(err => alert(`Não foi possível entrar em tela cheia: ${err.message}`)); } else { document.exitFullscreen(); } } }); }
+    if (fullscreenBtn) { fullscreenBtn.addEventListener('click', () => { if (gameIframe && gameIframe.requestFullscreen) { if (!document.fullscreenElement) {                         gameIframe.requestFullscreen().catch(err => showToast(`Não foi possível entrar em tela cheia: ${err.message}`, 'danger')); } else { document.exitFullscreen(); } } }); }
     if (usernameDisplay) { usernameDisplay.style.cursor = 'pointer'; usernameDisplay.addEventListener('click', () => { if (userAccountModal) userAccountModal.show(); }); }
     if (mySubscriptionsLink) { mySubscriptionsLink.addEventListener('click', (event) => { event.preventDefault(); if (userAccountModal) userAccountModal.hide(); if (subscriptionOptionsModal) subscriptionOptionsModal.show(); }); }
     if (gameModalElement) { gameModalElement.addEventListener('hidden.bs.modal', () => { stopCountdown(); if (gameIframe) { const c = gameIframe.src; gameIframe.src = ''; const d = Math.floor((Date.now() - gameSessionStartTime) / 1000); fetch('/api/game-stop', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gameSrc: c, duration: d }) }); } }); }
+
+    // Event listeners for category links (accordion buttons and game links)
+    const sidebarAccordionElement = document.getElementById('sidebarAccordion');
+    if (sidebarAccordionElement) {
+        sidebarAccordionElement.addEventListener('click', (event) => {
+            const target = event.target;
+            // Check if the clicked element is an accordion button
+            if (target.tagName === 'BUTTON' && target.classList.contains('accordion-button')) {
+                const selectedCategory = target.getAttribute('data-category');
+            }
+            // Check if the clicked element is a game link inside an accordion
+            if (target.tagName === 'A' && target.classList.contains('game-link')) {
+                event.preventDefault(); // Prevent default link behavior
+                const gameId = target.getAttribute('data-game-id');
+                // Find the game object and load it
+                const gameToLoad = window.allGames.find(game => game.id === gameId);
+                if (gameToLoad && gameToLoad.game_url) {
+                    handleGamePlay(gameToLoad.game_url); // Call the new centralized function
+                    closeSidebar();
+                }
+            }
+        });
+    }
 
     // --- FORM LISTENERS ---
     if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { alert(j.message); window.location.href = '/login.html'; } else { alert(`Erro: ${j.message}`); } }); }

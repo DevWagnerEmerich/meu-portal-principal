@@ -293,19 +293,21 @@ body {
 
 /* --- Forms --- */
 .form-card {
-    
     background-color: var(--bg-content);
     border-radius: 12px;
     border: 1px solid var(--border-color);
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
 }
 
 .form-title {
     text-align: center;
     font-size: 1.75rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: var(--text-heading);
 }
 
@@ -318,11 +320,11 @@ body {
 
 .form-control {
     width: 100%;
-    padding: 0.8rem 1rem;
+    padding: 0.7rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     background-color: var(--bg-body);
-    margin-bottom: 1.5rem; /* Spacing between form fields */
+    margin-bottom: 1rem; /* Spacing between form fields */
 }
 
 .form-control:focus {
@@ -333,7 +335,7 @@ body {
 
 .footer-link {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
 }
 
@@ -659,19 +661,12 @@ body {
 }
 /* Novas regras para Grid no main-content-wrapper */
 .main-content-wrapper {
-    display: grid;
-    grid-template-columns: 1fr; /* Padrão de uma coluna para telas pequenas */
-    gap: 20px; /* Espaçamento entre os cards */
+    display: flex; /* Mudar para flexbox */
+    flex-wrap: wrap; /* Permitir que os itens quebrem a linha */
+    gap: 20px; /* Manter o espaçamento */
+    align-items: stretch; /* Esticar os itens para terem a mesma altura */
 }
 
-@media (min-width: 768px) {
-    .main-content-wrapper {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Duas colunas em telas maiores */
-    }
-}
 
-@media (min-width: 1024px) {
-    .main-content-wrapper {
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Ajuste para telas ainda maiores, se necessário */
-    }
-}
+
+

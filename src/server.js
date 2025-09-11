@@ -55,6 +55,10 @@ app.use('/api', gameRoutes);
 app.use('/api', paymentRoutes);
 
 // Rota para servir as páginas HTML principais
+app.use('/assets', (req, res, next) => {
+    console.log('Request to /assets received');
+    next();
+}, express.static(path.join(__dirname, '..', 'assets')));
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Para servir arquivos estáticos
 
 // Apply middleware to game routes

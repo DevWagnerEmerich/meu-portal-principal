@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tabela Periódica Interativa - EducaTech</title>
-  <link rel="icon" href="logo-educatech.jpg" type="image/jpeg">
+  <link rel="icon" href="logo-educatech.webp" type="image/webp">
   <style>
     /* Estilos Globais e Fundo - Inspirado no arquivo de referência */
     html, body {
@@ -26,7 +26,7 @@
       --educatech-accent-1: #c2e2d9;
       --educatech-accent-2: #95d1c0;
       --educatech-accent-3: #69c0a7;
-      --scaled-title-font-size: 18px;
+      
       --scaled-button-font-size: 14px;
       --scaled-button-padding-vertical: 6px;
       --scaled-button-padding-horizontal: 12px;
@@ -217,25 +217,10 @@
     }
 
     /* Título e Botão - Estilo do arquivo de referência */
-    .titulo-flutuante {
-      position: fixed; top: var(--fixed-elements-top-margin); left: 50%;
-      transform: translateX(-50%); z-index: 10; text-align: center;
-    }
-    .titulo-flutuante h1 {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(239, 244, 243, 0.95));
-        padding: var(--scaled-title-padding-vertical) var(--scaled-title-padding-horizontal);
-        border-radius: 15px;
-        display: inline-block;
-        box-shadow: 0 4px 15px rgba(66, 45, 177, 0.2);
-        font-size: var(--scaled-title-font-size); margin: 0;
-        color: var(--educatech-primary);
-        border: 2px solid var(--educatech-accent-3);
-        backdrop-filter: blur(10px);
-        font-weight: 600;
-    }
+    
     .botao-flutuante {
       position: fixed;
-      top: calc(var(--fixed-elements-top-margin) + 70px);
+      top: var(--fixed-elements-top-margin);
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -300,15 +285,12 @@
     .destaque-box img, .destaque-box picture img {
       max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 10px;
     }
-  </style>
+
+    </style>
 </head>
 <body>
   <div class="particles" id="particles"></div>
-  <div class="educatech-logo">
-    <div class="logo-text">EducaTech</div>
-    <div class="logo-subtitle">Educação • Tecnologia</div>
-  </div>
-  <div class="watermark">Powered by EducaTech</div>
+  
 
   <div id="zoom-container">
     <div class="tabela" id="tabelaPeriodica"></div>
@@ -316,9 +298,7 @@
 
   <svg id="arrow-svg"><defs></defs></svg>
 
-  <div class="titulo-flutuante">
-    <h1>Tabela Periódica Interativa com Bingo</h1>
-  </div>
+  
 
   <div class="botao-flutuante">
     <button id="bingoBtn">🎲 Bingo</button>
@@ -327,6 +307,9 @@
   <audio id="somSorteando" src="sons/sorteando.mp3" preload="auto"></audio>
   <audio id="somFinal" src="sons/final.mp3" preload="auto"></audio>
 
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // --- LÓGICA DO JOGO (FUNCIONAL E TESTADA) ---
     const elementos = [
@@ -413,7 +396,7 @@
       if (conteudo && typeof conteudo === 'string' && !conteudo.startsWith('grupo-') && !conteudo.startsWith('periodo-')) {
         const simbolo = conteudo;
         div.className = 'elemento';
-        const imgHTML = `<picture><source srcset="imagens/${simbolo}.webp" type="image/webp"><source srcset="imagens/${simbolo}.jpg" type="image/jpeg"><img src="imagens/${simbolo}.jpg" alt="${simbolo}" loading="lazy"></picture>`;
+        const imgHTML = `<img src="imagens/${simbolo}.webp" alt="${simbolo}" loading="lazy">`;
         div.innerHTML = `<div class="simbolo">${simbolo}</div><div class="foto-editavel">${imgHTML}</div>`;
         const fotoDiv = div.querySelector('.foto-editavel');
         if (fotoDiv) {
@@ -440,7 +423,6 @@
     const originalTableWidth = (18 * 48) + (17 * 2) + 30;
     const originalCellHeight = 48 / 0.6547;
     const originalTableHeight = (7 * originalCellHeight) + 10 + (2 * originalCellHeight) + 25 + (10 * 2);
-    const originalTitleFontSize = 18;
     const originalButtonFontSize = 14;
     const originalButtonPaddingV = 6;
     const originalButtonPaddingH = 12;
@@ -449,10 +431,12 @@
       const availableWidth = window.innerWidth;
       const availableHeight = window.innerHeight;
       const docStyle = document.documentElement.style;
-      const titleDiv = document.querySelector('.titulo-flutuante');
-      const titleHeight = titleDiv ? titleDiv.offsetHeight : 0;
-      const topMargin = titleDiv ? parseFloat(getComputedStyle(titleDiv).top) : 0;
-      const zoomContainerTop = titleHeight + topMargin + 30; 
+      
+      const btnFlutuante = document.querySelector('.botao-flutuante');
+      const buttonHeight = btnFlutuante ? btnFlutuante.offsetHeight : 0;
+      const topMargin = btnFlutuante ? parseFloat(getComputedStyle(btnFlutuante).top) : 0;
+
+      const zoomContainerTop = buttonHeight + topMargin + 20; 
       zoomContainer.style.top = zoomContainerTop + 'px';
       const heightForTableScaling = availableHeight - zoomContainerTop - 20;
       let scaleFactor = 1;
@@ -463,16 +447,10 @@
         scaleFactor = Math.max(0.4, scaleFactor);
       }
       zoomContainer.style.transform = `translateX(-50%) scale(${scaleFactor})`;
-      docStyle.setProperty('--scaled-title-font-size', (originalTitleFontSize * Math.min(scaleFactor, 1.5)) + 'px');
-      docStyle.setProperty('--scaled-title-padding-vertical', (8 * Math.min(scaleFactor, 1.5)) + 'px');
-      docStyle.setProperty('--scaled-title-padding-horizontal', (16 * Math.min(scaleFactor, 1.5)) + 'px');
       docStyle.setProperty('--scaled-button-font-size', (originalButtonFontSize * Math.min(scaleFactor, 1.5)) + 'px');
       docStyle.setProperty('--scaled-button-padding-vertical', (6 * Math.min(scaleFactor, 1.5)) + 'px');
       docStyle.setProperty('--scaled-button-padding-horizontal', (12 * Math.min(scaleFactor, 1.5)) + 'px');
-      const btnFlutuante = document.querySelector('.botao-flutuante');
-      if (btnFlutuante && titleDiv) {
-          btnFlutuante.style.top = `${topMargin + titleHeight + 15}px`;
-      }
+      
       requestAnimationFrame(drawArrows);
     }
 
