@@ -16,6 +16,7 @@ const passport = require('passport');
 require('./passport-setup.js'); // Carrega a configuração do Passport
 
 const { checkGameAccess } = require('./middleware.js');
+const adminRoutes = require('./routes/admin.js'); // Add this line
 
 const authRoutes = require('./routes/auth.js');
 const userRoutes = require('./routes/user.js');
@@ -53,6 +54,7 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', gameRoutes);
 app.use('/api', paymentRoutes);
+app.use('/api/admin', adminRoutes); // Add this line
 
 // Rota para servir as páginas HTML principais
 app.use('/assets', (req, res, next) => {
@@ -101,6 +103,19 @@ app.get('/profile', (req, res) => {
 // Rota para servir a página de planos de assinatura
 app.get('/subscription', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'subscription.html'));
+});
+
+// Rota para servir as páginas de administração
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
+});
+
+app.get('/admin/users', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'admin-users.html'));
+});
+
+app.get('/admin/games', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'admin-games.html'));
 });
 
 app.listen(PORT, () => {

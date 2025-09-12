@@ -32,55 +32,60 @@
             <!-- Mensagens de Feedback -->
             <div id="message-container" class="mb-3"></div>
 
-            <!-- Seção de Edição de Perfil -->
-            <div class="form-card mb-4">
-                <h4 class="form-title">Informações da Conta</h4>
-                <form id="edit-profile-form">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Nome de Usuário</label>
-                        <input type="text" class="form-control" id="username" required>
+            <div class="row g-4">
+                <!-- Left Column: Account Info & Change Password -->
+                <div class="col-md-6">
+                    <div class="form-card mb-4">
+                        <h4 class="form-title">Informações da Conta</h4>
+                        <form id="edit-profile-form">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nome de Usuário</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <button type="submit" class="btn btn-gradient">Salvar Alterações</button>
+                        </form>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <button type="submit" class="btn btn-gradient">Salvar Alterações</button>
-                </form>
-            </div>
 
-            <!-- Seção de Assinatura -->
-            <div class="form-card mb-4">
-                <h4 class="form-title">Minha Assinatura</h4>
-                <p><strong>Plano Atual:</strong> <span id="subscription-type">Nenhum</span></p>
-                <p><strong>Válida até:</strong> <span id="subscription-expires">--</span></p>
-                <a href="/subscription.html" class="btn btn-outline-primary">Ver Planos</a>
-            </div>
+                    <div class="form-card mb-4">
+                        <h4 class="form-title">Mudar Senha</h4>
+                        <form id="change-password-form">
+                            <div class="mb-3">
+                                <label for="current-password" class="form-label">Senha Atual</label>
+                                <input type="password" class="form-control" id="current-password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new-password" class="form-label">Nova Senha</label>
+                                <input type="password" class="form-control" id="new-password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm-new-password" class="form-label">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" id="confirm-new-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-gradient">Mudar Senha</button>
+                        </form>
+                    </div>
+                </div>
 
-            <!-- Seção de Mudar Senha -->
-            <div class="form-card mb-4">
-                <h4 class="form-title">Mudar Senha</h4>
-                <form id="change-password-form">
-                    <div class="mb-3">
-                        <label for="current-password" class="form-label">Senha Atual</label>
-                        <input type="password" class="form-control" id="current-password" required>
+                <!-- Right Column: Subscription & Danger Zone -->
+                <div class="col-md-6">
+                    <div class="form-card mb-4">
+                        <h4 class="form-title">Minha Assinatura</h4>
+                        <p><strong>Plano Atual:</strong> <span id="subscription-type">Nenhum</span></p>
+                        <p><strong>Válida até:</strong> <span id="subscription-expires">--</span></p>
+                        <a href="/subscription.html" class="btn btn-outline-primary">Ver Planos</a>
                     </div>
-                    <div class="mb-3">
-                        <label for="new-password" class="form-label">Nova Senha</label>
-                        <input type="password" class="form-control" id="new-password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-new-password" class="form-label">Confirmar Nova Senha</label>
-                        <input type="password" class="form-control" id="confirm-new-password" required>
-                    </div>
-                    <button type="submit" class="btn btn-gradient">Mudar Senha</button>
-                </form>
-            </div>
 
-            <!-- Zona de Perigo -->
-            <div class="form-card border-danger">
-                <h4 class="form-title text-danger">Zona de Perigo</h4>
-                <p class="text-muted">A ação abaixo é permanente e não pode ser desfeita.</p>
-                <button id="delete-account-btn" class="btn btn-danger">Deletar Minha Conta</button>
+                    <!-- Zona de Perigo -->
+                    <div class="form-card border-danger">
+                        <h4 class="form-title text-danger">Zona de Perigo</h4>
+                        <p class="text-muted">A ação abaixo é permanente e não pode ser desfeita.</p>
+                        <button id="delete-account-btn" class="btn btn-danger">Deletar Minha Conta</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

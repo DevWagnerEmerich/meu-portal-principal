@@ -667,6 +667,86 @@ body {
     align-items: stretch; /* Esticar os itens para terem a mesma altura */
 }
 
+/* --- Separator Style --- */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #6c757d;
+    margin: 1.5rem 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .5em;
+}
+
+/* --- Google Button Style --- */
+.btn-google {
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-google:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-google img {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- Highlighted Subscription Plan --- */
+.subscription-card.highlight {
+    border-width: 2px;
+    border-color: var(--primary) !important;
+    z-index: 10;
+    position: relative; /* Necessário para o z-index e para o posicionamento do badge */
+}
+
+.original-price {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #6c757d !important;
+    text-decoration: line-through;
+}
+
+
+.highlight-badge {
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+
+
 
 
 

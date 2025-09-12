@@ -12,7 +12,7 @@ router.get('/games/most-accessed', async (req, res) => {
         const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
 
         const [statsData, gamesData] = await Promise.all([
-            fs.readFile(statsPath, 'utf8'),
+            fs.readFile(statsPath, 'utf8').catch(() => '{}'), // Return empty object on error
             fs.readFile(gamesPath, 'utf8')
         ]);
 
@@ -20,12 +20,11 @@ router.get('/games/most-accessed', async (req, res) => {
         const games = JSON.parse(gamesData);
 
         const sortedGameIds = Object.keys(stats).sort((a, b) => stats[b] - stats[a]);
-        
         const top3GameIds = sortedGameIds.slice(0, 3);
 
         const topGames = top3GameIds.map(id => {
             return games.find(game => game.id === id);
-        }).filter(game => game); // Filter out any games that might not be found
+        }).filter(game => game);
 
         res.json(topGames);
     } catch (error) {
@@ -34,69 +33,67 @@ router.get('/games/most-accessed', async (req, res) => {
     }
 });
 
-// API to signal game start
+// API para iniciar uma sessão de jogo e registrar a jogada
 router.post('/game-start', (req, res) => {
     if (!req.session.userId) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({ message: 'Usuário não autenticado.' });
     }
 
-    db.get('SELECT subscription_type, daily_time_left FROM users WHERE id = ?', [req.session.userId], (err, user) => {
-        if (err) {
-            console.error('Error fetching user data for game start:', err.message);
-            return res.status(500).json({ message: 'Server error' });
-        }
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        if (user.subscription_type === 'none' && user.daily_time_left <= 0) {
-            return res.status(403).json({ message: 'Seu tempo diário de jogo acabou. Considere assinar para acesso ilimitado!' });
-        }
-
-        // Store the start time in session
-        req.session.gameStartTime = Date.now();
-        res.json({ message: 'Game start recorded', dailyTimeLeft: user.daily_time_left, subscriptionType: user.subscription_type });
-    });
-});
-
-// API to signal game stop and update daily_time_left
-router.post('/game-stop', (req, res) => {
-    if (!req.session.userId) {
-        return res.status(401).json({ message: 'Unauthorized' });
+    const { gameSrc } = req.body;
+    if (!gameSrc) {
+        return res.status(400).json({ message: 'gameSrc não fornecido.' });
     }
+    const gameId = gameSrc.split('/').slice(-2, -1)[0];
+    const FREE_PLAYS_LIMIT = 3;
 
-    const gameStartTime = req.session.gameStartTime;
-    if (!gameStartTime) {
-        return res.status(400).json({ message: 'Game start time not recorded' });
-    }
-
-    const gameDuration = Math.floor((Date.now() - gameStartTime) / 1000); // Duration in seconds
-
-    db.get('SELECT subscription_type, daily_time_left FROM users WHERE id = ?', [req.session.userId], (err, user) => {
-        if (err) {
-            console.error('Error fetching user data for game stop:', err.message);
-            return res.status(500).json({ message: 'Server error' });
-        }
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+    db.get('SELECT subscription_type, subscription_end_date, free_plays_used FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+        if (err || !user) {
+            return res.status(500).json({ message: 'Erro ao buscar dados do usuário.' });
         }
 
-        if (user.subscription_type === 'none') {
-            // Only decrement for free users
-            const newDailyTimeLeft = Math.max(0, user.daily_time_left - gameDuration);
-            db.run('UPDATE users SET daily_time_left = ? WHERE id = ?', [newDailyTimeLeft, req.session.userId], (updateErr) => {
-                if (updateErr) {
-                    console.error('Error updating daily_time_left:', updateErr.message);
-                    return res.status(500).json({ message: 'Error updating game time' });
-                }
-                res.json({ message: 'Game time updated', newDailyTimeLeft: newDailyTimeLeft });
-            });
+        const isSubscriber = user.subscription_type !== 'none' && user.subscription_end_date > Date.now();
+
+        if (isSubscriber) {
+            // Assinante pode jogar, apenas registra a jogada para estatísticas
+            recordPlay(req.session.userId, gameId, false, res);
         } else {
-            // Subscribed users have unlimited time, just acknowledge stop
-            res.json({ message: 'Game stop recorded (subscribed user)' });
+            // Usuário gratuito, verifica o limite
+            if (user.free_plays_used < FREE_PLAYS_LIMIT) {
+                // Incrementa o contador e registra a jogada
+                db.run('UPDATE users SET free_plays_used = free_plays_used + 1 WHERE id = ?', [req.session.userId], (updateErr) => {
+                    if (updateErr) {
+                        return res.status(500).json({ message: 'Erro ao atualizar contagem de jogadas.' });
+                    }
+                    recordPlay(req.session.userId, gameId, true, res);
+                });
+            } else {
+                // Limite atingido
+                return res.status(403).json({
+                    message: `Você usou suas ${FREE_PLAYS_LIMIT} jogadas gratuitas. Assine para continuar jogando!`,
+                    showSubscriptionModal: true
+                });
+            }
         }
-        delete req.session.gameStartTime; // Clear game start time from session
     });
 });
+
+// Função auxiliar para registrar a jogada na tabela game_plays
+function recordPlay(userId, gameId, isFreeTrial, res) {
+    const startTime = Date.now();
+    const logSql = 'INSERT INTO game_plays (user_id, game_id, start_time, is_free_trial) VALUES (?, ?, ?, ?)';
+    db.run(logSql, [userId, gameId, startTime, isFreeTrial ? 1 : 0], function (logErr) {
+        if (logErr) {
+            console.error('Erro ao registrar na tabela game_plays:', logErr.message);
+            return res.status(500).json({ message: 'Erro ao registrar log do jogo.' });
+        }
+        res.json({
+            message: 'Início do jogo registrado',
+            playId: this.lastID
+        });
+    });
+}
+
+// API para descontar tempo de jogo (polling)
+
 
 module.exports = router;

@@ -7,7 +7,7 @@ const router = express.Router();
 // Rota para verificar status do usuário
 router.get('/user-status', (req, res) => {
     if (req.session.userId) {
-        db.get('SELECT username, subscription_type, daily_time_left FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+        db.get('SELECT username, subscription_type FROM users WHERE id = ?', [req.session.userId], (err, user) => {
             if (err) {
                 console.error('Erro ao buscar dados do usuário:', err.message);
                 return res.status(500).json({ message: 'Erro no servidor.' });
@@ -16,8 +16,7 @@ router.get('/user-status', (req, res) => {
                 res.json({
                     loggedIn: true,
                     username: user.username,
-                    subscriptionType: user.subscription_type,
-                    dailyTimeLeft: user.daily_time_left
+                    subscriptionType: user.subscription_type
                 });
             } else {
                 req.session.destroy(); // Clear invalid session
@@ -35,7 +34,7 @@ router.get('/profile', (req, res) => {
         return res.status(401).json({ message: 'Não autorizado' });
     }
 
-    const sql = 'SELECT username, email, subscription_type, subscription_end_date, daily_time_left FROM users WHERE id = ?';
+    const sql = 'SELECT username, email, subscription_type, subscription_end_date FROM users WHERE id = ?';
     db.get(sql, [req.session.userId], (err, user) => {
         if (err) {
             return res.status(500).json({ message: 'Erro no servidor.' });
@@ -136,6 +135,37 @@ router.put('/profile/password', (req, res) => {
                 });
             });
         });
+    });
+});
+
+// Rota para verificar o status da oferta de boas-vindas
+router.get('/user/offer-status', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+
+    const sql = 'SELECT created_at FROM users WHERE id = ?';
+    db.get(sql, [req.session.userId], (err, user) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro no servidor.' });
+        }
+        if (!user || !user.created_at) {
+            // Se não houver data de criação, a oferta não se aplica
+            return res.json({ offerActive: false });
+        }
+
+        const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+        const offerEndDate = user.created_at + sevenDaysInMillis;
+        const now = Date.now();
+
+        if (now < offerEndDate) {
+            res.json({
+                offerActive: true,
+                offerEndDate: offerEndDate
+            });
+        } else {
+            res.json({ offerActive: false });
+        }
     });
 });
 

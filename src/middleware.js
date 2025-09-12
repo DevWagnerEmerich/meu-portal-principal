@@ -3,64 +3,39 @@ const db = require('./database.js');
 
 // Middleware to check user access for games
 const checkGameAccess = (req, res, next) => {
-    // Only apply this check to the main game HTML files, not static assets like images or CSS
-    const path = req.path;
-    if (!path.endsWith('.html') && !path.endsWith('/')) {
+    const gamePath = req.path;
+    // Aplica o middleware apenas aos arquivos HTML dentro das pastas de jogos
+    const isGameRoute = gamePath.match(/\/games\/([a-zA-Z0-9_-]+)\/index\.html/);
+
+    if (!isGameRoute) {
         return next();
     }
 
+    // Apenas verifica se o usuário está logado. A contagem de jogadas será feita no game-start.
     if (!req.session.userId) {
-        return res.status(401).send('Unauthorized: Please log in to play games.');
+        return res.redirect('/login.html?reason=login_required');
     }
 
-    db.get('SELECT subscription_type, daily_time_left, last_login_date FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+    // Se estiver logado, permite o carregamento da página do jogo.
+    // A decisão de "gastar" a jogada ou não será no clique do botão "jogar".
+    next();
+};
+
+const isAdmin = (req, res, next) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Unauthorized: Not logged in.' });
+    }
+
+    db.get('SELECT role FROM users WHERE id = ?', [req.session.userId], (err, user) => {
         if (err) {
-            console.error('Error fetching user data for game access:', err.message);
-            return res.status(500).send('Server error during access check.');
+            console.error('Erro ao buscar função do usuário:', err.message);
+            return res.status(500).json({ message: 'Erro do servidor ao verificar função.' });
         }
-        if (!user) {
-            req.session.destroy(); // Clear invalid session
-            return res.status(401).send('Unauthorized: User not found.');
+        if (!user || user.role !== 'admin') {
+            return res.status(403).json({ message: 'Proibido: Você não tem privilégios de administrador.' });
         }
-
-        const now = Date.now();
-        const oneDay = 24 * 60 * 60 * 1000; // Milliseconds in a day
-
-        // Reset daily_time_left if it's a new day since last login
-        if (user.last_login_date && (now - user.last_login_date) > oneDay) {
-            user.daily_time_left = 900; // Reset to 15 minutes
-            db.run('UPDATE users SET daily_time_left = ?, last_login_date = ? WHERE id = ?', [user.daily_time_left, now, req.session.userId], (updateErr) => {
-                if (updateErr) console.error('Error resetting daily_time_left:', updateErr.message);
-            });
-        } else {
-            // Update last_login_date on every access to keep it current
-            db.run('UPDATE users SET last_login_date = ? WHERE id = ?', [now, req.session.userId], (updateErr) => {
-                if (updateErr) console.error('Error updating last_login_date:', updateErr.message);
-            });
-        }
-
-        if (user.subscription_type !== 'none') {
-            // Check if subscription is still active
-            if (user.subscription_end_date && user.subscription_end_date > now) {
-                next(); // User has active subscription
-            } else {
-                // Subscription expired, update type to 'none'
-                db.run('UPDATE users SET subscription_type = \'none\', subscription_end_date = NULL WHERE id = ?', [req.session.userId], (updateErr) => {
-                    if (updateErr) console.error('Error updating expired subscription:', updateErr.message);
-                });
-                return res.status(403).send('Forbidden: Your subscription has expired. Please renew to continue playing.');
-            }
-        } else {
-            // Free user: check daily time left
-            if (user.daily_time_left > 0) {
-                // For now, we'll just allow access. Time decrement will be handled later.
-                // This middleware only checks if they *can* access, not how much time they've used in this session.
-                next();
-            } else {
-                return res.status(403).send('Forbidden: You have used all your free daily game time. Please subscribe for unlimited access!');
-            }
-        }
+        next(); // Usuário é um administrador, prossiga
     });
 };
 
-module.exports = { checkGameAccess };
+module.exports = { checkGameAccess, isAdmin };

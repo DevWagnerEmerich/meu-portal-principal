@@ -23,16 +23,17 @@ router.post('/register', async (req, res) => {
 
     try {
         const hash = await bcrypt.hash(password, saltRounds);
-
-        const sql = 'INSERT INTO users (username, email, password, subscription_type, daily_time_left, last_login_date) VALUES (?, ?, ?, ?, ?, ?)';
-        const initialDailyTime = 900; // 15 minutes in seconds
         const now = Date.now();
 
-        db.run(sql, [username, email, hash, 'none', initialDailyTime, now], async function(err) {
+        // A coluna free_plays_used tem um DEFAULT 0 no banco de dados, então não precisamos especificá-la aqui.
+        const sql = 'INSERT INTO users (username, email, password, subscription_type, last_login_date, created_at) VALUES (?, ?, ?, ?, ?, ?)';
+        
+        db.run(sql, [username, email, hash, 'none', now, now], async function(err) {
             if (err) {
                 if (err.code === 'SQLITE_CONSTRAINT') {
                     return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
                 }
+                console.error("Erro no registro: ", err.message); // Log mais detalhado do erro
                 return res.status(500).json({ message: 'Erro ao registrar o usuário.' });
             }
 
@@ -73,7 +74,7 @@ router.post('/login', (req, res) => {
         return res.status(400).json({ message: 'Usuário e senha são obrigatórios.' });
     }
 
-    const sql = 'SELECT * FROM users WHERE username = ?';
+    const sql = 'SELECT id, username, password, show_welcome_modal FROM users WHERE username = ?';
     db.get(sql, [username], (err, user) => {
         if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
         if (!user) { return res.status(404).json({ message: 'Usuário não encontrado.' }); }
@@ -83,16 +84,20 @@ router.post('/login', (req, res) => {
                 req.session.userId = user.id;
                 req.session.username = user.username;
 
-                const today = new Date().setHours(0, 0, 0, 0);
-                const lastLoginDay = user.last_login_date ? new Date(user.last_login_date).setHours(0, 0, 0, 0) : 0;
+                // A lógica de resetar o tempo diário foi removida.
+                // Apenas atualizamos a data do último login.
+                db.run('UPDATE users SET last_login_date = ? WHERE id = ?', [Date.now(), user.id]);
 
-                if (today > lastLoginDay) {
-                    const resetSql = 'UPDATE users SET daily_time_left = ?, last_login_date = ? WHERE id = ?';
-                    const initialDailyTime = 900;
-                    const now = Date.now();
-                    db.run(resetSql, [initialDailyTime, now, user.id]);
+                // Se for o primeiro login, marca o modal para ser exibido e desativa para as próximas vezes
+                if (user.show_welcome_modal) {
+                    db.run('UPDATE users SET show_welcome_modal = 0 WHERE id = ?', [user.id]);
                 }
-                res.json({ message: 'Login bem-sucedido!', username: user.username });
+
+                res.json({ 
+                    message: 'Login bem-sucedido!', 
+                    username: user.username,
+                    showWelcomeModal: user.show_welcome_modal // Envia a flag para o frontend
+                });
             } else {
                 res.status(401).json({ message: 'Senha incorreta.' });
             }

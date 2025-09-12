@@ -28,38 +28,68 @@ router.post('/create_preference', (req, res) => {
     return res.status(401).json({ error: 'Usuário não autenticado. Por favor, faça login para continuar.' });
   }
 
-  const { id, title, price } = req.body;
+  const { id, title } = req.body; // O preço não é mais confiado do cliente
 
-  if (!id || !title || !price) {
+  if (!id || !title) {
     return res.status(400).json({ error: 'Dados do plano incompletos.' });
   }
 
-  preference.create({
-    body: {
-      items: [
-        {
+  // --- Lógica de validação de preço e oferta do lado do servidor ---
+  const standardPrices = {
+    monthly: 19,
+    semiannual: 99,
+    annual: 179
+  };
+
+  const discountedPrices = {
+    monthly: parseFloat((19 * 0.75).toFixed(2)),    // 14.25
+    semiannual: parseFloat((99 * 0.75).toFixed(2)), // 74.25
+    annual: parseFloat((179 * 0.75).toFixed(2))     // 134.25
+  };
+
+  const sql = 'SELECT created_at FROM users WHERE id = ?';
+  db.get(sql, [req.session.userId], (err, user) => {
+    if (err || !user) {
+      return res.status(500).json({ error: 'Erro ao verificar elegibilidade do usuário.' });
+    }
+
+    const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+    const offerEndDate = user.created_at + sevenDaysInMillis;
+    const isOfferActive = Date.now() < offerEndDate;
+
+    const priceMap = isOfferActive ? discountedPrices : standardPrices;
+    const finalPrice = priceMap[id];
+
+    if (!finalPrice) {
+      return res.status(400).json({ error: 'Plano inválido selecionado.' });
+    }
+
+    // --- Cria a Preferência do Mercado Pago ---
+    preference.create({
+      body: {
+        items: [{
           id: id,
           title: title,
           quantity: 1,
-          unit_price: Number(price),
+          unit_price: finalPrice,
           currency_id: 'BRL',
+        }],
+        back_urls: {
+          success: 'http://localhost:3000/index.html?status=success',
+          failure: 'http://localhost:3000/index.html?status=failure',
+          pending: 'http://localhost:3000/index.html?status=pending',
         },
-      ],
-      back_urls: {
-        success: 'http://localhost:3000/index.html?status=success',
-        failure: 'http://localhost:3000/index.html?status=failure',
-        pending: 'http://localhost:3000/index.html?status=pending',
+        // auto_return: "approved", // Lembrete: Reativar em produção para redirecionamento automático
+        external_reference: String(req.session.userId) // Associa o pagamento ao ID do usuário
       },
-      external_reference: String(req.session.userId) // Associa o pagamento ao ID do usuário
-    },
-  })
-  .then(response => {
-    // Envia a URL de checkout de volta para o frontend
-    res.json({ checkout_url: response.init_point });
-  })
-  .catch(error => {
-    console.error('Erro ao criar preferência:', JSON.stringify(error, null, 2));
-    res.status(500).json({ error: 'Falha ao criar preferência de pagamento.' });
+    })
+    .then(response => {
+      res.json({ checkout_url: response.init_point });
+    })
+    .catch(error => {
+      console.error('Erro ao criar preferência:', error);
+      res.status(500).json({ error: 'Falha ao criar preferência de pagamento.' });
+    });
   });
 });
 

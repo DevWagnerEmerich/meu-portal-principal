@@ -46,8 +46,11 @@
     <div class="main-container">
         <div class="content-wrapper">
             <div class="welcome-section text-center">
-                <h1 class="gradient-text">Seu Portal Educacional de Jogos</h1>
-                <p class="fs-4">Descubra, aprenda e divirta-se com nossa coleção de jogos PWA.</p>
+                <h1 class="gradient-text">Aprender pode ser a melhor parte do dia.</h1>
+                <p class="fs-4">Transforme o estudo em uma aventura com jogos incríveis que desafiam sua mente. Para alunos que amam um desafio e professores que buscam inovar.</p>
+                <div class="mt-4">
+                    <a href="#all-games-grid" class="btn btn-gradient btn-lg">Explorar Jogos</a>
+                </div>
             </div>
 
             <!-- Seção de Destaques -->
@@ -161,51 +164,57 @@
                     <h5 class="modal-title" id="subscriptionOptionsModalLabel">Escolha seu Plano de Assinatura</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                <div class="modal-body" style="position: relative; padding-top: 2rem;">
+                    <div id="offer-banner" class="alert alert-success text-center" style="display: none; margin-bottom: 2rem;">
+                        <h4>🎉 Oferta de Boas-Vindas! 🎉</h4>
+                        <p>Como novo membro, você tem <strong>25% de desconto</strong> em qualquer plano. Mas corra, sua oferta expira em:</p>
+                        <h5 id="offer-countdown"></h5>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 text-center align-items-center">
                         <div class="col">
-                            <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card mb-4 rounded-3 shadow-sm subscription-card">
                                 <div class="card-header py-3">
-                                    <h4 class="my-0 fw-normal">Mensal</h4>
+                                    <h4 class="my-0 fw-normal">Professor Essencial</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h1 class="card-title pricing-card-title">R$19<small class="text-muted fw-light">/mês</small></h1>
+                                    <h1 class="card-title pricing-card-title" data-plan-id="monthly">R$19<small class="text-muted fw-light">/mês</small></h1>
                                     <ul class="list-unstyled mt-3 mb-4">
-                                        <li>Acesso ilimitado</li>
-                                        <li>Suporte por e-mail</li>
+                                        <li>Acesso ilimitado a <strong>todos os jogos</strong>.</li>
+                                        <li><strong>Flexibilidade total</strong> para começar.</li>
+                                        <li>Cancele a qualquer momento.</li>
                                     </ul>
                                     <button type="button" class="w-100 btn btn-lg btn-outline-primary subscribe-btn" data-id="monthly" data-title="Assinatura Mensal" data-price="19">Assinar Mensal</button>
-                                    
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                            <div class="card mb-4 rounded-3 shadow-sm subscription-card highlight">
+                                <div class="highlight-badge">MAIS POPULAR</div>
                                 <div class="card-header py-3 text-white bg-primary border-primary">
-                                    <h4 class="my-0 fw-normal">Semestral</h4>
+                                    <h4 class="my-0 fw-normal">Educador Avançado</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h1 class="card-title pricing-card-title">R$99<small class="text-muted fw-light">/6 meses</small></h1>
+                                    <h1 class="card-title pricing-card-title" data-plan-id="semiannual">R$99<small class="text-muted fw-light">/6 meses</small></h1>
                                     <ul class="list-unstyled mt-3 mb-4">
-                                        <li>Acesso ilimitado</li>
-                                        <li>Suporte prioritário</li>
-                                        <li>5% de desconto</li>
+                                        <li>Ideal para o <strong>planejamento do semestre</strong>.</li>
+                                        <li><strong>Ótimo custo-benefício</strong>.</li>
+                                        <li>Inclui <strong>todos os benefícios</strong> mensais.</li>
                                     </ul>
                                     <button type="button" class="w-100 btn btn-lg btn-primary subscribe-btn" data-id="semiannual" data-title="Assinatura Semestral" data-price="99">Assinar Semestral</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card mb-4 rounded-3 shadow-sm subscription-card">
                                 <div class="card-header py-3">
-                                    <h4 class="my-0 fw-normal">Anual</h4>
+                                    <h4 class="my-0 fw-normal">Mestre Inovador</h4>
                                 </div>
                                 <div class="card-body">
-                                    <h1 class="card-title pricing-card-title">R$179<small class="text-muted fw-light">/ano</small></h1>
+                                    <h1 class="card-title pricing-card-title" data-plan-id="annual">R$179<small class="text-muted fw-light">/ano</small></h1>
                                     <ul class="list-unstyled mt-3 mb-4">
-                                        <li>Acesso ilimitado</li>
-                                        <li>Suporte 24/7</li>
-                                        <li>10% de desconto</li>
+                                        <li>Acesso ilimitado por <strong>1 ano inteiro</strong>.</li>
+                                        <li><strong>Tranquilidade</strong> para o ano letivo.</li>
+                                        <li><strong>Máximo de economia</strong> (Economize R$49).</li>
                                     </ul>
                                     <button type="button" class="w-100 btn btn-lg btn-outline-primary subscribe-btn" data-id="annual" data-title="Assinatura Anual" data-price="179">Assinar Anual</button>
                                 </div>
@@ -220,6 +229,26 @@
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <!-- Toasts will be appended here -->
     </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">🎉 Bem-vindo(a) ao Educatech!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Que bom ter você por aqui!</p>
+                    <p>Como um novo explorador, você tem <strong>3 jogadas gratuitas</strong> para experimentar qualquer um dos nossos jogos. Divirta-se!</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Começar a Explorar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
