@@ -1,4 +1,6 @@
 
+console.log('Debug DATABASE_URL:', process.env.DATABASE_URL);
+
 console.log('SERVER.JS FILE IS EXECUTING');
 
 const config = require('./config');
