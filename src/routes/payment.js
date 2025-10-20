@@ -1,26 +1,22 @@
+const crypto = require('crypto');
 const express = require('express');
 const router = express.Router();
-
+const config = require('../config');
 const { sendEmail } = require('../email.js');
 const db = require('../database.js');
 
 // Rota para enviar a Public Key para o frontend
 router.get('/config', (req, res) => {
-  res.json({ publicKey: process.env.MERCADOPAGO_PUBLIC_KEY });
+  res.json({ publicKey: config.mercadoPago.publicKey });
 });
 
 // Importa o SDK do Mercado Pago
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
-// Garante que as variáveis de ambiente foram carregadas.
-// O ideal é carregar no arquivo principal do servidor (server.js), mas garantimos aqui também.
-require('dotenv').config();
-
 // Configura o cliente do Mercado Pago com o Access Token
-const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN });
+const client = new MercadoPagoConfig({ accessToken: config.mercadoPago.accessToken });
 const preference = new Preference(client);
 
-// Rota para criar a preferência de pagamento
 // Rota para criar a preferência de pagamento
 router.post('/create_preference', (req, res) => {
   // Garante que o usuário está logado para criar uma preferência
@@ -64,25 +60,28 @@ router.post('/create_preference', (req, res) => {
       return res.status(400).json({ error: 'Plano inválido selecionado.' });
     }
 
-    // --- Cria a Preferência do Mercado Pago ---
-    preference.create({
-      body: {
-        items: [{
-          id: id,
-          title: title,
-          quantity: 1,
-          unit_price: finalPrice,
-          currency_id: 'BRL',
-        }],
-        back_urls: {
-          success: 'http://localhost:3000/index.html?status=success',
-          failure: 'http://localhost:3000/index.html?status=failure',
-          pending: 'http://localhost:3000/index.html?status=pending',
-        },
-        // auto_return: "approved", // Lembrete: Reativar em produção para redirecionamento automático
-        external_reference: String(req.session.userId) // Associa o pagamento ao ID do usuário
+    const preferenceData = {
+      items: [{
+        id: id,
+        title: title,
+        quantity: 1,
+        unit_price: finalPrice,
+        currency_id: 'BRL',
+      }],
+      back_urls: {
+        success: `${config.domain}/index.html?status=success`,
+        failure: `${config.domain}/index.html?status=failure`,
+        pending: `${config.domain}/index.html?status=pending`,
       },
-    })
+      external_reference: String(req.session.userId) // Associa o pagamento ao ID do usuário
+    };
+
+    if (config.isProduction) {
+      preferenceData.auto_return = 'approved';
+    }
+
+    // --- Cria a Preferência do Mercado Pago ---
+    preference.create({ body: preferenceData })
     .then(response => {
       res.json({ checkout_url: response.init_point });
     })
@@ -93,18 +92,97 @@ router.post('/create_preference', (req, res) => {
   });
 });
 
+// Rota para buscar os planos e preços
+router.get('/plans', (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ error: 'Usuário não autenticado.' });
+    }
+
+    const standardPrices = {
+        monthly: { title: 'Plano Mensal', price: 19, features: ['Acesso a todos os jogos', 'Suporte por e-mail'] },
+        semiannual: { title: 'Plano Semestral', price: 99, features: ['Acesso a todos os jogos', 'Suporte prioritário', 'Acesso antecipado a novos jogos'] },
+        annual: { title: 'Plano Anual', price: 179, features: ['Todos os benefícios do plano semestral', 'Desconto de 15% em comparação com o plano mensal'] }
+    };
+
+    const discountedPrices = {
+        monthly: { ...standardPrices.monthly, price: parseFloat((19 * 0.75).toFixed(2)) },
+        semiannual: { ...standardPrices.semiannual, price: parseFloat((99 * 0.75).toFixed(2)) },
+        annual: { ...standardPrices.annual, price: parseFloat((179 * 0.75).toFixed(2)) }
+    };
+
+    const sql = 'SELECT created_at FROM users WHERE id = ?';
+    db.get(sql, [req.session.userId], (err, user) => {
+        if (err || !user) {
+            // Se não encontrar o usuário, retorna os preços padrão
+            return res.json({ plans: standardPrices, isOfferActive: false });
+        }
+
+        const sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000;
+        const offerEndDate = user.created_at + sevenDaysInMillis;
+        const isOfferActive = Date.now() < offerEndDate;
+
+        const plans = isOfferActive ? discountedPrices : standardPrices;
+        res.json({ plans, isOfferActive });
+    });
+});
+
 module.exports = router;
 
 // Rota para receber webhooks do Mercado Pago
 router.post('/webhook', async (req, res) => {
   const notification = req.body;
+  const xSignature = req.headers['x-signature'];
+  const xRequestId = req.headers['x-request-id'];
+
+  if (!xSignature || !xRequestId) {
+    return res.status(401).send('Assinatura inválida.');
+  }
 
   console.log('----------\nWebhook Recebido:\n', JSON.stringify(notification, null, 2), '\n----------');
 
   try {
     if (notification.type === 'payment') {
       const paymentId = notification.data.id;
-      
+
+      // Verifica a assinatura
+      const parts = xSignature.split(",");
+      let ts;
+      let hash;
+
+      parts.forEach((part) => {
+          const [key, value] = part.split("=");
+          if (key && value) {
+              const trimmedKey = key.trim();
+              const trimmedValue = value.trim();
+              if (trimmedKey === "ts") {
+                  ts = trimmedValue;
+              } else if (trimmedKey === "v1") {
+                  hash = trimmedValue;
+              }
+          }
+      });
+
+      if (!ts || !hash) {
+        return res.status(401).send('Assinatura inválida.');
+      }
+
+      const secret = config.mercadoPago.webhookSecret;
+      if (!secret) {
+        console.error("Segredo do webhook do Mercado Pago não configurado.");
+        return res.status(500).send('Erro interno do servidor.');
+      }
+
+      const manifest = `id:${paymentId};request-id:${xRequestId};ts:${ts};`;
+      const cyphedSignature = crypto
+          .createHmac("sha256", secret)
+          .update(manifest)
+          .digest("hex");
+
+      if (cyphedSignature !== hash) {
+        console.error(`Falha na verificação da assinatura para o pagamento ${paymentId}.`);
+        return res.status(401).send('Assinatura inválida.');
+      }
+
       const { Payment } = require('mercadopago');
       const payment = new Payment(client);
       const paymentDetails = await payment.get({ id: paymentId });

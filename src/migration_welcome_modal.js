@@ -1,27 +1,29 @@
+module.exports = {
+    up: async (db) => {
+        const dbRun = (sql, params = []) => {
+            return new Promise((resolve, reject) => {
+                db.run(sql, params, function(err) {
+                    if (err) reject(err);
+                    resolve(this);
+                });
+            });
+        };
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./portal_jogos.db');
+        console.log('Iniciando migração: migration_welcome_modal.js');
 
-console.log('Iniciando migração para adicionar a flag do modal de boas-vindas...');
+        try {
+            await dbRun("ALTER TABLE users ADD COLUMN show_welcome_modal INTEGER DEFAULT 1").catch(err => {
+                if (err.message.includes('duplicate column name')) {
+                    console.log('Coluna "show_welcome_modal" já existe.');
+                } else {
+                    throw err; // Re-lança outros erros
+                }
+            });
+            console.log('Coluna "show_welcome_modal" verificada/adicionada à tabela "users".');
 
-db.serialize(() => {
-    db.run("ALTER TABLE users ADD COLUMN show_welcome_modal INTEGER DEFAULT 1", (err) => {
-        if (err) {
-            if (err.message.includes('duplicate column name')) {
-                console.log('Coluna "show_welcome_modal" já existe.');
-            } else {
-                console.error('Erro ao adicionar a coluna show_welcome_modal:', err.message);
-                return;
-            }
-        } else {
-            console.log('Coluna "show_welcome_modal" adicionada com sucesso.');
+        } catch (error) {
+            console.error('Erro na migração migration_welcome_modal.js:', error.message);
+            throw error; // Rejeita a Promise para que run-migrations.js capture o erro
         }
-    });
-
-    db.close((err) => {
-        if (err) {
-            console.error('Erro ao fechar o banco de dados', err.message);
-        }
-        console.log('Migração do modal de boas-vindas concluída.');
-    });
-});
+    }
+};

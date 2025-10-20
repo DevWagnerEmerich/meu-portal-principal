@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "ngrok": "ngrok http 3000",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "migrate": "node src/run-migrations.js"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +16,15 @@
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
     "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
     "mercadopago": "^2.8.0",
     "nodemailer": "^7.0.6",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "pg": "^8.16.3",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

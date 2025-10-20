@@ -1,0 +1,91 @@
+<div class="page-header">
+    <h1 class="h2">Análise de Usuários</h1>
+    <p class="text-secondary">Métricas detalhadas sobre aquisição e planos de usuários.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="admin-card">
+            <div class="card-header"><div class="card-title">Novos Usuários (Últimos 14 dias)</div></div>
+            <div class="chart-container">
+                <canvas id="newUsersChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="admin-card">
+            <div class="card-header"><div class="card-title">Distribuição de Planos</div></div>
+            <div class="chart-container">
+                <canvas id="planDistributionChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (async () => {
+        const chartDefaults = {
+            plugins: { legend: { display: false } },
+            scales: { 
+                y: { ticks: { color: '#6B7280' }, grid: { display: false } },
+                x: { ticks: { color: '#6B7280' }, grid: { display: false } }
+            },
+            maintainAspectRatio: false,
+            responsive: true
+        };
+
+        async function fetchData(endpoint) {
+            const response = await fetch(`/api/admin/${endpoint}`);
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    // This will be handled by the main page's toast function
+                }
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        try {
+            const newUserDailyData = await fetchData('metrics/users/new-daily');
+            if (newUserDailyData) {
+                new Chart(document.getElementById('newUsersChart'), {
+                    type: 'line',
+                    data: {
+                        labels: newUserDailyData.map(row => row.date),
+                        datasets: [{
+                            label: 'Novos Usuários',
+                            data: newUserDailyData.map(row => row.count),
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderColor: '#4F46E5',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: chartDefaults
+                });
+            }
+        } catch (e) {
+            console.error("Erro no gráfico de novos usuários:", e);
+        }
+
+        try {
+            const planDistributionData = await fetchData('metrics/subscriptions/plan-distribution');
+            if (planDistributionData) {
+                new Chart(document.getElementById('planDistributionChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: planDistributionData.map(row => row.subscription_type),
+                        datasets: [{
+                            data: planDistributionData.map(row => row.count),
+                            backgroundColor: ['#4F46E5', '#818CF8', '#A78BFA', '#E5E7EB'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { ...chartDefaults, plugins: { legend: { display: true, position: 'bottom' } } }
+                });
+            }
+        } catch (e) {
+            console.error("Erro no gráfico de distribuição de planos:", e);
+        }
+    })();
+</script>

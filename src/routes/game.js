@@ -46,9 +46,14 @@ router.post('/game-start', (req, res) => {
     const gameId = gameSrc.split('/').slice(-2, -1)[0];
     const FREE_PLAYS_LIMIT = 3;
 
-    db.get('SELECT subscription_type, subscription_end_date, free_plays_used FROM users WHERE id = ?', [req.session.userId], (err, user) => {
+    db.get('SELECT role, subscription_type, subscription_end_date, free_plays_used FROM users WHERE id = ?', [req.session.userId], (err, user) => {
         if (err || !user) {
             return res.status(500).json({ message: 'Erro ao buscar dados do usuário.' });
+        }
+
+        // O administrador tem acesso ilimitado
+        if (user.role === 'admin') {
+            return recordPlay(req.session.userId, gameId, false, res);
         }
 
         const isSubscriber = user.subscription_type !== 'none' && user.subscription_end_date > Date.now();

@@ -1,13 +1,28 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const db = require('../database.js');
 const { sendEmail } = require('../email.js');
 const passport = require('passport');
+const config = require('../config');
+const { body, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
+const userModel = require('../models/userModel.js');
 
 const router = express.Router();
 const saltRounds = 10;
-const PORT = 3000;
+
+// Define os limitadores de requisição
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 20, // Limita cada IP a 20 requisições por janela
+    message: 'Muitas requisições criadas a partir deste IP, por favor, tente novamente após 15 minutos'
+});
+
+const sensitiveApiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 10, // Limita cada IP a 10 requisições por janela para rotas sensíveis
+    message: 'Muitas tentativas a partir deste IP, por favor, tente novamente após 15 minutos'
+});
 
 // Função para gerar um token aleatório
 const generateToken = () => {
@@ -15,175 +30,199 @@ const generateToken = () => {
 };
 
 // Rota para registrar um novo usuário
-router.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: 'Usuário, e-mail e senha são obrigatórios.' });
+router.post('/register', [
+    body('username', 'O nome de usuário deve ter no mínimo 3 caracteres.').isLength({ min: 3 }).trim().escape(),
+    body('email', 'Por favor, insira um e-mail válido.').isEmail().normalizeEmail(),
+    body('password', 'A senha deve ter no mínimo 6 caracteres.').isLength({ min: 6 })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
+
+    const { username, email, password } = req.body;
 
     try {
         const hash = await bcrypt.hash(password, saltRounds);
-        const now = Date.now();
+        const { id: userId } = await userModel.createUser({ username, email, hash });
 
-        // A coluna free_plays_used tem um DEFAULT 0 no banco de dados, então não precisamos especificá-la aqui.
-        const sql = 'INSERT INTO users (username, email, password, subscription_type, last_login_date, created_at) VALUES (?, ?, ?, ?, ?, ?)';
-        
-        db.run(sql, [username, email, hash, 'none', now, now], async function(err) {
-            if (err) {
-                if (err.code === 'SQLITE_CONSTRAINT') {
-                    return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
-                }
-                console.error("Erro no registro: ", err.message); // Log mais detalhado do erro
-                return res.status(500).json({ message: 'Erro ao registrar o usuário.' });
-            }
+        const confirmationToken = generateToken();
+        const expiresAt = Date.now() + (24 * 60 * 60 * 1000); // 24 horas
 
-            const userId = this.lastID;
-            const confirmationToken = generateToken();
-            const expiresAt = Date.now() + (24 * 60 * 60 * 1000); // Token válido por 24 horas
+        await userModel.createEmailConfirmationToken({ userId, token: confirmationToken, expiresAt });
 
-            db.run('INSERT INTO email_confirmations (user_id, token, expires_at) VALUES (?, ?, ?)', [userId, confirmationToken, expiresAt], async (err) => {
-                if (err) {
-                    console.error('Erro ao salvar token de confirmação', err.message);
-                    return res.status(500).json({ message: 'Erro ao registrar o usuário (token).', detail: err.message });
-                }
-
-                const confirmationLink = `http://localhost:${PORT}/api/confirm-email?token=${confirmationToken}`;
-                try {
-                    await sendEmail({
-                        to: email,
-                        subject: 'Confirme seu cadastro no Educatech',
-                        text: `Olá ${username}, por favor, confirme seu e-mail clicando no seguinte link: ${confirmationLink}`,
-                        html: `<p>Olá ${username},</p><p>Por favor, confirme seu e-mail clicando no link abaixo:</p><a href="${confirmationLink}">Confirmar E-mail</a>`
-                    });
-                    res.status(201).json({ message: 'Usuário registrado com sucesso! Verifique seu e-mail para confirmar o cadastro.' });
-                } catch (emailError) {
-                    console.error('Falha ao enviar e-mail de confirmação:', emailError);
-                    res.status(201).json({ message: 'Usuário registrado, mas houve um problema ao enviar o e-mail de confirmação.' });
-                }
+        const confirmationLink = `${config.domain}/api/confirm-email?token=${confirmationToken}`;
+        try {
+            await sendEmail({
+                to: email,
+                subject: 'Confirme seu cadastro no Educatech',
+                text: `Olá ${username}, por favor, confirme seu e-mail clicando no seguinte link: ${confirmationLink}`,
+                html: `<p>Olá ${username},</p><p>Por favor, confirme seu e-mail clicando no link abaixo:</p><a href="${confirmationLink}">Confirmar E-mail</a>`
             });
-        });
+            res.status(201).json({ message: 'Usuário registrado com sucesso! Verifique seu e-mail para confirmar o cadastro.' });
+        } catch (emailError) {
+            console.error('Falha ao enviar e-mail de confirmação:', emailError);
+            res.status(201).json({ message: 'Usuário registrado, mas o envio do e-mail de confirmação falhou.' });
+        }
+
     } catch (error) {
-        res.status(500).json({ message: 'Erro ao processar o registro.' });
+        if (error.code === 'SQLITE_CONSTRAINT') {
+            return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
+        }
+        console.error("Erro no registro: ", error.message);
+        res.status(500).json({ message: 'Erro ao registrar o usuário.' });
     }
 });
 
 // Rota para login
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(400).json({ message: 'Usuário e senha são obrigatórios.' });
+router.post('/login', sensitiveApiLimiter, [
+    body('username', 'Nome de usuário não pode estar vazio.').notEmpty().trim().escape(),
+    body('password', 'Senha não pode estar vazia.').notEmpty()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
 
-    const sql = 'SELECT id, username, password, show_welcome_modal FROM users WHERE username = ?';
-    db.get(sql, [username], (err, user) => {
-        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
-        if (!user) { return res.status(404).json({ message: 'Usuário não encontrado.' }); }
+    const { username, password } = req.body;
 
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (result) {
-                req.session.userId = user.id;
-                req.session.username = user.username;
+    try {
+        const user = await userModel.findUserByUsername(username);
+        if (!user) {
+            // Return a generic message to avoid user enumeration attacks
+            return res.status(401).json({ message: 'Usuário ou senha inválidos.' });
+        }
 
-                // A lógica de resetar o tempo diário foi removida.
-                // Apenas atualizamos a data do último login.
-                db.run('UPDATE users SET last_login_date = ? WHERE id = ?', [Date.now(), user.id]);
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Usuário ou senha inválidos.' });
+        }
 
-                // Se for o primeiro login, marca o modal para ser exibido e desativa para as próximas vezes
-                if (user.show_welcome_modal) {
-                    db.run('UPDATE users SET show_welcome_modal = 0 WHERE id = ?', [user.id]);
-                }
+        req.session.userId = user.id;
+        req.session.username = user.username;
 
-                res.json({ 
-                    message: 'Login bem-sucedido!', 
-                    username: user.username,
-                    showWelcomeModal: user.show_welcome_modal // Envia a flag para o frontend
-                });
-            } else {
-                res.status(401).json({ message: 'Senha incorreta.' });
-            }
+        await userModel.updateUserLastLogin(user.id);
+
+        if (user.show_welcome_modal) {
+            await userModel.disableWelcomeModal(user.id);
+        }
+
+        res.json({
+            message: 'Login bem-sucedido!',
+            username: user.username,
+            showWelcomeModal: user.show_welcome_modal
         });
-    });
+
+    } catch (error) {
+        console.error('Erro no login:', error.message);
+        res.status(500).json({ message: 'Erro no servidor durante o login.' });
+    }
 });
 
 // Rota para solicitar recuperação de senha
-router.post('/forgot-password', async (req, res) => {
+router.post('/forgot-password', sensitiveApiLimiter, [
+    body('email', 'Por favor, insira um e-mail válido.').isEmail().normalizeEmail()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
+    }
+
     const { email } = req.body;
-    if (!email) { return res.status(400).json({ message: 'E-mail é obrigatório.' }); }
 
-    db.get('SELECT id, username FROM users WHERE email = ?', [email], (err, user) => {
-        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
-        if (!user) { return res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' }); }
+    try {
+        const user = await userModel.findUserByEmail(email);
+        if (user) {
+            const resetToken = generateToken();
+            const expiresAt = Date.now() + (1 * 60 * 60 * 1000); // 1 hora
 
-        const resetToken = generateToken();
-        const expiresAt = Date.now() + (1 * 60 * 60 * 1000);
+            await userModel.createPasswordResetToken({ userId: user.id, token: resetToken, expiresAt });
 
-        db.run('INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)', [user.id, resetToken, expiresAt], async (err) => {
-            if (err) { return res.status(500).json({ message: 'Erro ao solicitar recuperação de senha.' }); }
-
-            const resetLink = `http://localhost:${PORT}/reset_password.html?token=${resetToken}`;
+            const resetLink = `${config.domain}/reset_password.html?token=${resetToken}`;
             try {
                 await sendEmail({
                     to: email,
                     subject: 'Recuperação de Senha - Educatech',
-                    text: `Olá ${user.username}, você solicitou a recuperação de senha. Clique no link a seguir para redefinir sua senha: ${resetLink}`,
-                    html: `<p>Olá ${user.username},</p><p>Você solicitou a recuperação de senha. Clique no link abaixo para redefinir sua senha:</p><a href="${resetLink}">Redefinir Senha</a>`
+                    text: `Olá ${user.username}, você solicitou a recuperação de senha. Clique no link a seguir: ${resetLink}`,
+                    html: `<p>Olá ${user.username},</p><p>Clique no link para redefinir sua senha:</p><a href="${resetLink}">Redefinir Senha</a>`
                 });
             } catch (emailError) {
                 console.error('Falha ao enviar e-mail de recuperação:', emailError);
+                // Não revelamos o erro ao usuário por segurança
             }
-            res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' });
-        });
-    });
+        }
+        // Resposta genérica para não revelar se um e-mail existe no sistema
+        res.status(200).json({ message: 'Se o e-mail estiver cadastrado, as instruções serão enviadas.' });
+
+    } catch (error) {
+        console.error('Erro na recuperação de senha:', error.message);
+        res.status(500).json({ message: 'Erro interno ao processar a solicitação.' });
+    }
 });
 
 // Rota para redefinir a senha
-router.post('/reset-password', (req, res) => {
+router.post('/reset-password', sensitiveApiLimiter, [
+    body('token', 'Token é obrigatório.').notEmpty(),
+    body('newPassword', 'A nova senha deve ter no mínimo 6 caracteres.').isLength({ min: 6 })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
+    }
+
     const { token, newPassword } = req.body;
-    if (!token || !newPassword) { return res.status(400).json({ message: 'Token e nova senha são obrigatórios.' }); }
 
-    const now = Date.now();
-    db.get('SELECT user_id FROM password_resets WHERE token = ? AND expires_at > ?', [token, now], (err, resetEntry) => {
-        if (err) { return res.status(500).json({ message: 'Erro no servidor.' }); }
-        if (!resetEntry) { return res.status(400).json({ message: 'Token inválido ou expirado.' }); }
+    try {
+        const resetEntry = await userModel.findResetToken(token);
+        if (!resetEntry) {
+            return res.status(400).json({ message: 'Token inválido ou expirado.' });
+        }
 
-        bcrypt.hash(newPassword, saltRounds, (err, hash) => {
-            if (err) { return res.status(500).json({ message: 'Erro ao processar a nova senha.' }); }
+        const hash = await bcrypt.hash(newPassword, saltRounds);
+        await userModel.updateUserPassword({ userId: resetEntry.user_id, hash });
+        await userModel.deletePasswordResetToken(token);
 
-            db.run('UPDATE users SET password = ? WHERE id = ?', [hash, resetEntry.user_id], (err) => {
-                if (err) { return res.status(500).json({ message: 'Erro ao redefinir a senha.' }); }
+        res.status(200).json({ message: 'Senha redefinida com sucesso!' });
 
-                db.run('DELETE FROM password_resets WHERE token = ?', [token]);
-                res.status(200).json({ message: 'Senha redefinida com sucesso!' });
-            });
-        });
-    });
+    } catch (error) {
+        console.error('Erro ao redefinir senha:', error.message);
+        res.status(500).json({ message: 'Erro interno ao redefinir a senha.' });
+    }
 });
 
 // Rota para logout
 router.post('/logout', (req, res) => {
     req.session.destroy(err => {
-        if (err) { return res.status(500).json({ message: 'Erro ao fazer logout.' }); }
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao fazer logout.' });
+        }
+        res.clearCookie('connect.sid'); // Limpa o cookie da sessão
         res.json({ message: 'Logout bem-sucedido.' });
     });
 });
 
 // Rota para confirmar e-mail
-router.get('/confirm-email', (req, res) => {
+router.get('/confirm-email', async (req, res) => {
     const { token } = req.query;
-    if (!token) { return res.status(400).send('Token de confirmação ausente.'); }
+    if (!token) {
+        return res.status(400).send('Token de confirmação ausente.');
+    }
 
-    const now = Date.now();
-    db.get('SELECT user_id FROM email_confirmations WHERE token = ? AND expires_at > ?', [token, now], (err, confirmationEntry) => {
-        if (err) { return res.status(500).send('Erro no servidor.'); }
-        if (!confirmationEntry) { return res.status(400).send('Token inválido ou expirado.'); }
+    try {
+        const confirmationEntry = await userModel.findEmailConfirmationToken(token);
+        if (!confirmationEntry) {
+            return res.status(400).send('Token inválido ou expirado.');
+        }
 
-        db.run('UPDATE users SET is_confirmed = 1 WHERE id = ?', [confirmationEntry.user_id], (err) => {
-            if (err) { return res.status(500).send('Erro ao confirmar e-mail.'); }
+        await userModel.confirmUserEmail(confirmationEntry.user_id);
+        await userModel.deleteEmailConfirmationToken(token);
 
-            db.run('DELETE FROM email_confirmations WHERE token = ?', [token]);
-            res.redirect('/login.html?status=email_confirmed');
-        });
-    });
+        res.redirect('/login.html?status=email_confirmed');
+
+    } catch (error) {
+        console.error('Erro ao confirmar e-mail:', error.message);
+        res.status(500).send('Erro interno ao confirmar o e-mail.');
+    }
 });
 
 // Rotas de autenticação com Google

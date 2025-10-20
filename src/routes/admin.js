@@ -1,193 +1,209 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
-const { isAdmin } = require('../middleware'); // Import the isAdmin middleware
+const { isAdmin } = require('../middleware');
+const fs = require('fs').promises;
+const path = require('path');
 
-// Protect all admin routes with isAdmin middleware
+// Protege todas as rotas de admin
 router.use(isAdmin);
 
-// Example Admin Metrics Route: Get total users
-router.get('/metrics/users/total', (req, res) => {
-    db.get('SELECT COUNT(*) AS totalUsers FROM users', (err, row) => {
-        if (err) {
-            console.error('Erro ao buscar total de usuários:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar total de usuários.' });
-        }
-        res.json({ totalUsers: row.totalUsers });
-    });
-});
+// Rota consolidada para buscar todas as estatísticas do dashboard
+router.get('/stats', async (req, res) => {
 
-// Add more metrics routes here as per the plan
-
-// Admin Metrics Route: New registrations per day (last N days)
-router.get('/metrics/users/new-daily', (req, res) => {
-    const days = req.query.days || 30; // Default to last 30 days
-    const cutoffDate = Date.now() - (days * 24 * 60 * 60 * 1000); // Calculate timestamp for cutoff
-
-    db.all(`
-        SELECT
-            strftime('%Y-%m-%d', datetime(created_at / 1000, 'unixepoch')) AS date,
-            COUNT(*) AS newRegistrations
-        FROM users
-        WHERE created_at >= ?
-        GROUP BY date
-        ORDER BY date ASC
-    `, [cutoffDate], (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar novos registros diários:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar novos registros diários.' });
-        }
-        res.json(rows);
-    });
-});
-
-// Admin Metrics Route: Number of active users (logged in within last 24 hours)
-router.get('/metrics/users/active', (req, res) => {
-    const twentyFourHoursAgo = Date.now() - (24 * 60 * 60 * 1000);
-
-    db.get('SELECT COUNT(*) AS activeUsers FROM users WHERE last_login_date >= ?', [twentyFourHoursAgo], (err, row) => {
-        if (err) {
-            console.error('Erro ao buscar usuários ativos:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar usuários ativos.' });
-        }
-        res.json({ activeUsers: row.activeUsers });
-    });
-});
-
-// Admin Metrics Route: Total number of game plays across all games
-router.get('/metrics/games/total-plays', (req, res) => {
-    db.get('SELECT COUNT(*) AS totalPlays FROM game_plays', (err, row) => {
-        if (err) {
-            console.error('Erro ao buscar total de jogadas:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar total de jogadas.' });
-        }
-        res.json({ totalPlays: row.totalPlays });
-    });
-});
-
-// Admin Metrics Route: Top N most played games
-router.get('/metrics/games/top-played', (req, res) => {
-    const limit = req.query.limit || 5; // Default to top 5
-    db.all(`
-        SELECT game_id, COUNT(*) AS playCount
-        FROM game_plays
-        GROUP BY game_id
-        ORDER BY playCount DESC
-        LIMIT ?
-    `, [limit], (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar jogos mais jogados:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar jogos mais jogados.' });
-        }
-        res.json(rows);
-    });
-});
-
-// Admin Metrics Route: Average/total play time per game
-router.get('/metrics/games/play-time', (req, res) => {
-    db.all(`
-        SELECT game_id, SUM(duration_seconds) AS totalPlayTime, AVG(duration_seconds) AS averagePlayTime
-        FROM game_plays
-        GROUP BY game_id
-    `, (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar tempo de jogo:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar tempo de jogo.' });
-        }
-        res.json(rows);
-    });
-});
-
-// Admin Metrics Route: Free trial usage
-router.get('/metrics/games/free-trial-usage', (req, res) => {
-    db.all(`
-        SELECT game_id, COUNT(*) AS freeTrialPlays
-        FROM game_plays
-        WHERE is_free_trial = 1
-        GROUP BY game_id
-        ORDER BY freeTrialPlays DESC
-    `, (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar uso do período gratuito:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar uso do período gratuito.' });
-        }
-        res.json(rows);
-    });
-});
-
-// Admin Metrics Route: Total number of active subscriptions
-router.get('/metrics/subscriptions/total', (req, res) => {
-    db.get('SELECT COUNT(*) AS totalSubscriptions FROM users WHERE subscription_type != \'none\'', (err, row) => {
-        if (err) {
-            console.error('Erro ao buscar total de assinaturas:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar total de assinaturas.' });
-        }
-        res.json({ totalSubscriptions: row.totalSubscriptions });
-    });
-});
-
-// Admin Metrics Route: New subscriptions per day
-router.get('/metrics/subscriptions/new-daily', (req, res) => {
-    const days = req.query.days || 30; // Default to last 30 days
-    const cutoffDate = Date.now() - (days * 24 * 60 * 60 * 1000);
-
-    // Assuming 'created_at' in users table can indicate subscription start for 'none' to 'active' transition
-    // A more robust solution would involve a dedicated 'subscriptions' table with start dates
-    db.all(`
-        SELECT
-            strftime('%Y-%m-%d', datetime(created_at / 1000, 'unixepoch')) AS date,
-            COUNT(*) AS newSubscriptions
-        FROM users
-        WHERE subscription_type != 'none' AND created_at >= ?
-        GROUP BY date
-        ORDER BY date ASC
-    `, [cutoffDate], (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar novas assinaturas diárias:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar novas assinaturas diárias.' });
-        }
-        res.json(rows);
-    });
-});
-
-// Admin Metrics Route: Total revenue generated (monthly/yearly)
-// This is a simplified calculation based on current active subscriptions.
-// A real revenue metric would require logging payment transactions.
-router.get('/metrics/subscriptions/revenue', (req, res) => {
-    // Assuming fixed prices for simplicity, as per subscription options modal
-    const monthlyPrice = 19;
-    const semiannualPrice = 99;
-    const annualPrice = 179;
-
-    db.all('SELECT subscription_type, COUNT(*) AS count FROM users WHERE subscription_type != \'none\' GROUP BY subscription_type', (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar dados de receita:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar dados de receita.' });
-        }
-
-        let totalRevenue = 0;
-        rows.forEach(row => {
-            if (row.subscription_type === 'monthly') {
-                totalRevenue += row.count * monthlyPrice;
-            } else if (row.subscription_type === 'semiannual') {
-                totalRevenue += row.count * semiannualPrice;
-            } else if (row.subscription_type === 'annual') {
-                totalRevenue += row.count * annualPrice;
-            }
+    // Função para envolver db.get em uma Promise
+    const dbGet = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.get(sql, params, (err, row) => {
+                if (err) reject(err);
+                resolve(row);
+            });
         });
-        res.json({ totalRevenue: totalRevenue });
-    });
+    };
+
+    // Função para envolver db.all em uma Promise
+    const dbAll = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.all(sql, params, (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+    };
+
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayTimestamp = today.getTime();
+
+        const queries = {
+            totalUsers: dbGet('SELECT COUNT(id) as count FROM users'),
+            newUsersToday: dbGet('SELECT COUNT(id) as count FROM users WHERE created_at >= ?', [todayTimestamp]),
+            activeSubscriptions: dbGet('SELECT COUNT(id) as count FROM users WHERE subscription_type IS NOT NULL AND subscription_type != \'none\' AND subscription_end_date > ?', [Date.now()]),
+            totalPlays: dbGet('SELECT COUNT(id) as count FROM game_plays'),
+            topGames: dbAll('SELECT game_id, COUNT(game_id) as playCount FROM game_plays GROUP BY game_id ORDER BY playCount DESC LIMIT 5')
+        };
+
+        const [totalUsers, newUsersToday, activeSubscriptions, totalPlays, topGames] = await Promise.all(Object.values(queries));
+
+        // Mapear IDs dos jogos para nomes
+        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
+        const gamesData = await fs.readFile(gamesPath, 'utf8');
+        const games = JSON.parse(gamesData);
+        const gamesMap = new Map(games.map(game => [game.id, game.title]));
+
+        const topGamesWithNames = topGames.map(game => ({
+            ...game,
+            title: gamesMap.get(game.game_id) || 'Jogo Desconhecido'
+        }));
+
+        res.json({
+            totalUsers: totalUsers.count,
+            newUsersToday: newUsersToday.count,
+            activeSubscriptions: activeSubscriptions.count,
+            totalPlays: totalPlays.count,
+            topGames: topGamesWithNames
+        });
+
+    } catch (error) {
+        console.error('Erro ao buscar estatísticas do admin:', error.message);
+        res.status(500).json({ message: 'Erro no servidor ao buscar estatísticas.' });
+    }
 });
 
-// Admin Metrics Route: Breakdown of subscriptions by plan type
-router.get('/metrics/subscriptions/plan-distribution', (req, res) => {
-    db.all('SELECT subscription_type, COUNT(*) AS count FROM users GROUP BY subscription_type', (err, rows) => {
-        if (err) {
-            console.error('Erro ao buscar distribuição de planos:', err.message);
-            return res.status(500).json({ message: 'Falha ao buscar distribuição de planos.' });
-        }
+// Rota para dados de novos usuários por dia
+router.get('/metrics/users/new-daily', async (req, res) => {
+    const dbAll = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.all(sql, params, (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+    };
+
+    try {
+        const fourteenDaysAgo = new Date();
+        fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+        fourteenDaysAgo.setHours(0, 0, 0, 0);
+        const fourteenDaysAgoTimestamp = fourteenDaysAgo.getTime();
+
+        const sql = `
+            SELECT strftime('%Y-%m-%d', created_at / 1000, 'unixepoch') as date, COUNT(id) as count
+            FROM users
+            WHERE created_at >= ?
+            GROUP BY date
+            ORDER BY date ASC
+        `;
+
+        const rows = await dbAll(sql, [fourteenDaysAgoTimestamp]);
         res.json(rows);
-    });
+
+    } catch (error) {
+        console.error('Erro ao buscar métricas de novos usuários:', error.message);
+        res.status(500).json({ message: 'Erro no servidor ao buscar métricas.' });
+    }
+});
+
+// Rota para distribuição de planos de assinatura
+router.get('/metrics/subscriptions/plan-distribution', async (req, res) => {
+    const dbAll = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.all(sql, params, (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+    };
+
+    try {
+        const sql = `
+            SELECT subscription_type, COUNT(id) as count
+            FROM users
+            WHERE subscription_type IS NOT NULL AND subscription_type != 'none'
+            GROUP BY subscription_type
+        `;
+
+        const rows = await dbAll(sql);
+        res.json(rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar distribuição de planos:', error.message);
+        res.status(500).json({ message: 'Erro no servidor ao buscar métricas.' });
+    }
+});
+
+// Rota para jogadas totais por dia
+router.get('/metrics/games/total-plays', async (req, res) => {
+    const dbAll = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.all(sql, params, (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+    };
+
+    try {
+        const fourteenDaysAgo = new Date();
+        fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+        fourteenDaysAgo.setHours(0, 0, 0, 0);
+        const fourteenDaysAgoTimestamp = fourteenDaysAgo.getTime();
+
+        const sql = `
+            SELECT strftime('%Y-%m-%d', start_time / 1000, 'unixepoch') as date, COUNT(id) as count
+            FROM game_plays
+            WHERE start_time >= ?
+            GROUP BY date
+            ORDER BY date ASC
+        `;
+
+        const rows = await dbAll(sql, [fourteenDaysAgoTimestamp]);
+        res.json(rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar métricas de jogadas totais:', error.message);
+        res.status(500).json({ message: 'Erro no servidor ao buscar métricas.' });
+    }
+});
+
+// Rota para tempo total de jogo por jogo
+router.get('/metrics/games/play-time', async (req, res) => {
+    const dbAll = (sql, params = []) => {
+        return new Promise((resolve, reject) => {
+            db.all(sql, params, (err, rows) => {
+                if (err) reject(err);
+                resolve(rows);
+            });
+        });
+    };
+
+    try {
+        const sql = `
+            SELECT game_id, SUM(duration_seconds) as total_duration
+            FROM game_plays
+            GROUP BY game_id
+        `;
+
+        const rows = await dbAll(sql);
+
+        // Mapear IDs dos jogos para nomes
+        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
+        const gamesData = await fs.readFile(gamesPath, 'utf8');
+        const games = JSON.parse(gamesData);
+        const gamesMap = new Map(games.map(game => [game.id, game.title]));
+
+        const resultsWithNames = rows.map(row => ({
+            title: gamesMap.get(row.game_id) || 'Jogo Desconhecido',
+            total_duration_minutes: Math.round(row.total_duration / 60)
+        }));
+
+        res.json(resultsWithNames);
+
+    } catch (error) {
+        console.error('Erro ao buscar métricas de tempo de jogo:', error.message);
+        res.status(500).json({ message: 'Erro no servidor ao buscar métricas.' });
+    }
 });
 
 module.exports = router;

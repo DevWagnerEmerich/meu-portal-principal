@@ -1,4 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
+function showToast(message, type = 'success') {
+    const toastContainer = document.querySelector('.toast-container');
+    if (!toastContainer) {
+        console.warn('Toast container not found. Message:', message);
+        return;
+    }
+    const toastId = `toast-${Date.now()}`;
+    const toastHtml = `
+        <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    `;
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastEl = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+    toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
     // Elementos do DOM
     const registerForm = document.getElementById('register-form');
     const loginForm = document.getElementById('login-form');
@@ -27,36 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginPromptModalElement = document.getElementById('loginPromptModal');
     const loginPromptModal = loginPromptModalElement ? new bootstrap.Modal(loginPromptModalElement) : null;
 
-    // Função para exibir toasts
-    function showToast(message, type = 'success') {
-        const toastContainer = document.querySelector('.toast-container');
-        if (!toastContainer) {
-            console.warn('Toast container not found. Message:', message);
-            return;
-        }
-        const toastId = `toast-${Date.now()}`;
-        const toastHtml = `
-            <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">${message}</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        `;
-        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-        const toastEl = document.getElementById(toastId);
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-        toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
-    }
-
     // --- FUNÇÕES PRINCIPAIS ---
 
     const updateNavbarUI = async () => {
         try {
             const response = await fetch('/api/user-status');
             const data = await response.json();
-            if (data.loggedIn) {
+            if (data && data.loggedIn) {
                 if (loggedOutActions) loggedOutActions.style.display = 'none';
                 if (loggedInActions) loggedInActions.style.display = 'flex';
                 if (usernameDisplay) {
@@ -67,8 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (loggedOutActions) loggedOutActions.style.display = 'flex';
                 if (loggedInActions) loggedInActions.style.display = 'none';
             }
+            return data && data.loggedIn;
         } catch (error) {
             console.error('Erro ao verificar status de login:', error);
+            return false;
         }
     };
 
@@ -119,12 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json(); // Lê o corpo do erro aqui
                 if (response.status === 401) { // Não autorizado
                     if (loginPromptModal) loginPromptModal.show();
-                } else if (response.status === 403 && data.showSubscriptionModal) { // Limite de jogadas atingido
+                } else if (response.status === 403 && data && data.showSubscriptionModal) { // Limite de jogadas atingido
                     if (gameModal) gameModal.hide();
                     if (subscriptionOptionsModal) subscriptionOptionsModal.show();
                 }
                 // Mostra a mensagem de erro vinda do servidor
-                showToast(data.message || 'Não foi possível iniciar o jogo.', 'danger');
+                showToast((data && data.message) || 'Não foi possível iniciar o jogo.', 'danger');
                 return; // Para a execução aqui
             }
 
@@ -214,18 +215,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function loadGames(filterCategory = 'all') {
+    function renderGames(gamesToDisplay, favoriteGameIds) {
+        const allGamesGrid = document.getElementById('all-games-grid');
+        if (!allGamesGrid) return;
+
+        allGamesGrid.innerHTML = '';
+
+        if (gamesToDisplay.length === 0) {
+            allGamesGrid.innerHTML = '<p class="text-center text-muted">Nenhum jogo encontrado.</p>';
+            return;
+        }
+
+        gamesToDisplay.forEach(game => {
+            const isPlayable = game.game_url && game.game_url !== '#';
+            const isFavorite = favoriteGameIds.has(game.id);
+            const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
+            const cardStyle = game.thumbnail ? `style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${encodeURI(game.thumbnail)}'); background-size: cover; background-position: center;"` : '';
+            const cardClass = game.thumbnail ? 'has-image' : 'no-image';
+
+            const favoriteButtonHTML = `
+                <button class="btn-favorite ${isFavorite ? 'favorited' : ''}" data-game-id="${game.id}" aria-label="Favoritar jogo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="star-icon">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </button>
+            `;
+
+            const printButtonHTML = game.printable_url ? `
+                <a href="${game.printable_url}" class="btn btn-info mt-2" target="_blank" download>
+                    <i class="fas fa-print"></i> Imprimir
+                </a>
+            ` : '';
+
+            const allGamesCardHTML = `
+                <div class="game-card ${cardClass}" id="${game.id}" ${cardStyle}>
+                    ${favoriteButtonHTML}
+                    <h5 class="card-title">${game.title}</h5>
+                    <p class="card-text">${game.description}</p>
+                    <div class="d-flex flex-column">
+                        <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                        ${printButtonHTML}
+                    </div>
+                </div>
+            `;
+            allGamesGrid.innerHTML += allGamesCardHTML;
+        });
+
+        initializeGameButtons();
+        initializeFavoriteButtons();
+    }
+
+    async function loadGames(isLoggedIn, filterCategory = 'all') {
         try {
-            const [mostAccessedResponse, allGamesResponse] = await Promise.all([
+            const requests = [
                 fetch('/api/games/most-accessed'),
                 fetch('/games.json')
-            ]);
+            ];
+
+            if (isLoggedIn) {
+                requests.push(fetch('/api/user/favorites'));
+            } else {
+                requests.push(Promise.resolve({ ok: true, json: () => Promise.resolve([]) }));
+            }
+
+            const [mostAccessedResponse, allGamesResponse, favoritesResponse] = await Promise.all(requests);
 
             if (!mostAccessedResponse.ok) throw new Error(`HTTP error! status: ${mostAccessedResponse.status}`);
             if (!allGamesResponse.ok) throw new Error(`HTTP error! status: ${allGamesResponse.status}`);
 
             const featuredGames = await mostAccessedResponse.json();
             window.allGames = await allGamesResponse.json();
+            window.favoriteGameIds = favoritesResponse.ok ? new Set(await favoritesResponse.json()) : new Set();
 
             const gamesByCategory = window.allGames.reduce((acc, game) => {
                 const category = game.category || 'Outros';
@@ -259,13 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            let gamesToDisplay = filterCategory !== 'all' ? window.allGames.filter(game => game.category === filterCategory) : window.allGames;
-
-            const allGamesGrid = document.getElementById('all-games-grid');
             const carouselInner = document.querySelector('#featured-games-carousel .carousel-inner');
             const carouselIndicators = document.querySelector('#featured-games-carousel .carousel-indicators');
 
-            if (allGamesGrid) allGamesGrid.innerHTML = '';
             if (carouselInner) carouselInner.innerHTML = '';
             if (carouselIndicators) carouselIndicators.innerHTML = '';
 
@@ -280,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>${game.title}</h5>
                                 <p>${game.description}</p>
-                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg> Jogar</a>
                             </div>
                         </div>
                     `;
@@ -290,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="carousel-caption">
                                 <h5>${game.title}</h5>
                                 <p>${game.description}</p>
-                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}">Jogar</a>
+                                <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg> Jogar</a>
                             </div>
                         </div>
                     `;
@@ -300,22 +356,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (carouselIndicators) carouselIndicators.innerHTML += indicatorHTML;
             });
 
-            gamesToDisplay.forEach(game => {
-                const isPlayable = game.game_url && game.game_url !== '#';
-                const btnClass = game.is_premium ? 'btn-secondary disabled' : (isPlayable ? 'btn-primary' : 'btn-secondary disabled');
-                const cardStyle = game.thumbnail ? `style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${encodeURI(game.thumbnail)}'); background-size: cover; background-position: center;"` : '';
-                const cardClass = game.thumbnail ? 'has-image' : 'no-image';
-                const allGamesCardHTML = `
-                    <div class="game-card ${cardClass}" id="${game.id}" ${cardStyle}>
-                        <h5 class="card-title">${game.title}</h5>
-                        <p class="card-text">${game.description}</p>
-                        <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
-                    </div>
-                `;
-                if(allGamesGrid) allGamesGrid.innerHTML += allGamesCardHTML;
-            });
+            let gamesToDisplay = filterCategory !== 'all' ? window.allGames.filter(game => game.category === filterCategory) : window.allGames;
+            renderGames(gamesToDisplay, window.favoriteGameIds);
 
-            initializeGameButtons();
         } catch (error) {
             console.error('Falha ao carregar a lista de jogos:', error);
         }
@@ -333,7 +376,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function initializeFavoriteButtons() {
+        document.querySelectorAll('.btn-favorite').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                event.stopPropagation(); // Impede que o clique no botão dispare outros eventos no card
+                const gameId = button.dataset.gameId;
+                const isFavorited = button.classList.contains('favorited');
+
+                try {
+                    const response = await fetch(`/api/user/favorites${isFavorited ? '/' + gameId : ''}`,
+                        {
+                            method: isFavorited ? 'DELETE' : 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: isFavorited ? null : JSON.stringify({ game_id: gameId })
+                        });
+
+                    if (response.status === 401) {
+                        showToast('Você precisa estar logado para favoritar jogos.', 'warning');
+                        return;
+                    }
+
+                    if (!response.ok) {
+                        const result = await response.json();
+                        throw new Error(result.message || 'Falha ao atualizar favorito.');
+                    }
+
+                    button.classList.toggle('favorited');
+                    showToast(isFavorited ? 'Removido dos favoritos!' : 'Adicionado aos favoritos!', 'success');
+
+                } catch (error) {
+                    showToast(error.message, 'danger');
+                }
+            });
+        });
+    }
+
     // --- EVENT LISTENERS ---
+    const searchInput = document.getElementById('game-search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            if (window.allGames) {
+                const filteredGames = window.allGames.filter(game => 
+                    game.title.toLowerCase().includes(searchTerm)
+                );
+                renderGames(filteredGames, window.favoriteGameIds);
+            }
+        });
+    }
     if (openMenuBtn) openMenuBtn.addEventListener('click', openSidebar);
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeSidebar);
     if (overlay) overlay.addEventListener('click', closeSidebar);
@@ -374,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- FORM LISTENERS ---
-    if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'success'); setTimeout(() => window.location.href = '/login.html', 2000); } else { showToast(`Erro: ${j.message}`, 'danger'); } }); }
+    if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'success'); setTimeout(() => window.location.href = '/login.html', 2000); } else { if (j.errors) { j.errors.forEach(err => showToast(err.msg, 'danger')); } else { showToast(`Erro: ${j.message}`, 'danger'); } } }); }
     if (loginForm) {
         const rememberedUsername = localStorage.getItem('rememberedUsername');
         if (rememberedUsername) {
@@ -404,7 +494,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 window.location.href = '/index.html';
             } else {
-                showToast(`Erro: ${result.message}`, 'danger');
+                if (result && result.errors) {
+                    result.errors.forEach(err => showToast(err.msg, 'danger'));
+                } else if (result && result.message) {
+                    showToast(`Erro: ${result.message}`, 'danger');
+                } else {
+                    showToast('Ocorreu um erro desconhecido.', 'danger');
+                }
             }
         });
     }
@@ -421,12 +517,49 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    if (forgotPasswordForm) { forgotPasswordForm.addEventListener('submit', async (e) => { e.preventDefault(); const E = document.getElementById('email').value; const r = await fetch('/api/forgot-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: E }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'info'); } else { showToast(`Erro: ${j.message}`, 'danger'); } }); }
-    if (resetPasswordForm) { resetPasswordForm.addEventListener('submit', async (e) => { e.preventDefault(); const p = document.getElementById('password').value; if (p !== document.getElementById('confirm-password').value) { showToast('As senhas não coincidem.', 'warning'); return; } const t = new URLSearchParams(window.location.search).get('token'); if (!t) { showToast('Token de redefinição não encontrado ou inválido.', 'danger'); return; } const r = await fetch('/api/reset-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: t, newPassword: p }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'success'); setTimeout(() => window.location.href = '/login.html', 2000); } else { showToast(`Erro: ${j.message}`, 'danger'); } }); }
+        if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
+            const submitButton = e.currentTarget.querySelector('button[type="submit"]');
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+
+            try {
+                const response = await fetch('/api/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    const result = await response.json();
+                    showToast(result.message, response.ok ? 'info' : 'danger');
+                    if (response.ok) {
+                        emailInput.value = '';
+                    }
+                } else {
+                    const textResult = await response.text();
+                    showToast(textResult, 'warning');
+                }
+            } catch (error) {
+                showToast('Ocorreu um erro de conexão. Tente novamente.', 'danger');
+            } finally {
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Instruções';
+                }, 3000);
+            }
+        });
+    }
+    if (resetPasswordForm) { resetPasswordForm.addEventListener('submit', async (e) => { e.preventDefault(); const p = document.getElementById('password').value; if (p !== document.getElementById('confirm-password').value) { showToast('As senhas não coincidem.', 'warning'); return; } const t = new URLSearchParams(window.location.search).get('token'); if (!t) { showToast('Token de redefinição não encontrado ou inválido.', 'danger'); return; } const r = await fetch('/api/reset-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: t, newPassword: p }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'success'); setTimeout(() => window.location.href = '/login.html', 2000); } else { if (j.errors) { j.errors.forEach(err => showToast(err.msg, 'danger')); } else { showToast(`Erro: ${j.message}`, 'danger'); } } }); }
 
     // --- INICIALIZAÇÃO DA PÁGINA ---
-    updateNavbarUI();
-    loadGames();
+    const isLoggedIn = await updateNavbarUI();
+    loadGames(isLoggedIn);
 
     // Verifica se o modal de boas-vindas deve ser exibido
     if (sessionStorage.getItem('showWelcomeModal') === 'true') {
