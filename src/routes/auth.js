@@ -35,6 +35,7 @@ router.post('/register', [
     body('email', 'Por favor, insira um e-mail válido.').isEmail().normalizeEmail(),
     body('password', 'A senha deve ter no mínimo 6 caracteres.').isLength({ min: 6 })
 ], async (req, res) => {
+    console.log(`Tentando registrar com: username=${req.body.username}, email=${req.body.email}`); // Linha de depuração
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
