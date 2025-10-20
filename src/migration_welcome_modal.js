@@ -1,19 +1,10 @@
 module.exports = {
-    up: async (db) => {
-        const dbRun = (sql, params = []) => {
-            return new Promise((resolve, reject) => {
-                db.run(sql, params, function(err) {
-                    if (err) reject(err);
-                    resolve(this);
-                });
-            });
-        };
-
+    up: async (client) => {
         console.log('Iniciando migração: migration_welcome_modal.js');
-
         try {
-            await dbRun("ALTER TABLE users ADD COLUMN show_welcome_modal INTEGER DEFAULT 1").catch(err => {
-                if (err.message.includes('duplicate column name')) {
+            // Usamos a mesma lógica de capturar o erro de coluna duplicada do PostgreSQL
+            await client.query("ALTER TABLE users ADD COLUMN show_welcome_modal BOOLEAN DEFAULT true").catch(err => {
+                if (err.code === '42701') { // 42701 = duplicate column
                     console.log('Coluna "show_welcome_modal" já existe.');
                 } else {
                     throw err; // Re-lança outros erros
@@ -23,7 +14,7 @@ module.exports = {
 
         } catch (error) {
             console.error('Erro na migração migration_welcome_modal.js:', error.message);
-            throw error; // Rejeita a Promise para que run-migrations.js capture o erro
+            throw error;
         }
     }
 };

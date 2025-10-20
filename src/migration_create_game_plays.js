@@ -1,26 +1,18 @@
 module.exports = {
-    up: async (db) => {
-        const dbRun = (sql, params = []) => {
-            return new Promise((resolve, reject) => {
-                db.run(sql, params, function(err) {
-                    if (err) reject(err);
-                    resolve(this);
-                });
-            });
-        };
-
+    // A função 'up' agora recebe o 'client' de conexão do pg
+    up: async (client) => {
         console.log('Iniciando migração: Criando a tabela game_plays...');
-
         try {
-            await dbRun(`
+            // Sintaxe do PostgreSQL: SERIAL PRIMARY KEY e TIMESTAMPTZ
+            await client.query(`
                 CREATE TABLE IF NOT EXISTS game_plays (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id SERIAL PRIMARY KEY,
                     user_id INTEGER NOT NULL,
                     game_id TEXT NOT NULL,
-                    start_time INTEGER NOT NULL,
-                    end_time INTEGER,
+                    start_time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                    end_time TIMESTAMPTZ,
                     duration_seconds INTEGER,
-                    is_free_trial INTEGER NOT NULL DEFAULT 0,
+                    is_free_trial BOOLEAN NOT NULL DEFAULT false,
                     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
                 );
             `);
