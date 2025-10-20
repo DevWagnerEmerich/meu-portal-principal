@@ -5,14 +5,14 @@ const path = require('path');
 
 const router = express.Router();
 
-// API to get the most accessed games
+// A rota para buscar os jogos mais acessados não usa o DB, então permanece igual.
 router.get('/games/most-accessed', async (req, res) => {
     try {
         const statsPath = path.join(__dirname, '..', 'data', 'game_access_stats.json');
         const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
 
         const [statsData, gamesData] = await Promise.all([
-            fs.readFile(statsPath, 'utf8').catch(() => '{}'), // Return empty object on error
+            fs.readFile(statsPath, 'utf8').catch(() => '{}'),
             fs.readFile(gamesPath, 'utf8')
         ]);
 
@@ -33,8 +33,16 @@ router.get('/games/most-accessed', async (req, res) => {
     }
 });
 
-// API para iniciar uma sessão de jogo e registrar a jogada
-router.post('/game-start', (req, res) => {
+// Função auxiliar para registrar a jogada (convertida para async)
+async function recordPlay(userId, gameId, isFreeTrial) {
+    const startTime = new Date();
+    const logSql = 'INSERT INTO game_plays (user_id, game_id, start_time, is_free_trial) VALUES ($1, $2, $3, $4) RETURNING id';
+    const { rows } = await db.query(logSql, [userId, gameId, startTime, isFreeTrial]);
+    return rows[0].id;
+}
+
+// API para iniciar uma sessão de jogo (convertida para async)
+router.post('/game-start', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Usuário não autenticado.' });
     }
@@ -46,59 +54,40 @@ router.post('/game-start', (req, res) => {
     const gameId = gameSrc.split('/').slice(-2, -1)[0];
     const FREE_PLAYS_LIMIT = 3;
 
-    db.get('SELECT role, subscription_type, subscription_end_date, free_plays_used FROM users WHERE id = ?', [req.session.userId], (err, user) => {
-        if (err || !user) {
-            return res.status(500).json({ message: 'Erro ao buscar dados do usuário.' });
+    try {
+        const { rows } = await db.query('SELECT role, subscription_type, subscription_end_date, free_plays_used FROM users WHERE id = $1', [req.session.userId]);
+        const user = rows[0];
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário da sessão não encontrado.' });
         }
 
-        // O administrador tem acesso ilimitado
         if (user.role === 'admin') {
-            return recordPlay(req.session.userId, gameId, false, res);
+            const playId = await recordPlay(req.session.userId, gameId, false);
+            return res.json({ message: 'Início do jogo registrado', playId });
         }
 
-        const isSubscriber = user.subscription_type !== 'none' && user.subscription_end_date > Date.now();
+        const isSubscriber = user.subscription_type !== 'none' && user.subscription_end_date && new Date(user.subscription_end_date) > new Date();
 
         if (isSubscriber) {
-            // Assinante pode jogar, apenas registra a jogada para estatísticas
-            recordPlay(req.session.userId, gameId, false, res);
+            const playId = await recordPlay(req.session.userId, gameId, false);
+            return res.json({ message: 'Início do jogo registrado', playId });
         } else {
-            // Usuário gratuito, verifica o limite
             if (user.free_plays_used < FREE_PLAYS_LIMIT) {
-                // Incrementa o contador e registra a jogada
-                db.run('UPDATE users SET free_plays_used = free_plays_used + 1 WHERE id = ?', [req.session.userId], (updateErr) => {
-                    if (updateErr) {
-                        return res.status(500).json({ message: 'Erro ao atualizar contagem de jogadas.' });
-                    }
-                    recordPlay(req.session.userId, gameId, true, res);
-                });
+                await db.query('UPDATE users SET free_plays_used = free_plays_used + 1 WHERE id = $1', [req.session.userId]);
+                const playId = await recordPlay(req.session.userId, gameId, true);
+                return res.json({ message: 'Início do jogo registrado', playId });
             } else {
-                // Limite atingido
                 return res.status(403).json({
                     message: `Você usou suas ${FREE_PLAYS_LIMIT} jogadas gratuitas. Assine para continuar jogando!`,
                     showSubscriptionModal: true
                 });
             }
         }
-    });
+    } catch (err) {
+        console.error('Erro ao iniciar o jogo:', err);
+        return res.status(500).json({ message: 'Erro no servidor ao iniciar o jogo.' });
+    }
 });
-
-// Função auxiliar para registrar a jogada na tabela game_plays
-function recordPlay(userId, gameId, isFreeTrial, res) {
-    const startTime = Date.now();
-    const logSql = 'INSERT INTO game_plays (user_id, game_id, start_time, is_free_trial) VALUES (?, ?, ?, ?)';
-    db.run(logSql, [userId, gameId, startTime, isFreeTrial ? 1 : 0], function (logErr) {
-        if (logErr) {
-            console.error('Erro ao registrar na tabela game_plays:', logErr.message);
-            return res.status(500).json({ message: 'Erro ao registrar log do jogo.' });
-        }
-        res.json({
-            message: 'Início do jogo registrado',
-            playId: this.lastID
-        });
-    });
-}
-
-// API para descontar tempo de jogo (polling)
-
 
 module.exports = router;
