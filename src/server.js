@@ -1,4 +1,11 @@
 
+console.log('--- INÍCIO DA DEPURAÇÃO DE VARIÁVEIS DE AMBIENTE ---');
+console.log(`Debug DATABASE_URL: ${process.env.DATABASE_URL}`);
+console.log(`Debug GOOGLE_CLIENT_ID: ${process.env.GOOGLE_CLIENT_ID}`);
+console.log(`Debug GOOGLE_CLIENT_SECRET: ${process.env.GOOGLE_CLIENT_SECRET ? 'Presente' : 'AUSENTE'}`);
+console.log(`Debug DOMAIN: ${process.env.DOMAIN}`);
+console.log('--- FIM DA DEPURAÇÃO ---');
+
 console.log('Debug DATABASE_URL:', process.env.DATABASE_URL);
 
 console.log('SERVER.JS FILE IS EXECUTING');
