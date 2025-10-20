@@ -35,6 +35,7 @@ const contactRoutes = require('./routes/contact.js');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
+app.set('trust proxy', 1); // Confia no primeiro proxy (necessário para o Render)
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
