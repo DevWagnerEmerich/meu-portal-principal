@@ -145,9 +145,26 @@ app.get('/admin', (req, res) => {
 
 
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+const { runMigrations } = require('./run-migrations');
+
+// Função auto-executável para rodar as migrações antes de iniciar o servidor
+async function startServer() {
+    try {
+        console.log('Iniciando migrações do banco de dados...');
+        await runMigrations();
+        console.log('Migrações concluídas. Iniciando o servidor web...');
+
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando em http://localhost:${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Falha crítica ao rodar migrações. O servidor não será iniciado.", error);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 // Middleware de tratamento de erros centralizado
 app.use((err, req, res, next) => {

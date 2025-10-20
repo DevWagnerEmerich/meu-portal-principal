@@ -1,14 +1,14 @@
-const { getClient } = require('./database'); // Usamos getClient para ter controle sobre a conexão
+const { getClient } = require('./database');
 const fs = require('fs').promises;
 const path = require('path');
 
+// A função agora é exportada para poder ser chamada pelo server.js
 async function runMigrations() {
-    let client; // O cliente da conexão
+    let client;
     try {
         client = await getClient();
         console.log('Conectado ao banco de dados PostgreSQL para migrations.');
 
-        // 1. Criar a tabela de migrations se não existir
         await client.query(`CREATE TABLE IF NOT EXISTS migrations (
             id SERIAL PRIMARY KEY,
             name TEXT UNIQUE,
@@ -16,35 +16,31 @@ async function runMigrations() {
         )`);
         console.log('Tabela de migrations verificada/criada.');
 
-        // 2. Obter migrations já executadas
         const executedResult = await client.query('SELECT name FROM migrations');
         const executedMigrations = new Set(executedResult.rows.map(row => row.name));
 
-        // 3. Obter todos os arquivos de migration
-        const migrationsDir = __dirname; // As migrations estão no mesmo diretório
+        const migrationsDir = __dirname;
         const migrationFiles = (await fs.readdir(migrationsDir))
             .filter(file => file.startsWith('migration_') && file.endsWith('.js'))
-            .sort(); // Garante a ordem de execução
+            .sort();
 
         console.log(`Encontradas ${migrationFiles.length} migrations.`);
 
-        // 4. Executar migrations pendentes
         for (const file of migrationFiles) {
             if (!executedMigrations.has(file)) {
                 console.log(`Executando migration: ${file}`);
                 const migration = require(path.join(migrationsDir, file));
                 
-                // Passamos o cliente conectado para a migration
                 if (migration.up && typeof migration.up === 'function') {
-                    await client.query('BEGIN'); // Inicia a transação
+                    await client.query('BEGIN');
                     try {
-                        await migration.up(client); // Executa a lógica da migration
+                        await migration.up(client);
                         await client.query('INSERT INTO migrations (name) VALUES ($1)', [file]);
-                        await client.query('COMMIT'); // Finaliza a transação
+                        await client.query('COMMIT');
                         console.log(`Migration ${file} executada e registrada com sucesso.`);
                     } catch (migrationErr) {
-                        await client.query('ROLLBACK'); // Desfaz em caso de erro
-                        console.error(`Erro ao executar migration ${file}:`, migrationErr.message);
+                        await client.query('ROLLBACK');
+                        console.error(`Erro ao executar migration ${file}:`, migrationErr);
                         throw migrationErr;
                     }
                 } else {
@@ -52,18 +48,24 @@ async function runMigrations() {
                 }
             }
         }
-        console.log('Todas as migrations foram executadas ou já estavam em dia.');
+        console.log('Processo de migração concluído com sucesso.');
 
     } catch (error) {
         console.error('Erro geral no processo de migrations. Erro completo:', error);
-        process.exit(1);
+        throw error; // Lança o erro para que o server.js possa capturá-lo
     } finally {
         if (client) {
-            client.release(); // Libera o cliente de volta para o pool
-            console.log('Conexão com o banco de dados liberada.');
+            client.release();
+            console.log('Conexão de migração com o banco de dados liberada.');
         }
     }
 }
 
-// Chamar a função principal para iniciar o processo
-runMigrations();
+// Se o arquivo for executado diretamente, rode as migrações.
+// Isso mantém a possibilidade de rodá-lo manualmente se necessário.
+if (require.main === module) {
+    runMigrations().catch(err => process.exit(1));
+}
+
+// Exporta a função para que possa ser usada em outro lugar
+module.exports = { runMigrations };
