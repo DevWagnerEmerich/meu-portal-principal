@@ -15,6 +15,6 @@ const pool = new Pool({
 // Qualquer parte da aplicação pode agora chamar db.query(sql, params) e funcionará.
 module.exports = {
   query: (text, params) => pool.query(text, params),
-  // Adicionamos um método para obter um cliente do pool para transações
   getClient: () => pool.connect(),
+  pool: pool, // Exporta o pool diretamente
 };

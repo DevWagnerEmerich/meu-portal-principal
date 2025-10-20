@@ -46,12 +46,22 @@ app.use((req, res, next) => {
     next();
 });
 
-// Configuração da sessão
+const pgSession = require('connect-pg-simple')(session);
+const db = require('./database');
+
+// Configuração da sessão com armazenamento no PostgreSQL
 app.use(session({
+    store: new pgSession({
+        pool: db.pool,                // Pool de conexão com o banco de dados
+        tableName: 'user_sessions'    // Nome da tabela para armazenar as sessões
+    }),
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: config.isProduction }
+    cookie: { 
+        secure: config.isProduction, // Em produção, use cookies seguros (HTTPS)
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 dias
+    }
 }));
 
 // Middlewares
