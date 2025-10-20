@@ -1,7 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./database.js');
-const crypto = require('crypto');
 const config = require('./config');
 
 require('dotenv').config();
@@ -41,28 +40,25 @@ async (accessToken, refreshToken, profile, done) => {
             return done(null, user);
         }
 
-        // Se o usuário não existe, cria um novo com os tipos corretos
+        // Abordagem ultra-simplificada: Inserir apenas o essencial.
         const newUsername = displayName.replace(/\s+/g, '') + Math.floor(Math.random() * 1000);
-        const randomPassword = crypto.randomBytes(20).toString('hex');
 
-        // SQL simplificado, deixando o DB cuidar dos defaults (role, created_at, etc)
-        const sql = `INSERT INTO users (username, email, password, google_id, is_confirmed, last_login_date)
-                     VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+        const sql = `INSERT INTO users (email, google_id, username, is_confirmed, last_login_date)
+                     VALUES ($1, $2, $3, $4, $5) RETURNING *`;
         
         const params = [
-            newUsername,
             email,
-            randomPassword,
             googleId,
-            true, // Usando booleano 'true' em vez de 1
-            new Date() // Usando um objeto Date
+            newUsername,
+            true,       // O e-mail do Google é considerado verificado
+            new Date()  // Define a data de último login
         ];
 
         const newUserResult = await db.query(sql, params);
         return done(null, newUserResult.rows[0]);
 
     } catch (err) {
-        console.error("Erro na estratégia Google:", err);
+        console.error("Erro na estratégia Google (versão simplificada):", err);
         return done(err);
     }
 }
