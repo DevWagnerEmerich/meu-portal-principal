@@ -55,7 +55,7 @@ async function runMigrations() {
         console.log('Todas as migrations foram executadas ou já estavam em dia.');
 
     } catch (error) {
-        console.error('Erro geral no processo de migrations:', error.message);
+        console.error('Erro geral no processo de migrations. Erro completo:', error);
         process.exit(1);
     } finally {
         if (client) {
