@@ -35,7 +35,7 @@ app.use(helmet({
             "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
             "style-src": ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com", "'unsafe-inline'"],
             "font-src": ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
-            "img-src": ["'self'", "data:", "https://lh3.googleusercontent.com", "https://img.icons8.com"],
+            "img-src": ["'self'", "data:", "https://lh3.googleusercontent.com", "https://img.icons8.com", "meu-portal-jogos-conteudo.vercel.app"],
             "connect-src": ["'self'", "https://cdn.jsdelivr.net"]
         }
     }
