@@ -67,10 +67,11 @@ router.post('/register', [
         }
 
     } catch (error) {
-        if (error.code === '23505') { // 23505 é o código de violação de unicidade do PostgreSQL
+        console.error("--- ERRO DETALHADO NO REGISTRO ---", error);
+        if (error.code === '23505') { // Violação de unicidade do PostgreSQL
             return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
         }
-        console.error("Erro no registro: ", error.message);
+        console.error("Erro não esperado no registro: ", error.message);
         res.status(500).json({ message: 'Erro ao registrar o usuário.' });
     }
 });
