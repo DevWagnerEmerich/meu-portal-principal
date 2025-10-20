@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 };
 
 const createUser = async ({ username, email, hash }) => {
-    const now = Date.now();
+    const now = new Date();
     // A cláusula RETURNING id é uma feature do PostgreSQL para retornar o ID do registro inserido.
     const sql = 'INSERT INTO users (username, email, password, subscription_type, last_login_date, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
     const { rows } = await db.query(sql, [username, email, hash, 'none', now, now]);

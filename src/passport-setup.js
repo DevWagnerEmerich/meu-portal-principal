@@ -49,7 +49,7 @@ async (accessToken, refreshToken, profile, done) => {
         // Se o usuário não existe, cria um novo
         const newUsername = displayName.replace(/\s+/g, '') + Math.floor(Math.random() * 1000);
         const randomPassword = crypto.randomBytes(20).toString('hex'); // Senha aleatória, já que o login é via Google
-        const now = Date.now();
+        const now = new Date();
 
         const sql = `INSERT INTO users (username, email, password, google_id, is_confirmed, subscription_type, subscription_end_date, last_login_date, free_plays_used, show_welcome_modal, role, created_at)
                      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
