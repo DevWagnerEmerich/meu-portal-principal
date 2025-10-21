@@ -175,7 +175,9 @@ async function startServer() {
     }
 }
 
-startServer();
+if (process.env.NODE_ENV !== 'production') {
+    startServer();
+}
 
 // Middleware de tratamento de erros centralizado
 app.use((err, req, res, next) => {
@@ -192,3 +194,5 @@ app.use((err, req, res, next) => {
         // stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
 });
+
+module.exports = app;
