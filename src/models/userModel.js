@@ -34,7 +34,7 @@ const updateUserLastLogin = async (userId) => {
 };
 
 const disableWelcomeModal = async (userId) => {
-    await db.query('UPDATE users SET show_welcome_modal = 0 WHERE id = $1', [userId]);
+    await db.query('UPDATE users SET show_welcome_modal = false WHERE id = $1', [userId]);
 };
 
 const createPasswordResetToken = async ({ userId, token, expiresAt }) => {
