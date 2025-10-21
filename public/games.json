@@ -58,7 +58,8 @@
     "game_url": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/indexportuges.html",
     "is_premium": false,
     "is_featured": false,
-    "category": "Português",
+    "category": "Português"
+  },
   {
     "id": "quiz-educacional",
     "title": "Quiz Educacional",
