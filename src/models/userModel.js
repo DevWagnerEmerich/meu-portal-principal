@@ -30,7 +30,7 @@ const createEmailConfirmationToken = async ({ userId, token, expiresAt }) => {
 };
 
 const updateUserLastLogin = async (userId) => {
-    await db.query('UPDATE users SET last_login_date = $1 WHERE id = $2', [Date.now(), userId]);
+    await db.query('UPDATE users SET last_login_date = $1 WHERE id = $2', [new Date(), userId]);
 };
 
 const disableWelcomeModal = async (userId) => {
