@@ -65,7 +65,7 @@ const findEmailConfirmationToken = async (token) => {
 };
 
 const confirmUserEmail = async (userId) => {
-    await db.query('UPDATE users SET is_confirmed = 1 WHERE id = $1', [userId]);
+    await db.query('UPDATE users SET is_confirmed = true WHERE id = $1', [userId]);
 };
 
 const deleteEmailConfirmationToken = async (token) => {
