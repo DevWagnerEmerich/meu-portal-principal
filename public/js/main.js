@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // --- FORM LISTENERS ---
-    if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { showToast(j.message, 'success'); setTimeout(() => window.location.href = '/login.html', 2000); } else { if (j.errors) { j.errors.forEach(err => showToast(err.msg, 'danger')); } else { showToast(`Erro: ${j.message}`, 'danger'); } } }); }
+    if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault(); const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json(); if (r.ok) { alert('Cadastro realizado com sucesso! Você será redirecionado para o login.'); setTimeout(() => window.location.href = '/login.html', 2500); } else { if (j.errors) { j.errors.forEach(err => showToast(err.msg, 'danger')); } else { showToast(`Erro: ${j.message}`, 'danger'); } } }); }
     if (loginForm) {
         const rememberedUsername = localStorage.getItem('rememberedUsername');
         if (rememberedUsername) {
