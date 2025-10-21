@@ -58,6 +58,15 @@
     "game_url": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/indexportuges.html",
     "is_premium": false,
     "is_featured": false,
-    "category": "Português"
+    "category": "Português",
+  {
+    "id": "quiz-educacional",
+    "title": "Quiz Educacional",
+    "description": "Teste seus conhecimentos com este quiz educativo e divertido!",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/placeholder-quiz.webp",
+    "game_url": "https://quiz-educacional-copia-copia-3-copia.fly.dev",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Educação"
   }
 ]
