@@ -78,22 +78,43 @@ router.post('/create_preference', async (req, res) => {
 // Rota para receber webhooks do Mercado Pago
 router.post('/webhook', async (req, res) => {
   try {
-    // Verificação de assinatura do Webhook
     const signature = req.headers['x-signature'];
-    const timestamp = req.headers['x-request-id']; // Mercado Pago usa x-request-id como timestamp
+    const requestId = req.headers['x-request-id'];
     const payload = JSON.stringify(req.body);
 
-    if (!signature || !timestamp || !config.mercadoPago.webhookSecret) {
+    if (!signature || !requestId || !config.mercadoPago.webhookSecret) {
       console.warn('Webhook: Cabeçalhos de assinatura ou segredo não fornecidos.');
       return res.status(400).send('Assinatura ou segredo do webhook ausente.');
     }
 
+    // Extrai o timestamp e a assinatura da string de assinatura
+    const parts = signature.split(',').reduce((acc, part) => {
+      const [key, value] = part.split('=');
+      acc[key.trim()] = value.trim();
+      return acc;
+    }, {});
+
+    const ts = parts.ts;
+    const hash = parts.v1;
+
+    if (!ts || !hash) {
+      console.warn('Webhook: Formato de assinatura inválido.');
+      return res.status(400).send('Formato de assinatura inválido.');
+    }
+
+    // Cria a string para o HMAC
+    const manifest = `id:${req.body.data.id};request-id:${requestId};ts:${ts};`;
+
+    // Gera o HMAC
     const hmac = crypto.createHmac('sha256', config.mercadoPago.webhookSecret);
-    hmac.update(`${timestamp}${payload}`);
+    hmac.update(manifest);
     const expectedSignature = hmac.digest('hex');
 
-    if (expectedSignature !== signature) {
-      console.warn('Webhook: Assinatura inválida recebida.');
+    // Compara as assinaturas
+    if (crypto.timingSafeEqual(Buffer.from(expectedSignature, 'hex'), Buffer.from(hash, 'hex'))) {
+      console.log('Webhook: Assinatura válida.');
+    } else {
+      console.warn('Webhook: Assinatura inválida.');
       return res.status(403).send('Assinatura inválida.');
     }
 
