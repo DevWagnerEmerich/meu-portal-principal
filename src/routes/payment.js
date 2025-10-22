@@ -78,6 +78,25 @@ router.post('/create_preference', async (req, res) => {
 // Rota para receber webhooks do Mercado Pago
 router.post('/webhook', async (req, res) => {
   try {
+    // Verificação de assinatura do Webhook
+    const signature = req.headers['x-signature'];
+    const timestamp = req.headers['x-request-id']; // Mercado Pago usa x-request-id como timestamp
+    const payload = JSON.stringify(req.body);
+
+    if (!signature || !timestamp || !config.mercadoPago.webhookSecret) {
+      console.warn('Webhook: Cabeçalhos de assinatura ou segredo não fornecidos.');
+      return res.status(400).send('Assinatura ou segredo do webhook ausente.');
+    }
+
+    const hmac = crypto.createHmac('sha256', config.mercadoPago.webhookSecret);
+    hmac.update(`${timestamp}${payload}`);
+    const expectedSignature = hmac.digest('hex');
+
+    if (expectedSignature !== signature) {
+      console.warn('Webhook: Assinatura inválida recebida.');
+      return res.status(403).send('Assinatura inválida.');
+    }
+
     const notification = req.body;
     if (notification.type === 'payment') {
       const paymentDetails = await payment.get({ id: notification.data.id });
