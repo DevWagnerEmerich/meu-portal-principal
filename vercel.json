@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "src/server.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["public/**", "src/**", "assets/**"] }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/server.js"
+    }
+  ],
+  "buildCommand": "node src/run-migrations.js",
+  "outputDirectory": "public"
+}
