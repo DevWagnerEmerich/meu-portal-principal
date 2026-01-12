@@ -15,32 +15,21 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "connect-pg-simple": "^10.0.0",
-<<<<<<< HEAD
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-=======
-    "dotenv": "^17.2.2",
->>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "express-session": "^1.18.2",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
-<<<<<<< HEAD
     "knex": "^3.1.0",
-=======
->>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
     "mercadopago": "^2.8.0",
     "nodemailer": "^7.0.6",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.16.3",
-<<<<<<< HEAD
     "sqlite3": "^5.1.7",
     "winston": "^3.19.0"
-=======
-    "sqlite3": "^5.1.7"
->>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
   },
   "devDependencies": {
     "jest": "^30.2.0",
