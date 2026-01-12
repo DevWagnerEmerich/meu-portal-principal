@@ -35,10 +35,7 @@ router.post('/register', [
     body('email', 'Por favor, insira um e-mail válido.').isEmail().normalizeEmail(),
     body('password', 'A senha deve ter no mínimo 6 caracteres.').isLength({ min: 6 })
 ], async (req, res) => {
-<<<<<<< HEAD
-=======
-    console.log(`Tentando registrar com: username=${req.body.username}, email=${req.body.email}`); // Linha de depuração
->>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
+    console.log(`Tentando registrar com: username=${req.body.username}, email=${req.body.email}`);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
@@ -70,18 +67,14 @@ router.post('/register', [
         }
 
     } catch (error) {
-<<<<<<< HEAD
+        // Log detailed error
+        console.error("Erro no registro: ", error);
+
+        // Handle unique constraints
         if (error.code === 'SQLITE_CONSTRAINT' || error.code === '23505') {
             return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
         }
-        console.error("Erro no registro: ", error);
-=======
-        console.error("--- ERRO DETALHADO NO REGISTRO ---", error);
-        if (error.code === '23505') { // Violação de unicidade do PostgreSQL
-            return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
-        }
-        console.error("Erro não esperado no registro: ", error.message);
->>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
+
         res.status(500).json({ message: 'Erro ao registrar o usuário.' });
     }
 });
