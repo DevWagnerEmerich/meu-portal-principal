@@ -1,0 +1,97 @@
+<div class="page-header">
+    <h1 class="h2">Análise de Jogos</h1>
+    <p class="text-secondary">Métricas de engajamento e popularidade dos jogos.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <div class="card-title">Jogadas nos Últimos 14 Dias</div>
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg></div>
+            </div>
+            <div id="total-plays" class="card-value"><div class="skeleton skeleton-text"></div></div>
+        </div>
+    </div>
+     <div class="col-lg-4">
+        <div class="admin-card">
+            <div class="card-header">
+                <div class="card-title">Tempo Médio (placeholder)</div>
+                <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+            </div>
+            <div id="avg-play-time" class="card-value">N/A</div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="card-header"><div class="card-title">Tempo Total de Jogo (em minutos)</div></div>
+            <div class="chart-container">
+                <canvas id="totalPlayTimeChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (async () => {
+        const chartDefaults = {
+            plugins: { legend: { display: false } },
+            scales: { 
+                y: { ticks: { color: '#6B7280' }, grid: { display: false } },
+                x: { ticks: { color: '#6B7280' }, grid: { display: false } }
+            },
+            maintainAspectRatio: false,
+            responsive: true
+        };
+
+        async function fetchData(endpoint) {
+            const response = await fetch(`/api/admin/${endpoint}`);
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    // This will be handled by the main page's toast function
+                }
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        async function loadCardData(endpoint, elementId, formatter) {
+            const element = document.getElementById(elementId);
+            try {
+                const data = await fetchData(endpoint);
+                element.innerHTML = formatter(data);
+            } catch (error) {
+                element.innerHTML = '<span class="text-danger">Erro</span>';
+                console.error(`Erro ao carregar ${elementId}:`, error);
+            }
+        }
+
+        // Somar o total de jogadas dos últimos 14 dias para o card
+        loadCardData('metrics/games/total-plays', 'total-plays', data => data.reduce((acc, row) => acc + row.count, 0));
+
+        // Total Play Time Chart (Horizontal Bar)
+        try {
+            const playTimeData = await fetchData('metrics/games/play-time');
+            if (playTimeData && playTimeData.length > 0) {
+                playTimeData.sort((a, b) => b.total_duration_minutes - a.total_duration_minutes);
+
+                new Chart(document.getElementById('totalPlayTimeChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: playTimeData.map(row => row.title),
+                        datasets: [{
+                            label: 'Minutos Jogados',
+                            data: playTimeData.map(row => row.total_duration_minutes),
+                            backgroundColor: '#4F46E5',
+                        }]
+                    },
+                    options: { ...chartDefaults, indexAxis: 'y' }
+                });
+            }
+        } catch (e) {
+            console.error("Erro no gráfico de tempo de jogo:", e);
+        }
+    })();
+</script>

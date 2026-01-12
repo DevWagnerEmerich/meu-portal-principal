@@ -1070,3 +1070,8 @@
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:54:58"}
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:54:59"}
 {"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:55:27"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 02:10:04"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 02:10:05"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 02:10:07"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 02:10:07"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 02:10:08"}

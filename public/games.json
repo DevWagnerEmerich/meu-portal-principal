@@ -1,0 +1,73 @@
+[
+  {
+    "id": "tabela-periodica-bingo",
+    "title": "Tabela Periódica Bingo",
+    "description": "Aprenda os elementos da tabela periódica de forma divertida!",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/tabela-periodica-bingo/imagens/tamb.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/tabela-periodica-bingo/index.html",
+    "printable_url": "/downloads/tabela-periodica.pdf",
+    "is_premium": false,
+    "is_featured": true,
+    "category": "Química"
+  },
+  {
+    "id": "roda-a-roda",
+    "title": "Roda a Roda",
+    "description": "Gire a roleta, adivinhe as palavras e ganhe pontos!",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/roda-a-roda/assets/images/tamb.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/roda-a-roda/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Híbrido"
+  },
+  {
+    "id": "desafio-exploradores",
+    "title": "Desafio dos Exploradores",
+    "description": "Teste seus conhecimentos de geografia neste desafio emocionante.",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/desafio-exploradores/assets/imagens/tamb.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/desafio-exploradores/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Geografia"
+  },
+  {
+    "id": "detector-fatos",
+    "title": "Detector de Fatos",
+    "description": "Aprenda a diferenciar fatos de opiniões em textos.",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/detector-fatos/assets/imagens/tamb.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/detector-fatos/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Português"
+  },
+  {
+    "id": "jogo-da-memoria-matematica",
+    "title": "Jogo da Memória - Matemática",
+    "description": "Teste sua memória e suas habilidades matemáticas.",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/assets/imagens/tamb-m.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/indexmatematica.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Matemática"
+  },
+  {
+    "id": "jogo-da-memoria-portugues",
+    "title": "Jogo da Memória - Português",
+    "description": "Teste sua memória e seus conhecimentos de português.",
+    "thumbnail": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/assets/imagens/tamb-p.webp",
+    "game_url": "https://meu-portal-jogos-conteudo.vercel.app/game-memoria/indexportuges.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Português"
+  },
+  {
+    "id": "quiz-educacional",
+    "title": "Quiz Educacional",
+    "description": "Teste seus conhecimentos com este quiz educativo e divertido!",
+    "thumbnail": "/assets/imagens/quiz.webp",
+    "game_url": "https://quiz-educacional-copia-copia-3-copia.fly.dev",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Educação"
+  }
+]

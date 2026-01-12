@@ -1,0 +1,80 @@
+<div class="page-header">
+    <h1 class="h2">Visão Geral</h1>
+    <p class="text-secondary">Principais indicadores de desempenho do portal.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6"><div class="admin-card"><div class="card-header"><div class="card-title">Total de Usuários</div></div><div id="total-users" class="card-value"><div class="skeleton skeleton-text"></div></div></div></div>
+    <div class="col-lg-3 col-md-6"><div class="admin-card"><div class="card-header"><div class="card-title">Novos Usuários (hoje)</div></div><div id="new-users-today" class="card-value"><div class="skeleton skeleton-text"></div></div></div></div>
+    <div class="col-lg-3 col-md-6"><div class="admin-card"><div class="card-header"><div class="card-title">Assinantes Ativos</div></div><div id="active-subscriptions" class="card-value"><div class="skeleton skeleton-text"></div></div></div></div>
+    <div class="col-lg-3 col-md-6"><div class="admin-card"><div class="card-header"><div class="card-title">Total de Jogadas</div></div><div id="total-plays" class="card-value"><div class="skeleton skeleton-text"></div></div></div></div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="card-header"><div class="card-title">Top 5 Jogos Mais Jogados</div></div>
+            <canvas id="top-games-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    (async () => {
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container');
+            const toastId = `toast-${Date.now()}`;
+            const toastHtml = `
+                <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex"><div class="toast-body">${message}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
+                </div>
+            `;
+            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+            const toastEl = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+            toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+        }
+
+        try {
+            const response = await fetch('/api/admin/stats');
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    showToast('Acesso negado. Redirecionando para o login...', 'danger');
+                    setTimeout(() => window.location.href = '/login.html', 2000);
+                }
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const stats = await response.json();
+
+            document.getElementById('total-users').textContent = stats.totalUsers;
+            document.getElementById('new-users-today').textContent = stats.newUsersToday;
+            document.getElementById('active-subscriptions').textContent = stats.activeSubscriptions;
+            document.getElementById('total-plays').textContent = stats.totalPlays;
+
+            const ctx = document.getElementById('top-games-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stats.topGames.map(g => g.title),
+                    datasets: [{
+                        label: 'Nº de Jogadas',
+                        data: stats.topGames.map(g => g.playCount),
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+        } catch (error) {
+            console.error('Erro ao carregar dados do dashboard:', error);
+            showToast('Não foi possível carregar as estatísticas.', 'danger');
+        }
+    })();
+</script>

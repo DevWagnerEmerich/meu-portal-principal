@@ -1,25 +1,28 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./database.js');
+<<<<<<< HEAD
 const crypto = require('crypto');
 const config = require('./config'); // Adicionar esta linha
+=======
+const config = require('./config');
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
 
-// Garante que as variáveis de ambiente sejam carregadas
 require('dotenv').config();
 
-// Serializa o usuário para armazenar na sessão
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-// Desserializa o usuário a partir do ID na sessão
-passport.deserializeUser((id, done) => {
-    db.get('SELECT * FROM users WHERE id = ?', [id], (err, user) => {
-        done(err, user);
-    });
+passport.deserializeUser(async (id, done) => {
+    try {
+        const { rows } = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+        done(null, rows[0]);
+    } catch (err) {
+        done(err, null);
+    }
 });
 
-// Configuração da Estratégia do Google
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -27,24 +30,22 @@ passport.use(new GoogleStrategy({
     scope: ['profile', 'email']
 },
 async (accessToken, refreshToken, profile, done) => {
-    // Esta função é chamada após o usuário fazer login no Google
     const email = profile.emails[0].value;
     const googleId = profile.id;
     const displayName = profile.displayName;
 
-    // Procura se o usuário já existe no banco de dados
-    db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
-        if (err) { return done(err); }
+    try {
+        const userResult = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+        let user = userResult.rows[0];
 
-        // Se o usuário já existe, retorna o usuário
         if (user) {
-            // Opcional: atualizar o googleId se estiver faltando
             if (!user.google_id) {
-                db.run('UPDATE users SET google_id = ? WHERE id = ?', [googleId, user.id]);
+                await db.query('UPDATE users SET google_id = $1 WHERE id = $2', [googleId, user.id]);
             }
             return done(null, user);
         }
 
+<<<<<<< HEAD
         // Se o usuário não existe, cria um novo
         const newUser = {
             username: displayName.replace(/\s+/g, '') + Math.floor(Math.random() * 1000), // Cria um username único
@@ -76,13 +77,28 @@ async (accessToken, refreshToken, profile, done) => {
             newUser.show_welcome_modal,
             newUser.role,
             newUser.created_at
+=======
+        // Abordagem ultra-simplificada: Inserir apenas o essencial.
+        const newUsername = displayName.replace(/\s+/g, '') + Math.floor(Math.random() * 1000);
+
+        const sql = `INSERT INTO users (email, google_id, username, is_confirmed, last_login_date)
+                     VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+        
+        const params = [
+            email,
+            googleId,
+            newUsername,
+            true,       // O e-mail do Google é considerado verificado
+            new Date()  // Define a data de último login
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
         ];
 
-        db.run(sql, params, function(err) {
-            if (err) { return done(err); }
-            newUser.id = this.lastID;
-            return done(null, newUser);
-        });
-    });
+        const newUserResult = await db.query(sql, params);
+        return done(null, newUserResult.rows[0]);
+
+    } catch (err) {
+        console.error("Erro na estratégia Google (versão simplificada):", err);
+        return done(err);
+    }
 }
 ));

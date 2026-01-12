@@ -1,6 +1,19 @@
 const logger = require('./logger');
 
+<<<<<<< HEAD
 logger.info('SERVER.JS FILE IS EXECUTING');
+=======
+console.log('--- INÍCIO DA DEPURAÇÃO DE VARIÁVEIS DE AMBIENTE ---');
+console.log(`Debug DATABASE_URL: ${process.env.DATABASE_URL}`);
+console.log(`Debug GOOGLE_CLIENT_ID: ${process.env.GOOGLE_CLIENT_ID}`);
+console.log(`Debug GOOGLE_CLIENT_SECRET: ${process.env.GOOGLE_CLIENT_SECRET ? 'Presente' : 'AUSENTE'}`);
+console.log(`Debug DOMAIN: ${process.env.DOMAIN}`);
+console.log('--- FIM DA DEPURAÇÃO ---');
+
+console.log('Debug DATABASE_URL:', process.env.DATABASE_URL);
+
+console.log('SERVER.JS FILE IS EXECUTING');
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
 
 const config = require('./config');
 const { setupEmail } = require('./email.js');
@@ -11,7 +24,10 @@ setupEmail();
 
 const express = require('express');
 const helmet = require('helmet');
+<<<<<<< HEAD
 const cors = require('cors');
+=======
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
@@ -28,6 +44,7 @@ const contactRoutes = require('./routes/contact.js');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
+<<<<<<< HEAD
 
 app.use(cors({
     origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'],
@@ -37,15 +54,25 @@ app.use(cors({
 
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
+=======
+app.set('trust proxy', 1); // Confia no primeiro proxy (necessário para o Render)
+app.use(helmet({
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
     contentSecurityPolicy: {
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
             "style-src": ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com", "'unsafe-inline'"],
             "font-src": ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+<<<<<<< HEAD
             "img-src": ["'self'", "data:", "https://lh3.googleusercontent.com", "https://img.icons8.com"],
             "connect-src": ["'self'", "https://cdn.jsdelivr.net"],
             "frame-ancestors": ["'self'", "http://localhost:3000"]
+=======
+            "img-src": ["'self'", "data:", "https://lh3.googleusercontent.com", "https://img.icons8.com", "meu-portal-jogos-conteudo.vercel.app"],
+            "frame-src": ["'self'", "meu-portal-jogos-conteudo.vercel.app", "https://quiz-educacional-copia-copia-3-copia.fly.dev"],
+            "connect-src": ["'self'", "https://cdn.jsdelivr.net"]
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
         }
     }
 }));
@@ -57,6 +84,7 @@ app.use((req, res, next) => {
     next();
 });
 
+<<<<<<< HEAD
 // Configuração da sessão
 const pgSession = require('connect-pg-simple')(session);
 const pg = require('pg');
@@ -85,6 +113,22 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         secure: config.isProduction,
+=======
+const pgSession = require('connect-pg-simple')(session);
+const db = require('./database');
+
+// Configuração da sessão com armazenamento no PostgreSQL
+app.use(session({
+    store: new pgSession({
+        pool: db.pool,                // Pool de conexão com o banco de dados
+        tableName: 'user_sessions'    // Nome da tabela para armazenar as sessões
+    }),
+    secret: config.sessionSecret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        secure: config.isProduction, // Em produção, use cookies seguros (HTTPS)
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 dias
     }
 }));
@@ -107,7 +151,11 @@ app.use('/api', apiLimiter);
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', gameRoutes);
+<<<<<<< HEAD
 app.use('/api/payment', paymentRoutes);
+=======
+app.use('/api', paymentRoutes);
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
 app.use('/api', contactRoutes);
 app.use('/api/admin', adminRoutes); // Add this line
 
@@ -169,6 +217,7 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
 });
 
+<<<<<<< HEAD
 
 
 
@@ -194,3 +243,47 @@ app.use((err, req, res, next) => {
         // stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
 });
+=======
+
+
+const { runMigrations } = require('./run-migrations');
+
+// Função auto-executável para rodar as migrações antes de iniciar o servidor
+async function startServer() {
+    try {
+        console.log('Iniciando migrações do banco de dados...');
+        await runMigrations();
+        console.log('Migrações concluídas. Iniciando o servidor web...');
+
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando em http://localhost:${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Falha crítica ao rodar migrações. O servidor não será iniciado.", error);
+        process.exit(1);
+    }
+}
+
+if (process.env.NODE_ENV !== 'production') {
+    startServer();
+}
+
+// Middleware de tratamento de erros centralizado
+app.use((err, req, res, next) => {
+    console.error(`[${new Date().toISOString()}] Erro: ${err.message}`);
+    console.error(err.stack); // Loga o stack trace para depuração
+
+    // Verifica se o erro já tem um status definido, caso contrário, usa 500
+    const statusCode = err.statusCode || 500;
+
+    // Envia uma resposta de erro padronizada
+    res.status(statusCode).json({
+        message: err.message || 'Ocorreu um erro interno no servidor.',
+        // Em produção, você pode querer omitir o stack trace por segurança
+        // stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+    });
+});
+
+module.exports = app;
+>>>>>>> 42f82f97a2b7771496a03a2d0bb1e7cdec306fec
