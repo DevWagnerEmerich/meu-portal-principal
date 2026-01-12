@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Lock, Loader2, Sparkles, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { API_URL } from "@/lib/config";
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ function CheckoutContent() {
 
     useEffect(() => {
         // Fetch user data & check bonus
-        fetch("http://localhost:3001/api/user-status", { credentials: "include" })
+        fetch(`${API_URL}/api/user-status`, { credentials: "include" })
             .then(res => res.json())
             .then(data => {
                 if (!data.loggedIn) {
@@ -70,7 +71,7 @@ function CheckoutContent() {
 
         try {
             // Chama o backend para criar a preferência do MercadoPago
-            const response = await fetch("http://localhost:3001/api/payment/create_preference", {
+            const response = await fetch(`${API_URL}/api/payment/create_preference`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",

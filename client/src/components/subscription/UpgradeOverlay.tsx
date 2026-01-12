@@ -5,6 +5,7 @@ import { Zap, Check, Timer, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { API_URL } from "@/lib/config";
 
 interface Plan {
     id: string;
@@ -49,7 +50,7 @@ export function UpgradeOverlay() {
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/user-status", { credentials: "include" })
+        fetch(`${API_URL}/api/user-status`, { credentials: "include" })
             .then(res => res.json())
             .then(data => {
                 if (data.welcomeOffer) {
@@ -178,8 +179,8 @@ export function UpgradeOverlay() {
                         <div
                             key={plan.id}
                             className={`relative flex flex-col p-6 rounded-2xl border transition-all duration-300 ${plan.popular
-                                    ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10 scale-105 z-10'
-                                    : 'bg-slate-950/50 border-slate-800 hover:border-slate-700'
+                                ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10 scale-105 z-10'
+                                : 'bg-slate-950/50 border-slate-800 hover:border-slate-700'
                                 }`}
                         >
                             {plan.popular && (
@@ -231,8 +232,8 @@ export function UpgradeOverlay() {
 
                             <Link href={`/subscription/checkout?plan=${plan.id}`} className="w-full">
                                 <Button className={`w-full h-12 font-bold text-base rounded-xl ${plan.popular
-                                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25'
-                                        : 'bg-slate-800 hover:bg-slate-700 text-white'
+                                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25'
+                                    : 'bg-slate-800 hover:bg-slate-700 text-white'
                                     }`}>
                                     Assinar {plan.title}
                                 </Button>

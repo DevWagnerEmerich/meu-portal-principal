@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GameCard } from "../ui/GameCard";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { API_URL } from "@/lib/config";
 
 // Tipo do jogo vindo da API
 interface Game {
@@ -17,6 +18,7 @@ export function FeaturedGames() {
     const [games, setGames] = useState<Game[]>([]);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         // Tenta buscar do backend (porta 3001)
         // Como o backend serve 'games.json' estático, podemos pegar de lá
@@ -24,7 +26,7 @@ export function FeaturedGames() {
             try {
                 // Tenta conectar na porta 3001 (Backend) ou 3000 (se tiver proxy)
                 // Ajuste a URL conforme onde o backend estiver rodando
-                const response = await fetch('http://localhost:3001/games.json');
+                const response = await fetch(`${API_URL}/games.json`);
                 if (!response.ok) throw new Error('Falha ao buscar jogos');
 
                 const data = await response.json();
@@ -75,7 +77,7 @@ export function FeaturedGames() {
                             <GameCard
                                 id={game.id}
                                 title={game.title}
-                                thumbnail={`http://localhost:3001${game.thumbnail}`} // Ajusta URL da imagem para o backend
+                                thumbnail={`${API_URL}${game.thumbnail}`} // Ajusta URL da imagem para o backend
                                 category={game.type === 'premium' ? 'Premium de Assinante' : 'Grátis'}
                                 isNew={index < 2} // Apenas um exemplo visual
                             />

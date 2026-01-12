@@ -5,6 +5,7 @@ import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { UpgradeOverlay } from "@/components/subscription/UpgradeOverlay";
+import { API_URL } from "@/lib/config";
 
 interface Game {
     id: string;
@@ -24,7 +25,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
         const fetchGameAndAccess = async () => {
             try {
                 // 1. Buscar detalhes do jogo
-                const gamesRes = await fetch('http://localhost:3001/games.json');
+                const gamesRes = await fetch(`${API_URL}/games.json`);
                 const games: Game[] = await gamesRes.json();
                 const foundGame = games.find(g => g.id === gameId);
 
@@ -32,7 +33,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     setGame(foundGame);
 
                     // 2. Tentar iniciar o jogo (consumir energia)
-                    const response = await fetch("http://localhost:3001/api/game-start", {
+                    const response = await fetch(`${API_URL}/api/game-start`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ gameSrc: foundGame.game_url }),
@@ -146,7 +147,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
 
             <div className="flex-1 w-full bg-black relative">
                 <iframe
-                    src={`http://localhost:3001${game.game_url}`}
+                    src={`${API_URL}${game.game_url}`}
                     className="w-full h-full absolute inset-0 border-0"
                     allowFullScreen
                     allow="autoplay"

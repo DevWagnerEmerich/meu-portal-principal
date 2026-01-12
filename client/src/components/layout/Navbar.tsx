@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Gamepad2, User, LogOut, Zap } from "lucide-react";
+import { API_URL } from "@/lib/config";
 
 export function Navbar() {
     const [user, setUser] = useState<{ loggedIn: boolean; username?: string; energy?: number; maxEnergy?: number; subscriptionType?: string } | null>(null);
@@ -13,7 +14,7 @@ export function Navbar() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("http://localhost:3001/api/user-status", {
+                const res = await fetch(`${API_URL}/api/user-status`, {
                     credentials: "include" // Importante para cookie
                 });
                 if (res.ok) {
@@ -29,7 +30,7 @@ export function Navbar() {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:3001/api/logout", {
+            await fetch(`${API_URL}/api/logout`, {
                 method: "POST",
                 credentials: "include"
             });

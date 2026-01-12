@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Chrome } from "lucide-react";
+import { API_URL } from "@/lib/config";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -22,7 +23,7 @@ export default function LoginPage() {
         setError("");
 
         try {
-            const response = await fetch("http://localhost:3001/api/login", {
+            const response = await fetch(`${API_URL}/api/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
@@ -49,7 +50,7 @@ export default function LoginPage() {
 
     const handleGoogleLogin = () => {
         // Redireciona para o endpoint do backend que inicia o OAuth
-        window.location.href = "http://localhost:3001/api/auth/google";
+        window.location.href = `${API_URL}/api/auth/google`;
     };
 
     return (
