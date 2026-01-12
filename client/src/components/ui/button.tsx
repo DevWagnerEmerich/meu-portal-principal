@@ -1,18 +1,12 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
 
-// Como não instalei class-variance-authority ainda, vou fazer um botão simples com tailwind puro e framer-motion
-// Mas para ser profissional, vou instalar cva agora.
-// Vou fazer um componente Button com motion.
+import { cn } from "@/lib/utils"
 
 import { motion, HTMLMotionProps } from "framer-motion"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
-    asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
