@@ -1,19 +1,22 @@
 const nodemailer = require('nodemailer');
+const config = require('./config');
 
 let transporter;
 
 async function setupEmail() {
     // Se as variáveis de ambiente para o Gmail estiverem definidas, use o Gmail.
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    if (config.email.user && config.email.pass) {
         try {
             transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
                 port: 465,
                 secure: true, // a porta 465 usa SSL
                 auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS, // Use a "senha de aplicativo" do Gmail aqui
+                    user: config.email.user,
+                    pass: config.email.pass, // Use a "senha de aplicativo" do Gmail aqui
                 },
+                debug: true, // Ativa o log de depuração
+                logger: true // Envia o log para o console
             });
             await transporter.verify(); // Verifica se a conexão e as credenciais são válidas
             console.log('Serviço de e-mail (Gmail) configurado com sucesso.');
@@ -51,7 +54,7 @@ async function sendEmail({ to, subject, text, html }) {
 
     try {
         const info = await transporter.sendMail({
-            from: `"Educatech" <${process.env.EMAIL_USER || 'no-reply@educatech.com'}>`,
+            from: `"Educatech" <${config.email.user || 'no-reply@educatech.com'}>`,
             to: to,
             subject: subject,
             text: text,

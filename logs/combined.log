@@ -1,0 +1,1072 @@
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:29"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:31"}
+{"level":"info","message":"Conectado ao banco de dados SQLite.","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:50"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:50"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:50"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-11 22:05:50"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:23"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:23"}
+{"level":"info","message":"Conectado ao banco de dados SQLite.","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:25"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:25"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:25"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:25"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:44"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:45"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:46"}
+{"level":"info","message":"Conectado ao banco de dados SQLite.","service":"portal-jogos-service","timestamp":"2026-01-11 22:29:46"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 22:36:57"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 22:36:58"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 22:37:21"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 22:37:21"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-11 22:37:23"}
+{"level":"info","message":"Conectado ao banco de dados (development).","service":"portal-jogos-service","timestamp":"2026-01-11 22:37:23"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:49"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:49"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:49"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:49"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:40:50"}
+{"level":"info","message":"GET /register.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:12"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:20"}
+{"level":"info","message":"GET /login.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:24"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:24"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:24"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:25"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:30"}
+{"level":"info","message":"GET /index.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /api/user/favorites","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"GET /api/user/offer-status","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/index.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/H.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/He.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Li.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Be.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/B.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/C.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pt.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sg.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bh.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hs.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ca.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cs.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ti.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rg.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mg.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sc.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fe.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Zr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Re.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Db.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/V.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ba.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Au.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mo.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Zn.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:44"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Gd.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sm.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ta.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cu.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ir.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mt.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rf.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tc.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Co.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/W.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cn.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ag.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ni.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Na.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rh.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ru.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:45"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ra.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Y.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hf.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/K.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Os.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pd.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mn.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ds.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hg.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cd.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Eu.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pm.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nd.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/La.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ce.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/N.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/O.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/F.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ne.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Al.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Si.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/P.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/S.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cl.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ar.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ga.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ge.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/As.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Se.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Br.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Kr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/In.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sn.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Te.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/I.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Xe.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tl.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bi.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Po.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/At.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rn.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nh.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fl.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mc.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lv.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ts.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Og.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Dy.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ho.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Er.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tm.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Yb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lu.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ac.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Th.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pa.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/U.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Np.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pu.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Am.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cm.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bk.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cf.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Es.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fm.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Md.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/No.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lr.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/sons/sorteando.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/sons/final.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/logo-educatech.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:41:47"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:42"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:43"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:48"}
+{"level":"info","message":"GET /games/detector-fatos/index.html","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:48"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-11 22:42:53"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 23:10:53"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 23:10:53"}
+{"level":"info","message":"Usando Memory Session Store (Dev).","service":"portal-jogos-service","timestamp":"2026-01-11 23:10:55"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-11 23:10:55"}
+{"level":"info","message":"Conectado ao banco de dados (development).","service":"portal-jogos-service","timestamp":"2026-01-11 23:10:55"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-11 23:30:29"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 23:49:38"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 23:49:38"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-11 23:49:40"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-11 23:49:40"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-11 23:49:40"}
+{"level":"info","message":"GET /index.html","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:52"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:52"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:52"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:52"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-11 23:51:53"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:26"}
+{"level":"info","message":"GET /register.html","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:30"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:31"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:31"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:32"}
+{"level":"info","message":"GET /login.html","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:38"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:38"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:38"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"GET /api/auth/google","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:39"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:48"}
+{"level":"info","message":"GET /register.html","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:52"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-11 23:54:57"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-11 23:55:04"}
+{"level":"info","message":"GET /.well-known/appspecific/com.chrome.devtools.json","service":"portal-jogos-service","timestamp":"2026-01-11 23:55:04"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-11 23:59:40"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-11 23:59:40"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-11 23:59:42"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-11 23:59:42"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-11 23:59:43"}
+{"level":"info","message":"GET /register.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:18"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:18"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:18"}
+{"level":"info","message":"GET /.well-known/appspecific/com.chrome.devtools.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:18"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:19"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-12 00:00:20"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:08:46"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:08:47"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:08:49"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000","service":"portal-jogos-service","timestamp":"2026-01-12 00:08:49"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:08:49"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:09:39"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:09:40"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:09:42"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:09:42"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:09:42"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:42"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:42"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:42"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:42"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /favicon.ico","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:43"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:44"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:48"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:48"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:48"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:48"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:49"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:53"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:54"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:54"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:54"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:10:55"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:11:18"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:11:18"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:11:20"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:11:20"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:11:21"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:12:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:12:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:12:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:12:27"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:12:31"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:13:28"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:13:28"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:13:30"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:13:30"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:13:31"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:14:17"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:16:41"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:16:41"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:16:43"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:16:43"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:16:44"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:17:30"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:00"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:00"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:02"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:02"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:03"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:18:48"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:20:08"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:20:08"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:20:11"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:20:11"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:20:11"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:22:33"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:21:45"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:21:48"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:22:40"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:22:40"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:22:41"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:22:47"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:05"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:13"}
+{"level":"info","message":"GET /.well-known/appspecific/com.chrome.devtools.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:14"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:14"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:14"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:14"}
+{"level":"info","message":"GET /js/modules/auth.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /js/modules/games.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /js/modules/subscription.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /js/modules/ui.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /js/modules/utils.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /api/plans","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:15"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:16"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:16"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:23:25"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:25:23"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:25:24"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:25:26"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:25:26"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:25:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:26:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:43"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:43"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:43"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:46"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:46"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:27:46"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:18"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:19"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:19"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:20"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:20"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:20"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:28:20"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:29"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:29"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:30"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:55"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:56"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:56"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:56"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:56"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:57"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:29:57"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:30:52"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:30:59"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:30:59"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:30:59"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:30:59"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:31:01"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:31:01"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:31:01"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:32:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:32:08"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:32:08"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:04"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:04"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:06"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:06"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:07"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:29"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:29"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:30"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:31"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:32"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:33:46"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:37:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:38:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:39:01"}
+{"level":"info","message":"GET /api/auth/google","service":"portal-jogos-service","timestamp":"2026-01-12 00:39:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:39:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:39:21"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-12 00:39:42"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:41:58"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:41:58"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:00"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:00"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:01"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:25"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:48"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 00:42:58"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:55"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:43:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:04"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:04"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:04"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:04"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/H.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/He.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Li.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Be.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/B.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/C.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:05"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pd.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Os.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pu.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fe.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cs.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mn.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pm.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pa.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Th.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Zr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mo.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/La.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hs.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mt.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pt.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ra.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ba.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Na.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ru.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hf.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Eu.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/U.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Np.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ac.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:06"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Am.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ir.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sc.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rh.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/V.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ca.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tc.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nd.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ce.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sg.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Db.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Co.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rf.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sm.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ni.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ds.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ti.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/W.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Y.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bh.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mg.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/K.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Re.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:07"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/N.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/O.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/F.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ne.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Al.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Si.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/P.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/S.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cl.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ar.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cu.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Zn.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ga.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ge.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/As.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Se.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Br.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Kr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ag.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cd.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/In.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sn.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Sb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Te.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/I.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Xe.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Au.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Hg.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tl.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Pb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bi.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Po.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/At.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rn.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Rg.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cn.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Nh.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fl.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Mc.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lv.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ts.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Og.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Gd.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Dy.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Ho.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Er.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Tm.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Yb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lu.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cm.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Bk.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Cf.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Es.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Fm.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Md.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/No.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:09"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/Lr.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:10"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/sons/sorteando.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:10"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/sons/final.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:10"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/logo-educatech.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:10"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:30"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:44:58"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:53:26"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:51"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:51"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:51"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:54:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:12"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:19"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:19"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:22"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:26"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:26"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:26"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:44"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:55:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:56"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:56"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:56"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:57"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:58"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:58"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 00:57:58"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 00:58:54"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 00:58:55"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 00:58:57"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 00:58:57"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 00:58:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:18"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:18"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:18"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:19"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:19"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:19"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:32"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:33"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:33"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:33"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 00:59:33"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:13"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:13"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:13"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:17"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:23"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:23"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:23"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:23"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:00:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:17"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:17"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:28"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:28"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:38"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:38"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:05:38"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:07:23"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:07:23"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:07:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:08:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:08:29"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:08:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:11:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:12:53"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:12:53"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:12:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:12:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:12:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:02"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:13:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:15:43"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:15:44"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:15:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:15:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:15:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:21:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:22:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:22:28"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:22:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:22:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:22:30"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 01:23:04"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 01:23:04"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 01:23:06"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 01:23:06"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 01:23:07"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:24:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:24:18"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:24:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:24:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:24:19"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:08"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:08"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:10"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:10"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:35"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:35"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:25:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:07"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:07"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:26:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:27:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:03"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:03"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:04"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:49"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:49"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:51"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:51"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 01:31:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:47"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:48"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:48"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:59"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:59"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:32:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:33:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:53"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:53"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:53"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:37:59"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:38:12"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:29"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:29"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:31"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:31"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:32"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:51"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:39:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:28"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:28"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:33"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:33"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:34"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:34"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:38"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:39"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:40:40"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:44:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:44:35"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:44:40"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:48:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:48:59"}
+{"level":"error","message":"Erro: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com","service":"portal-jogos-service","stack":"Error: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async PGStore._asyncQuery (E:\\meu-portal-de-jogos - backup\\node_modules\\connect-pg-simple\\index.js:322:21)","timestamp":"2026-01-12 01:48:59"}
+{"level":"error","message":"Erro: connect ETIMEDOUT 172.31.255.254:5432","service":"portal-jogos-service","stack":"Error: connect ETIMEDOUT 172.31.255.254:5432\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async PGStore._asyncQuery (E:\\meu-portal-de-jogos - backup\\node_modules\\connect-pg-simple\\index.js:322:21)","timestamp":"2026-01-12 01:49:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:49:00"}
+{"level":"error","message":"Erro: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com","service":"portal-jogos-service","stack":"Error: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async PGStore._asyncQuery (E:\\meu-portal-de-jogos - backup\\node_modules\\connect-pg-simple\\index.js:322:21)","timestamp":"2026-01-12 01:49:00"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 01:49:30"}
+{"level":"error","message":"Erro: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com","service":"portal-jogos-service","stack":"Error: getaddrinfo ENOTFOUND aws-1-sa-east-1.pooler.supabase.com\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async PGStore._asyncQuery (E:\\meu-portal-de-jogos - backup\\node_modules\\connect-pg-simple\\index.js:322:21)","timestamp":"2026-01-12 01:49:30"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 01:49:50"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:01"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/tabela-periodica-bingo/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/desafio-exploradores/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/detector-fatos/assets/imagens/tamb.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-m.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /games/game-memoria/assets/imagens/tamb-p.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:29"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/index.html","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/styles.css","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/roleta.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/script.js","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/images/background.webp","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/roleta.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letrarodaaroda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/letraerrada.wav","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/perdeutudo.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/passouavez.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/timer.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:30"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:31"}
+{"level":"info","message":"GET /games/roda-a-roda/assets/audio/resposta-certa-roda-a-roda.mp3","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:33"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:33"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:45"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:50:51"}
+{"level":"info","message":"SERVER.JS FILE IS EXECUTING","service":"portal-jogos-service","timestamp":"2026-01-12 01:53:24"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-12 01:53:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-12 01:53:33"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-12 01:53:33"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-12 01:53:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:54:58"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-12 01:54:59"}
+{"level":"info","message":"POST /api/payment/create_preference","service":"portal-jogos-service","timestamp":"2026-01-12 01:55:27"}

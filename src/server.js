@@ -1,15 +1,17 @@
+const logger = require('./logger');
 
-console.log('SERVER.JS FILE IS EXECUTING');
+logger.info('SERVER.JS FILE IS EXECUTING');
 
-console.log('SERVER.JS FILE IS EXECUTING');
-require('dotenv').config();
+const config = require('./config');
 const { setupEmail } = require('./email.js');
 
 // Initialize the email service
-console.log("Attempting to set up email service...");
+logger.info("Attempting to set up email service...");
 setupEmail();
 
 const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
@@ -22,38 +24,91 @@ const authRoutes = require('./routes/auth.js');
 const userRoutes = require('./routes/user.js');
 const gameRoutes = require('./routes/game.js');
 const paymentRoutes = require('./routes/payment.js');
+const contactRoutes = require('./routes/contact.js');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
-const PORT = 3000;
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
+
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "script-src": ["'self'", "https://cdn.jsdelivr.net", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
+            "style-src": ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com", "'unsafe-inline'"],
+            "font-src": ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+            "img-src": ["'self'", "data:", "https://lh3.googleusercontent.com", "https://img.icons8.com"],
+            "connect-src": ["'self'", "https://cdn.jsdelivr.net"],
+            "frame-ancestors": ["'self'", "http://localhost:3000"]
+        }
+    }
+}));
+const PORT = config.port;
 
 // Add a request logger middleware
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    logger.info(`${req.method} ${req.url}`);
     next();
 });
 
 // Configuração da sessão
+const pgSession = require('connect-pg-simple')(session);
+const pg = require('pg');
+
+let sessionStore;
+if (process.env.DATABASE_URL) {
+    const pgPool = new pg.Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false } // Required for Supabase
+    });
+    sessionStore = new pgSession({
+        pool: pgPool,
+        tableName: 'session',
+        createTableIfMissing: true // Tenta criar se não existir, mas já temos migration
+    });
+    logger.info('Usando Postgres Session Store.');
+} else {
+    sessionStore = new session.MemoryStore();
+    logger.info('Usando Memory Session Store (Dev).');
+}
+
 app.use(session({
-    secret: 'uma-chave-secreta-muito-forte', // Em produção, use uma variável de ambiente
+    store: sessionStore,
+    secret: config.sessionSecret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // Em produção, use 'true' com HTTPS
+    cookie: {
+        secure: config.isProduction,
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 dias
+    }
 }));
+
 
 // Middlewares
 app.use(express.json()); // Para parsear JSON no corpo das requisições
 
-// Allow embedding in iframes for testing purposes
-app.use((req, res, next) => {
-    res.setHeader('X-Frame-Options', 'ALLOWALL'); // Use with caution in production
-    next();
+// Aplica um limitador de requisições a todas as rotas da API
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 100, // Limita cada IP a 100 requisições por janela
+    message: 'Muitas requisições feitas a partir deste IP. Por favor, tente novamente após 15 minutos.',
+    standardHeaders: true, // Retorna informações do limite nos cabeçalhos `RateLimit-*`
+    legacyHeaders: false, // Desabilita os cabeçalhos `X-RateLimit-*`
 });
+app.use('/api', apiLimiter);
 
 // Use routes
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', gameRoutes);
-app.use('/api', paymentRoutes);
+app.use('/api/payment', paymentRoutes);
+app.use('/api', contactRoutes);
 app.use('/api/admin', adminRoutes); // Add this line
 
 // Rota para servir as páginas HTML principais
@@ -105,19 +160,37 @@ app.get('/subscription', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'subscription.html'));
 });
 
+app.get('/contact.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'contact.html'));
+});
+
 // Rota para servir as páginas de administração
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
 });
 
-app.get('/admin/users', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'admin-users.html'));
-});
 
-app.get('/admin/games', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'admin-games.html'));
-});
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        logger.info(`Servidor rodando em http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
+
+// Middleware de tratamento de erros centralizado
+app.use((err, req, res, next) => {
+    logger.error(`Erro: ${err.message}`, { stack: err.stack });
+
+    // Verifica se o erro já tem um status definido, caso contrário, usa 500
+    const statusCode = err.statusCode || 500;
+
+    // Envia uma resposta de erro padronizada
+    res.status(statusCode).json({
+        message: err.message || 'Ocorreu um erro interno no servidor.',
+        // Em produção, você pode querer omitir o stack trace por segurança
+        // stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+    });
 });

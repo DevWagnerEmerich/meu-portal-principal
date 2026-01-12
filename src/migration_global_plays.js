@@ -1,38 +1,34 @@
+module.exports = {
+    up: async (db) => {
+        const dbRun = (sql, params = []) => {
+            return new Promise((resolve, reject) => {
+                db.run(sql, params, function(err) {
+                    if (err) reject(err);
+                    resolve(this);
+                });
+            });
+        };
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./portal_jogos.db');
+        console.log('Iniciando migração: migration_global_plays.js');
 
-console.log('Iniciando migração para controle de jogadas globais...');
+        try {
+            // 1. Adicionar a coluna 'free_plays_used' à tabela 'users' se ela não existir
+            await dbRun("ALTER TABLE users ADD COLUMN free_plays_used INTEGER DEFAULT 0").catch(err => {
+                if (err.message.includes('duplicate column name')) {
+                    console.log('Coluna "free_plays_used" já existe na tabela "users".');
+                } else {
+                    throw err; // Re-lança outros erros
+                }
+            });
+            console.log('Coluna "free_plays_used" verificada/adicionada à tabela "users".');
 
-db.serialize(() => {
-    // 1. Adicionar a coluna 'free_plays_used' à tabela 'users' se ela não existir
-    db.run("ALTER TABLE users ADD COLUMN free_plays_used INTEGER DEFAULT 0", (err) => {
-        if (err) {
-            if (err.message.includes('duplicate column name')) {
-                console.log('Coluna "free_plays_used" já existe na tabela "users".');
-            } else {
-                console.error('Erro ao adicionar a coluna free_plays_used:', err.message);
-                return;
-            }
-        } else {
-            console.log('Coluna "free_plays_used" adicionada à tabela "users".');
+            // 2. Remover a tabela 'user_free_plays' se ela existir
+            await dbRun("DROP TABLE IF EXISTS user_free_plays");
+            console.log('Tabela "user_free_plays" removida se existia.');
+
+        } catch (error) {
+            console.error('Erro na migração migration_global_plays.js:', error.message);
+            throw error; // Rejeita a Promise para que run-migrations.js capture o erro
         }
-    });
-
-    // 2. Remover a tabela 'user_free_plays' se ela existir
-    db.run("DROP TABLE IF EXISTS user_free_plays", (err) => {
-        if (err) {
-            console.error('Erro ao remover a tabela user_free_plays:', err.message);
-            return;
-        }
-        console.log('Tabela "user_free_plays" removida com sucesso.');
-    });
-
-    // Fecha a conexão com o banco de dados
-    db.close((err) => {
-        if (err) {
-            console.error('Erro ao fechar o banco de dados', err.message);
-        }
-        console.log('Migração concluída.');
-    });
-});
+    }
+};

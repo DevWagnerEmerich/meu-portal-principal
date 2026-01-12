@@ -23,8 +23,8 @@ async function createAdmin() {
 
             const hash = await bcrypt.hash(adminPassword, saltRounds);
             const sql = `
-                INSERT INTO users (username, email, password, role, is_confirmed, subscription_type, daily_time_left, last_login_date)
-                VALUES (?, ?, ?, 'admin', 1, 'premium', 999999, ?)
+                INSERT INTO users (username, email, password, role, is_confirmed, subscription_type, last_login_date)
+                VALUES (?, ?, ?, 'admin', 1, 'premium', ?)
             `;
             const now = Date.now();
 

@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('./database.js');
 const crypto = require('crypto');
+const config = require('./config'); // Adicionar esta linha
 
 // Garante que as variáveis de ambiente sejam carregadas
 require('dotenv').config();
@@ -22,7 +23,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/auth/google/callback",
+    callbackURL: config.google.callbackURL,
     scope: ['profile', 'email']
 },
 async (accessToken, refreshToken, profile, done) => {
@@ -53,12 +54,29 @@ async (accessToken, refreshToken, profile, done) => {
             google_id: googleId,
             is_confirmed: 1, // E-mail do Google já é verificado
             subscription_type: 'none',
-            daily_time_left: 900, // 15 minutos
-            last_login_date: Date.now()
+            last_login_date: Date.now(),
+            subscription_end_date: null,
+            free_plays_used: 0,
+            show_welcome_modal: 1,
+            role: 'user',
+            created_at: Date.now()
         };
 
-        const sql = 'INSERT INTO users (username, email, password, google_id, is_confirmed, subscription_type, daily_time_left, last_login_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        const params = [newUser.username, newUser.email, newUser.password, newUser.google_id, newUser.is_confirmed, newUser.subscription_type, newUser.daily_time_left, newUser.last_login_date];
+        const sql = 'INSERT INTO users (username, email, password, google_id, is_confirmed, subscription_type, subscription_end_date, last_login_date, free_plays_used, show_welcome_modal, role, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const params = [
+            newUser.username,
+            newUser.email,
+            newUser.password,
+            newUser.google_id,
+            newUser.is_confirmed,
+            newUser.subscription_type,
+            newUser.subscription_end_date,
+            newUser.last_login_date,
+            newUser.free_plays_used,
+            newUser.show_welcome_modal,
+            newUser.role,
+            newUser.created_at
+        ];
 
         db.run(sql, params, function(err) {
             if (err) { return done(err); }

@@ -1,53 +1,97 @@
 
 const express = require('express');
 const db = require('../database.js');
+const bcrypt = require('bcrypt'); // Added missing require
 
 const router = express.Router();
 
 // Rota para verificar status do usuário
-router.get('/user-status', (req, res) => {
+router.get('/user-status', async (req, res) => {
     if (req.session.userId) {
-        db.get('SELECT username, subscription_type FROM users WHERE id = ?', [req.session.userId], (err, user) => {
-            if (err) {
-                console.error('Erro ao buscar dados do usuário:', err.message);
-                return res.status(500).json({ message: 'Erro no servidor.' });
-            }
+        try {
+            const user = await db('users')
+                .where('id', req.session.userId)
+                .select('username', 'subscription_type', 'created_at')
+                .first();
+
             if (user) {
+                // Calcular energia diária
+                const BusinessRules = require('../business-rules');
+                const LIMIT = BusinessRules.FREE_PLAYS.LIMIT;
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const startOfDayTimestamp = today.getTime();
+
+                const playsResult = await db('game_plays')
+                    .where('user_id', req.session.userId)
+                    .andWhere('is_free_trial', 1)
+                    .andWhere('start_time', '>=', startOfDayTimestamp)
+                    .count('id as count')
+                    .first();
+
+                const playsUsed = parseInt(playsResult.count || 0, 10);
+                const energy = Math.max(0, LIMIT - playsUsed);
+
+                // Calcular status da oferta de boas-vindas
+                let offerActive = false;
+                let offerExpiresAt = null;
+                if (user.created_at) {
+                    const createdAtTime = new Date(Number(user.created_at)).getTime();
+                    const offerDuration = BusinessRules.WELCOME_OFFER.DURATION_DAYS * 24 * 60 * 60 * 1000;
+                    offerExpiresAt = createdAtTime + offerDuration;
+                    if (Date.now() < offerExpiresAt) {
+                        offerActive = true;
+                    }
+                }
+
                 res.json({
                     loggedIn: true,
                     username: user.username,
-                    subscriptionType: user.subscription_type
+                    subscriptionType: user.subscription_type,
+                    energy: energy,
+                    maxEnergy: LIMIT,
+                    welcomeOffer: {
+                        active: offerActive,
+                        expiresAt: offerExpiresAt
+                    }
                 });
             } else {
                 req.session.destroy(); // Clear invalid session
                 res.json({ loggedIn: false });
             }
-        });
+        } catch (err) {
+            console.error('Erro ao buscar dados do usuário:', err);
+            return res.status(500).json({ message: 'Erro no servidor.' });
+        }
     } else {
         res.json({ loggedIn: false });
     }
 });
 
 // Rota para obter dados do perfil do usuário
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
 
-    const sql = 'SELECT username, email, subscription_type, subscription_end_date FROM users WHERE id = ?';
-    db.get(sql, [req.session.userId], (err, user) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro no servidor.' });
-        }
+    try {
+        const user = await db('users')
+            .where('id', req.session.userId)
+            .select('username', 'email', 'subscription_type', 'subscription_end_date')
+            .first();
+
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
         res.json(user);
-    });
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro no servidor.' });
+    }
 });
 
 // Rota para atualizar o perfil do usuário
-router.put('/profile', (req, res) => {
+router.put('/profile', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
@@ -57,42 +101,45 @@ router.put('/profile', (req, res) => {
         return res.status(400).json({ message: 'Nome de usuário e e-mail são obrigatórios.' });
     }
 
-    const sql = 'UPDATE users SET username = ?, email = ? WHERE id = ?';
-    db.run(sql, [username, email, req.session.userId], function(err) {
-        if (err) {
-            if (err.code === 'SQLITE_CONSTRAINT') {
-                return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
-            }
-            return res.status(500).json({ message: 'Erro ao atualizar o perfil.' });
-        }
+    try {
+        await db('users')
+            .where('id', req.session.userId)
+            .update({ username, email });
+
         res.json({ message: 'Perfil atualizado com sucesso!' });
-    });
+    } catch (err) {
+        // SQLITE_CONSTRAINT
+        if (err.code === 'SQLITE_CONSTRAINT' || (err.message && err.message.includes('unique'))) {
+            return res.status(409).json({ message: 'Nome de usuário ou e-mail já existem.' });
+        }
+        return res.status(500).json({ message: 'Erro ao atualizar o perfil.' });
+    }
 });
 
 // Rota para deletar a conta do usuário
-router.delete('/profile', (req, res) => {
+router.delete('/profile', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
 
-    const sql = 'DELETE FROM users WHERE id = ?';
-    db.run(sql, [req.session.userId], function(err) {
-        if (err) {
-            return res.status(500).json({ message: 'Erro ao deletar a conta.' });
-        }
+    try {
+        await db('users').where('id', req.session.userId).del();
+
         req.session.destroy(err => {
             if (err) {
                 return res.status(500).json({ message: 'Erro ao fazer logout após deletar a conta.' });
             }
             res.json({ message: 'Conta deletada com sucesso.' });
         });
-    });
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro ao deletar a conta.' });
+    }
 });
 
 
 
 // Rota para mudar a senha do usuário
-router.put('/profile/password', (req, res) => {
+router.put('/profile/password', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
@@ -102,55 +149,41 @@ router.put('/profile/password', (req, res) => {
         return res.status(400).json({ message: 'Senha atual e nova senha são obrigatórias.' });
     }
 
-    const saltRounds = 10; // Mesmo saltRounds usado no auth.js
+    const saltRounds = 10;
 
-    db.get('SELECT password FROM users WHERE id = ?', [req.session.userId], (err, user) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro no servidor.' });
-        }
+    try {
+        const user = await db('users').where('id', req.session.userId).select('password').first();
+
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        // Compara a senha atual fornecida com o hash armazenado
-        bcrypt.compare(currentPassword, user.password, (err, result) => {
-            if (err) {
-                return res.status(500).json({ message: 'Erro ao comparar senhas.' });
-            }
-            if (!result) {
-                return res.status(401).json({ message: 'Senha atual incorreta.' });
-            }
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Senha atual incorreta.' });
+        }
 
-            // Hashea a nova senha e atualiza no banco de dados
-            bcrypt.hash(newPassword, saltRounds, (err, hash) => {
-                if (err) {
-                    return res.status(500).json({ message: 'Erro ao hashear nova senha.' });
-                }
+        const hash = await bcrypt.hash(newPassword, saltRounds);
+        await db('users').where('id', req.session.userId).update({ password: hash });
 
-                db.run('UPDATE users SET password = ? WHERE id = ?', [hash, req.session.userId], function(err) {
-                    if (err) {
-                        return res.status(500).json({ message: 'Erro ao atualizar a senha.' });
-                    }
-                    res.json({ message: 'Senha atualizada com sucesso!' });
-                });
-            });
-        });
-    });
+        res.json({ message: 'Senha atualizada com sucesso!' });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Erro ao atualizar a senha.' });
+    }
 });
 
 // Rota para verificar o status da oferta de boas-vindas
-router.get('/user/offer-status', (req, res) => {
+router.get('/user/offer-status', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
 
-    const sql = 'SELECT created_at FROM users WHERE id = ?';
-    db.get(sql, [req.session.userId], (err, user) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro no servidor.' });
-        }
+    try {
+        const user = await db('users').where('id', req.session.userId).select('created_at').first();
+
         if (!user || !user.created_at) {
-            // Se não houver data de criação, a oferta não se aplica
             return res.json({ offerActive: false });
         }
 
@@ -166,7 +199,107 @@ router.get('/user/offer-status', (req, res) => {
         } else {
             res.json({ offerActive: false });
         }
-    });
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro no servidor.' });
+    }
+});
+
+const fs = require('fs').promises;
+const path = require('path');
+
+// Rota para obter o histórico de jogos do usuário
+router.get('/user/play-history', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+
+    try {
+        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
+        const gamesData = await fs.readFile(gamesPath, 'utf8');
+        const games = JSON.parse(gamesData);
+        const gamesMap = new Map(games.map(game => [game.id, game]));
+
+        const rows = await db('game_plays')
+            .where('user_id', req.session.userId)
+            .select('game_id', 'start_time')
+            .orderBy('start_time', 'desc');
+
+        const history = rows.map(row => {
+            const gameDetails = gamesMap.get(row.game_id);
+            return {
+                game_id: row.game_id,
+                title: gameDetails ? gameDetails.title : 'Jogo Desconhecido',
+                thumbnail: gameDetails ? gameDetails.thumbnail : '/path/to/default/image.webp',
+                played_at: row.start_time
+            };
+        });
+
+        res.json(history);
+
+    } catch (error) {
+        console.error('Erro ao ler games.json ou processar o histórico:', error);
+        res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+});
+
+// Rotas para Favoritos
+
+// GET: Listar favoritos de um usuário
+router.get('/user/favorites', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+    try {
+        const rows = await db('user_favorites').where('user_id', req.session.userId).select('game_id');
+        res.json(rows.map(row => row.game_id));
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro ao buscar favoritos.' });
+    }
+});
+
+// POST: Adicionar um favorito
+router.post('/user/favorites', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+    const { game_id } = req.body;
+    if (!game_id) {
+        return res.status(400).json({ message: 'game_id é obrigatório.' });
+    }
+    try {
+        await db('user_favorites').insert({
+            user_id: req.session.userId,
+            game_id,
+            created_at: Date.now()
+        });
+        res.status(201).json({ message: 'Jogo favoritado com sucesso!' });
+    } catch (err) {
+        if (err.code === 'SQLITE_CONSTRAINT' || (err.message && err.message.includes('unique'))) {
+            return res.status(409).json({ message: 'Jogo já favoritado.' });
+        }
+        return res.status(500).json({ message: 'Erro ao favoritar o jogo.' });
+    }
+});
+
+// DELETE: Remover um favorito
+router.delete('/user/favorites/:game_id', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+    const { game_id } = req.params;
+    try {
+        const deletedCount = await db('user_favorites')
+            .where('user_id', req.session.userId)
+            .where('game_id', game_id)
+            .del();
+
+        if (deletedCount === 0) {
+            return res.status(404).json({ message: 'Favorito não encontrado.' });
+        }
+        res.status(200).json({ message: 'Favorito removido com sucesso!' });
+    } catch (err) {
+        return res.status(500).json({ message: 'Erro ao remover favorito.' });
+    }
 });
 
 module.exports = router;

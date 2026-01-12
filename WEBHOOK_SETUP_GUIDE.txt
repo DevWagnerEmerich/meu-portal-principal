@@ -1,0 +1,56 @@
+# ============================================
+# CONFIGURAÇÃO DO MERCADOPAGO - WEBHOOK
+# ============================================
+
+# PASSO 1: Configure a URL do Webhook no painel do MercadoPago
+# --------------------------------------------
+# Acesse: https://www.mercadopago.com.br/developers/panel/app
+# Vá em "Webhooks" ou "Notificações"
+# 
+# Para DESENVOLVIMENTO LOCAL:
+#   1. Instale ngrok: https://ngrok.com/download
+#   2. Execute: ngrok http 3001
+#   3. Copie a URL gerada (ex: https://abc123.ngrok.io)
+#   4. Configure no MP: https://abc123.ngrok.io/api/payment/webhook
+#
+# Para PRODUÇÃO:
+#   Configure: https://seu-dominio.com/api/payment/webhook
+#   Exemplo: https://portaleducacional.vercel.app/api/payment/webhook
+
+# PASSO 2: Marque os eventos
+# --------------------------------------------
+# ✅ Pagamentos
+# ✅ Envios (Mercado Pago)
+
+# PASSO 3: Copie o Webhook Secret gerado
+# --------------------------------------------
+# Após salvar, o MercadoPago mostrará um "Secret"
+# Copie esse valor e cole abaixo:
+
+MERCADOPAGO_WEBHOOK_SECRET=seu_webhook_secret_aqui
+
+# ============================================
+# EXEMPLO DE .env COMPLETO
+# ============================================
+# 
+# # Banco de Dados
+# DATABASE_URL=postgres://user:pass@host:5432/db
+# 
+# # Email
+# EMAIL_USER=seu_email@gmail.com
+# EMAIL_PASS=sua_senha_de_app
+# 
+# # MercadoPago
+# MERCADOPAGO_ACCESS_TOKEN=APP_USR-1234567890-123456-abcdef1234567890
+# MERCADOPAGO_PUBLIC_KEY=APP_USR-abcd1234-efgh-5678-ijkl-9012mnop3456
+# MERCADOPAGO_WEBHOOK_SECRET=abc123def456ghi789jkl012mno345pqr678
+# 
+# # Google OAuth
+# GOOGLE_CLIENT_ID=123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com
+# GOOGLE_CLIENT_SECRET=GOCSPX-abcdefghijklmnopqrstuvwxyz
+# 
+# # Outros
+# SESSION_SECRET=uma_chave_secreta_muito_forte_aqui
+# DOMAIN=http://localhost:3000
+# API_PORT=3001
+# NODE_ENV=development

@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "client/package.json",
+            "use": "@vercel/next"
+        },
+        {
+            "src": "src/server.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/src/server.js"
+        },
+        {
+            "src": "/games/(.*)",
+            "dest": "/public/games/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/client/$1"
+        }
+    ],
+    "env": {
+        "NODE_ENV": "production"
+    }
+}
