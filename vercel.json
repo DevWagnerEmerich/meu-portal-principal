@@ -3,41 +3,16 @@
   "builds": [
     {
       "src": "client/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "buildCommand": "cd client && npm install && npm run build"
-      }
-    },
-    {
-      "src": "src/server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "public/**",
-          "src/**",
-          "assets/**",
-          "migrations/**"
-        ]
-      }
+      "use": "@vercel/next"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/src/server.js"
-    },
-    {
-      "src": "/games/(.*)",
-      "dest": "/public/games/$1"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
       "dest": "/client/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "installCommand": "npm install && cd client && npm install",
-  "buildCommand": "cd client && npm run build"
+  ]
 }
