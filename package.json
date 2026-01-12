@@ -6,7 +6,8 @@
     "test": "jest",
     "ngrok": "ngrok http 3000",
     "start": "node src/server.js",
-    "migrate": "node src/run-migrations.js"
+    "migrate": "node src/run-migrations.js",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
