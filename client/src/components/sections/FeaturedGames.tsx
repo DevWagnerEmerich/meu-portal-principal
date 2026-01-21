@@ -77,7 +77,7 @@ export function FeaturedGames() {
                             <GameCard
                                 id={game.id}
                                 title={game.title}
-                                thumbnail={`${API_URL}${game.thumbnail}`} // Ajusta URL da imagem para o backend
+                                thumbnail={game.thumbnail.startsWith('http') ? game.thumbnail : `${API_URL}${game.thumbnail}`} // Ajusta URL da imagem apenas se for relativa
                                 category={game.type === 'premium' ? 'Premium de Assinante' : 'Grátis'}
                                 isNew={index < 2} // Apenas um exemplo visual
                             />
