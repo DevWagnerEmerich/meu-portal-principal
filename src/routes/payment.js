@@ -62,57 +62,36 @@ router.post('/create_preference', async (req, res) => {
       return res.status(400).json({ error: 'Plano inválido selecionado.' });
     }
 
-    // LÓGICA HÍBRIDA: Assinatura ou Pagamento Único
-    if (id === 'monthly') {
-      // --- PLANO MENSAL: CRIA ASSINATURA (PRE-APPROVAL) ---
-      const preApprovalData = {
-        reason: title,
-        external_reference: String(req.session.userId),
-        payer_email: user.email, // Necessário para assinatura
-        auto_recurring: {
-          frequency: 1,
-          frequency_type: 'months',
-          transaction_amount: finalPrice,
-          currency_id: 'BRL',
-        },
-        back_url: `${config.domain}/index.html?status=success`,
-        status: 'pending',
-      };
+    // TODOS OS PLANOS: PAGAMENTO ÚNICO (PREFERENCE) - Aceita PIX
+    const preferenceData = {
+      items: [{
+        id: id,
+        title: title,
+        quantity: 1,
+        unit_price: finalPrice,
+        currency_id: 'BRL',
+      }],
+      payment_methods: {
+        excluded_payment_types: [],
+        excluded_payment_methods: [],
+        installments: 12,
+      },
+      back_urls: {
+        success: `${config.domain}/index.html?status=success`,
+        failure: `${config.domain}/index.html?status=failure`,
+        pending: `${config.domain}/index.html?status=pending`,
+      },
+      external_reference: String(req.session.userId), // Associa o pagamento ao ID do usuário
+      statement_descriptor: 'EDUCATECH', // Nome que aparece na fatura do cartão
+    };
 
-      const response = await preApproval.create({ body: preApprovalData });
-      res.json({ checkout_url: response.init_point });
-
-    } else {
-      // --- OUTROS PLANOS (SEMESTRAL/ANUAL): PAGAMENTO ÚNICO (PREFERENCE) ---
-      const preferenceData = {
-        items: [{
-          id: id,
-          title: title,
-          quantity: 1,
-          unit_price: finalPrice,
-          currency_id: 'BRL',
-        }],
-        payment_methods: {
-          excluded_payment_types: [],
-          excluded_payment_methods: [],
-          installments: 12, // Permite parcelamento em até 12x
-        },
-        back_urls: {
-          success: `${config.domain}/index.html?status=success`,
-          failure: `${config.domain}/index.html?status=failure`,
-          pending: `${config.domain}/index.html?status=pending`,
-        },
-        external_reference: String(req.session.userId), // Associa o pagamento ao ID do usuário
-        statement_descriptor: 'EDUCATECH', // Nome que aparece na fatura do cartão
-      };
-
-      if (config.isProduction) {
-        preferenceData.auto_return = 'approved';
-      }
-
-      const response = await preference.create({ body: preferenceData });
-      res.json({ checkout_url: response.init_point });
+    if (config.isProduction) {
+      preferenceData.auto_return = 'approved';
     }
+
+    // --- Cria a Preferência do Mercado Pago ---
+    const response = await preference.create({ body: preferenceData });
+    res.json({ checkout_url: response.init_point });
 
   } catch (error) {
     console.error('Erro ao criar preferência ou assinatura:', error);
