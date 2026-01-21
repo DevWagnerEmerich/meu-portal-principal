@@ -45,7 +45,7 @@ router.post('/create_preference', async (req, res) => {
   });
 
   try {
-    const user = await db('users').where('id', req.session.userId).select('created_at', 'email').first();
+    const user = await db('users').where('id', req.session.userId).select('created_at', 'email', 'username').first();
 
     if (!user) {
       return res.status(500).json({ error: 'Erro ao verificar elegibilidade do usuário.' });
@@ -71,6 +71,10 @@ router.post('/create_preference', async (req, res) => {
         unit_price: finalPrice,
         currency_id: 'BRL',
       }],
+      payer: {
+        email: user.email,
+        name: user.username,
+      },
       payment_methods: {
         excluded_payment_types: [],
         excluded_payment_methods: [], // Deixar vazio permite PIX, Boleto e Cartão
