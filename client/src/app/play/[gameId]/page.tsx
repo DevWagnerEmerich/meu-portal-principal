@@ -147,7 +147,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
 
             <div className="flex-1 w-full bg-black relative">
                 <iframe
-                    src={`${API_URL}${game.game_url}`}
+                    src={game.game_url.startsWith('http') ? game.game_url : `${API_URL}${game.game_url}`}
                     className="w-full h-full absolute inset-0 border-0"
                     allowFullScreen
                     allow="autoplay"
