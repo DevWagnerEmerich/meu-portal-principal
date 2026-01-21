@@ -13,10 +13,10 @@ module.exports = {
     pass: process.env.EMAIL_PASS,
   },
 
-  mercadoPago: {
-    publicKey: process.env.MERCADOPAGO_PUBLIC_KEY,
-    accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
-    webhookSecret: process.env.MERCADOPAGO_WEBHOOK_SECRET,
+  stripe: {
+    secretKey: process.env.STRIPE_SECRET_KEY,
+    publicKey: process.env.STRIPE_PUBLIC_KEY,
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
   },
 
   google: {

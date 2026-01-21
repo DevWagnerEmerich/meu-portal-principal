@@ -70,8 +70,8 @@ function CheckoutContent() {
         setProcessing(true);
 
         try {
-            // Chama o backend para criar a preferência do MercadoPago
-            const response = await fetch(`${API_URL}/api/payment/create_preference`, {
+            // Chama o backend para criar a Sessão do Stripe
+            const response = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -83,14 +83,14 @@ function CheckoutContent() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.error || "Erro ao criar preferência de pagamento");
+                throw new Error(errorData.error || "Erro ao criar sessão de pagamento");
             }
 
             const data = await response.json();
 
-            // Redireciona para o checkout do MercadoPago
-            if (data.checkout_url) {
-                window.location.href = data.checkout_url;
+            // Redireciona para o checkout do Stripe
+            if (data.url) {
+                window.location.href = data.url;
             } else {
                 throw new Error("URL de checkout não recebida");
             }
@@ -160,7 +160,7 @@ function CheckoutContent() {
                         <h4 className="text-slate-300 font-bold mb-4 flex items-center gap-2">
                             <Lock className="w-4 h-4" /> Pagamento 100% Seguro
                         </h4>
-                        <p className="text-slate-400 text-sm mb-4">Processado pelo MercadoPago</p>
+                        <p className="text-slate-400 text-sm mb-4">Processado com segurança pelo Stripe</p>
 
                         {/* Destaque PIX */}
                         <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg p-4 mb-3">
@@ -227,7 +227,7 @@ function CheckoutContent() {
                     </Button>
 
                     <p className="text-xs text-center text-slate-500 mt-4">
-                        🔒 Pagamento processado com segurança pelo MercadoPago<br />
+                        🔒 Pagamento processado com segurança pelo Stripe<br />
                         <span className="text-green-600 font-medium">✨ PIX: Aprovação instantânea!</span>
                     </p>
                 </motion.div>
