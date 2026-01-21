@@ -73,7 +73,7 @@ router.post('/create_preference', async (req, res) => {
       }],
       payment_methods: {
         excluded_payment_types: [],
-        excluded_payment_methods: [],
+        excluded_payment_methods: [], // Deixar vazio permite PIX, Boleto e Cartão
         installments: 12,
       },
       back_urls: {
