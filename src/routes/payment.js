@@ -4,7 +4,7 @@ const router = express.Router();
 const config = require('../config');
 const { sendEmail } = require('../email.js');
 const db = require('../database.js');
-const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment, PreApproval } = require('mercadopago');
 
 const BusinessRules = require('../business-rules');
 
@@ -17,8 +17,9 @@ router.get('/config', (req, res) => {
 const client = new MercadoPagoConfig({ accessToken: config.mercadoPago.accessToken });
 const preference = new Preference(client);
 const payment = new Payment(client);
+const preApproval = new PreApproval(client);
 
-// Rota para criar a preferência de pagamento
+// Rota para criar a preferência de pagamento (ou assinatura)
 router.post('/create_preference', async (req, res) => {
   // Garante que o usuário está logado para criar uma preferência
   if (!req.session.userId) {
@@ -44,7 +45,7 @@ router.post('/create_preference', async (req, res) => {
   });
 
   try {
-    const user = await db('users').where('id', req.session.userId).select('created_at').first();
+    const user = await db('users').where('id', req.session.userId).select('created_at', 'email').first();
 
     if (!user) {
       return res.status(500).json({ error: 'Erro ao verificar elegibilidade do usuário.' });
@@ -61,39 +62,61 @@ router.post('/create_preference', async (req, res) => {
       return res.status(400).json({ error: 'Plano inválido selecionado.' });
     }
 
-    const preferenceData = {
-      items: [{
-        id: id,
-        title: title,
-        quantity: 1,
-        unit_price: finalPrice,
-        currency_id: 'BRL',
-      }],
-      payment_methods: {
-        excluded_payment_types: [],
-        excluded_payment_methods: [],
-        installments: 12, // Permite parcelamento em até 12x
-      },
-      back_urls: {
-        success: `${config.domain}/index.html?status=success`,
-        failure: `${config.domain}/index.html?status=failure`,
-        pending: `${config.domain}/index.html?status=pending`,
-      },
-      external_reference: String(req.session.userId), // Associa o pagamento ao ID do usuário
-      statement_descriptor: 'EDUCATECH', // Nome que aparece na fatura do cartão
-    };
+    // LÓGICA HÍBRIDA: Assinatura ou Pagamento Único
+    if (id === 'monthly') {
+      // --- PLANO MENSAL: CRIA ASSINATURA (PRE-APPROVAL) ---
+      const preApprovalData = {
+        reason: title,
+        external_reference: String(req.session.userId),
+        payer_email: user.email, // Necessário para assinatura
+        auto_recurring: {
+          frequency: 1,
+          frequency_type: 'months',
+          transaction_amount: finalPrice,
+          currency_id: 'BRL',
+        },
+        back_url: `${config.domain}/index.html?status=success`,
+        status: 'pending',
+      };
 
-    if (config.isProduction) {
-      preferenceData.auto_return = 'approved';
+      const response = await preApproval.create({ body: preApprovalData });
+      res.json({ checkout_url: response.init_point });
+
+    } else {
+      // --- OUTROS PLANOS (SEMESTRAL/ANUAL): PAGAMENTO ÚNICO (PREFERENCE) ---
+      const preferenceData = {
+        items: [{
+          id: id,
+          title: title,
+          quantity: 1,
+          unit_price: finalPrice,
+          currency_id: 'BRL',
+        }],
+        payment_methods: {
+          excluded_payment_types: [],
+          excluded_payment_methods: [],
+          installments: 12, // Permite parcelamento em até 12x
+        },
+        back_urls: {
+          success: `${config.domain}/index.html?status=success`,
+          failure: `${config.domain}/index.html?status=failure`,
+          pending: `${config.domain}/index.html?status=pending`,
+        },
+        external_reference: String(req.session.userId), // Associa o pagamento ao ID do usuário
+        statement_descriptor: 'EDUCATECH', // Nome que aparece na fatura do cartão
+      };
+
+      if (config.isProduction) {
+        preferenceData.auto_return = 'approved';
+      }
+
+      const response = await preference.create({ body: preferenceData });
+      res.json({ checkout_url: response.init_point });
     }
 
-    // --- Cria a Preferência do Mercado Pago ---
-    const response = await preference.create({ body: preferenceData });
-    res.json({ checkout_url: response.init_point });
-
   } catch (error) {
-    console.error('Erro ao criar preferência:', error);
-    res.status(500).json({ error: 'Falha ao criar preferência de pagamento.' });
+    console.error('Erro ao criar preferência ou assinatura:', error);
+    res.status(500).json({ error: 'Falha ao criar pagamento.' });
   }
 });
 
