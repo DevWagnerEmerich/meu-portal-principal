@@ -97,7 +97,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.json());
+// Parse JSON for all routes EXCEPT the Stripe webhook (which needs raw body)
+app.use((req, res, next) => {
+    if (req.originalUrl === '/api/payment/webhook') {
+        next();
+    } else {
+        express.json()(req, res, next);
+    }
+});
 
 // API Rate Limiting
 const apiLimiter = rateLimit({
