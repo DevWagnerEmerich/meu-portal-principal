@@ -5,7 +5,32 @@ const { isAdmin } = require('../middleware');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Protege todas as rotas de admin
+// Rota de Emergência para Migração (Protegida por Secret) - DEVE ficar antes do isAdmin se quisermos rodar sem login (mas aqui o router todo tem isAdmin).
+// Para rodar sem estar logado (já que o DB tá vazio e não tem admin), vamos abrir uma exceção ou mover para outro arquivo. 
+// Mas como o router está protegido globalmente na linha 9, precisamos colocar ISSO ANTES da linha 9 ou criar um arquivo separado.
+// Vamos injetar ANTES da proteção global.
+
+// Rota de Migração SEM authenticação (protegida apenas por secret)
+router.get('/migrate-db', async (req, res) => {
+    const secret = req.query.secret;
+    const expectedSecret = process.env.MIGRATION_SECRET || 'migracao-manual-emergencia';
+
+    if (secret !== expectedSecret) {
+        return res.status(403).json({ message: 'Acesso negado.' });
+    }
+
+    try {
+        console.log('Iniciando migração manual de emergência...');
+        await db.migrate.latest();
+        console.log('Migração concluída.');
+        res.json({ message: 'Migração executada com sucesso!' });
+    } catch (error) {
+        console.error('Erro na migração manual:', error);
+        res.status(500).json({ message: 'Erro ao executar migração.', error: error.message });
+    }
+});
+
+// Protege todas as rotas de admin ABAIXO desta linha
 router.use(isAdmin);
 
 // Rota consolidada para buscar todas as estatísticas do dashboard
