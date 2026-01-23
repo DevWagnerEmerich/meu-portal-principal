@@ -5,7 +5,12 @@ const { sendEmail } = require('../email.js');
 const db = require('../database.js');
 const Stripe = require('stripe');
 
-const stripe = new Stripe(config.stripe.secretKey);
+let stripe;
+if (config.stripe.secretKey) {
+  stripe = new Stripe(config.stripe.secretKey);
+} else {
+  console.warn("⚠️ AVISO: STRIPE_SECRET_KEY não configurada. As rotas de pagamento falharão.");
+}
 const BusinessRules = require('../business-rules');
 
 // Rota para enviar a Public Key para o frontend
