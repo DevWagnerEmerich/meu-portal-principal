@@ -149,14 +149,20 @@ app.use((err, req, res, next) => {
 async function startServer() {
     try {
         if (config.isProduction) {
-            logger.info('Iniciando migrações...');
-            await runMigrations();
+            logger.info('Iniciando tentativa de migração automática...');
+            // Tenta rodar migrações, mas não mata o servidor se falhar
+            try {
+                await runMigrations();
+                logger.info('Migrações automáticas concluídas.');
+            } catch (migrationError) {
+                logger.error('⚠️ ALERTA: Falha nas migrações automáticas. O servidor continuará iniciando para permitir correções manuais via /api/admin/migrate-db.', migrationError);
+            }
         }
         app.listen(PORT, () => {
             logger.info(`Servidor rodando em http://localhost:${PORT}`);
         });
     } catch (error) {
-        logger.error("Falha ao iniciar servidor:", error);
+        logger.error("Falha crítica ao iniciar servidor:", error);
         process.exit(1);
     }
 }
