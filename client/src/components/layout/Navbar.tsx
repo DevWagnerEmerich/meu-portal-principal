@@ -47,7 +47,7 @@ export function Navbar() {
         <nav className="absolute top-0 w-full z-50 border-b border-white/10 bg-slate-950/50 backdrop-blur-md">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center">
                         <Gamepad2 className="text-white w-5 h-5" />
                     </div>
                     <span className="font-bold text-xl text-white tracking-tight">Educatech</span>
@@ -86,7 +86,7 @@ export function Navbar() {
                                 </Button>
                             </Link>
                             <Link href="/register">
-                                <Button className="bg-indigo-600 hover:bg-indigo-500 text-white">
+                                <Button className="bg-teal-600 hover:bg-teal-500 text-white">
                                     Criar Conta
                                 </Button>
                             </Link>

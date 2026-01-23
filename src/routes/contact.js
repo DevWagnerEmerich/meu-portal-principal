@@ -2,15 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { sendEmail } = require('../email.js');
 const config = require('../config');
+const { body, validationResult } = require('express-validator');
 
 // Rota para receber o formulário de contato
-router.post('/contact', async (req, res) => {
-    const { name, email, message } = req.body;
-
-    // Validação simples
-    if (!name || !email || !message) {
-        return res.status(400).json({ message: 'Por favor, preencha todos os campos.' });
+router.post('/contact', [
+    body('name', 'Nome é obrigatório.').notEmpty().trim().escape(),
+    body('email', 'E-mail inválido.').isEmail().normalizeEmail(),
+    body('message', 'Mensagem é obrigatória.').notEmpty().trim().escape()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
+
+    const { name, email, message } = req.body;
 
     try {
         // Prepara o e-mail para o administrador

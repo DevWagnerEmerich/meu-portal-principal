@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const db = require('../database.js');
 const fs = require('fs').promises;
 const path = require('path');
+const { body, validationResult } = require('express-validator');
 
 // Rota para verificar status do usuário
 router.get('/user-status', async (req, res) => {
@@ -94,14 +95,20 @@ router.get('/profile', async (req, res) => {
 });
 
 // Rota para atualizar o perfil do usuário
-router.put('/profile', async (req, res) => {
+router.put('/profile', [
+    body('username', 'Nome de usuário é obrigatório.').notEmpty().trim().escape(),
+    body('email', 'E-mail inválido.').isEmail().normalizeEmail()
+], async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
-    const { username, email } = req.body;
-    if (!username || !email) {
-        return res.status(400).json({ message: 'Nome de usuário e e-mail são obrigatórios.' });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
+
+    const { username, email } = req.body;
 
     try {
         await db('users')
@@ -142,14 +149,20 @@ router.delete('/profile', async (req, res) => {
 });
 
 // Rota para mudar a senha do usuário
-router.put('/profile/password', async (req, res) => {
+router.put('/profile/password', [
+    body('currentPassword', 'Senha atual é obrigatória.').notEmpty(),
+    body('newPassword', 'A nova senha deve ter no mínimo 6 caracteres.').isLength({ min: 6 })
+], async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
-    const { currentPassword, newPassword } = req.body;
-    if (!currentPassword || !newPassword) {
-        return res.status(400).json({ message: 'Senha atual e nova senha são obrigatórias.' });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
+
+    const { currentPassword, newPassword } = req.body;
 
     const saltRounds = 10;
 
@@ -256,14 +269,19 @@ router.get('/user/favorites', async (req, res) => {
 });
 
 // POST: Adicionar um favorito
-router.post('/user/favorites', async (req, res) => {
+router.post('/user/favorites', [
+    body('game_id', 'game_id é obrigatório.').notEmpty()
+], async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ message: 'Não autorizado' });
     }
-    const { game_id } = req.body;
-    if (!game_id) {
-        return res.status(400).json({ message: 'game_id é obrigatório.' });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: 'Erro de validação.', errors: errors.array() });
     }
+
+    const { game_id } = req.body;
     try {
         await db('user_favorites').insert({
             user_id: req.session.userId,

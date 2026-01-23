@@ -1384,3 +1384,65 @@
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-22 13:10:54"}
 {"level":"info","message":"OPTIONS /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-01-22 13:11:01"}
 {"level":"info","message":"POST /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-01-22 13:11:01"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-23 09:07:41"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-23 09:07:41"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-23 09:07:41"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-23 09:07:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 09:08:10"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 09:08:10"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:06"}
+{"level":"info","message":"GET /css/style.css","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:07"}
+{"level":"info","message":"GET /assets/imagens/Tela-cheia.webp","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:07"}
+{"level":"info","message":"GET /js/main.js","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:07"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:08"}
+{"level":"info","message":"GET /api/user/favorites","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:08"}
+{"level":"info","message":"GET /favicon.ico","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:08"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-23 09:09:08"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:17"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:17"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:17"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:17"}
+{"level":"info","message":"GET /","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:26"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:37"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 09:18:37"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:04"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:04"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:05"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:54"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:50:54"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:13"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:14"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:14"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:14"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:33"}
+{"level":"info","message":"OPTIONS /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:35"}
+{"level":"info","message":"POST /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:52"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:52"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 11:55:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 13:11:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 13:11:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 13:11:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 13:11:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 13:12:24"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-23 13:12:24"}

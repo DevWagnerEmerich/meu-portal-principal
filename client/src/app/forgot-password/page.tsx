@@ -50,7 +50,7 @@ export default function ForgotPasswordPage() {
                         <div className="bg-green-100 text-green-800 p-4 rounded-md mb-4">
                             {message}
                         </div>
-                        <Link href="/login" className="text-indigo-600 hover:text-indigo-500 font-medium">
+                        <Link href="/login" className="text-teal-600 hover:text-teal-500 font-medium">
                             Voltar para Login
                         </Link>
                     </div>
@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
+                                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
                                 required
                                 placeholder="seu@email.com"
                             />
@@ -80,13 +80,13 @@ export default function ForgotPasswordPage() {
                         <button
                             type="submit"
                             disabled={status === 'loading'}
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {status === 'loading' ? 'Enviando...' : 'Enviar Instruções'}
                         </button>
 
                         <div className="text-center mt-4">
-                            <Link href="/login" className="text-sm text-indigo-600 hover:text-indigo-500">
+                            <Link href="/login" className="text-sm text-teal-600 hover:text-teal-500">
                                 Voltar para Login
                             </Link>
                         </div>

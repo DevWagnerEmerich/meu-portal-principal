@@ -4,6 +4,7 @@ const config = require('../config');
 const { sendEmail } = require('../email.js');
 const db = require('../database.js');
 const Stripe = require('stripe');
+const { body, validationResult } = require('express-validator');
 
 let stripe;
 if (config.stripe.secretKey) {
@@ -19,9 +20,17 @@ router.get('/config', (req, res) => {
 });
 
 // Rota para criar a Sessão de Checkout do Stripe
-router.post('/create-checkout-session', async (req, res) => {
+router.post('/create-checkout-session', [
+  body('id', 'ID do plano inválido.').isIn(['monthly', 'semiannual', 'annual']),
+  body('title', 'Título do plano é obrigatório.').notEmpty()
+], async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Usuário não autenticado.' });
+  }
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: 'Erro de validação.', details: errors.array() });
   }
 
   const { id, title } = req.body; // id = 'monthly', 'semiannual', 'annual'

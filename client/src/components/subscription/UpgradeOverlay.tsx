@@ -122,8 +122,8 @@ export function UpgradeOverlay() {
     return (
         <div className="flex flex-col items-center justify-center min-h-[80vh] text-center p-4 relative overflow-hidden w-full max-w-6xl mx-auto">
             {/* Background Effects */}
-            <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none" />
 
             <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
@@ -165,10 +165,10 @@ export function UpgradeOverlay() {
 
                 {/* 2. OFERTA DE BOAS-VINDAS (7 DIAS - DISCRETA) */}
                 {hasBonus && (
-                    <div className="mb-8 bg-indigo-900/30 border border-indigo-500/30 rounded-lg p-3 flex items-center justify-center gap-2 max-w-2xl mx-auto">
+                    <div className="mb-8 bg-teal-900/30 border border-teal-500/30 rounded-lg p-3 flex items-center justify-center gap-2 max-w-2xl mx-auto">
                         <Star className="w-4 h-4 text-green-400 fill-green-400" />
-                        <span className="text-indigo-200 text-sm font-medium">
-                            Status Novo Jogador: <strong>25% de Desconto Extra</strong> ativo por mais <span className="text-white bg-indigo-600 px-1.5 py-0.5 rounded text-xs">{welcomeTimeLeft}</span>
+                        <span className="text-teal-200 text-sm font-medium">
+                            Status Novo Jogador: <strong>25% de Desconto Extra</strong> ativo por mais <span className="text-white bg-teal-600 px-1.5 py-0.5 rounded text-xs">{welcomeTimeLeft}</span>
                         </span>
                     </div>
                 )}
@@ -179,12 +179,12 @@ export function UpgradeOverlay() {
                         <div
                             key={plan.id}
                             className={`relative flex flex-col p-6 rounded-2xl border transition-all duration-300 ${plan.popular
-                                ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10 scale-105 z-10'
+                                ? 'bg-teal-950/40 border-teal-500 shadow-lg shadow-teal-500/10 scale-105 z-10'
                                 : 'bg-slate-950/50 border-slate-800 hover:border-slate-700'
                                 }`}
                         >
                             {plan.popular && (
-                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
                                     Mais Popular
                                 </div>
                             )}
@@ -213,26 +213,26 @@ export function UpgradeOverlay() {
 
                             <ul className="space-y-3 mb-8 text-left">
                                 <li className="flex items-center gap-2 text-sm text-slate-300">
-                                    <Check className="w-4 h-4 text-indigo-400" />
+                                    <Check className="w-4 h-4 text-teal-400" />
                                     <span>Jogadas <strong>Ilimitadas</strong></span>
                                 </li>
                                 <li className="flex items-center gap-2 text-sm text-slate-300">
                                     {plan.id === 'monthly' ? (
                                         <Check className="w-4 h-4 text-slate-600" />
                                     ) : (
-                                        <Check className="w-4 h-4 text-indigo-400" />
+                                        <Check className="w-4 h-4 text-teal-400" />
                                     )}
                                     <span className={plan.id === 'monthly' ? "text-slate-500 line-through" : ""}>Acesso Antecipado</span>
                                 </li>
                                 <li className="flex items-center gap-2 text-sm text-slate-300">
-                                    <Check className="w-4 h-4 text-indigo-400" />
+                                    <Check className="w-4 h-4 text-teal-400" />
                                     <span>Sem anúncios</span>
                                 </li>
                             </ul>
 
                             <Link href={`/subscription/checkout?plan=${plan.id}`} className="w-full">
                                 <Button className={`w-full h-12 font-bold text-base rounded-xl ${plan.popular
-                                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/25'
+                                    ? 'bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-lg shadow-teal-500/25'
                                     : 'bg-slate-800 hover:bg-slate-700 text-white'
                                     }`}>
                                     Assinar {plan.title}

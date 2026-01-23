@@ -7,6 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { API_URL } from "@/lib/config";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Criar Conta - Educatech",
+    description: "Crie sua conta no Educatech e tenha acesso a diversos jogos educativos.",
+};
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -67,7 +73,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <main className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+        <main id="main" className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
             <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-white mb-2">Crie sua conta</h1>
@@ -118,7 +124,7 @@ export default function RegisterPage() {
 
                     <Button
                         type="submit"
-                        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white mt-4"
+                        className="w-full bg-teal-600 hover:bg-teal-500 text-white mt-4"
                         disabled={loading}
                     >
                         {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
@@ -128,7 +134,7 @@ export default function RegisterPage() {
 
                 <div className="mt-6 text-center text-sm text-slate-400">
                     Já tem uma conta?{" "}
-                    <Link href="/login" className="text-indigo-400 hover:text-indigo-300 font-medium">
+                    <Link href="/login" className="text-teal-400 hover:text-teal-300 font-medium">
                         Fazer login
                     </Link>
                 </div>

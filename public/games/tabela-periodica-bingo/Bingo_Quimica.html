@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tabela Periódica Interativa - EducaTech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabela Periódica Interativa e Bingo - Jogo Educativo de Química</title>
+  <meta name="description"
+    content="Aprenda química brincando com o Bingo da Tabela Periódica! Um jogo educativo interativo para estudantes e professores explorarem os elementos químicos de forma divertida.">
+  <meta property="og:title" content="Bingo da Tabela Periódica - Jogo Educativo de Química" />
+  <meta property="og:description"
+    content="Aprenda química de forma divertida com nosso Bingo da Tabela Periódica Interativa!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://educatech.com.br/og-bingo-quimica.jpg" />
   <link rel="icon" href="logo-educatech.webp" type="image/webp">
   <style>
     /* Estilos Globais e Fundo - Inspirado no arquivo de referência */
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -26,7 +35,7 @@
       --educatech-accent-1: #c2e2d9;
       --educatech-accent-2: #95d1c0;
       --educatech-accent-3: #69c0a7;
-      
+
       --scaled-button-font-size: 14px;
       --scaled-button-padding-vertical: 6px;
       --scaled-button-padding-horizontal: 12px;
@@ -43,6 +52,7 @@
       pointer-events: none;
       z-index: -1;
     }
+
     .particle {
       position: absolute;
       width: 3px;
@@ -52,9 +62,19 @@
       opacity: 0.3;
       animation: float 6s infinite ease-in-out;
     }
+
     @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.6; }
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.6;
+      }
     }
 
     /* Logo EducaTech - do arquivo de referência */
@@ -71,10 +91,12 @@
       border: 2px solid var(--educatech-accent-3);
       transition: all 0.3s ease;
     }
+
     .educatech-logo:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(66, 45, 177, 0.3);
     }
+
     .logo-text {
       font-size: 24px;
       font-weight: 700;
@@ -84,6 +106,7 @@
       background-clip: text;
       margin: 0;
     }
+
     .logo-subtitle {
       font-size: 10px;
       color: var(--educatech-primary);
@@ -110,29 +133,25 @@
     }
 
     .tabela {
-      position: absolute; 
-      top: 0px; 
+      position: absolute;
+      top: 0px;
       left: 50%;
       transform: translateX(-50%);
       display: grid;
       grid-template-columns: repeat(18, 48px) 30px;
       grid-template-rows:
-        calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547)
-        10px
-        calc(48px / 0.6547) calc(48px / 0.6547)
-        25px
-      ;
+        calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) calc(48px / 0.6547) 10px calc(48px / 0.6547) calc(48px / 0.6547) 25px;
       gap: 2px;
-      height: auto; 
+      height: auto;
       z-index: 1;
     }
 
     .elemento {
-      width: 48px; 
+      width: 48px;
       background: white;
       border: 1px solid #ccc;
-      font-size: 10px; 
-      box-shadow: 0 0 3px rgba(0,0,0,0.1);
+      font-size: 10px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -141,6 +160,7 @@
       overflow: hidden;
       border-radius: 4px;
     }
+
     .elemento:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(66, 45, 177, 0.2);
@@ -149,7 +169,7 @@
 
     .simbolo {
       font-weight: bold;
-      font-size: 11px; 
+      font-size: 11px;
       margin-top: 1px;
       text-align: center;
       flex-shrink: 0;
@@ -166,58 +186,95 @@
       min-height: 0;
     }
 
-    .foto-editavel img, .foto-editavel picture img {
-      width: 100%; height: 100%; object-fit: contain; display: block;
+    .foto-editavel img,
+    .foto-editavel picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
-    .vazio { background: transparent; border: none; pointer-events: none; }
+    .vazio {
+      background: transparent;
+      border: none;
+      pointer-events: none;
+    }
 
-    .grupo-header, .periodo-numero {
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: bold; color: white;
+    .grupo-header,
+    .periodo-numero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
       background: linear-gradient(135deg, var(--educatech-accent-3), var(--educatech-accent-2));
       border: 1px solid var(--educatech-accent-3);
-      box-sizing: border-box; padding: 0 2px; text-align: center;
+      box-sizing: border-box;
+      padding: 0 2px;
+      text-align: center;
       border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    #label-grupo, #label-periodo {
-      font-weight: bold; color: white; z-index: 5; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    }
-    #label-grupo {
-      position: absolute; top: calc((7.29 * (48px / 0.6547)) + 10px + (2 * (48px / 0.6547)) + (25px / 2));
-      transform: translateY(-50%); left: -60px; font-size: 14px; width: 40px; text-align: right;
-    }
+    #label-grupo,
     #label-periodo {
-      position: absolute; top: calc(15.6 * (48px / 0.6547) / 2); right: 1px;
-      transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-size: 14px;
-      width: 20px; text-align: center; padding: 4px 0;
+      font-weight: bold;
+      color: white;
+      z-index: 5;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
-    
+
+    #label-grupo {
+      position: absolute;
+      top: calc((7.29 * (48px / 0.6547)) + 10px + (2 * (48px / 0.6547)) + (25px / 2));
+      transform: translateY(-50%);
+      left: -60px;
+      font-size: 14px;
+      width: 40px;
+      text-align: right;
+    }
+
+    #label-periodo {
+      position: absolute;
+      top: calc(15.6 * (48px / 0.6547) / 2);
+      right: 1px;
+      transform: translateY(-50%) rotate(180deg);
+      writing-mode: vertical-rl;
+      font-size: 14px;
+      width: 20px;
+      text-align: center;
+      padding: 4px 0;
+    }
+
     /* MODIFICADO: Estilo das setas para ter alto contraste no fundo escuro */
     #arrow-svg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 2;
-        overflow: visible;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      overflow: visible;
     }
-    #arrow-svg path { 
-      stroke: white; /* Cor branca para o corpo da seta */
-      stroke-width: 2; 
-      fill: none; 
-      filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); /* Sombra para destacar */
+
+    #arrow-svg path {
+      stroke: white;
+      /* Cor branca para o corpo da seta */
+      stroke-width: 2;
+      fill: none;
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+      /* Sombra para destacar */
     }
-    #arrow-svg #arrowhead polygon { 
-      fill: white; /* Cor branca para a ponta da seta */
+
+    #arrow-svg #arrowhead polygon {
+      fill: white;
+      /* Cor branca para a ponta da seta */
     }
 
     /* Título e Botão - Estilo do arquivo de referência */
-    
+
     .botao-flutuante {
       position: fixed;
       top: var(--fixed-elements-top-margin);
@@ -225,80 +282,130 @@
       transform: translateX(-50%);
       z-index: 10;
     }
+
     .botao-flutuante button {
       padding: var(--scaled-button-padding-vertical) var(--scaled-button-padding-horizontal);
       font-size: var(--scaled-button-font-size);
       background: linear-gradient(135deg, var(--educatech-accent-3), var(--educatech-accent-2));
       color: white;
-      border: none; 
+      border: none;
       border-radius: 25px;
-      cursor: pointer; 
+      cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 600;
       box-shadow: 0 4px 15px rgba(105, 192, 167, 0.3);
       text-transform: uppercase;
     }
-    .botao-flutuante button:hover { 
+
+    .botao-flutuante button:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(105, 192, 167, 0.4);
     }
-    .botao-flutuante button:disabled { 
-      background: #aaa; cursor: not-allowed; transform: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    .botao-flutuante button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Estilos do Bingo - Inspirado no arquivo de referência */
-    .sorteio-ativo { animation: pulsoEducaTech 0.5s infinite alternate; z-index: 3; }
+    .sorteio-ativo {
+      animation: pulsoEducaTech 0.5s infinite alternate;
+      z-index: 3;
+    }
+
     @keyframes pulsoEducaTech {
-      0% { box-shadow: 0 0 0px 2px var(--educatech-accent-3); transform: scale(1); }
-      100% { box-shadow: 0 0 15px 4px var(--educatech-primary); transform: scale(1.05); }
+      0% {
+        box-shadow: 0 0 0px 2px var(--educatech-accent-3);
+        transform: scale(1);
+      }
+
+      100% {
+        box-shadow: 0 0 15px 4px var(--educatech-primary);
+        transform: scale(1.05);
+      }
     }
+
     .sorteado-uma-vez {
-        background: linear-gradient(135deg, var(--educatech-accent-1), var(--educatech-secondary));
-        border-color: var(--educatech-accent-2);
-        border-width: 2px;
+      background: linear-gradient(135deg, var(--educatech-accent-1), var(--educatech-secondary));
+      border-color: var(--educatech-accent-2);
+      border-width: 2px;
     }
-    .sorteado { 
+
+    .sorteado {
       opacity: 0.4;
       filter: grayscale(0.7);
     }
+
     .destaque-overlay {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(66, 45, 177, 0.8);
-      display: flex; justify-content: center; align-items: center; 
-      z-index: 1000; cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: pointer;
       backdrop-filter: blur(5px);
     }
-    .destaque-box { 
-      width: 30vw; height: 83vh;
+
+    .destaque-box {
+      width: 30vw;
+      height: 83vh;
       background: linear-gradient(135deg, white, var(--educatech-secondary));
       padding: 20px;
       box-shadow: 0 10px 40px rgba(66, 45, 177, 0.4);
       animation: destaqueAnimar 0.4s ease forwards;
-      overflow: hidden; display: flex; align-items: center; justify-content: center;
-      cursor: default; border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      border-radius: 20px;
       border: 3px solid var(--educatech-accent-3);
     }
+
     @keyframes destaqueAnimar {
-      from { transform: scale(0.1); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .destaque-box img, .destaque-box picture img {
-      max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 10px;
+      from {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
-    </style>
+    .destaque-box img,
+    .destaque-box picture img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px;
+    }
+  </style>
 </head>
+
 <body>
+  <h1 style="display:none;">Bingo da Tabela Periódica - Jogo de Química</h1>
   <div class="particles" id="particles"></div>
-  
+
 
   <div id="zoom-container">
     <div class="tabela" id="tabelaPeriodica"></div>
   </div>
 
-  <svg id="arrow-svg"><defs></defs></svg>
+  <svg id="arrow-svg">
+    <defs></defs>
+  </svg>
 
-  
+
 
   <div class="botao-flutuante">
     <button id="bingoBtn">🎲 Bingo</button>
@@ -307,7 +414,7 @@
   <audio id="somSorteando" src="sons/sorteando.mp3" preload="auto"></audio>
   <audio id="somFinal" src="sons/final.mp3" preload="auto"></audio>
 
-  
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -340,34 +447,34 @@
     const grid = Array(numColunasGrid * numLinhasTotal).fill(null);
 
     elementos.forEach(([simbolo, grupo, periodo]) => {
-        if (periodo >= 0 && periodo < numLinhasElementos) {
-            if (grupo >= 0 && grupo < numColunasElementos) {
-                const pos = grupo + numColunasGrid * periodo;
-                if (pos >= 0 && pos < (numColunasGrid * numLinhasElementos)) { grid[pos] = simbolo; }
-            }
+      if (periodo >= 0 && periodo < numLinhasElementos) {
+        if (grupo >= 0 && grupo < numColunasElementos) {
+          const pos = grupo + numColunasGrid * periodo;
+          if (pos >= 0 && pos < (numColunasGrid * numLinhasElementos)) { grid[pos] = simbolo; }
         }
+      }
     });
     const linhaGrupoHeader = numLinhasTotal - 1;
     for (let i = 0; i < numColunasElementos; i++) {
-        grid[i + numColunasGrid * linhaGrupoHeader] = `grupo-${i + 1}`;
+      grid[i + numColunasGrid * linhaGrupoHeader] = `grupo-${i + 1}`;
     }
     const colPeriodoIndex = numColunasGrid - 1;
     for (let row = 0; row < 7; row++) {
-        grid[colPeriodoIndex + numColunasGrid * row] = `periodo-${row + 1}`;
+      grid[colPeriodoIndex + numColunasGrid * row] = `periodo-${row + 1}`;
     }
 
     const containerTabela = document.getElementById('tabelaPeriodica');
-    const zoomContainer = document.getElementById('zoom-container'); 
+    const zoomContainer = document.getElementById('zoom-container');
     const labelGrupoDiv = document.createElement('div');
     labelGrupoDiv.id = 'label-grupo';
     labelGrupoDiv.innerText = 'GRUPO';
-    containerTabela.appendChild(labelGrupoDiv); 
+    containerTabela.appendChild(labelGrupoDiv);
     const labelPeriodoDiv = document.createElement('div');
     labelPeriodoDiv.id = 'label-periodo';
     labelPeriodoDiv.innerText = 'PERÍODO';
-    containerTabela.appendChild(labelPeriodoDiv); 
+    containerTabela.appendChild(labelPeriodoDiv);
     const elementoRefs = {};
-    const contagemSorteios = {}; 
+    const contagemSorteios = {};
     const btnBingo = document.getElementById('bingoBtn');
     const somSorteando = document.getElementById('somSorteando');
     const somFinal = document.getElementById('somFinal');
@@ -387,7 +494,7 @@
       }
     }
 
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
       if (event.key === 'Enter' && !btnBingo.disabled) { btnBingo.click(); }
     });
 
@@ -400,21 +507,21 @@
         div.innerHTML = `<div class="simbolo">${simbolo}</div><div class="foto-editavel">${imgHTML}</div>`;
         const fotoDiv = div.querySelector('.foto-editavel');
         if (fotoDiv) {
-            fotoDiv.addEventListener('click', (e) => {
-               e.stopPropagation();
-               const pic = fotoDiv.querySelector('picture');
-               mostrarDestaque(pic ? pic.outerHTML : fotoDiv.querySelector('img').outerHTML);
-            });
+          fotoDiv.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pic = fotoDiv.querySelector('picture');
+            mostrarDestaque(pic ? pic.outerHTML : fotoDiv.querySelector('img').outerHTML);
+          });
         }
         containerTabela.appendChild(div);
         elementoRefs[simbolo] = div;
-        contagemSorteios[simbolo] = 0; 
+        contagemSorteios[simbolo] = 0;
       } else if (conteudo && typeof conteudo === 'string' && conteudo.startsWith('grupo-')) {
-          div.className = 'grupo-header'; div.innerText = conteudo.split('-')[1];
-          containerTabela.appendChild(div);
+        div.className = 'grupo-header'; div.innerText = conteudo.split('-')[1];
+        containerTabela.appendChild(div);
       } else if (conteudo && typeof conteudo === 'string' && conteudo.startsWith('periodo-')) {
-          div.className = 'periodo-numero'; div.innerText = conteudo.split('-')[1];
-          containerTabela.appendChild(div);
+        div.className = 'periodo-numero'; div.innerText = conteudo.split('-')[1];
+        containerTabela.appendChild(div);
       } else if (conteudo === null) {
         div.className = 'vazio'; containerTabela.appendChild(div);
       }
@@ -431,68 +538,68 @@
       const availableWidth = window.innerWidth;
       const availableHeight = window.innerHeight;
       const docStyle = document.documentElement.style;
-      
+
       const btnFlutuante = document.querySelector('.botao-flutuante');
       const buttonHeight = btnFlutuante ? btnFlutuante.offsetHeight : 0;
       const topMargin = btnFlutuante ? parseFloat(getComputedStyle(btnFlutuante).top) : 0;
 
-      const zoomContainerTop = buttonHeight + topMargin + 20; 
+      const zoomContainerTop = buttonHeight + topMargin + 20;
       zoomContainer.style.top = zoomContainerTop + 'px';
       const heightForTableScaling = availableHeight - zoomContainerTop - 20;
       let scaleFactor = 1;
       if (originalTableWidth > 0 && originalTableHeight > 0) {
         const scaleFactorWidth = (availableWidth * 0.9) / originalTableWidth;
         const scaleFactorHeight = heightForTableScaling / originalTableHeight;
-        scaleFactor = Math.min(scaleFactorWidth, scaleFactorHeight, 2.5); 
+        scaleFactor = Math.min(scaleFactorWidth, scaleFactorHeight, 2.5);
         scaleFactor = Math.max(0.4, scaleFactor);
       }
       zoomContainer.style.transform = `translateX(-50%) scale(${scaleFactor})`;
       docStyle.setProperty('--scaled-button-font-size', (originalButtonFontSize * Math.min(scaleFactor, 1.5)) + 'px');
       docStyle.setProperty('--scaled-button-padding-vertical', (6 * Math.min(scaleFactor, 1.5)) + 'px');
       docStyle.setProperty('--scaled-button-padding-horizontal', (12 * Math.min(scaleFactor, 1.5)) + 'px');
-      
+
       requestAnimationFrame(drawArrows);
     }
 
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(updateLayout, 150); 
+      resizeTimeout = setTimeout(updateLayout, 150);
     });
-    
+
     function mostrarDestaque(conteudoHTML) {
       const overlayExistente = document.querySelector('.destaque-overlay');
-      if(overlayExistente) {
+      if (overlayExistente) {
         document.body.removeChild(overlayExistente);
-        document.removeEventListener('keydown', gerenciarTeclasOverlay); 
+        document.removeEventListener('keydown', gerenciarTeclasOverlay);
       }
       const overlay = document.createElement('div');
       overlay.className = 'destaque-overlay';
       overlay.innerHTML = `<div class="destaque-box">${conteudoHTML}</div>`;
       document.body.appendChild(overlay);
       overlay.addEventListener('click', (event) => {
-          if (event.target === overlay) {
-              document.body.removeChild(overlay);
-              document.removeEventListener('keydown', gerenciarTeclasOverlay);
-          }
+        if (event.target === overlay) {
+          document.body.removeChild(overlay);
+          document.removeEventListener('keydown', gerenciarTeclasOverlay);
+        }
       });
       document.addEventListener('keydown', gerenciarTeclasOverlay);
     }
-    
+
     function gerenciarTeclasOverlay(event) {
-        if (event.key === 'Escape' || event.key === 'Enter') {
-            const overlay = document.querySelector('.destaque-overlay');
-            if (overlay) {
-                document.body.removeChild(overlay);
-                document.removeEventListener('keydown', gerenciarTeclasOverlay);
-                if (event.key === 'Enter' && !btnBingo.disabled) {
-                    btnBingo.click();
-                }
-            }
+      if (event.key === 'Escape' || event.key === 'Enter') {
+        const overlay = document.querySelector('.destaque-overlay');
+        if (overlay) {
+          document.body.removeChild(overlay);
+          document.removeEventListener('keydown', gerenciarTeclasOverlay);
+          if (event.key === 'Enter' && !btnBingo.disabled) {
+            btnBingo.click();
+          }
         }
+      }
     }
 
-    btnBingo.addEventListener('click', () => { 
+    btnBingo.addEventListener('click', () => {
       const candidatos = Object.keys(elementoRefs).filter(sim => contagemSorteios[sim] < 2);
       if (candidatos.length === 0) {
         alert('Todos os elementos já foram sorteados duas vezes!');
@@ -505,7 +612,7 @@
       const intervaloMs = 300;
       const intervaloSorteio = setInterval(() => {
         if (elementoAnimacao && elementoRefs[elementoAnimacao]) {
-             elementoRefs[elementoAnimacao].classList.remove('sorteio-ativo');
+          elementoRefs[elementoAnimacao].classList.remove('sorteio-ativo');
         }
         let candidatosAnimacao = candidatos.filter(sim => sim !== elementoAnimacao);
         if (candidatosAnimacao.length === 0) candidatosAnimacao = candidatos;
@@ -513,7 +620,7 @@
         somSorteando.pause(); somSorteando.currentTime = 0;
         somSorteando.play().catch(e => console.error("Erro ao tocar somSorteando:", e));
         if (elementoRefs[elementoAnimacao]) {
-             elementoRefs[elementoAnimacao].classList.add('sorteio-ativo');
+          elementoRefs[elementoAnimacao].classList.add('sorteio-ativo');
         }
         contadorAnimacao++;
         if (contadorAnimacao >= maxAnimacoes) {
@@ -522,35 +629,35 @@
           setTimeout(() => {
             somSorteando.pause(); somSorteando.currentTime = 0;
             if (elementoAnimacao && elementoRefs[elementoAnimacao]) {
-                elementoRefs[elementoAnimacao].classList.remove('sorteio-ativo');
+              elementoRefs[elementoAnimacao].classList.remove('sorteio-ativo');
             }
             somFinal.currentTime = 0;
             somFinal.play().catch(e => console.error("Erro ao tocar somFinal:", e));
             let timeoutSomFinal = setTimeout(() => {
               somFinal.pause(); somFinal.currentTime = 0;
               if (Object.keys(elementoRefs).filter(sim => contagemSorteios[sim] < 2).length > 0) {
-                 btnBingo.disabled = false;
+                btnBingo.disabled = false;
               } else {
-                 console.log("Todos elementos sorteados 2x, botão permanece desabilitado.");
-                 alert('Bingo! Todos os elementos foram sorteados duas vezes.');
+                console.log("Todos elementos sorteados 2x, botão permanece desabilitado.");
+                alert('Bingo! Todos os elementos foram sorteados duas vezes.');
               }
             }, 1200);
             if (elementoRefs[elementoFinalSorteado]) {
-                contagemSorteios[elementoFinalSorteado]++;
-                const elementoDiv = elementoRefs[elementoFinalSorteado];
-                if (contagemSorteios[elementoFinalSorteado] === 1) {
-                    elementoDiv.classList.add('sorteado-uma-vez');
-                } else if (contagemSorteios[elementoFinalSorteado] === 2) {
-                    elementoDiv.classList.remove('sorteado-uma-vez');
-                    elementoDiv.classList.add('sorteado');
-                }
-                const pic = elementoDiv.querySelector('picture');
-                mostrarDestaque(pic ? pic.outerHTML : elementoDiv.querySelector('img').outerHTML);
+              contagemSorteios[elementoFinalSorteado]++;
+              const elementoDiv = elementoRefs[elementoFinalSorteado];
+              if (contagemSorteios[elementoFinalSorteado] === 1) {
+                elementoDiv.classList.add('sorteado-uma-vez');
+              } else if (contagemSorteios[elementoFinalSorteado] === 2) {
+                elementoDiv.classList.remove('sorteado-uma-vez');
+                elementoDiv.classList.add('sorteado');
+              }
+              const pic = elementoDiv.querySelector('picture');
+              mostrarDestaque(pic ? pic.outerHTML : elementoDiv.querySelector('img').outerHTML);
             } else {
-                 console.error("Erro: Elemento sorteado não encontrado:", elementoFinalSorteado);
-                 btnBingo.disabled = false;
-                 if(timeoutSomFinal) clearTimeout(timeoutSomFinal);
-                 somFinal.pause(); alert("Erro inesperado durante o sorteio.");
+              console.error("Erro: Elemento sorteado não encontrado:", elementoFinalSorteado);
+              btnBingo.disabled = false;
+              if (timeoutSomFinal) clearTimeout(timeoutSomFinal);
+              somFinal.pause(); alert("Erro inesperado durante o sorteio.");
             }
           }, 150);
         }
@@ -558,42 +665,43 @@
     });
 
     function drawArrows() {
-        const svg = document.getElementById('arrow-svg');
-        const table = document.getElementById('tabelaPeriodica'); 
-        if (!svg || !table || typeof elementoRefs === 'undefined' || Object.keys(elementoRefs).length === 0) {
-            return;
-        }
-        svg.innerHTML = `<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 10 3.5, 0 7" /></marker></defs>`;
-        const arrowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        svg.appendChild(arrowGroup);
-        const calculatePathPoints = (startSymbol, endSymbol, arrowIndex = 0) => {
-            const startEl = elementoRefs[startSymbol]; const endEl = elementoRefs[endSymbol];
-            if (!startEl || !endEl) return null;
-            const startRect = startEl.getBoundingClientRect(); const endRect = endEl.getBoundingClientRect();
-            const p1x = startRect.right; const p1y = startRect.top + startRect.height / 2;
-            const refCellWidth = 48; const currentCellWidth = startRect.width;
-            let extFactor = (arrowIndex === 0) ? (25 / refCellWidth) : (4 / refCellWidth);
-            const horizExt = extFactor * currentCellWidth;
-            const p2x = p1x + horizExt; const p2y = p1y;
-            const p3x = p2x; const p3y = endRect.top + endRect.height / 2;
-            const p4x = endRect.left; const p4y = p3y;
-            return `M ${p1x} ${p1y} L ${p2x} ${p2y} L ${p3x} ${p3y} L ${p4x} ${p4y}`;
-        };
-        const 그려Path = (pathData) => { 
-            if (!pathData) return;
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.setAttribute('d', pathData); path.setAttribute('marker-end', 'url(#arrowhead)');
-            arrowGroup.appendChild(path);
-        };
-        if (elementoRefs['Ba'] && elementoRefs['La']) 그려Path(calculatePathPoints('Ba', 'La', 0));
-        if (elementoRefs['Ra'] && elementoRefs['Ac']) 그려Path(calculatePathPoints('Ra', 'Ac', 1));
+      const svg = document.getElementById('arrow-svg');
+      const table = document.getElementById('tabelaPeriodica');
+      if (!svg || !table || typeof elementoRefs === 'undefined' || Object.keys(elementoRefs).length === 0) {
+        return;
+      }
+      svg.innerHTML = `<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><polygon points="0 0, 10 3.5, 0 7" /></marker></defs>`;
+      const arrowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      svg.appendChild(arrowGroup);
+      const calculatePathPoints = (startSymbol, endSymbol, arrowIndex = 0) => {
+        const startEl = elementoRefs[startSymbol]; const endEl = elementoRefs[endSymbol];
+        if (!startEl || !endEl) return null;
+        const startRect = startEl.getBoundingClientRect(); const endRect = endEl.getBoundingClientRect();
+        const p1x = startRect.right; const p1y = startRect.top + startRect.height / 2;
+        const refCellWidth = 48; const currentCellWidth = startRect.width;
+        let extFactor = (arrowIndex === 0) ? (25 / refCellWidth) : (4 / refCellWidth);
+        const horizExt = extFactor * currentCellWidth;
+        const p2x = p1x + horizExt; const p2y = p1y;
+        const p3x = p2x; const p3y = endRect.top + endRect.height / 2;
+        const p4x = endRect.left; const p4y = p3y;
+        return `M ${p1x} ${p1y} L ${p2x} ${p2y} L ${p3x} ${p3y} L ${p4x} ${p4y}`;
+      };
+      const 그려Path = (pathData) => {
+        if (!pathData) return;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathData); path.setAttribute('marker-end', 'url(#arrowhead)');
+        arrowGroup.appendChild(path);
+      };
+      if (elementoRefs['Ba'] && elementoRefs['La']) 그려Path(calculatePathPoints('Ba', 'La', 0));
+      if (elementoRefs['Ra'] && elementoRefs['Ac']) 그려Path(calculatePathPoints('Ra', 'Ac', 1));
     }
-    
+
     document.addEventListener('DOMContentLoaded', () => {
       createParticles();
       updateLayout();
-      requestAnimationFrame(drawArrows); 
+      requestAnimationFrame(drawArrows);
     });
   </script>
 </body>
+
 </html>

@@ -9,8 +9,8 @@ export function Hero() {
         <section className="relative overflow-hidden bg-slate-950 py-20 sm:py-32">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-            <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-indigo-500/20 blur-[120px]" />
-            <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] rounded-full bg-purple-500/20 blur-[120px]" />
+            <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-teal-500/20 blur-[120px]" />
+            <div className="absolute top-[20%] -right-[10%] w-[40%] h-[40%] rounded-full bg-emerald-500/20 blur-[120px]" />
 
             <div className="container relative z-10 mx-auto px-4 text-center">
                 <motion.div
@@ -18,13 +18,13 @@ export function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <span className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20 mb-8">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-teal-500/10 px-4 py-1.5 text-sm font-medium text-teal-400 ring-1 ring-inset ring-teal-500/20 mb-8">
                         <Sparkles className="w-4 h-4" />
                         Nova Experiência Educatech
                     </span>
 
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl max-w-4xl mx-auto mb-6">
-                        Aprender pode ser a <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">melhor parte do dia.</span>
+                        Aprender pode ser a <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">melhor parte do dia.</span>
                     </h1>
 
                     <p className="mt-6 text-lg leading-8 text-slate-300 max-w-2xl mx-auto mb-10">

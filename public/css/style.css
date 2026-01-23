@@ -7,8 +7,8 @@
     --text-body: #495057;
     --text-muted: #6c757d;
     --border-color: #e0e0e0;
-    --gradient-start: #8A2BE2; /* Roxo */
-    --gradient-end: #4169E1;   /* Azul Royal */
+    --gradient-start: #0F766E; /* Teal 700 */
+    --gradient-end: #10B981;   /* Emerald 500 */
     --sidebar-width: 280px;
 }
 

@@ -45,7 +45,7 @@ export function FeaturedGames() {
     if (loading) {
         return (
             <div className="flex justify-center py-20">
-                <Loader2 className="w-10 h-10 animate-spin text-indigo-500" />
+                <Loader2 className="w-10 h-10 animate-spin text-teal-500" />
             </div>
         );
     }

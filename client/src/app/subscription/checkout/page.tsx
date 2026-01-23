@@ -130,8 +130,8 @@ function CheckoutContent() {
                                 <h3 className="text-xl font-bold text-white">{planName}</h3>
                                 <p className="text-slate-400 text-sm">{selectedPlan.description}</p>
                                 <div className="flex flex-wrap gap-2 mt-3">
-                                    <span className="text-xs bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded">Jogadas Ilimitadas</span>
-                                    {planId !== 'monthly' && <span className="text-xs bg-purple-500/10 text-purple-400 px-2 py-1 rounded">Acesso Antecipado</span>}
+                                    <span className="text-xs bg-cyan-500/10 text-cyan-400 px-2 py-1 rounded">Jogadas Ilimitadas</span>
+                                    {planId !== 'monthly' && <span className="text-xs bg-teal-500/10 text-teal-400 px-2 py-1 rounded">Acesso Antecipado</span>}
                                     <span className="text-xs bg-green-500/10 text-green-400 px-2 py-1 rounded">Sem Anúncios</span>
                                 </div>
                             </div>
