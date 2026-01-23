@@ -133,18 +133,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/games', express.static(path.join(__dirname, '..', 'public', 'games')));
 app.use('/games', checkGameAccess);
 
-// Serve HTML pages (Legacy Frontend)
-// These might be redundant if Client is Next.js, but keeping them for compatibility
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')));
-app.get('/login.html', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'login.html')));
-app.get('/register.html', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'register.html')));
-app.get('/forgot_password.html', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'forgot_password.html')));
-app.get('/reset_password.html', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'reset_password.html')));
-app.get('/games', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'games.html')));
-app.get('/profile', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'profile.html')));
-app.get('/subscription', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'subscription.html')));
-app.get('/contact.html', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'contact.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'admin.html')));
+// Serve HTML pages (Legacy Frontend) - REMOVED
+// The frontend is now handled by Next.js in the 'client' directory.
+// Routes are handled by vercel.json or the Next.js server.
 
 // Error Handler
 app.use((err, req, res, next) => {
