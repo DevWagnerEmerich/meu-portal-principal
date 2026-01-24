@@ -1462,3 +1462,34 @@
 {"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-23 13:13:57"}
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 13:13:58"}
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-23 13:13:58"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:19:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:19:41"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-24 07:19:41"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-01-24 07:19:41"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-24 07:28:38"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-24 07:28:38"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-24 07:28:38"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?","name":"KnexTimeoutError","service":"portal-jogos-service","sql":"SELECT 1","stack":"KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?\n    at Client_PG.acquireConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:332:26)\n    at async Runner.ensureConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:305:28)\n    at async Runner.run (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:30:19)","timestamp":"2026-01-24 07:28:38"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:08"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:08"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:13"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:19"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:27"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:29"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:29:39"}
+{"level":"info","message":"OPTIONS /api/register","service":"portal-jogos-service","timestamp":"2026-01-24 07:30:22"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-24 07:30:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:30:28"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:16"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
