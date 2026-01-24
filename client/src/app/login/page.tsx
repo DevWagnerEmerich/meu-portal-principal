@@ -7,12 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Chrome } from "lucide-react";
 import { API_URL } from "@/lib/config";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-    title: "Login - Educatech",
-    description: "Entre na sua conta Educatech para acessar jogos educativos exclusivos.",
-};
 
 export default function LoginPage() {
     const router = useRouter();
