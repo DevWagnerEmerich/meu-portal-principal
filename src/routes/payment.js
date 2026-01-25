@@ -8,10 +8,14 @@ const { body, validationResult } = require('express-validator');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 
 let client;
-if (config.mercadopago.accessToken) {
-  client = new MercadoPagoConfig({ accessToken: config.mercadopago.accessToken });
-} else {
-  console.warn("⚠️ AVISO: MP_ACCESS_TOKEN não configurado. Pagamentos falharão.");
+try {
+  if (config.mercadopago && config.mercadopago.accessToken) {
+    client = new MercadoPagoConfig({ accessToken: config.mercadopago.accessToken });
+  } else {
+    console.warn("⚠️ AVISO: MP_ACCESS_TOKEN não configurado no .env. Pagamentos falharão.");
+  }
+} catch (err) {
+  console.error("Erro crítico ao inicializar Mercado Pago SDK:", err);
 }
 
 const BusinessRules = require('../business-rules');
