@@ -13,10 +13,9 @@ module.exports = {
     pass: process.env.EMAIL_PASS,
   },
 
-  stripe: {
-    secretKey: process.env.STRIPE_SECRET_KEY,
-    publicKey: process.env.STRIPE_PUBLIC_KEY,
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+  mercadopago: {
+    accessToken: process.env.MP_ACCESS_TOKEN,
+    webhookSecret: process.env.MP_WEBHOOK_SECRET, // Para validar autenticidade (opcional/avançado)
   },
 
   google: {

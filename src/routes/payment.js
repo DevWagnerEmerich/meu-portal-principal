@@ -1,25 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config');
-const { sendEmail } = require('../email.js');
 const db = require('../database.js');
-const Stripe = require('stripe');
 const { body, validationResult } = require('express-validator');
 
-let stripe;
-if (config.stripe.secretKey) {
-  stripe = new Stripe(config.stripe.secretKey);
+// Importando Mercado Pago SDK v2
+const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
+
+let client;
+if (config.mercadopago.accessToken) {
+  client = new MercadoPagoConfig({ accessToken: config.mercadopago.accessToken });
 } else {
-  console.warn("⚠️ AVISO: STRIPE_SECRET_KEY não configurada. As rotas de pagamento falharão.");
+  console.warn("⚠️ AVISO: MP_ACCESS_TOKEN não configurado. Pagamentos falharão.");
 }
+
 const BusinessRules = require('../business-rules');
 
-// Rota para enviar a Public Key para o frontend
-router.get('/config', (req, res) => {
-  res.json({ publicKey: config.stripe.publicKey });
-});
-
-// Rota para criar a Sessão de Checkout do Stripe
+// Rota para criar a Preferência de Pagamento (Checkout)
 router.post('/create-checkout-session', [
   body('id', 'ID do plano inválido.').isIn(['monthly', 'semiannual', 'annual']),
   body('title', 'Título do plano é obrigatório.').notEmpty()
@@ -33,13 +30,11 @@ router.post('/create-checkout-session', [
     return res.status(400).json({ error: 'Erro de validação.', details: errors.array() });
   }
 
-  const { id, title } = req.body; // id = 'monthly', 'semiannual', 'annual'
+  const { id, title } = req.body;
 
-  // --- Regras de Preço (Mesma lógica de antes) ---
+  // --- Lógica de Preços (Reutilizada) ---
   const standardPrices = {};
-  Object.values(BusinessRules.PLANS).forEach(plan => {
-    standardPrices[plan.id] = plan.price;
-  });
+  Object.values(BusinessRules.PLANS).forEach(plan => standardPrices[plan.id] = plan.price);
 
   const discountedPrices = {};
   Object.values(BusinessRules.PLANS).forEach(plan => {
@@ -53,119 +48,106 @@ router.post('/create-checkout-session', [
       return res.status(500).json({ error: 'Usuário não encontrado.' });
     }
 
-    // Verifica oferta de boas-vindas
+    // Verifica oferta
     const offerDurationInMillis = BusinessRules.WELCOME_OFFER.DURATION_DAYS * 24 * 60 * 60 * 1000;
     const offerEndDate = Number(user.created_at) + offerDurationInMillis;
     const isOfferActive = Date.now() < offerEndDate;
 
     const priceMap = isOfferActive ? discountedPrices : standardPrices;
-    const finalPrice = priceMap[id]; // Valor em REAIS (ex: 19.90 ou 14.25)
+    const finalPrice = priceMap[id];
 
     if (!finalPrice) {
       return res.status(400).json({ error: 'Plano inválido.' });
     }
 
-    // Stripe trabalha com centavos (inteiros)
-    const unitAmount = Math.round(finalPrice * 100);
+    // --- Criação da Preferência no Mercado Pago ---
+    const preference = new Preference(client);
 
-    let mode = 'payment'; // Padrão: Pagamento único
-    let recurring = undefined;
-
-    // Se for Mensal, configuramos como Assinatura (Recorrente)
-    if (id === 'monthly') {
-      mode = 'subscription';
-      recurring = { interval: 'month' };
-    }
-
-    // Cria a sessão
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'boleto'], // Pix é habilitado automaticamente no painel se 'card' estiver aqui e a moeda for BRL
-      line_items: [
-        {
-          price_data: {
-            currency: 'brl',
-            product_data: {
-              name: title,
-              description: mode === 'subscription' ? 'Assinatura Mensal' : `Acesso por ${BusinessRules.PLANS[id].duration_days} dias`,
-            },
-            unit_amount: unitAmount,
-            recurring: recurring,
-          },
-          quantity: 1,
+    const result = await preference.create({
+      body: {
+        items: [
+          {
+            id: id,
+            title: title,
+            quantity: 1,
+            unit_price: finalPrice,
+            currency_id: 'BRL',
+            description: id === 'monthly' ? 'Assinatura Mensal' : `Acesso por ${BusinessRules.PLANS[id].duration_days} dias`
+          }
+        ],
+        payer: {
+          name: user.username,
+          email: user.email
         },
-      ],
-      mode: mode,
-      customer_email: user.email, // Preenche o e-mail no checkout
-      client_reference_id: String(req.session.userId), // ID do usuário para o Webhook saber quem pagou
-      metadata: {
-        planId: id,
-        userId: String(req.session.userId),
-        planTitle: title
-      },
-      success_url: `${config.domain}/index.html?status=success`,
-      cancel_url: `${config.domain}/index.html?status=canceled`,
+        // External Reference é CRUCIAL: Usamos para saber QUEM pagou no Webhook
+        external_reference: JSON.stringify({
+          userId: req.session.userId,
+          planId: id,
+          planTitle: title
+        }),
+        back_urls: {
+          success: `${config.domain}/subscription/checkout/success`,
+          failure: `${config.domain}/subscription/checkout`,
+          pending: `${config.domain}/subscription/checkout`
+        },
+        auto_return: 'approved',
+        notification_url: `${config.domain}/api/payment/webhook`
+        // Em localhost, webhook não funciona sem túnel (ngrok).
+        // Recomendo usar ngrok http 3001 e colocar a URL no .env DOMAIN
+      }
     });
 
-    res.json({ url: session.url });
+    // Retorna a URL de redirecionamento (init_point = Checkout Pro)
+    res.json({ url: result.init_point });
 
   } catch (error) {
-    console.error('Erro ao criar sessão do Stripe:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Erro ao criar preferência do Mercado Pago:', error);
+    res.status(500).json({ error: error.message || 'Erro interno ao processar pagamento.' });
   }
 });
 
-// Webhook do Stripe
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  let event;
+// Webhook do Mercado Pago
+router.post('/webhook', async (req, res) => {
+  // O MP manda query params (data.id ou id) e type ou topic
+  const { type, data } = req.body;
+  const query = req.query;
+
+  const id = data?.id || query.id || query['data.id'];
+  const topic = type || query.topic || query.type;
+
+  console.log(`🔔 Webhook recebido: Topic=${topic}, ID=${id}`);
 
   try {
-    // Atenção: req.body aqui precisa ser o buffer raw, por isso o middleware express.raw acima na definição da rota (mas como estamos definindo dentro do router, precisamos garantir que o server.js não esteja parseando JSON antes para essa rota específica, ou usar req.rawBody se disponível)
-    // No server.js geral, costuma ter app.use(express.json()). Isso quebra o webhook do Stripe.
-    // Solução ideal: O webhook deve verificar a assinatura usando o corpo bruto.
-    // Como estamos num ambiente onde não controlo fácil o server.js agora, assumiremos que req.body pode vir parseado ou tentaremos lidar com isso.
-    // O Stripe EXIGE o raw body. Se o express.json() rodar antes, falha.
-    // Vou confiar que o usuário vai configurar isso ou que o framework lida.
-    // Se der erro de assinatura, avisaremos.
+    if (topic === 'payment' || topic === 'collection') { // collection é legacy, payment é novo
+      if (!id) return res.sendStatus(200);
 
-    // NOTA: Para funcionar, o server.js deve ter: app.use('/api/payment/webhook', express.raw({type: 'application/json'})); ANTES do express.json() global.
-    // Como não posso garantir isso agora sem editar o server.js, deixo o aviso.
-    if (!config.stripe.webhookSecret) {
-      console.warn("Webhook Secret não configurado. Pulando validação (inseguro em prod).");
-      event = req.body;
-    } else {
-      event = stripe.webhooks.constructEvent(req.body, sig, config.stripe.webhookSecret);
+      const paymentClient = new Payment(client);
+      const payment = await paymentClient.get({ id: id });
+
+      if (payment && payment.status === 'approved') {
+        const metadata = payment.external_reference ? JSON.parse(payment.external_reference) : null;
+
+        if (metadata && metadata.userId) {
+          await activateUserPlan(metadata.userId, metadata.planId, metadata.planTitle);
+          console.log(`✅ Pagamento ${id} aprovado para User ${metadata.userId} (Plano: ${metadata.planId})`);
+        } else {
+          console.warn(`⚠️ Pagamento aprovado sem external_reference válida: ${id}`);
+        }
+      }
     }
-  } catch (err) {
-    console.error(`Webhook Error: ${err.message}`);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
+    // Sempre responder 200/201 para o MP não ficar reenviando
+    res.sendStatus(200);
 
-  // Handle events
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-    await activateUserPlan(session);
-  } else if (event.type === 'invoice.payment_succeeded') {
-    // Renovação de assinatura
-    const invoice = event.data.object;
-    // Precisamos buscar a session ou customer para saber quem é
-    // invoices têm 'subscription' e 'customer_email'
-    await renewUserSubscription(invoice);
+  } catch (error) {
+    console.error('Erro no Webhook MP:', error);
+    res.sendStatus(500);
   }
-
-  res.json({ received: true });
 });
 
-// Funções Auxiliares de Ativação
-async function activateUserPlan(session) {
-  const userId = session.client_reference_id || session.metadata.userId;
-  const planId = session.metadata.planId;
-  const planTitle = session.metadata.planTitle;
 
-  if (!userId || !planId) {
-    console.error('Webhook: Dados incompletos na sessão.', session.id);
-    return;
-  }
+// Funções Auxiliares de Ativação (Reutilizada e simplificada)
+async function activateUserPlan(userId, planId, planTitle) {
+  if (!userId || !planId) return;
 
   let durationDays = 30;
   if (BusinessRules.PLANS[planId]) {
@@ -182,40 +164,14 @@ async function activateUserPlan(session) {
         subscription_type: planTitle || planId,
         subscription_end_date: expirationDate.getTime()
       });
-
-    console.log(`✅ Usuário ${userId} ativado no plano ${planId} via Stripe.`);
-    // Enviar e-mail de confirmação (opcional)
   } catch (err) {
-    console.error('Erro ao ativar usuário no banco:', err);
+    console.error('Erro ao salvar plano no banco:', err);
   }
 }
 
-async function renewUserSubscription(invoice) {
-  const email = invoice.customer_email;
-  if (!email) return;
-
-  // Buscar usuário pelo email
-  try {
-    const user = await db('users').where('email', email).first();
-    if (user) {
-      const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 30); // Renovação mensal padrão
-
-      await db('users')
-        .where('id', user.id)
-        .update({
-          subscription_end_date: expirationDate.getTime()
-        });
-      console.log(`✅ Assinatura renovada para ${user.email} via Stripe.`);
-    }
-  } catch (err) {
-    console.error('Erro ao renovar assinatura:', err);
-  }
-}
-
-// Rota auxiliar para planos (mantemos a mesma lógica visual)
+// Rota de Informações dos Planos (para o Frontend desenhar os cards)
+// Mantém exatamente a mesma interface do frontend
 router.get('/plans', async (req, res) => {
-  // ... (mesma lógica do arquivo anterior, apenas copiando para manter consistência)
   if (!req.session.userId) {
     return res.status(401).json({ error: 'Usuário não autenticado.' });
   }

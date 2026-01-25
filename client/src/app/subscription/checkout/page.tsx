@@ -197,7 +197,7 @@ function CheckoutContent() {
                     <div className="mt-6 flex items-center justify-center gap-6 opacity-50 grayscale transition-all hover:grayscale-0 hover:opacity-80">
                         {/* Secure Badges (Visual only) */}
                         <div className="flex items-center gap-2 text-xs text-slate-500 font-medium uppercase tracking-wider">
-                            <Lock className="w-3 h-3" /> Pagamento Seguro via Stripe
+                            <Lock className="w-3 h-3" /> Processado via Mercado Pago
                         </div>
                     </div>
                 </motion.div>
@@ -212,7 +212,7 @@ function CheckoutContent() {
                     <div className="bg-white rounded-3xl p-1 shadow-2xl">
                         <div className="bg-slate-50 rounded-[20px] p-8 border border-slate-100 h-full flex flex-col">
                             <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                                <CreditCard className="w-5 h-5 text-indigo-600" />
+                                <CreditCard className="w-5 h-5 text-sky-600" />
                                 Dados do Pagamento
                             </h3>
 
@@ -231,15 +231,16 @@ function CheckoutContent() {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
+                                    <div className="p-4 bg-sky-50 border border-sky-100 rounded-xl">
                                         <div className="flex items-center gap-4 mb-3">
                                             <div className="flex -space-x-2">
                                                 <div className="w-8 h-5 bg-slate-800 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">VISA</div>
                                                 <div className="w-8 h-5 bg-orange-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">MC</div>
+                                                <div className="w-8 h-5 bg-blue-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">ELO</div>
                                             </div>
-                                            <span className="text-xs font-bold text-indigo-900">Cartão de Crédito</span>
+                                            <span className="text-xs font-bold text-sky-900">Cartão de Crédito/Débito</span>
                                         </div>
-                                        <p className="text-xs text-indigo-700/80 leading-relaxed">Liberação imediata. Ambiente criptografado de ponta a ponta.</p>
+                                        <p className="text-xs text-sky-700/80 leading-relaxed">Liberação imediata. Ambiente seguro Mercado Pago.</p>
                                     </div>
 
                                     <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-xl relative overflow-hidden">
@@ -250,7 +251,7 @@ function CheckoutContent() {
                                             </div>
                                             <span className="text-xs font-bold text-emerald-900">PIX Instantâneo</span>
                                         </div>
-                                        <p className="text-xs text-emerald-700/80 leading-relaxed">Use o QR Code na próxima tela para liberação automática em segundos.</p>
+                                        <p className="text-xs text-emerald-700/80 leading-relaxed">Gerado no próximo passo. Aprovação em tempo real.</p>
                                     </div>
                                 </div>
                             </div>
@@ -259,9 +260,9 @@ function CheckoutContent() {
                                 <Button
                                     onClick={handlePayment}
                                     disabled={processing}
-                                    className="w-full h-16 text-lg font-bold rounded-xl bg-slate-900 hover:bg-slate-800 text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                                    className="w-full h-16 text-lg font-bold rounded-xl bg-[#009EE3] hover:bg-[#008CC9] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-sky-400 via-blue-400 to-sky-400 opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
                                     {processing ? (
                                         <div className="flex items-center gap-2">
                                             <Loader2 className="w-5 h-5 animate-spin" />
@@ -275,7 +276,7 @@ function CheckoutContent() {
                                     )}
                                 </Button>
                                 <p className="text-center text-[10px] text-slate-400 mt-4 leading-tight mx-auto max-w-[200px]">
-                                    Ao continuar, você concorda com nossos Termos de Serviço. Garantia de 7 dias ou seu dinheiro de volta.
+                                    Ao continuar, você será redirecionado para o ambiente seguro do Mercado Pago.
                                 </p>
                             </div>
                         </div>
