@@ -21,7 +21,7 @@ const BusinessRules = {
         monthly: {
             id: 'monthly',
             title: 'Plano Mensal',
-            price: 19.00,
+            price: 0.20,
             duration_days: 30
         },
         semiannual: {
