@@ -8,7 +8,7 @@ import { Gamepad2, User, LogOut, Zap } from "lucide-react";
 import { API_URL } from "@/lib/config";
 
 export function Navbar() {
-    const [user, setUser] = useState<{ loggedIn: boolean; username?: string; energy?: number; maxEnergy?: number; subscriptionType?: string } | null>(null);
+    const [user, setUser] = useState<{ loggedIn: boolean; username?: string; energy?: number; maxEnergy?: number; subscriptionType?: string; role?: string } | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export function Navbar() {
                     {user?.loggedIn ? (
                         <>
                             <div className="hidden sm:flex items-center gap-4 text-slate-300">
-                                {user.subscriptionType === 'none' ? (
+                                {user.subscriptionType === 'none' && user.role !== 'admin' ? (
                                     <div className="flex items-center gap-1 bg-slate-900/50 px-3 py-1 rounded-full border border-slate-800" title="Jogadas Grátis Restantes">
                                         <Zap className={`w-4 h-4 ${user.energy !== undefined && user.energy > 0 ? "text-yellow-400" : "text-slate-600"}`} fill={user.energy !== undefined && user.energy > 0 ? "currentColor" : "none"} />
                                         <span className="text-sm font-medium text-white">{user.energy}/{user.maxEnergy}</span>
@@ -68,7 +68,9 @@ export function Navbar() {
                                             <div className="absolute inset-0 bg-amber-400 blur-[2px] opacity-50 animate-pulse rounded-full"></div>
                                             <Zap className="w-4 h-4 text-amber-400 relative z-10" fill="currentColor" />
                                         </div>
-                                        <span className="text-sm font-bold text-amber-400 tracking-wide uppercase">VIP</span>
+                                        <span className="text-sm font-bold text-amber-400 tracking-wide uppercase">
+                                            {user.role === 'admin' ? 'ADMIN' : 'VIP'}
+                                        </span>
                                     </div>
                                 )}
                                 <div className="flex items-center gap-2">
