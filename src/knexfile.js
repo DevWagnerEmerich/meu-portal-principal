@@ -33,8 +33,8 @@ module.exports = {
             directory: path.join(__dirname, '..', 'seeds')
         },
         pool: {
-            min: 0,
-            max: 1 // Testando conexão única para evitar problemas de pooler
+            min: 2,
+            max: 10
         }
     }
 };
