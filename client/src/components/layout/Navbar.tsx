@@ -57,6 +57,18 @@ export function Navbar() {
                     {user?.loggedIn ? (
                         <>
                             <div className="hidden sm:flex items-center gap-4 text-slate-300">
+                                <Link href="/profile" className="hover:opacity-80 transition-opacity">
+                                    <div className="flex items-center gap-2 group">
+                                        <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-teal-500/50 transition-colors">
+                                            <User className="w-4 h-4 text-slate-400 group-hover:text-teal-400" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-xs text-slate-500 leading-none mb-0.5">Olá,</span>
+                                            <span className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors">{user.username}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+
                                 {user.subscriptionType === 'none' && user.role !== 'admin' ? (
                                     <div className="flex items-center gap-1 bg-slate-900/50 px-3 py-1 rounded-full border border-slate-800" title="Jogadas Grátis Restantes">
                                         <Zap className={`w-4 h-4 ${user.energy !== undefined && user.energy > 0 ? "text-yellow-400" : "text-slate-600"}`} fill={user.energy !== undefined && user.energy > 0 ? "currentColor" : "none"} />
@@ -73,11 +85,8 @@ export function Navbar() {
                                         </span>
                                     </div>
                                 )}
-                                <div className="flex items-center gap-2">
-                                    <User className="w-4 h-4" />
-                                    <span>Olá, <span className="text-white font-medium">{user.username}</span></span>
-                                </div>
                             </div>
+
                             <Button
                                 variant="ghost"
                                 size="sm"
@@ -104,6 +113,6 @@ export function Navbar() {
                     )}
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 }
