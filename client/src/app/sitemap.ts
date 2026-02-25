@@ -1,8 +1,11 @@
 import { MetadataRoute } from 'next';
 import { Pool } from 'pg';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://brincabytes.com.br'; // Substitua pelo domínio real no deploy
+    const baseUrl = 'https://brincabytes.vercel.app'; // Força o domínio grátis do Vercel para o Google Search Console
 
     // Rotas estáticas
     const staticRoutes = [
