@@ -12,10 +12,11 @@ interface GameCardProps {
     title: string;
     thumbnail: string;
     category?: string;
+    is_premium?: boolean;
     isNew?: boolean;
 }
 
-export function GameCard({ id, title, thumbnail, category, isNew }: GameCardProps) {
+export function GameCard({ id, title, thumbnail, category, is_premium, isNew }: GameCardProps) {
     return (
         <motion.div
             whileHover={{ y: -8 }}
@@ -31,14 +32,14 @@ export function GameCard({ id, title, thumbnail, category, isNew }: GameCardProp
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
                 {/* Badge Novo */}
-                {isNew && !category?.toLowerCase().includes('premium') && !category?.toLowerCase().includes('vip') && (
+                {isNew && !is_premium && !category?.toLowerCase().includes('premium') && !category?.toLowerCase().includes('vip') && (
                     <span className="absolute top-3 left-3 px-2 py-1 text-[10px] uppercase font-bold tracking-wider text-highlight-foreground bg-highlight rounded-sm shadow-lg">
                         Novo
                     </span>
                 )}
 
                 {/* Badge VIP */}
-                {(category?.toLowerCase().includes('premium') || category?.toLowerCase().includes('vip')) && (
+                {(is_premium || category?.toLowerCase().includes('premium') || category?.toLowerCase().includes('vip')) && (
                     <span className="absolute top-3 left-3 px-2 py-1 text-[10px] uppercase font-bold tracking-wider text-amber-900 bg-amber-400 rounded-sm shadow-lg flex items-center gap-1">
                         <Crown className="w-3 h-3" /> VIP
                     </span>
