@@ -2,8 +2,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Login - Educatech",
-    description: "Entre na sua conta Educatech para acessar jogos educativos exclusivos.",
+    title: "Login - BrincaBytes",
+    description: "Entre na sua conta BrincaBytes para acessar jogos educativos exclusivos.",
 };
 
 export default function LoginLayout({

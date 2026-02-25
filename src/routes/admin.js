@@ -197,4 +197,111 @@ router.get('/metrics/games/play-time', async (req, res) => {
     }
 });
 
+// Rota para listar usuários (Admin)
+router.get('/users', async (req, res) => {
+    try {
+        const { page = 1, limit = 20, search = '' } = req.query;
+        const offset = (page - 1) * limit;
+
+        const query = db('users').select('id', 'username', 'email', 'role', 'subscription_type', 'created_at');
+
+        if (search) {
+            query.where(function () {
+                this.where('username', 'like', `%${search}%`)
+                    .orWhere('email', 'like', `%${search}%`);
+            });
+        }
+
+        const data = await query.clone().limit(limit).offset(offset).orderBy('created_at', 'desc');
+        const countResult = await query.clone().count('id as count').first();
+        const total = parseInt(countResult.count || 0, 10);
+
+        res.json({
+            users: data,
+            total,
+            page: parseInt(page),
+            pages: Math.ceil(total / limit)
+        });
+    } catch (err) {
+        console.error('Erro ao listar usuários:', err);
+        res.status(500).json({ message: 'Erro ao listar usuários.' });
+    }
+});
+
+// Rota para listar configurações
+router.get('/settings', async (req, res) => {
+    try {
+        const settings = await db('system_settings').select('*');
+        res.json(settings);
+    } catch (err) {
+        console.error('Erro ao buscar configurações:', err);
+        res.status(500).json({ message: 'Erro ao buscar configurações.' });
+    }
+});
+
+// Rota para atualizar configuração
+router.put('/settings', async (req, res) => {
+    try {
+        const { key, value } = req.body;
+        if (!key) return res.status(400).json({ message: 'Key é obrigatória.' });
+
+        await db('system_settings')
+            .where({ key })
+            .update({ value: String(value), updated_at: new Date() }); // Armazena como string
+
+        res.json({ message: 'Configuração atualizada.' });
+    } catch (err) {
+        console.error('Erro ao atualizar configuração:', err);
+        res.status(500).json({ message: 'Erro ao atualizar configuração.' });
+    }
+});
+
+// Rota para editar usuário (Admin)
+router.put('/users/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { role, subscription_type, subscription_months } = req.body;
+
+        const updates = {};
+        if (role) updates.role = role;
+
+        if (subscription_type) {
+            updates.subscription_type = subscription_type;
+            if (subscription_type === 'none') {
+                updates.subscription_end_date = null;
+            } else if (subscription_months) {
+                const endDate = new Date();
+                endDate.setMonth(endDate.getMonth() + parseInt(subscription_months));
+                updates.subscription_end_date = endDate.getTime();
+            }
+        }
+
+        const count = await db('users').where({ id }).update(updates);
+        if (count === 0) return res.status(404).json({ message: 'Usuário não encontrado.' });
+
+        res.json({ message: 'Usuário atualizado com sucesso.' });
+    } catch (err) {
+        console.error('Erro ao atualizar usuário:', err);
+        res.status(500).json({ message: 'Erro ao atualizar usuário.' });
+    }
+});
+
+// Rota para deletar usuário (Admin)
+router.delete('/users/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const count = await db('users').where({ id }).del();
+        if (count === 0) return res.status(404).json({ message: 'Usuário não encontrado.' });
+
+        // Limpar dados relacionados se necessário (game_plays, sessions cascading usually handles it or manually)
+        // Por segurança, vamos limpar game_plays
+        await db('game_plays').where({ user_id: id }).del();
+
+        res.json({ message: 'Usuário removido com sucesso.' });
+    } catch (err) {
+        console.error('Erro ao deletar usuário:', err);
+        res.status(500).json({ message: 'Erro ao deletar usuário.' });
+    }
+});
+
 module.exports = router;

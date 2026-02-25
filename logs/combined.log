@@ -1493,3 +1493,1467 @@
 {"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
 {"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
 {"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-24 07:31:17"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:09"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:09"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:09"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:58"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-25 22:45:58"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-01-25 22:46:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-25 22:46:21"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-25 22:46:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-25 22:46:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:26"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:26"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:28"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:33"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:35"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:35"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-26 06:31:35"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-26 13:43:48"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-26 13:43:48"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-26 13:43:48"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-01-26 13:43:48"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: aborted","service":"portal-jogos-service","stack":"Error: aborted\n    at PendingOperation.abort (E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\PendingOperation.js:25:21)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:208:25\n    at Array.map (<anonymous>)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:207:53\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at Client_PG.destroy (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:358:9)\n    at Object.<anonymous> (E:\\meu-portal-de-jogos - backup\\tests\\integration\\public-routes.test.js:8:9)","timestamp":"2026-01-26 13:43:48"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-26 13:44:34"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-26 13:44:34"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-26 13:44:34"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-01-26 13:44:34"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: aborted","service":"portal-jogos-service","stack":"Error: aborted\n    at PendingOperation.abort (E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\PendingOperation.js:25:21)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:208:25\n    at Array.map (<anonymous>)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:207:53\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at Client_PG.destroy (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:358:9)\n    at Object.<anonymous> (E:\\meu-portal-de-jogos - backup\\tests\\integration\\public-routes.test.js:8:9)","timestamp":"2026-01-26 13:44:35"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-26 13:46:05"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-26 13:46:05"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-01-26 13:46:06"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-01-26 13:46:06"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: aborted","service":"portal-jogos-service","stack":"Error: aborted\n    at PendingOperation.abort (E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\PendingOperation.js:25:21)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:208:25\n    at Array.map (<anonymous>)\n    at E:\\meu-portal-de-jogos - backup\\node_modules\\tarn\\dist\\Pool.js:207:53\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at Client_PG.destroy (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:358:9)\n    at Object.<anonymous> (E:\\meu-portal-de-jogos - backup\\tests\\integration\\public-routes.test.js:8:9)","timestamp":"2026-01-26 13:46:06"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:08"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:08"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:09"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:09"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:09"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-01-26 13:47:09"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-27 21:44:43"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-27 21:44:43"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-27 21:44:43"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?","name":"KnexTimeoutError","service":"portal-jogos-service","sql":"SELECT 1","stack":"KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?\n    at Client_PG.acquireConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:332:26)\n    at async Runner.ensureConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:305:28)\n    at async Runner.run (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:30:19)","timestamp":"2026-01-27 21:45:01"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-27 22:12:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:12:06"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:26"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:26"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:26"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:32"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:35"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:43"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:49"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:50"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:50"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-01-27 22:20:50"}
+{"level":"info","message":"Iniciando migrações via Knex...","service":"portal-jogos-service","timestamp":"2026-01-27 22:25:04"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-27 22:25:06"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-27 22:25:06"}
+{"level":"info","message":"Migrações concluídas com sucesso.","service":"portal-jogos-service","timestamp":"2026-01-27 22:25:10"}
+{"level":"info","message":"Iniciando migrações via Knex...","service":"portal-jogos-service","timestamp":"2026-01-27 22:26:52"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-27 22:26:52"}
+{"level":"info","message":"Migrações concluídas com sucesso.","service":"portal-jogos-service","timestamp":"2026-01-27 22:26:53"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-27 22:27:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:47:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:47:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:48:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:48:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:48:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:48:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:48:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:50:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:50:32"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:50:32"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:50:33"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:50:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:53:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:03"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:03"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:13"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:13"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:33"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 22:54:33"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-27 23:05:12"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-27 23:05:12"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-27 23:05:12"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-27 23:05:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 23:06:23"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 23:06:24"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-27 23:06:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:07"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:32"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:32"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-27 23:18:32"}
+{"level":"info","message":"OPTIONS /api/admin/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-27 23:19:12"}
+{"level":"info","message":"PUT /api/admin/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-27 23:19:12"}
+{"level":"info","message":"OPTIONS /api/admin/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-27 23:43:06"}
+{"level":"info","message":"PUT /api/admin/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-27 23:43:06"}
+{"level":"info","message":"OPTIONS /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:48"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:48"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:56"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:56"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:07:59"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:06"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:06"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:18"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:45"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:45"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:45"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:46"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:08:56"}
+{"level":"info","message":"OPTIONS /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:00"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:00"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:00"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:09:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:08"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:08"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:08"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:19"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:19"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-01-28 06:13:19"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:15:11"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:15:11"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:15:11"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:15:12"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:17:39"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:17:39"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:17:39"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:17:39"}
+{"level":"info","message":"Iniciando migrações via Knex...","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:14"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:14"}
+{"level":"info","message":"Migrações concluídas com sucesso.","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:28"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=20&search=","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:28"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:49"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:49"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:49"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:18:51"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:19:06"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:19:54"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:19:54"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:19:54"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:19:54"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:00"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:00"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:00"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:15"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=20&search=","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:16"}
+{"level":"info","message":"GET /api/admin/settings","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:53"}
+{"level":"info","message":"GET /api/admin/settings","service":"portal-jogos-service","timestamp":"2026-01-28 06:20:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-01-28 06:21:16"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=20&search=","service":"portal-jogos-service","timestamp":"2026-01-28 06:21:16"}
+{"level":"info","message":"Iniciando migrações via Knex...","service":"portal-jogos-service","timestamp":"2026-01-28 06:36:03"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:36:04"}
+{"level":"info","message":"Migrações concluídas com sucesso.","service":"portal-jogos-service","timestamp":"2026-01-28 06:36:05"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:31"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:31"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:31"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:32"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:48"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:48"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:48"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-01-28 06:42:48"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-06 15:49:12"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-06 16:06:53"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-06 16:06:53"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-06 16:06:53"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-06 16:06:54"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-06 16:08:06"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-06 16:08:06"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-06 16:08:06"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-06 16:08:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:08:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:20"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:29"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:29"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:31"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:31"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-06 16:09:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:23"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:23"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:23"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:23"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:29"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:29"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:35"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:36"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:47"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:48"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:54"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:54"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-06 16:10:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:08:32"}
+{"level":"info","message":"OPTIONS /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:30:56"}
+{"level":"info","message":"POST /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:30:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:48"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-07 08:32:48"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:33:14"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:33:14"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:33:14"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:35"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:45"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:45"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:45"}
+{"level":"info","message":"OPTIONS /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:50"}
+{"level":"info","message":"PUT /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:34:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:35:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:35:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:35:06"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:35:06"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-07 08:35:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:37:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:37:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:37:49"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-07 08:37:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:39:54"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:39:54"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-07 08:39:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:27"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:28"}
+{"level":"info","message":"OPTIONS /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:36"}
+{"level":"info","message":"PUT /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:37"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:37"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-07 08:40:37"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:08"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:09"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:20"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:21"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:27"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:27"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:37"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:42"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:42"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:42"}
+{"level":"error","message":"Falha ao conectar ao banco de dados: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?","name":"KnexTimeoutError","service":"portal-jogos-service","sql":"SELECT 1","stack":"KnexTimeoutError: Knex: Timeout acquiring a connection. The pool is probably full. Are you missing a .transacting(trx) call?\n    at Client_PG.acquireConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\client.js:332:26)\n    at async Runner.ensureConnection (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:305:28)\n    at async Runner.run (E:\\meu-portal-de-jogos - backup\\node_modules\\knex\\lib\\execution\\runner.js:30:19)","timestamp":"2026-02-09 10:07:42"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:45"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:46"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:46"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:47"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:56"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:07:57"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:07"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:07"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:14"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:15"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:15"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:43"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:45"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:45"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:46"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:47"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:52"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:08:52"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:01"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:01"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:08"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:08"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:14"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:15"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:15"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:41"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:49"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:09:49"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:30"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:31"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:51"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:11:52"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:10"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:16"}
+{"level":"info","message":"OPTIONS /api/register","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:32"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:38"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:48"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:48"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:51"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:12:58"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:27"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:13:31"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:15:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:15:25"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:15:25"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:15:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:16:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:27:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:27:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:27:02"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:27:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:29:43"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:29:43"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:29:43"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:31:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:31:04"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:31:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:33:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:33:23"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:33:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:35:34"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:35:35"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:35:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:10"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:31"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:32"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:36:36"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-09 10:37:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:37:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-09 10:37:15"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-09 10:37:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-09 10:37:20"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:38:00"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-09 10:38:00"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:06:39"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:06:39"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:06:39"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:06:39"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:10:31"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:10:31"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:10:31"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:10:32"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:11:45"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:11:45"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:11:45"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:11:46"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:12:27"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:12:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:12:27"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:12:28"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:13:17"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:13:17"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:13:17"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:13:20"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:14:44"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:14:44"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:14:44"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:14:45"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-22 22:18:55"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-22 22:18:55"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-22 22:18:55"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:18:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:19:58"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:19:58"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:19:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:24"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:47"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:49"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:49"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:55"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:55"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:20:57"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:03"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:04"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:09"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:10"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:20"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:21"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:35"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:35"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:54"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:54"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:55"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:55"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:21:59"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:22:01"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:22:01"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:22:01"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:22:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:23:55"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:23:55"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:23:55"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:24:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:24:03"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:24:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:24:04"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:24:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:33:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:33:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:33:49"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:33:49"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:33:49"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:58"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:59"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:59"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:59"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:35:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:00"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:01"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:02"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:02"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:29"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:29"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:29"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-22 22:38:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:13"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:13"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:21"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:21"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 05:11:21"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:23"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:23"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:23"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:40"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:40"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:41"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:41"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:53"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:54"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:54"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:03:54"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 06:05:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:14"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:07:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:36"}
+{"level":"info","message":"OPTIONS /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:42"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:43"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:44"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:47"}
+{"level":"info","message":"OPTIONS /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:50"}
+{"level":"info","message":"PUT /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:08:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:01"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:01"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:02"}
+{"level":"info","message":"OPTIONS /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:04"}
+{"level":"info","message":"PUT /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:09"}
+{"level":"info","message":"OPTIONS /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:12"}
+{"level":"info","message":"PUT /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:12"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:13"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:13"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:17"}
+{"level":"info","message":"GET /api/admin/users?page=1&limit=20&search=","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:18"}
+{"level":"info","message":"GET /api/admin/settings","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:22"}
+{"level":"info","message":"GET /api/admin/settings","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:36"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:37"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:37"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 06:09:37"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-23 06:21:11"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-23 06:21:11"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-23 06:21:11"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 06:21:11"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 06:21:37"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:22"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:23"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:23"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:40:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:41:14"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 12:41:14"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 12:41:14"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 12:41:14"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:41:16"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:42:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:04"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:04"}
+{"level":"info","message":"OPTIONS /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:06"}
+{"level":"info","message":"PUT /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:09"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:10"}
+{"level":"info","message":"PUT /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:12"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:12"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:12"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:15"}
+{"level":"info","message":"OPTIONS /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:18"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:20"}
+{"level":"info","message":"OPTIONS /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:22"}
+{"level":"info","message":"PUT /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:22"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:23"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:27"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:27"}
+{"level":"info","message":"OPTIONS /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"PUT /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:30"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:36"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:36"}
+{"level":"info","message":"OPTIONS /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:39"}
+{"level":"info","message":"PUT /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:39"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:39"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:40"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:50"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:43:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:03"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:03"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 12:44:03"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-23 13:15:27"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-23 13:15:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-23 13:15:27"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 13:15:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:15"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:20"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:31"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:31"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:31"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:16:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:15"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:18"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:18"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:18"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:18"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:24"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:24"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:29"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:31"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:36"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:36"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:36"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:37"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:48"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 13:17:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:02"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:03"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:05"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:16"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:17"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:18"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:26"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:27"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:30"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:30"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:30"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:18:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:19:04"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 13:19:04"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:19:04"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 13:19:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 13:19:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:10"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:16"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:16"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:16"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:16"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:37"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:37"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:38"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:43"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:43"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:46"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:50"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:50"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:51"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:15:56"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:05"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:05"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:05"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:06"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:15"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:34"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:35"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:35"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:35"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:44"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:44"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:44"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:44"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:40:45"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:41:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:41:15"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:41:15"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 23:44:36"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-23 23:44:52"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-23 23:44:52"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-23 23:44:52"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-23 23:44:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:20"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:20"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:20"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:20"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:27"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:27"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:27"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:47"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:45:56"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:19"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:23"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:30"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:30"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:31"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:37"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:44"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:51"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:52"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:59"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:59"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:46:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:06"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:06"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:06"}
+{"level":"info","message":"OPTIONS /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:09"}
+{"level":"info","message":"PUT /api/games/tabela-periodica-bingo","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:12"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:12"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:12"}
+{"level":"info","message":"OPTIONS /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:16"}
+{"level":"info","message":"PUT /api/games/bingo-matematico","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:17"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:25"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:25"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:25"}
+{"level":"info","message":"OPTIONS /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:27"}
+{"level":"info","message":"PUT /api/games/quiz-educacional","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:27"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:28"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:31"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:31"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:31"}
+{"level":"info","message":"OPTIONS /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:34"}
+{"level":"info","message":"PUT /api/games/roda-a-roda","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:34"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:47:57"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:02"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:02"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:02"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:07"}
+{"level":"info","message":"POST /api/logout","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:10"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:12"}
+{"level":"info","message":"OPTIONS /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:16"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:16"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:17"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:17"}
+{"level":"info","message":"GET /games.json","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:20"}
+{"level":"info","message":"OPTIONS /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:20"}
+{"level":"info","message":"POST /api/game-start","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:20"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:21"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:27"}
+{"level":"info","message":"OPTIONS /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:33"}
+{"level":"info","message":"POST /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-02-23 23:48:33"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:52"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:53"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:53"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:57"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:58"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:50:58"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:51:05"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-23 23:58:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-23 23:59:26"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:10"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:11:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:17:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 00:17:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 00:17:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:17:18"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:58"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:59"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:59"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:59"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 00:23:59"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:26"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:26"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:26"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:27"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:39"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:39"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:39"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:40"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:50"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:51"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:51"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 00:46:51"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:52"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:53"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:53"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:07:53"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:08:04"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:08:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:09:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:24"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:24"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:24"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:10:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:39"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:40"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:40"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:40"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:40"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:40"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:22:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:11"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:11"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:11"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 06:24:11"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:22"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:27"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 06:26:28"}
+{"level":"info","message":"OPTIONS /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-02-24 09:27:01"}
+{"level":"info","message":"POST /api/payment/create-checkout-session","service":"portal-jogos-service","timestamp":"2026-02-24 09:27:01"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 14:58:59"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 14:58:59"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:00"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:01"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:01"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 14:59:01"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:46:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:46:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:46:47"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:02"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:07"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:07"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:08"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:09"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:10"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:18"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:23"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:24"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:25"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:25"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:25"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:47:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 15:49:01"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 15:49:01"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 15:49:01"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 15:49:02"}
+{"level":"info","message":"POST /api/contact/school-quote","service":"portal-jogos-service","timestamp":"2026-02-24 15:50:54"}
+{"level":"info","message":"POST /api/school-quote","service":"portal-jogos-service","timestamp":"2026-02-24 15:51:29"}
+{"level":"info","message":"GET /api/school-quote","service":"portal-jogos-service","timestamp":"2026-02-24 15:51:56"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 15:52:13"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 15:52:13"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 15:52:13"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 15:52:13"}
+{"level":"info","message":"POST /api/contact/school-quote","service":"portal-jogos-service","timestamp":"2026-02-24 15:52:24"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 15:54:13"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 15:54:13"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 15:54:13"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 15:54:13"}
+{"level":"info","message":"POST /api/contact/school-quote","service":"portal-jogos-service","timestamp":"2026-02-24 15:54:19"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:34"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:34"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:35"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:35"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:35"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:35"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:35"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:36"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:36"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:36"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:36"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:43"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 15:57:43"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:48"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:49"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:49"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:49"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:00:49"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:47"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:47"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:47"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:47"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-02-24 16:28:48"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-02-24 16:37:51"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:16"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:16"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-02-24 16:40:17"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:05"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:06"}
+{"level":"info","message":"Conectado ao banco de dados (production).","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:06"}
+{"level":"info","message":"POST /api/payment/create-pix-payment","service":"portal-jogos-service","timestamp":"2026-02-24 16:50:34"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:28"}
+{"level":"info","message":"GET /api/games","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:28"}
+{"level":"info","message":"GET /assets/imagens/bingo-matematico.webp","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/quiz.webp","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/app-inclusivo.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/joguinho.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/ditado-maluco.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/jogos-intuitivos.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/jornada-do-saber.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /assets/imagens/jogo-alfabetico.png","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:29"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:39"}
+{"level":"info","message":"GET /api/profile","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:39"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:42"}
+{"level":"info","message":"GET /api/user-status","service":"portal-jogos-service","timestamp":"2026-02-24 16:53:42"}

@@ -66,8 +66,78 @@
     "description": "Teste seus conhecimentos com este quiz educativo e divertido!",
     "thumbnail": "/assets/imagens/quiz.webp",
     "game_url": "https://quiz-educacional-copia-copia-3-copia.fly.dev",
-    "is_premium": false,
+    "is_premium": true,
     "is_featured": false,
     "category": "Educação"
+  },
+  {
+    "id": "bingo-matematico",
+    "title": "Bingo Matemático",
+    "description": "Pratique matemática de forma divertida com este bingo educativo!",
+    "thumbnail": "/assets/imagens/bingo-matematico.webp",
+    "game_url": "https://bingo-matematico-chi.vercel.app/",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Matemática"
+  },
+  {
+    "id": "app-inclusivo",
+    "title": "ConectaMente Kids",
+    "description": "Hub com comunicador, explorador social e rotinas do dia-a-dia.",
+    "thumbnail": "/assets/imagens/app-inclusivo.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/APP%20inclusivo/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
+  },
+  {
+    "id": "jornada-do-saber",
+    "title": "Jornada do Saber",
+    "description": "Uma jornada educacional inclusiva e envolvente.",
+    "thumbnail": "/assets/imagens/jornada-do-saber.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/Jornada%20do%20Saber/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
+  },
+  {
+    "id": "projeto-jogos-intuitivos",
+    "title": "Jogos Focados",
+    "description": "Quebra-cabeças, formas, alfabetização e matemática básica em um só lugar.",
+    "thumbnail": "/assets/imagens/jogos-intuitivos.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/Projeto-Jogos-Intuitivos/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
+  },
+  {
+    "id": "alfabetizacao-ditado-maluco",
+    "title": "Ditado Maluco",
+    "description": "Pratique a alfabetização de forma divertida e acessível.",
+    "thumbnail": "/assets/imagens/ditado-maluco.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/alfabetiza%C3%A7%C3%A3o-ditado%20maluco/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
+  },
+  {
+    "id": "jogo-alfabetico",
+    "title": "Matemática e Palavras",
+    "description": "Complete as letras em branco e resolva equações matemáticas básicas.",
+    "thumbnail": "/assets/imagens/jogo-alfabetico.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/jogo%20alfabetico/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
+  },
+  {
+    "id": "joguinho",
+    "title": "Desafio Matemático",
+    "description": "Minigame focado em operações de adição, subtração, divisão e multiplicação.",
+    "thumbnail": "/assets/imagens/joguinho.png",
+    "game_url": "https://jogos-inclusivos.vercel.app/joguinho/index.html",
+    "is_premium": false,
+    "is_featured": false,
+    "category": "Inclusivos"
   }
 ]

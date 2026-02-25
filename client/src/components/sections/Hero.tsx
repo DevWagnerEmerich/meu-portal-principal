@@ -2,9 +2,35 @@
 
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
-import { Gamepad2, Sparkles, Trophy } from "lucide-react";
+import { Gamepad2, Sparkles, UserPlus } from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { API_URL } from "@/lib/config";
 
 export function Hero() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await fetch(`${API_URL}/api/user-status`, {
+                    credentials: "include"
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setIsLoggedIn(data.loggedIn);
+                }
+            } catch (err) {
+                console.error("Failed to fetch user status in Hero", err);
+            }
+        };
+        checkAuth();
+
+        // Listener opcional caso o login ocorra na mesma página (nesta arquitetura usualmente redireciona, mas é bom ter)
+        window.addEventListener("user-updated", checkAuth);
+        return () => window.removeEventListener("user-updated", checkAuth);
+    }, []);
+
     return (
         <section className="relative overflow-hidden bg-slate-950 py-20 sm:py-32">
             {/* Background Effects */}
@@ -20,7 +46,7 @@ export function Hero() {
                 >
                     <span className="inline-flex items-center gap-2 rounded-full bg-teal-500/10 px-4 py-1.5 text-sm font-medium text-teal-400 ring-1 ring-inset ring-teal-500/20 mb-8">
                         <Sparkles className="w-4 h-4" />
-                        Nova Experiência Educatech
+                        Nova Experiência BrincaBytes
                     </span>
 
                     <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl max-w-4xl mx-auto mb-6">
@@ -28,19 +54,25 @@ export function Hero() {
                     </h1>
 
                     <p className="mt-6 text-lg leading-8 text-slate-300 max-w-2xl mx-auto mb-10">
-                        Transforme o estudo em uma aventura com jogos incríveis que desafiam sua mente.
-                        Para alunos que amam um desafio e professores que buscam inovar.
+                        Transforme a sala de aula escolar em uma aventura com jogos incríveis que desafiam a mente.
+                        A ferramenta perfeita para professores inovadores e escolas do futuro.
                     </p>
 
-                    <div className="flex items-center justify-center gap-x-6">
-                        <Button size="lg" variant="primary">
-                            <Gamepad2 className="w-5 h-5 mr-2" />
-                            Explorar Jogos
-                        </Button>
-                        <Button size="lg" variant="ghost" className="text-white hover:bg-slate-800">
-                            <Trophy className="w-5 h-5 mr-2" />
-                            Ver Destaques
-                        </Button>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-10">
+                        <Link href="#jogos">
+                            <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25">
+                                <Gamepad2 className="w-5 h-5 mr-2" />
+                                Explorar Jogos
+                            </Button>
+                        </Link>
+                        {!isLoggedIn && (
+                            <Link href="/register">
+                                <Button size="lg" variant="ghost" className="w-full sm:w-auto text-white hover:bg-slate-800 border border-slate-700">
+                                    <UserPlus className="w-5 h-5 mr-2" />
+                                    Criar Conta Grátis
+                                </Button>
+                            </Link>
+                        )}
                     </div>
                 </motion.div>
             </div>

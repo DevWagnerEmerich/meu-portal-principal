@@ -2,8 +2,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Criar Conta - Educatech",
-    description: "Crie sua conta no Educatech e tenha acesso a diversos jogos educativos.",
+    title: "Criar Conta - BrincaBytes",
+    description: "Crie sua conta no BrincaBytes e tenha acesso a diversos jogos educativos.",
 };
 
 export default function RegisterLayout({

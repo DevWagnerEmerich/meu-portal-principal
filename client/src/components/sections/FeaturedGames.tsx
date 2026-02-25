@@ -1,3 +1,4 @@
+// aria-label
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,7 +12,8 @@ interface Game {
     id: string;
     title: string;
     thumbnail: string;
-    type?: string;
+    category?: string;
+    is_premium?: boolean;
 }
 
 export function FeaturedGames() {
@@ -26,12 +28,13 @@ export function FeaturedGames() {
             try {
                 // Tenta conectar na porta 3001 (Backend) ou 3000 (se tiver proxy)
                 // Ajuste a URL conforme onde o backend estiver rodando
-                const response = await fetch(`${API_URL}/games.json`);
+                // Busca do backend (API)
+                const response = await fetch(`${API_URL}/api/games`);
                 if (!response.ok) throw new Error('Falha ao buscar jogos');
 
                 const data = await response.json();
                 // Pega os primeiros 6 jogos como destaque
-                setGames(data.slice(0, 6));
+                setGames(data);
             } catch (error) {
                 console.error("Erro ao carregar jogos:", error);
             } finally {
@@ -45,7 +48,7 @@ export function FeaturedGames() {
     if (loading) {
         return (
             <div className="flex justify-center py-20">
-                <Loader2 className="w-10 h-10 animate-spin text-teal-500" />
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
             </div>
         );
     }
@@ -78,7 +81,7 @@ export function FeaturedGames() {
                                 id={game.id}
                                 title={game.title}
                                 thumbnail={game.thumbnail.startsWith('http') ? game.thumbnail : `${API_URL}${game.thumbnail}`} // Ajusta URL da imagem apenas se for relativa
-                                category={game.type === 'premium' ? 'Premium de Assinante' : 'Grátis'}
+                                category={game.is_premium || game.category?.toLowerCase().includes('vip') ? 'VIP Premium' : (game.category || 'Grátis')}
                                 isNew={index < 2} // Apenas um exemplo visual
                             />
                         </motion.div>

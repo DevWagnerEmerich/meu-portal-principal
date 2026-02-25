@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Checkout Seguro - Educatech",
+    title: "Checkout Seguro - BrincaBytes",
     description: "Finalize sua assinatura e desbloqueie acesso ilimitado.",
 };
 

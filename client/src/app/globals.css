@@ -1,26 +1,318 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  /* Base Light Mode */
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+  /* Primary (Education/Trust) */
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+
+  /* Secondary (Accent/Action) */
+  --secondary: #0d9488;
+  --secondary-foreground: #ffffff;
+
+  /* UI Elements */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #4f46e5;
+
+  /* Highlight */
+  --highlight: #f59e0b;
+  --highlight-foreground: #ffffff;
+
+  --radius: 0.75rem;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Gamer Dark Mode (Deep Navy/Black) */
+    --background: #020617;
+    /* Slate 950 */
+    --foreground: #f8fafc;
+    /* Slate 50 */
+
+    /* Primary (Neon Indigo) */
+    --primary: #6366f1;
+    --primary-foreground: #ffffff;
+
+    /* Secondary (Neon Teal) */
+    --secondary: #14b8a6;
+    --secondary-foreground: #ffffff;
+
+    /* UI Elements */
+    --card: #0f172a;
+    /* Slate 900 */
+    --card-foreground: #f8fafc;
+    --popover: #0f172a;
+    --popover-foreground: #f8fafc;
+    --muted: #1e293b;
+    /* Slate 800 */
+    --muted-foreground: #94a3b8;
+    /* Slate 400 */
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #1e293b;
+    /* Slate 800 */
+    --input: #1e293b;
+    --ring: #6366f1;
+
+    /* Highlight (Electric Amber) */
+    --highlight: #fbbf24;
+    --highlight-foreground: #020617;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utilities for semantic usage */
+.bg-background {
+  background-color: var(--background);
+}
+
+.bg-foreground {
+  background-color: var(--foreground);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-primary-foreground {
+  background-color: var(--primary-foreground);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-secondary-foreground {
+  background-color: var(--secondary-foreground);
+}
+
+.bg-card {
+  background-color: var(--card);
+}
+
+.bg-card-foreground {
+  background-color: var(--card-foreground);
+}
+
+.bg-muted {
+  background-color: var(--muted);
+}
+
+.bg-muted-foreground {
+  background-color: var(--muted-foreground);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.bg-accent-foreground {
+  background-color: var(--accent-foreground);
+}
+
+.bg-destructive {
+  background-color: var(--destructive);
+}
+
+.bg-destructive-foreground {
+  background-color: var(--destructive-foreground);
+}
+
+.bg-border {
+  background-color: var(--border);
+}
+
+.bg-input {
+  background-color: var(--input);
+}
+
+.bg-ring {
+  background-color: var(--ring);
+}
+
+.bg-highlight {
+  background-color: var(--highlight);
+}
+
+.bg-highlight-foreground {
+  background-color: var(--highlight-foreground);
+}
+
+.text-background {
+  color: var(--background);
+}
+
+.text-foreground {
+  color: var(--foreground);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-primary-foreground {
+  color: var(--primary-foreground);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-secondary-foreground {
+  color: var(--secondary-foreground);
+}
+
+.text-card {
+  color: var(--card);
+}
+
+.text-card-foreground {
+  color: var(--card-foreground);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-accent-foreground {
+  color: var(--accent-foreground);
+}
+
+.text-destructive {
+  color: var(--destructive);
+}
+
+.text-destructive-foreground {
+  color: var(--destructive-foreground);
+}
+
+.text-border {
+  color: var(--border);
+}
+
+.text-input {
+  color: var(--input);
+}
+
+.text-ring {
+  color: var(--ring);
+}
+
+.text-highlight {
+  color: var(--highlight);
+}
+
+.text-highlight-foreground {
+  color: var(--highlight-foreground);
+}
+
+.border-background {
+  border-color: var(--background);
+}
+
+.border-foreground {
+  border-color: var(--foreground);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-primary-foreground {
+  border-color: var(--primary-foreground);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
+}
+
+.border-secondary-foreground {
+  border-color: var(--secondary-foreground);
+}
+
+.border-card {
+  border-color: var(--card);
+}
+
+.border-card-foreground {
+  border-color: var(--card-foreground);
+}
+
+.border-muted {
+  border-color: var(--muted);
+}
+
+.border-muted-foreground {
+  border-color: var(--muted-foreground);
+}
+
+.border-accent {
+  border-color: var(--accent);
+}
+
+.border-accent-foreground {
+  border-color: var(--accent-foreground);
+}
+
+.border-destructive {
+  border-color: var(--destructive);
+}
+
+.border-destructive-foreground {
+  border-color: var(--destructive-foreground);
+}
+
+.border-border {
+  border-color: var(--border);
+}
+
+.border-input {
+  border-color: var(--input);
+}
+
+.border-ring {
+  border-color: var(--ring);
+}
+
+.border-highlight {
+  border-color: var(--highlight);
+}
+
+.border-highlight-foreground {
+  border-color: var(--highlight-foreground);
 }

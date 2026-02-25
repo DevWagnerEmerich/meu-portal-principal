@@ -11,8 +11,8 @@
   <meta property="og:description"
     content="Aprenda química de forma divertida com nosso Bingo da Tabela Periódica Interativa!" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://educatech.com.br/og-bingo-quimica.jpg" />
-  <link rel="icon" href="logo-educatech.webp" type="image/webp">
+  <meta property="og:image" content="https://brincabytes.com.br/og-bingo-quimica.jpg" />
+  <link rel="icon" href="logo-brincabytes.webp" type="image/webp">
   <style>
     /* Estilos Globais e Fundo - Inspirado no arquivo de referência */
     html,
@@ -30,11 +30,11 @@
 
     /* Variáveis de Cor da Marca */
     :root {
-      --educatech-primary: #422db1;
-      --educatech-secondary: #eff4f3;
-      --educatech-accent-1: #c2e2d9;
-      --educatech-accent-2: #95d1c0;
-      --educatech-accent-3: #69c0a7;
+      --brincabytes-primary: #422db1;
+      --brincabytes-secondary: #eff4f3;
+      --brincabytes-accent-1: #c2e2d9;
+      --brincabytes-accent-2: #95d1c0;
+      --brincabytes-accent-3: #69c0a7;
 
       --scaled-button-font-size: 14px;
       --scaled-button-padding-vertical: 6px;
@@ -57,7 +57,7 @@
       position: absolute;
       width: 3px;
       height: 3px;
-      background: var(--educatech-accent-3);
+      background: var(--brincabytes-accent-3);
       border-radius: 50%;
       opacity: 0.3;
       animation: float 6s infinite ease-in-out;
@@ -77,8 +77,8 @@
       }
     }
 
-    /* Logo EducaTech - do arquivo de referência */
-    .educatech-logo {
+    /* Logo BrincaBytes - do arquivo de referência */
+    .brincabytes-logo {
       position: fixed;
       top: 20px;
       right: 20px;
@@ -88,11 +88,11 @@
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(66, 45, 177, 0.2);
       backdrop-filter: blur(10px);
-      border: 2px solid var(--educatech-accent-3);
+      border: 2px solid var(--brincabytes-accent-3);
       transition: all 0.3s ease;
     }
 
-    .educatech-logo:hover {
+    .brincabytes-logo:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(66, 45, 177, 0.3);
     }
@@ -100,7 +100,7 @@
     .logo-text {
       font-size: 24px;
       font-weight: 700;
-      background: linear-gradient(45deg, var(--educatech-accent-3), var(--educatech-primary));
+      background: linear-gradient(45deg, var(--brincabytes-accent-3), var(--brincabytes-primary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -109,7 +109,7 @@
 
     .logo-subtitle {
       font-size: 10px;
-      color: var(--educatech-primary);
+      color: var(--brincabytes-primary);
       margin: 0;
       text-align: center;
       font-weight: 500;
@@ -164,7 +164,7 @@
     .elemento:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(66, 45, 177, 0.2);
-      border-color: var(--educatech-accent-3);
+      border-color: var(--brincabytes-accent-3);
     }
 
     .simbolo {
@@ -173,7 +173,7 @@
       margin-top: 1px;
       text-align: center;
       flex-shrink: 0;
-      color: var(--educatech-primary);
+      color: var(--brincabytes-primary);
     }
 
     .foto-editavel {
@@ -182,7 +182,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--educatech-secondary) 0%, var(--educatech-accent-1) 100%);
+      background: linear-gradient(135deg, var(--brincabytes-secondary) 0%, var(--brincabytes-accent-1) 100%);
       min-height: 0;
     }
 
@@ -208,8 +208,8 @@
       font-size: 12px;
       font-weight: bold;
       color: white;
-      background: linear-gradient(135deg, var(--educatech-accent-3), var(--educatech-accent-2));
-      border: 1px solid var(--educatech-accent-3);
+      background: linear-gradient(135deg, var(--brincabytes-accent-3), var(--brincabytes-accent-2));
+      border: 1px solid var(--brincabytes-accent-3);
       box-sizing: border-box;
       padding: 0 2px;
       text-align: center;
@@ -286,7 +286,7 @@
     .botao-flutuante button {
       padding: var(--scaled-button-padding-vertical) var(--scaled-button-padding-horizontal);
       font-size: var(--scaled-button-font-size);
-      background: linear-gradient(135deg, var(--educatech-accent-3), var(--educatech-accent-2));
+      background: linear-gradient(135deg, var(--brincabytes-accent-3), var(--brincabytes-accent-2));
       color: white;
       border: none;
       border-radius: 25px;
@@ -311,25 +311,25 @@
 
     /* Estilos do Bingo - Inspirado no arquivo de referência */
     .sorteio-ativo {
-      animation: pulsoEducaTech 0.5s infinite alternate;
+      animation: pulsoBrincaBytes 0.5s infinite alternate;
       z-index: 3;
     }
 
-    @keyframes pulsoEducaTech {
+    @keyframes pulsoBrincaBytes {
       0% {
-        box-shadow: 0 0 0px 2px var(--educatech-accent-3);
+        box-shadow: 0 0 0px 2px var(--brincabytes-accent-3);
         transform: scale(1);
       }
 
       100% {
-        box-shadow: 0 0 15px 4px var(--educatech-primary);
+        box-shadow: 0 0 15px 4px var(--brincabytes-primary);
         transform: scale(1.05);
       }
     }
 
     .sorteado-uma-vez {
-      background: linear-gradient(135deg, var(--educatech-accent-1), var(--educatech-secondary));
-      border-color: var(--educatech-accent-2);
+      background: linear-gradient(135deg, var(--brincabytes-accent-1), var(--brincabytes-secondary));
+      border-color: var(--brincabytes-accent-2);
       border-width: 2px;
     }
 
@@ -356,7 +356,7 @@
     .destaque-box {
       width: 30vw;
       height: 83vh;
-      background: linear-gradient(135deg, white, var(--educatech-secondary));
+      background: linear-gradient(135deg, white, var(--brincabytes-secondary));
       padding: 20px;
       box-shadow: 0 10px 40px rgba(66, 45, 177, 0.4);
       animation: destaqueAnimar 0.4s ease forwards;
@@ -366,7 +366,7 @@
       justify-content: center;
       cursor: default;
       border-radius: 20px;
-      border: 3px solid var(--educatech-accent-3);
+      border: 3px solid var(--brincabytes-accent-3);
     }
 
     @keyframes destaqueAnimar {

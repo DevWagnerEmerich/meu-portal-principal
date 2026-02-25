@@ -54,7 +54,7 @@ async function sendEmail({ to, subject, text, html }) {
 
     try {
         const info = await transporter.sendMail({
-            from: `"Educatech" <${config.email.user || 'no-reply@educatech.com'}>`,
+            from: `"BrincaBytes" <${config.email.user || 'no-reply@brincabytes.com'}>`,
             to: to,
             subject: subject,
             text: text,

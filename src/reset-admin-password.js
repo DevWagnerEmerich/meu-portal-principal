@@ -2,8 +2,8 @@ const bcrypt = require('bcrypt');
 const db = require('./database.js');
 
 const saltRounds = 10;
-const adminUsername = 'admin';
-const newPassword = 'adminpassword'; // A senha que estamos definindo
+const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+const newPassword = process.env.ADMIN_PASSWORD || 'adminpassword'; // Senha via variável de ambiente
 
 async function resetAdminPassword() {
     console.log(`Iniciando redefinição de senha para o usuário '${adminUsername}'...`);
@@ -11,7 +11,7 @@ async function resetAdminPassword() {
         const hash = await bcrypt.hash(newPassword, saltRounds);
         const sql = 'UPDATE users SET password = ? WHERE username = ?';
 
-        db.run(sql, [hash, adminUsername], function(err) {
+        db.run(sql, [hash, adminUsername], function (err) {
             if (err) {
                 console.error('Erro ao redefinir a senha do administrador:', err.message);
             } else if (this.changes === 0) {

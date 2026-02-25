@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-import { motion, HTMLMotionProps } from "framer-motion"
+import { motion } from "framer-motion"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -33,6 +33,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 whileTap={{ scale: 0.95 }}
                 className={cn(baseStyles, variants[variant], sizes[size], className)}
                 ref={ref}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 {...props as any}
             />
         )

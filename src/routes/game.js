@@ -40,14 +40,17 @@ router.post('/game-start', async (req, res) => {
         return res.status(401).json({ message: 'Usuário não autenticado.' });
     }
 
-    const { gameSrc } = req.body;
+    const { gameSrc, gameId: reqGameId } = req.body;
     if (!gameSrc) {
         return res.status(400).json({ message: 'gameSrc não fornecido.' });
     }
-    const gameId = gameSrc.split('/').slice(-2, -1)[0];
-    const FREE_PLAYS_LIMIT = BusinessRules.FREE_PLAYS.LIMIT;
+    const gameId = reqGameId || gameSrc.split('/').slice(-2, -1)[0];
 
     try {
+        // Obter limite de jogadas e usuário
+        const settings = await db('system_settings').where('key', 'free_plays_limit').first();
+        const FREE_PLAYS_LIMIT = settings ? parseInt(settings.value, 10) : BusinessRules.FREE_PLAYS.LIMIT;
+
         const user = await db('users')
             .where('id', req.session.userId)
             .select('role', 'subscription_type', 'subscription_end_date', 'free_plays_used')
@@ -57,12 +60,29 @@ router.post('/game-start', async (req, res) => {
             return res.status(500).json({ message: 'Erro ao buscar dados do usuário.' });
         }
 
-        // O administrador tem acesso ilimitado
-        if (user.role === 'admin') {
-            return await recordPlay(req.session.userId, gameId, false, res);
+        // Obter detalhes do jogo para verificar se é VIP/Premium
+        const game = await db('games').where('id', gameId).first();
+        if (!game && !reqGameId) {
+            // Ignora erro se não tivermos informações do jogo ainda no slug
         }
 
+        const isAdmin = user.role === 'admin';
         const isSubscriber = user.subscription_type !== 'none' && user.subscription_end_date > Date.now();
+
+        const isGamePremium = game ? (game.is_premium || (game.category && game.category.toLowerCase().includes('vip'))) : false;
+
+        // Se o jogo for VIP e o usuário não for VIP nem Admin, bloquear imediatamente
+        if (isGamePremium && (!isSubscriber && !isAdmin)) {
+            return res.status(403).json({
+                message: 'Este jogo é exclusivo para assinantes VIP. Assine para liberar o acesso total!',
+                showSubscriptionModal: true
+            });
+        }
+
+        // O administrador tem acesso ilimitado
+        if (isAdmin) {
+            return await recordPlay(req.session.userId, gameId, false, res);
+        }
 
         if (isSubscriber) {
             // Assinante pode jogar, apenas registra a jogada para estatísticas
@@ -127,5 +147,94 @@ async function recordPlay(userId, gameId, isFreeTrial, res) {
         return res.status(500).json({ message: 'Erro ao registrar log do jogo.' });
     }
 }
+
+const { checkGameAccess, isAdmin } = require('../middleware.js');
+
+// Rota pública para listar todos os jogos (substitui games.json)
+router.get('/games', async (req, res) => {
+    try {
+        const games = await db('games')
+            .select('*')
+            .orderBy('is_featured', 'desc')
+            .orderBy('title', 'asc');
+        res.json(games);
+    } catch (error) {
+        console.error('Erro ao buscar jogos:', error);
+        res.status(500).json({ message: 'Erro ao carregar jogos.' });
+    }
+});
+
+// Admin: Criar novo jogo
+router.post('/games', isAdmin, async (req, res) => {
+    try {
+        const { id, title, description, thumbnail, game_url, category, is_premium, is_featured } = req.body;
+
+        // Validação básica
+        if (!id || !title || !game_url) {
+            return res.status(400).json({ message: 'Campos obrigatórios: id, title, game_url.' });
+        }
+
+        const existing = await db('games').where({ id }).first();
+        if (existing) {
+            return res.status(409).json({ message: 'Já existe um jogo com este ID.' });
+        }
+
+        await db('games').insert({
+            id, // slug
+            title,
+            description,
+            thumbnail,
+            game_url,
+            category: category || 'Geral',
+            is_premium: is_premium || false,
+            is_featured: is_featured || false,
+            updated_at: new Date()
+        });
+
+        res.status(201).json({ message: 'Jogo criado com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao criar jogo:', error);
+        res.status(500).json({ message: 'Erro ao criar jogo.' });
+    }
+});
+
+// Admin: Atualizar jogo
+router.put('/games/:id', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        delete updates.id; // Não permite mudar ID/Slug
+
+        updates.updated_at = new Date();
+
+        const count = await db('games').where({ id }).update(updates);
+
+        if (count === 0) {
+            return res.status(404).json({ message: 'Jogo não encontrado.' });
+        }
+
+        res.json({ message: 'Jogo atualizado com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao atualizar jogo:', error);
+        res.status(500).json({ message: 'Erro ao atualizar jogo.' });
+    }
+});
+
+// Admin: Remover jogo
+router.delete('/games/:id', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const count = await db('games').where({ id }).del();
+
+        if (count === 0) {
+            return res.status(404).json({ message: 'Jogo não encontrado.' });
+        }
+
+        res.json({ message: 'Jogo removido com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao remover jogo:', error);
+        res.status(500).json({ message: 'Erro ao remover jogo.' });
+    }
+});
 
 module.exports = router;

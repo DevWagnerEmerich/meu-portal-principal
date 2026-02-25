@@ -15,16 +15,19 @@ const { runMigrations } = require('./run-migrations');
 const db = require('./database'); // Use shared knex instance/connection
 require('./passport-setup.js');
 
-const { checkGameAccess } = require('./middleware.js');
+const { checkGameAccess, checkMaintenanceMode } = require('./middleware.js');
+const app = express();
+const PORT = config.port;
+
+// ...
+app.use(checkMaintenanceMode);
+
 const adminRoutes = require('./routes/admin.js');
 const authRoutes = require('./routes/auth.js');
 const userRoutes = require('./routes/user.js');
 const gameRoutes = require('./routes/game.js');
 const paymentRoutes = require('./routes/payment.js');
 const contactRoutes = require('./routes/contact.js');
-
-const app = express();
-const PORT = config.port;
 
 // Logging
 app.use((req, res, next) => {
@@ -119,6 +122,7 @@ app.use('/api', apiLimiter);
 // Routes
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
+
 app.use('/api', gameRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api', contactRoutes);
@@ -171,4 +175,5 @@ if (require.main === module) {
     startServer();
 }
 
+// Server ready
 module.exports = app;

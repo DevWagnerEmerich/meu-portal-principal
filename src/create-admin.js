@@ -2,51 +2,49 @@ const bcrypt = require('bcrypt');
 const db = require('./database.js');
 
 const saltRounds = 10;
-const adminUsername = 'admin';
-const adminEmail = 'admin@educatech.com';
-const adminPassword = 'adminpassword'; // Senha temporária
+const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+const adminEmail = process.env.ADMIN_EMAIL || 'admin@brincabytes.com';
+const adminPassword = process.env.ADMIN_PASSWORD || 'adminpassword';
 
 async function createAdmin() {
     try {
+        console.log('Verificando usuário admin...');
+
         // Verifica se o admin já existe
-        db.get('SELECT * FROM users WHERE username = ? OR email = ?', [adminUsername, adminEmail], async (err, row) => {
-            if (err) {
-                console.error('Erro ao verificar usuário existente:', err.message);
-                db.close();
-                return;
-            }
-            if (row) {
-                console.log('Usuário administrador já existe.');
-                db.close();
-                return;
-            }
+        const existingUser = await db('users')
+            .where('username', adminUsername)
+            .orWhere('email', adminEmail)
+            .first();
 
-            const hash = await bcrypt.hash(adminPassword, saltRounds);
-            const sql = `
-                INSERT INTO users (username, email, password, role, is_confirmed, subscription_type, last_login_date)
-                VALUES (?, ?, ?, 'admin', 1, 'premium', ?)
-            `;
-            const now = Date.now();
+        if (existingUser) {
+            console.log('Usuário administrador já existe.');
+            process.exit(0);
+        }
 
-            db.run(sql, [adminUsername, adminEmail, hash, now], function(err) {
-                if (err) {
-                    console.error('Erro ao criar usuário administrador:', err.message);
-                } else {
-                    console.log(`Usuário administrador 'admin' criado com sucesso!`);
-                    console.log(`Use a senha: ${adminPassword}`);
-                    console.log('Por favor, altere a senha após o primeiro login.');
-                }
-                db.close((err) => {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                    console.log('Conexão com o banco de dados fechada.');
-                });
-            });
+        console.log('Criando novo administrador...');
+        const hash = await bcrypt.hash(adminPassword, saltRounds);
+        const now = Date.now();
+
+        await db('users').insert({
+            username: adminUsername,
+            email: adminEmail,
+            password: hash,
+            role: 'admin',
+            is_confirmed: 1,
+            subscription_type: 'premium',
+            last_login_date: now,
+            created_at: now
         });
+
+        console.log(`Usuário administrador '${adminUsername}' criado com sucesso!`);
+        console.log(`Email: ${adminEmail}`);
+        console.log(`Senha: ${adminPassword}`);
+        console.log('Por favor, altere a senha após o primeiro login.');
+
+        process.exit(0);
     } catch (error) {
         console.error('Erro ao processar a criação do administrador:', error);
-        db.close();
+        process.exit(1);
     }
 }
 

@@ -1,7 +1,9 @@
+// aria-label
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,14 +16,54 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Educatech - Portal de Jogos Educativos",
-  description: "Aprenda brincando com os melhores jogos educativos.",
+  metadataBase: new URL("https://brincabytes.com.br"), // Substitua pela URL final real
+  title: {
+    default: "BrincaBytes - Portal de Jogos Educativos",
+    template: "%s | BrincaBytes"
+  },
+  description: "Plataforma líder em jogos educativos para escolas e alunos. Transforme o aprendizado em uma aventura interativa.",
+  keywords: ["jogos educativos", "educação infantil", "portal escolar", "jogos de matemática", "jogos de português", "inclusão digital", "aulas dinâmicas"],
+  authors: [{ name: "BrincaBytes Team" }],
+  creator: "BrincaBytes",
+  publisher: "BrincaBytes",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: "Educatech - Portal de Jogos Educativos",
-    description: "Aprenda brincando com os melhores jogos educativos.",
+    title: "BrincaBytes - Portal de Jogos Educativos",
+    description: "Plataforma líder em jogos educativos para escolas e alunos.",
+    url: "https://brincabytes.com.br",
+    siteName: "BrincaBytes",
+    images: [
+      {
+        url: "/og-image.webp", // Substitua por uma arte real depois (1200x630)
+        width: 1200,
+        height: 630,
+        alt: "BrincaBytes Capa",
+      },
+    ],
+    locale: "pt_BR",
     type: "website",
-    url: "https://educatech.com.br", // URL fictícia para passar na validação
-    images: [{ url: "/og-image.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BrincaBytes - Portal de Jogos Educativos",
+    description: "Plataforma líder em jogos educativos para escolas e alunos.",
+    creator: "@brincabytes", // Opcional
+    images: ["/og-image.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -40,6 +82,7 @@ export default function RootLayout({
         </a>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

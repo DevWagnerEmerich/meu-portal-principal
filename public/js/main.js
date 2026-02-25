@@ -1,3 +1,13 @@
+function escapeHtml(text) {
+    if (!text) return text;
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function showToast(message, type = 'success') {
     const toastContainer = document.querySelector('.toast-container');
     if (!toastContainer) {
@@ -8,7 +18,7 @@ function showToast(message, type = 'success') {
     const toastHtml = `
         <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
-                <div class="toast-body">${message}</div>
+                <div class="toast-body">${escapeHtml(message)}</div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
@@ -80,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (gameLoader) gameLoader.style.display = 'flex';
         if (gameIframe) gameIframe.style.visibility = 'hidden';
         let iframeLoaded = false, timerElapsed = false;
-        
+
         const showGameContent = () => {
             if (iframeLoaded && timerElapsed) {
                 if (gameLoader) gameLoader.style.display = 'none';
@@ -99,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 gameIframe.src = gameSrc;
             }, 100);
         }
-        
+
         setTimeout(() => { timerElapsed = true; showGameContent(); }, 1500);
         if (gameModal) gameModal.show();
     };
@@ -114,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ gameSrc })
             });
-            
+
             // Apenas continua se a resposta não for OK
             if (!response.ok) {
                 const data = await response.json(); // Lê o corpo do erro aqui
@@ -148,13 +158,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function resetSubscriptionModal() {
         const offerBanner = document.getElementById('offer-banner');
-        if(offerBanner) offerBanner.style.display = 'none';
+        if (offerBanner) offerBanner.style.display = 'none';
         clearInterval(offerCountdownInterval);
 
         document.querySelectorAll('[data-plan-id]').forEach(priceEl => {
             const planId = priceEl.dataset.planId;
             const plan = standardPrices[planId];
-            if(plan) priceEl.innerHTML = `R$${plan.price}<small class="text-muted fw-light">${plan.suffix}</small>`;
+            if (plan) priceEl.innerHTML = `R$${plan.price}<small class="text-muted fw-light">${plan.suffix}</small>`;
         });
     }
 
@@ -169,14 +179,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (data.offerActive) {
                 const offerBanner = document.getElementById('offer-banner');
-                if(offerBanner) offerBanner.style.display = 'block';
+                if (offerBanner) offerBanner.style.display = 'block';
 
                 document.querySelectorAll('[data-plan-id]').forEach(priceEl => {
                     const planId = priceEl.dataset.planId;
                     const oldPrice = standardPrices[planId].price;
                     const newPrice = parseFloat((oldPrice * 0.75).toFixed(2));
                     const suffix = standardPrices[planId].suffix;
-                    
+
                     priceEl.innerHTML = `
                         <span class="original-price">R$${oldPrice}</span>
                         <strong class="text-success ms-2">R$${newPrice}</strong>
@@ -185,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 const countdownEl = document.getElementById('offer-countdown');
-                if(countdownEl) {
+                if (countdownEl) {
                     offerCountdownInterval = setInterval(() => {
                         const now = new Date().getTime();
                         const distance = data.offerEndDate - now;
@@ -250,8 +260,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const allGamesCardHTML = `
                 <div class="game-card ${cardClass}" id="${game.id}" ${cardStyle}>
                     ${favoriteButtonHTML}
-                    <h5 class="card-title">${game.title}</h5>
-                    <p class="card-text">${game.description}</p>
+                    <h5 class="card-title">${escapeHtml(game.title)}</h5>
+                    <p class="card-text">${escapeHtml(game.description)}</p>
                     <div class="d-flex flex-column">
                         <a href="${game.game_url}" class="btn ${btnClass} mt-auto play-game-btn" data-game-src="${game.game_url}">Jogar</a>
                         ${printButtonHTML}
@@ -303,13 +313,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="heading-${categoryId}">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryId}" aria-expanded="false" aria-controls="collapse-${categoryId}" data-category="${category}">
-                                    ${category}
+                                    ${escapeHtml(category)}
                                 </button>
                             </h2>
                             <div id="collapse-${categoryId}" class="accordion-collapse collapse" aria-labelledby="heading-${categoryId}" data-bs-parent="#sidebarAccordion">
                                 <div class="accordion-body">
                                     <ul class="list-unstyled">
-                                        ${gamesByCategory[category].map(game => `<li><a href="#" class="game-link" data-game-id="${game.id}">${game.title}</a></li>`).join('')}
+                                        ${gamesByCategory[category].map(game => `<li><a href="#" class="game-link" data-game-id="${game.id}">${escapeHtml(game.title)}</a></li>`).join('')}
                                     </ul>
                                 </div>
                             </div>
@@ -334,8 +344,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div class="carousel-item ${isActive ? 'active' : ''}">
                             <img src="${encodeURI(game.thumbnail)}" class="d-block w-100" alt="${game.title}" ${index === 0 ? '' : 'loading="lazy"'}>
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>${game.title}</h5>
-                                <p>${game.description}</p>
+                                <h5>${escapeHtml(game.title)}</h5>
+                                <p>${escapeHtml(game.description)}</p>
                                 <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg> Jogar</a>
                             </div>
                         </div>
@@ -344,8 +354,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     carouselItemHTML = `
                         <div class="carousel-item ${isActive ? 'active' : ''} d-flex align-items-center justify-content-center" style="background-color: #495057; height: 400px;">
                             <div class="carousel-caption">
-                                <h5>${game.title}</h5>
-                                <p>${game.description}</p>
+                                <h5>${escapeHtml(game.title)}</h5>
+                                <p>${escapeHtml(game.description)}</p>
                                 <a href="${game.game_url}" class="btn ${btnClass} play-game-btn" data-game-src="${game.game_url}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg> Jogar</a>
                             </div>
                         </div>
@@ -417,7 +427,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             if (window.allGames) {
-                const filteredGames = window.allGames.filter(game => 
+                const filteredGames = window.allGames.filter(game =>
                     game.title.toLowerCase().includes(searchTerm)
                 );
                 renderGames(filteredGames, window.favoriteGameIds);
@@ -443,7 +453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }*/
-    
+
     const sidebarAccordionElement = document.getElementById('sidebarAccordion');
     if (sidebarAccordionElement) {
         sidebarAccordionElement.addEventListener('click', (event) => {
@@ -464,16 +474,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // --- FORM LISTENERS ---
-    if (registerForm) { registerForm.addEventListener('submit', async (e) => { e.preventDefault();
+    if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             const formMessage = document.getElementById('form-message');
             formMessage.innerHTML = ''; const u = document.getElementById('username').value, E = document.getElementById('email').value, p = document.getElementById('password').value; const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: u, email: E, password: p }) }); const j = await r.json();
-                if (r.ok) {
-                    formMessage.innerHTML = `<div class="alert alert-success">Cadastro realizado com sucesso! Você será redirecionado para o login.</div>`;
-                    setTimeout(() => window.location.href = '/login.html', 2500);
-                } else {
-                    const errorMessage = j.message || 'Ocorreu um erro desconhecido.';
-                    formMessage.innerHTML = `<div class="alert alert-danger">${errorMessage}</div>`;
-                } }); }
+            if (r.ok) {
+                formMessage.innerHTML = `<div class="alert alert-success">Cadastro realizado com sucesso! Você será redirecionado para o login.</div>`;
+                setTimeout(() => window.location.href = '/login.html', 2500);
+            } else {
+                const errorMessage = j.message || 'Ocorreu um erro desconhecido.';
+                formMessage.innerHTML = `<div class="alert alert-danger">${escapeHtml(errorMessage)}</div>`;
+            }
+        });
+    }
     if (loginForm) {
         const rememberedUsername = localStorage.getItem('rememberedUsername');
         if (rememberedUsername) {
@@ -526,7 +540,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
-        if (forgotPasswordForm) {
+    if (forgotPasswordForm) {
         forgotPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const emailInput = document.getElementById('email');
@@ -608,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Garante que os botões de assinatura sejam reativados ao voltar para a página
-window.addEventListener('pageshow', function(event) {
+window.addEventListener('pageshow', function (event) {
     const subscribeButtons = document.querySelectorAll('.subscribe-btn');
     subscribeButtons.forEach(button => {
         if (button.disabled) {

@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Loader2, Chrome } from "lucide-react";
 import { API_URL } from "@/lib/config";
 
+
+
 export default function LoginPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -41,8 +43,12 @@ export default function LoginPage() {
             // Força um refresh para atualizar o estado de login na home (simples por enquanto)
             router.refresh();
 
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Ocorreu um erro desconhecido");
+            }
         } finally {
             setLoading(false);
         }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { useEffect, useState, use, useRef } from "react";
+import { Loader2, ArrowLeft, Maximize } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { UpgradeOverlay } from "@/components/subscription/UpgradeOverlay";
@@ -21,8 +21,24 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
     const [canPlay, setCanPlay] = useState(false);
     const [accessMessage, setAccessMessage] = useState("");
 
+    const startedRef = useRef(false);
+
+    const toggleFullScreen = () => {
+        const gameContainer = document.getElementById("game-container");
+        if (!document.fullscreenElement) {
+            gameContainer?.requestFullscreen().catch((err) => {
+                console.error(`Erro ao ativar tela cheia: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
     useEffect(() => {
         const fetchGameAndAccess = async () => {
+            if (startedRef.current) return;
+            startedRef.current = true;
+
             try {
                 // 1. Buscar detalhes do jogo
                 const gamesRes = await fetch(`${API_URL}/games.json`);
@@ -36,7 +52,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     const response = await fetch(`${API_URL}/api/game-start`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ gameSrc: foundGame.game_url }),
+                        body: JSON.stringify({ gameSrc: foundGame.game_url, gameId: foundGame.id }),
                         credentials: "include"
                     });
 
@@ -45,6 +61,8 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     if (response.ok) {
                         setCanPlay(true);
                         setAccessMessage("Bom jogo!");
+                        // Avisa o Navbar para atualizar a energia
+                        window.dispatchEvent(new Event("user-updated"));
                     } else {
                         setCanPlay(false);
                         setAccessMessage(data.message || "Acesso negado.");
@@ -75,7 +93,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
     if (!game) {
         return (
             <div className="flex flex-col justify-center items-center h-screen bg-slate-950 text-white">
-                <h1 className="text-2xl mb-4">Jogo não encontrado 😢</h1>
+                <h2 className="text-2xl mb-4">Jogo não encontrado 😢</h2>
                 <Link href="/">
                     <Button variant="secondary">Voltar para Home</Button>
                 </Link>
@@ -90,7 +108,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
             return (
                 <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-center p-8 text-white">
                     <div className="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl">
-                        <h1 className="text-3xl font-bold mb-4 text-white">Faça Login para Jogar</h1>
+                        <h2 className="text-3xl font-bold mb-4 text-white">Faça Login para Jogar</h2>
                         <p className="text-slate-400 mb-8">Salve seu progresso e ganhe jogadas gratuitas todos os dias!</p>
                         <Link href="/login" className="block w-full">
                             <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 text-lg h-12">
@@ -109,7 +127,9 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
             )
         }
 
-        // Se for falta de energia/limite (Erro 403), mostra o UpgradeOverlay
+        // Se for falta de energia/limite ou bloqueio VIP (Erro 403), mostra o UpgradeOverlay
+        const isVipBlock = accessMessage.includes("exclusivo");
+
         return (
             <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center relative">
                 <div className="absolute top-4 left-4 z-10">
@@ -121,7 +141,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     </Link>
                 </div>
                 {/* Aqui entra nosso novo componente de alta conversão */}
-                <UpgradeOverlay />
+                <UpgradeOverlay reason={isVipBlock ? 'vip' : 'energy'} />
             </main>
         );
     }
@@ -129,6 +149,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
     // Se puder jogar, mostra o jogo
     return (
         <main className="min-h-screen bg-slate-950 flex flex-col">
+            {/* <title>Jogar</title> <meta name="description" content="Jogar BrincaBytes"> <meta property="og:title" content="Jogar"> */}
             <header className="bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <Link href="/">
@@ -139,13 +160,20 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     </Link>
                     <h1 className="text-lg font-bold text-white">{game.title}</h1>
                 </div>
-                <div className="text-sm text-slate-400 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    Jogando
+                <div className="flex items-center gap-4">
+                    <Button variant="outline" size="sm" className="bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white" onClick={toggleFullScreen}>
+                        <Maximize className="w-4 h-4 mr-2 hidden sm:block" />
+                        <span className="hidden sm:inline">Tela Cheia</span>
+                        <Maximize className="w-5 h-5 sm:hidden" />
+                    </Button>
+                    <div className="text-sm text-slate-400 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span className="hidden sm:inline">Jogando</span>
+                    </div>
                 </div>
             </header>
 
-            <div className="flex-1 w-full bg-black relative">
+            <div id="game-container" className="flex-1 w-full bg-black relative">
                 <iframe
                     src={game.game_url.startsWith('http') ? game.game_url : `${API_URL}${game.game_url}`}
                     className="w-full h-full absolute inset-0 border-0"

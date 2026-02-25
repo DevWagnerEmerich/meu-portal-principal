@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { API_URL } from "@/lib/config";
 
+
+
 export default function RegisterPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -47,8 +49,12 @@ export default function RegisterPage() {
                 router.push("/login");
             }, 3000);
 
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Ocorreu um erro desconhecido");
+            }
         } finally {
             setLoading(false);
         }
@@ -58,7 +64,7 @@ export default function RegisterPage() {
         return (
             <main className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
                 <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl text-center">
-                    <h1 className="text-3xl font-bold text-green-400 mb-4">Conta Criada! 🎉</h1>
+                    <h2 className="text-3xl font-bold text-green-400 mb-4">Conta Criada! 🎉</h2>
                     <p className="text-slate-300 mb-4">Sua conta foi criada com sucesso.</p>
                     <p className="text-slate-400 text-sm">Você será redirecionado para o login em instantes...</p>
                 </div>
@@ -71,7 +77,7 @@ export default function RegisterPage() {
             <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-white mb-2">Crie sua conta</h1>
-                    <p className="text-slate-400">Junte-se ao Educatech hoje mesmo.</p>
+                    <p className="text-slate-400">Junte-se ao BrincaBytes hoje mesmo.</p>
                 </div>
 
                 {error && (

@@ -36,14 +36,37 @@ router.post('/create-checkout-session', [
 
   const { id, title } = req.body;
 
-  // --- Lógica de Preços (Reutilizada) ---
+  // --- Lógica de Preços Dinâmica (DB) ---
   const standardPrices = {};
-  Object.values(BusinessRules.PLANS).forEach(plan => standardPrices[plan.id] = plan.price);
-
   const discountedPrices = {};
-  Object.values(BusinessRules.PLANS).forEach(plan => {
-    discountedPrices[plan.id] = parseFloat((plan.price * BusinessRules.WELCOME_OFFER.DISCOUNT_MULTIPLIER).toFixed(2));
-  });
+
+  try {
+    // Buscar configurações de preços e descontos
+    const settings = await db('system_settings').whereIn('key', [
+      'monthly_plan_price',
+      'semiannual_plan_price',
+      'annual_plan_price',
+      'welcome_discount_percent'
+    ]);
+
+    const prices = {
+      monthly: parseFloat(settings.find(s => s.key === 'monthly_plan_price')?.value || BusinessRules.PLANS.monthly.price),
+      semiannual: parseFloat(settings.find(s => s.key === 'semiannual_plan_price')?.value || BusinessRules.PLANS.semiannual.price),
+      annual: parseFloat(settings.find(s => s.key === 'annual_plan_price')?.value || BusinessRules.PLANS.annual.price)
+    };
+
+    const discountPercent = parseFloat(settings.find(s => s.key === 'welcome_discount_percent')?.value || BusinessRules.WELCOME_OFFER.DISCOUNT_PERCENTAGE);
+    const discountMultiplier = 1 - discountPercent;
+
+    Object.keys(prices).forEach(key => {
+      standardPrices[key] = prices[key];
+      discountedPrices[key] = parseFloat((prices[key] * discountMultiplier).toFixed(2));
+    });
+
+  } catch (err) {
+    console.error('Erro ao buscar preços do DB:', err);
+    return res.status(500).json({ error: 'Erro interno ao calcular preços.' });
+  }
 
   try {
     const user = await db('users').where('id', req.session.userId).select('created_at', 'email', 'username').first();
@@ -107,6 +130,89 @@ router.post('/create-checkout-session', [
   } catch (error) {
     console.error('Erro ao criar preferência do Mercado Pago:', error);
     res.status(500).json({ error: error.message || 'Erro interno ao processar pagamento.' });
+  }
+});
+
+// Nova Rota para Checkout Transparente via PIX
+router.post('/create-pix-payment', [
+  body('id', 'ID do plano inválido.').isIn(['monthly', 'semiannual', 'annual']),
+  body('title', 'Título do plano é obrigatório.').notEmpty()
+], async (req, res) => {
+  if (!client) {
+    return res.status(500).json({ error: 'Mercado Pago não está configurado no servidor.' });
+  }
+
+  if (!req.session.userId) {
+    return res.status(401).json({ error: 'Usuário não autenticado.' });
+  }
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: 'Erro de validação.', details: errors.array() });
+  }
+
+  const { id, title } = req.body;
+
+  try {
+    const user = await db('users').where('id', req.session.userId).select('created_at', 'email', 'username').first();
+    if (!user) return res.status(500).json({ error: 'Usuário não encontrado.' });
+
+    // Calcula Preço com/sem Desconto (Lógica espelhada da preferência)
+    const settings = await db('system_settings').whereIn('key', ['monthly_plan_price', 'semiannual_plan_price', 'annual_plan_price', 'welcome_discount_percent']);
+    const prices = {
+      monthly: parseFloat(settings.find(s => s.key === 'monthly_plan_price')?.value || BusinessRules.PLANS.monthly.price),
+      semiannual: parseFloat(settings.find(s => s.key === 'semiannual_plan_price')?.value || BusinessRules.PLANS.semiannual.price),
+      annual: parseFloat(settings.find(s => s.key === 'annual_plan_price')?.value || BusinessRules.PLANS.annual.price)
+    };
+    const discountPercent = parseFloat(settings.find(s => s.key === 'welcome_discount_percent')?.value || BusinessRules.WELCOME_OFFER.DISCOUNT_PERCENTAGE);
+
+    // Verifica oferta
+    const offerDurationInMillis = BusinessRules.WELCOME_OFFER.DURATION_DAYS * 24 * 60 * 60 * 1000;
+    const isOfferActive = Date.now() < (Number(user.created_at) + offerDurationInMillis);
+    const finalPrice = isOfferActive ? parseFloat((prices[id] * (1 - discountPercent)).toFixed(2)) : prices[id];
+
+    if (!finalPrice) return res.status(400).json({ error: 'Plano inválido.' });
+
+    // Cria o pagamento PIX usando classe nativa `Payment`
+    const payment = new Payment(client);
+
+    // O id de idempotência previne duplicidade. (Opcional, mas boa prática). Usaremos um UUID ou timestamp
+    const idempotencyKey = `pix_${req.session.userId}_${Date.now()}`;
+
+    const result = await payment.create({
+      body: {
+        transaction_amount: finalPrice,
+        description: `BrincaBytes - ${title}`,
+        payment_method_id: 'pix',
+        payer: {
+          email: user.email,
+          first_name: user.username
+        },
+        external_reference: JSON.stringify({
+          userId: req.session.userId,
+          planId: id,
+          planTitle: title
+        }),
+        notification_url: `${config.domain}/api/payment/webhook`
+      },
+      requestOptions: { idempotencyKey }
+    });
+
+    if (result.point_of_interaction?.transaction_data) {
+      const pixData = result.point_of_interaction.transaction_data;
+      res.json({
+        success: true,
+        qr_code: pixData.qr_code,
+        qr_code_base64: pixData.qr_code_base64,
+        payment_id: result.id
+      });
+    } else {
+      throw new Error("Dados do PIX não retornados pelo Mercado Pago");
+    }
+
+  } catch (error) {
+    console.error('Erro ao criar PIX transparente:', error);
+    res.status(500).json({ error: error.message || 'Erro interno ao gerar PIX.' });
   }
 });
 
@@ -180,19 +286,43 @@ router.get('/plans', async (req, res) => {
     return res.status(401).json({ error: 'Usuário não autenticado.' });
   }
 
-  const standardPrices = {
-    monthly: { ...BusinessRules.PLANS.monthly, features: ['Acesso a todos os jogos', 'Suporte por e-mail'] },
-    semiannual: { ...BusinessRules.PLANS.semiannual, features: ['Acesso a todos os jogos', 'Suporte prioritário', 'Acesso antecipado a novos jogos'] },
-    annual: { ...BusinessRules.PLANS.annual, features: ['Todos os benefícios do plano semestral', 'Desconto de 15% em comparação com o plano mensal'] }
-  };
-
+  // --- Lógica de Preços Dinâmica (DB) ---
+  const standardPrices = {};
   const discountedPrices = {};
-  Object.keys(standardPrices).forEach(key => {
-    discountedPrices[key] = {
-      ...standardPrices[key],
-      price: parseFloat((standardPrices[key].price * BusinessRules.WELCOME_OFFER.DISCOUNT_MULTIPLIER).toFixed(2))
+
+  try {
+    const settings = await db('system_settings').whereIn('key', [
+      'monthly_plan_price', 'semiannual_plan_price', 'annual_plan_price', 'welcome_discount_percent'
+    ]);
+
+    const prices = {
+      monthly: parseFloat(settings.find(s => s.key === 'monthly_plan_price')?.value || BusinessRules.PLANS.monthly.price),
+      semiannual: parseFloat(settings.find(s => s.key === 'semiannual_plan_price')?.value || BusinessRules.PLANS.semiannual.price),
+      annual: parseFloat(settings.find(s => s.key === 'annual_plan_price')?.value || BusinessRules.PLANS.annual.price)
     };
-  });
+
+    const discountPercent = parseFloat(settings.find(s => s.key === 'welcome_discount_percent')?.value || BusinessRules.WELCOME_OFFER.DISCOUNT_PERCENTAGE);
+    const discountMultiplier = 1 - discountPercent;
+
+    // Montar objetos de estrutura
+    standardPrices.monthly = { ...BusinessRules.PLANS.monthly, price: prices.monthly, features: ['Acesso a todos os jogos', 'Suporte por e-mail'] };
+    standardPrices.semiannual = { ...BusinessRules.PLANS.semiannual, price: prices.semiannual, features: ['Acesso a todos os jogos', 'Suporte prioritário', 'Acesso antecipado a novos jogos'] };
+    standardPrices.annual = { ...BusinessRules.PLANS.annual, price: prices.annual, features: ['Todos os benefícios do plano semestral', 'Desconto de 15% em comparação com o plano mensal'] };
+
+    Object.keys(standardPrices).forEach(key => {
+      discountedPrices[key] = {
+        ...standardPrices[key],
+        price: parseFloat((prices[key] * discountMultiplier).toFixed(2))
+      };
+    });
+
+  } catch (err) {
+    console.error('Erro ao buscar preços (GET):', err);
+    // Fallback para hardcoded se falhar DB
+    const prices = { monthly: 19.00, semiannual: 99.00, annual: 179.00 }; // Backup
+    // ... (simplificado para não duplicar código de erro)
+    return res.status(500).json({ error: 'Erro interno ao buscar planos.' });
+  }
 
   try {
     const user = await db('users').where('id', req.session.userId).select('created_at').first();

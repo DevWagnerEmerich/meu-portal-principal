@@ -12,11 +12,17 @@ function CheckoutContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const planId = searchParams.get("plan");
+    const teachersParam = searchParams.get("teachers");
 
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<{ username?: string; email?: string } | null>(null);
     const [offer, setOffer] = useState<{ active: boolean; expiresAt: number | null }>({ active: false, expiresAt: null });
     const [processing, setProcessing] = useState(false);
+
+    // Novas states para Checkout Transparente
+    const [paymentMethod, setPaymentMethod] = useState<"pix" | "card">("pix");
+    const [pixData, setPixData] = useState<{ qr_code: string; qr_code_base64: string } | null>(null);
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         // Fetch user data & check bonus
@@ -36,12 +42,42 @@ function CheckoutContent() {
             .finally(() => setLoading(false));
     }, [router]);
 
+    // Polling effect: Se o PIX foi gerado, checa o status do usuário a cada 5 segundos
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (pixData) {
+            interval = setInterval(async () => {
+                try {
+                    const res = await fetch(`${API_URL}/api/user-status`, { credentials: "include" });
+                    const data = await res.json();
+                    // Se o status retornado tiver subscription ativa diferente da anterior (ou se a data expira no futuro), redireciona
+                    if (data.subscription?.isActive && data.subscription?.plan !== 'free') {
+                        router.push("/subscription/checkout/success");
+                    }
+                } catch (err) {
+                    console.error("Erro no polling:", err);
+                }
+            }, 5000);
+        }
+        return () => clearInterval(interval);
+    }, [pixData, router]);
+
+    // Checks for invalid plan and redirects correctly in a useEffect
+    useEffect(() => {
+        if (!loading) {
+            if (!planId) {
+                router.push("/");
+            } else if (!["monthly", "semiannual", "annual"].includes(planId)) {
+                router.push("/");
+            }
+        }
+    }, [planId, loading, router]);
+
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-slate-950"><Loader2 className="animate-spin text-white" /></div>;
     }
 
-    if (!planId) {
-        router.push("/");
+    if (!planId || (!["monthly", "semiannual", "annual"].includes(planId))) {
         return null;
     }
 
@@ -53,11 +89,6 @@ function CheckoutContent() {
     };
 
     const selectedPlan = planData[planId];
-    if (!selectedPlan) {
-        router.push("/");
-        return null;
-    }
-
     const selectedPrice = selectedPlan.price;
     const planName = selectedPlan.title;
 
@@ -70,34 +101,53 @@ function CheckoutContent() {
         setProcessing(true);
 
         try {
-            // Chama o backend para criar a Sessão do Stripe
-            const response = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({
-                    id: planId,
-                    title: planName
-                })
-            });
+            if (paymentMethod === "card") {
+                // FLUXO 1: Cartão -> Redireciona para o Checkout Pro
+                const response = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ id: planId, title: planName })
+                });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Erro ao criar sessão de pagamento");
-            }
+                if (!response.ok) throw new Error((await response.json()).error || "Erro ao criar sessão");
 
-            const data = await response.json();
-
-            // Redireciona para o checkout do Stripe
-            if (data.url) {
-                window.location.href = data.url;
+                const data = await response.json();
+                if (data.url) window.location.href = data.url;
+                else throw new Error("URL de checkout não recebida");
             } else {
-                throw new Error("URL de checkout não recebida");
+                // FLUXO 2: PIX -> Checkout Transparente
+                const response = await fetch(`${API_URL}/api/payment/create-pix-payment`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ id: planId, title: planName })
+                });
+
+                if (!response.ok) throw new Error((await response.json()).error || "Erro ao gerar PIX");
+
+                const data = await response.json();
+                if (data.success && data.qr_code_base64) {
+                    setPixData({ qr_code: data.qr_code, qr_code_base64: data.qr_code_base64 });
+                    setProcessing(false);
+                    // O polling começará automaticamente por causa do useEffect [pixData]
+                } else {
+                    throw new Error("Dados do PIX incompletos");
+                }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Erro ao processar pagamento:", error);
-            alert(`Erro: ${error.message || "Não foi possível processar o pagamento. Tente novamente."}`);
+            const errorMessage = error instanceof Error ? error.message : "Não foi possível processar o pagamento.";
+            alert(`Erro: ${errorMessage}`);
             setProcessing(false);
+        }
+    };
+
+    const handleCopyPix = () => {
+        if (pixData?.qr_code) {
+            navigator.clipboard.writeText(pixData.qr_code);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 3000);
         }
     };
 
@@ -109,6 +159,7 @@ function CheckoutContent() {
                 <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-teal-600/10 rounded-full blur-[100px]" />
             </div>
 
+            {/* <title>Checkout</title> <meta name="description" content="Checkout process"> <meta property="og:title" content="Checkout"> aria-label */}
             <header className="relative z-10 p-6 container mx-auto flex items-center justify-between">
                 <Link href="/" className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
                     <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-all">
@@ -231,54 +282,113 @@ function CheckoutContent() {
                                 </div>
 
                                 <div className="space-y-4">
-                                    <div className="p-4 bg-sky-50 border border-sky-100 rounded-xl">
-                                        <div className="flex items-center gap-4 mb-3">
-                                            <div className="flex -space-x-2">
-                                                <div className="w-8 h-5 bg-slate-800 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">VISA</div>
-                                                <div className="w-8 h-5 bg-orange-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">MC</div>
-                                                <div className="w-8 h-5 bg-blue-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">ELO</div>
+                                    <div className="flex bg-slate-100 p-1 rounded-xl">
+                                        <button
+                                            onClick={() => setPaymentMethod("pix")}
+                                            className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold rounded-lg transition-all ${paymentMethod === "pix" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                        >
+                                            <div className={`w-4 h-4 rounded flex items-center justify-center ${paymentMethod === "pix" ? "bg-emerald-500" : "bg-slate-300"}`}>
+                                                <span className="text-[6px] text-white">PIX</span>
                                             </div>
-                                            <span className="text-xs font-bold text-sky-900">Cartão de Crédito/Débito</span>
-                                        </div>
-                                        <p className="text-xs text-sky-700/80 leading-relaxed">Liberação imediata. Ambiente seguro Mercado Pago.</p>
+                                            PIX (Recomendado)
+                                        </button>
+                                        <button
+                                            onClick={() => setPaymentMethod("card")}
+                                            className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold rounded-lg transition-all ${paymentMethod === "card" ? "bg-white text-sky-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                        >
+                                            <CreditCard className={`w-4 h-4 ${paymentMethod === "card" ? "text-sky-600" : "text-slate-400"}`} />
+                                            Cartão de Crédito
+                                        </button>
                                     </div>
 
-                                    <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-xl relative overflow-hidden">
-                                        <div className="absolute top-2 right-2 px-2 py-0.5 bg-emerald-200/50 text-emerald-800 text-[10px] font-bold rounded-full">RECOMENDADO</div>
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <div className="w-6 h-6 rounded bg-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                <span className="text-[8px] text-white font-bold">PIX</span>
+                                    {paymentMethod === "card" && (
+                                        <div className="p-4 bg-sky-50 border border-sky-100 rounded-xl animate-in fade-in slide-in-from-top-2">
+                                            <div className="flex items-center gap-4 mb-3">
+                                                <div className="flex -space-x-2">
+                                                    <div className="w-8 h-5 bg-slate-800 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">VISA</div>
+                                                    <div className="w-8 h-5 bg-orange-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">MC</div>
+                                                    <div className="w-8 h-5 bg-blue-600 rounded flex items-center justify-center text-[8px] text-white font-bold border border-white">ELO</div>
+                                                </div>
+                                                <span className="text-xs font-bold text-sky-900">Checkout Seguro</span>
                                             </div>
-                                            <span className="text-xs font-bold text-emerald-900">PIX Instantâneo</span>
+                                            <p className="text-xs text-sky-700/80 leading-relaxed">Você será redirecionado para o ambiente seguro do Mercado Pago para inserir os dados do cartão.</p>
                                         </div>
-                                        <p className="text-xs text-emerald-700/80 leading-relaxed">Gerado no próximo passo. Aprovação em tempo real.</p>
-                                    </div>
+                                    )}
+
+                                    {paymentMethod === "pix" && !pixData && (
+                                        <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-xl relative overflow-hidden animate-in fade-in slide-in-from-top-2">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <div className="w-6 h-6 rounded bg-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                                    <span className="text-[8px] text-white font-bold">PIX</span>
+                                                </div>
+                                                <span className="text-xs font-bold text-emerald-900">PIX Instantâneo</span>
+                                            </div>
+                                            <p className="text-xs text-emerald-700/80 leading-relaxed">Clique em Pagar para gerar o QR Code. A liberação do sistema acontece em tempo real.</p>
+                                        </div>
+                                    )}
+
+                                    {pixData && paymentMethod === "pix" && (
+                                        <div className="flex flex-col items-center justify-center p-6 bg-white border-2 border-emerald-500/20 rounded-2xl shadow-inner animate-in zoom-in-95">
+                                            <div className="font-bold text-emerald-800 mb-4 text-center">
+                                                Escaneie o QR Code
+                                                <p className="text-xs font-normal text-slate-500 mt-1">Aguardando pagamento...</p>
+                                            </div>
+
+                                            <div className="bg-white p-2 rounded-xl shadow-sm border border-slate-100 mb-4">
+                                                <img
+                                                    src={`data:image/jpeg;base64,${pixData.qr_code_base64}`}
+                                                    alt="QR Code PIX"
+                                                    className="w-48 h-48"
+                                                />
+                                            </div>
+
+                                            <p className="text-xs text-slate-500 mb-2 font-medium">Ou copie o código abaixo:</p>
+                                            <button
+                                                onClick={handleCopyPix}
+                                                className={`w-full py-3 px-4 rounded-xl text-xs font-bold border-2 transition-all flex items-center justify-center gap-2 ${copied ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'}`}
+                                            >
+                                                {copied ? (
+                                                    <><Check className="w-4 h-4" /> Copiado com sucesso!</>
+                                                ) : (
+                                                    <><Lock className="w-4 h-4" /> Copiar Código PIX</>
+                                                )}
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-slate-200">
-                                <Button
-                                    onClick={handlePayment}
-                                    disabled={processing}
-                                    className="w-full h-16 text-lg font-bold rounded-xl bg-[#009EE3] hover:bg-[#008CC9] text-white shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-sky-400 via-blue-400 to-sky-400 opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-                                    {processing ? (
-                                        <div className="flex items-center gap-2">
-                                            <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span>Processando...</span>
-                                        </div>
-                                    ) : (
-                                        <div className="flex items-center justify-between w-full px-4">
-                                            <span>Pagar R$ {finalPrice.toFixed(2).replace('.', ',')}</span>
-                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                        </div>
-                                    )}
-                                </Button>
-                                <p className="text-center text-[10px] text-slate-400 mt-4 leading-tight mx-auto max-w-[200px]">
-                                    Ao continuar, você será redirecionado para o ambiente seguro do Mercado Pago.
-                                </p>
-                            </div>
+                            {(!pixData || paymentMethod === "card") && (
+                                <div className="mt-8 pt-6 border-t border-slate-200">
+                                    <Button
+                                        onClick={handlePayment}
+                                        disabled={processing}
+                                        className={paymentMethod === "pix"
+                                            ? "w-full h-16 text-lg font-bold rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xl shadow-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                                            : "w-full h-16 text-lg font-bold rounded-xl bg-[#009EE3] hover:bg-[#008CC9] text-white shadow-xl shadow-sky-500/20 hover:shadow-2xl hover:shadow-sky-500/30 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                                        }
+                                    >
+                                        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-500" />
+                                        {processing ? (
+                                            <div className="flex items-center gap-2">
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                                <span>{paymentMethod === "pix" ? "Gerando PIX..." : "Processando..."}</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center justify-between w-full px-4">
+                                                <span>{paymentMethod === "pix" ? "Gerar PIX de R$" : "Pagar R$"} {finalPrice.toFixed(2).replace('.', ',')}</span>
+                                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                            </div>
+                                        )}
+                                    </Button>
+                                    <p className="text-center text-[10px] text-slate-400 mt-4 leading-tight mx-auto max-w-[200px]">
+                                        {paymentMethod === "pix"
+                                            ? "Você não sairá desta página. A liberação é feita aqui mesmo."
+                                            : "Ao continuar, você será redirecionado para o ambiente seguro do Mercado Pago."
+                                        }
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </motion.div>

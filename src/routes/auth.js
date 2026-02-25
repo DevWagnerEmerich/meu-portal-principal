@@ -56,7 +56,7 @@ router.post('/register', [
         try {
             await sendEmail({
                 to: email,
-                subject: 'Confirme seu cadastro no Educatech',
+                subject: 'Confirme seu cadastro no BrincaBytes',
                 text: `Olá ${username}, por favor, confirme seu e-mail clicando no seguinte link: ${confirmationLink}`,
                 html: `<p>Olá ${username},</p><p>Por favor, confirme seu e-mail clicando no link abaixo:</p><a href="${confirmationLink}">Confirmar E-mail</a>`
             });
@@ -147,7 +147,7 @@ router.post('/forgot-password', sensitiveApiLimiter, [
             try {
                 await sendEmail({
                     to: email,
-                    subject: 'Recuperação de Senha - Educatech',
+                    subject: 'Recuperação de Senha - BrincaBytes',
                     text: `Olá ${user.username}, você solicitou a recuperação de senha. Clique no link a seguir: ${resetLink}`,
                     html: `<p>Olá ${user.username},</p><p>Clique no link para redefinir sua senha:</p><a href="${resetLink}">Redefinir Senha</a>`
                 });
