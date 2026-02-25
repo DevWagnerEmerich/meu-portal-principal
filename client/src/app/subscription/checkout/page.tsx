@@ -26,7 +26,7 @@ function CheckoutContent() {
 
     useEffect(() => {
         // Fetch user data & check bonus
-        fetch(`${API_URL}/api/user-status`, { credentials: "include" })
+        fetch(`${API_URL}/api/user-status?t=${Date.now()}`, { credentials: "include", cache: "no-store" })
             .then(res => res.json())
             .then(data => {
                 if (!data.loggedIn) {
@@ -48,7 +48,7 @@ function CheckoutContent() {
         if (pixData) {
             interval = setInterval(async () => {
                 try {
-                    const res = await fetch(`${API_URL}/api/user-status`, { credentials: "include" });
+                    const res = await fetch(`${API_URL}/api/user-status?t=${Date.now()}`, { credentials: "include", cache: "no-store" });
                     const data = await res.json();
                     // Se o status retornado tiver subscription ativa diferente da anterior (ou se a data expira no futuro), redireciona
                     if (data.subscription?.isActive && data.subscription?.plan !== 'free') {

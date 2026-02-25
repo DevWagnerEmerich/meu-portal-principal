@@ -65,8 +65,8 @@ export default function SubscriptionPage() {
     useEffect(() => {
         // Fetch User Status (Offer) and Plans
         Promise.all([
-            fetch(`${API_URL}/api/user-status`, { credentials: "include" }).then(res => res.json()),
-            fetch(`${API_URL}/api/payment/plans`, { credentials: "include" }).then(res => res.json())
+            fetch(`${API_URL}/api/user-status?t=${Date.now()}`, { credentials: "include", cache: "no-store" }).then(res => res.json()),
+            fetch(`${API_URL}/api/payment/plans?t=${Date.now()}`, { credentials: "include", cache: "no-store" }).then(res => res.json())
         ])
             .then(([statusData, plansData]) => {
                 if (statusData.welcomeOffer) setOffer(statusData.welcomeOffer);

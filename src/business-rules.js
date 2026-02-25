@@ -11,7 +11,7 @@ const BusinessRules = {
 
     // Oferta de Boas-vindas
     WELCOME_OFFER: {
-        DURATION_DAYS: 7, // Duração da oferta após o cadastro
+        DURATION_DAYS: 5, // Duração da oferta após o cadastro
         DISCOUNT_PERCENTAGE: 0.25, // 25% de desconto (0.25)
         DISCOUNT_MULTIPLIER: 0.75, // Multiplicador para o preço final (1 - 0.25)
     },
