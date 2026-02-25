@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brincabytes.com.br"), // Substitua pela URL final real
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://brincabytes.vercel.app"),
   title: {
     default: "BrincaBytes - Portal de Jogos Educativos",
     template: "%s | BrincaBytes"
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BrincaBytes - Portal de Jogos Educativos",
     description: "Plataforma líder em jogos educativos para escolas e alunos.",
-    url: "https://brincabytes.com.br",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://brincabytes.vercel.app",
     siteName: "BrincaBytes",
     images: [
       {
