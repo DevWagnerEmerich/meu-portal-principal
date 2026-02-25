@@ -70,11 +70,19 @@ setupEmail();
 let sessionStore;
 if (process.env.DATABASE_URL) {
     // If using PG, create a pool for sessions to be safe/independent or reuse config
-    const pool = new pg.Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-        max: 2 // Evitar estourar pool de conexões do Supabase
-    });
+    // Prevents exhausting DB connections on Vercel Serverless deployments
+    let pool;
+    if (!global.__sessionPool__) {
+        pool = new pg.Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false },
+            max: 2 // Evitar estourar pool de conexões do Supabase
+        });
+        global.__sessionPool__ = pool;
+    } else {
+        pool = global.__sessionPool__;
+    }
+
     sessionStore = new pgSession({
         pool: pool,
         tableName: 'session',
