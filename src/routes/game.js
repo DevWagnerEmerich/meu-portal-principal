@@ -88,14 +88,17 @@ router.post('/game-start', async (req, res) => {
             await recordPlay(req.session.userId, gameId, false, res);
         } else {
             // Usuário gratuito: Verificar jogadas HOJE
-            // Definir início do dia (00:00:00)
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const startOfDayTimestamp = today.getTime();
-
             // Contar jogadas "trial" feitas hoje
-            // Nota: SQLite armazena datas como números ou texto, Postgres como timestamp ou bigint
-            // Aqui estamos assumindo que start_time é salvo como BigInteger (timestamp em ms) no Knex
+            // Para evitar problemas de fuso horário da Vercel (UTC) vs Brasil, subtraímos 3 horas,
+            // e forçamos o cast para string para bater perfeitamente com o BigInt do PostgreSQL
+            const today = new Date();
+            // Subtrai 3 horas para alinhar com o horário de Brasília aproximadamente (se o servidor for UTC)
+            if (today.getTimezoneOffset() === 0) {
+                today.setHours(today.getHours() - 3);
+            }
+            today.setHours(0, 0, 0, 0);
+            const startOfDayTimestamp = today.getTime().toString();
+
             const result = await db('game_plays')
                 .where('user_id', req.session.userId)
                 .andWhere('is_free_trial', 1)
