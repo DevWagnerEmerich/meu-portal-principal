@@ -3109,3 +3109,17 @@
 {"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
 {"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
 {"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:21"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:22"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:16:22"}
+{"code":"XX000","length":127,"level":"error","message":"Falha ao conectar ao banco de dados: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size","name":"error","service":"portal-jogos-service","severity":"FATAL","stack":"error: MaxClientsInSessionMode: max clients reached - in Session mode max clients are limited to pool_size\n    at Parser.parseErrorMessage (E:\\meu-portal-de-jogos - backup\\node_modules\\pg-protocol\\dist\\parser.js:285:98)\n    at Parser.handlePacket (E:\\meu-portal-de-jogos - backup\\node_modules\\pg-protocol\\dist\\parser.js:122:29)\n    at Parser.parse (E:\\meu-portal-de-jogos - backup\\node_modules\\pg-protocol\\dist\\parser.js:35:38)\n    at TLSSocket.<anonymous> (E:\\meu-portal-de-jogos - backup\\node_modules\\pg-protocol\\dist\\index.js:11:42)\n    at TLSSocket.emit (node:events:508:28)\n    at addChunk (node:internal/streams/readable:559:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)\n    at Readable.push (node:internal/streams/readable:390:5)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23)","timestamp":"2026-02-24 23:25:38"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:26:17"}

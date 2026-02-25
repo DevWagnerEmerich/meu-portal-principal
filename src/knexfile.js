@@ -3,7 +3,16 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 console.log('Ambiente:', process.env.NODE_ENV);
 console.log('DATABASE_URL presente?', !!process.env.DATABASE_URL);
-if (process.env.DATABASE_URL) console.log('DB Host:', new URL(process.env.DATABASE_URL).host);
+
+let ServerlessURL = process.env.DATABASE_URL;
+if (ServerlessURL && ServerlessURL.includes('pooler.supabase.com') && ServerlessURL.includes(':5432')) {
+    ServerlessURL = ServerlessURL.replace(':5432', ':6543');
+    if (!ServerlessURL.includes('pgbouncer=true')) {
+        ServerlessURL += (ServerlessURL.includes('?') ? '&' : '?') + 'pgbouncer=true';
+    }
+}
+
+if (ServerlessURL) console.log('DB Host:', new URL(ServerlessURL).host);
 
 module.exports = {
     development: {
@@ -23,7 +32,7 @@ module.exports = {
     production: {
         client: 'pg',
         connection: {
-            connectionString: process.env.DATABASE_URL,
+            connectionString: ServerlessURL,
             ssl: { rejectUnauthorized: false }
         },
         migrations: {

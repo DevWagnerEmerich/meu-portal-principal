@@ -70,11 +70,18 @@ setupEmail();
 let sessionStore;
 if (process.env.DATABASE_URL) {
     // If using PG, create a pool for sessions to be safe/independent or reuse config
-    // Prevents exhausting DB connections on Vercel Serverless deployments
+    let ServerlessSessionURL = process.env.DATABASE_URL;
+    if (ServerlessSessionURL && ServerlessSessionURL.includes('pooler.supabase.com') && ServerlessSessionURL.includes(':5432')) {
+        ServerlessSessionURL = ServerlessSessionURL.replace(':5432', ':6543');
+        if (!ServerlessSessionURL.includes('pgbouncer=true')) {
+            ServerlessSessionURL += (ServerlessSessionURL.includes('?') ? '&' : '?') + 'pgbouncer=true';
+        }
+    }
+
     let pool;
     if (!global.__sessionPool__) {
         pool = new pg.Pool({
-            connectionString: process.env.DATABASE_URL,
+            connectionString: ServerlessSessionURL,
             ssl: { rejectUnauthorized: false },
             max: 2 // Evitar estourar pool de conexões do Supabase
         });
