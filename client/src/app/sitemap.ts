@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { API_URL } from '@/lib/config';
+import { Pool } from 'pg';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://brincabytes.com.br'; // Substitua pelo domínio real no deploy
@@ -18,12 +18,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: route === '' ? 1 : 0.8,
     }));
 
-    // Buscar rotas dinâmicas de jogos
+    // Buscar rotas dinâmicas de jogos diretamente do banco de dados (Evita loop de fetch no Vercel SSR)
     let gameRoutes: MetadataRoute.Sitemap = [];
+    let pool: Pool | null = null;
+
     try {
-        const response = await fetch(`${API_URL}/api/games`, { cache: 'no-store' });
-        if (response.ok) {
-            const games = await response.json();
+        if (process.env.DATABASE_URL) {
+            // Ajuste para conexão do Supabase com PgBouncer no ambiente serverless
+            let connectionString = process.env.DATABASE_URL;
+            if (connectionString.includes('pooler.supabase.com') && connectionString.includes(':5432')) {
+                connectionString = connectionString.replace(':5432', ':6543');
+                if (!connectionString.includes('pgbouncer=true')) {
+                    connectionString += (connectionString.includes('?') ? '&' : '?') + 'pgbouncer=true';
+                }
+            }
+
+            pool = new Pool({
+                connectionString,
+                ssl: { rejectUnauthorized: false }
+            });
+
+            const result = await pool.query('SELECT id, updated_at, is_featured FROM games WHERE id IS NOT NULL');
+            const games = result.rows;
+
             gameRoutes = games.map((game: any) => ({
                 url: `${baseUrl}/play/${game.id}`,
                 lastModified: new Date(game.updated_at || Date.now()),
@@ -32,7 +49,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }));
         }
     } catch (error) {
-        console.error('Failed to generate sitemap for games:', error);
+        console.error('Failed to generate sitemap for games from DB:', error);
+    } finally {
+        if (pool) {
+            await pool.end().catch(console.error);
+        }
     }
 
     return [...staticRoutes, ...gameRoutes];
