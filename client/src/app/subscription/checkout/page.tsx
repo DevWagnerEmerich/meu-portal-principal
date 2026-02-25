@@ -51,7 +51,7 @@ function CheckoutContent() {
                     const res = await fetch(`${API_URL}/api/user-status?t=${Date.now()}`, { credentials: "include", cache: "no-store" });
                     const data = await res.json();
                     // Se o status retornado tiver subscription ativa diferente da anterior (ou se a data expira no futuro), redireciona
-                    if (data.subscription?.isActive && data.subscription?.plan !== 'free') {
+                    if (data.subscriptionType && data.subscriptionType !== 'none') {
                         router.push("/subscription/checkout/success");
                     }
                 } catch (err) {
