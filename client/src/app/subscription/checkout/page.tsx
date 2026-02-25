@@ -57,7 +57,7 @@ function CheckoutContent() {
                 } catch (err) {
                     console.error("Erro no polling:", err);
                 }
-            }, 5000);
+            }, 10000); // Check every 10 seconds to prevent DB connection limits
         }
         return () => clearInterval(interval);
     }, [pixData, router]);

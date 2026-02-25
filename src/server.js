@@ -72,7 +72,8 @@ if (process.env.DATABASE_URL) {
     // If using PG, create a pool for sessions to be safe/independent or reuse config
     const pool = new pg.Pool({
         connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
+        ssl: { rejectUnauthorized: false },
+        max: 2 // Evitar estourar pool de conexões do Supabase
     });
     sessionStore = new pgSession({
         pool: pool,
