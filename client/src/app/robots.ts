@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/admin/', '/api/'],
         },
-        sitemap: 'https://brincabytes.com.br/sitemap.xml', // Substitua pelo domínio real em produção
+        sitemap: 'https://brincabytes.vercel.app/sitemap.xml', // Domínio Vercel travado para o Search Console
     };
 }
