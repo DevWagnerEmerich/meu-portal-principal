@@ -1,8 +1,7 @@
 import { MetadataRoute } from 'next';
 import { Pool } from 'pg';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 86400; // Cache de 24 horas na CDN da Vercel (Edge) para impedir Timeout do Googlebot
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://brincabytes.vercel.app'; // Força o domínio grátis do Vercel para o Google Search Console
