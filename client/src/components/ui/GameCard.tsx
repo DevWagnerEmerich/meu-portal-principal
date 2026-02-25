@@ -64,7 +64,7 @@ export function GameCard({ id, title, thumbnail, category, is_premium, isNew, pr
                         </Button>
                     </Link>
                     {printable_url && (
-                        <a href={printable_url} target="_blank" rel="noopener noreferrer" className="flex-none">
+                        <a href={printable_url} download target="_blank" rel="noopener noreferrer" className="flex-none">
                             <Button variant="outline" className="px-3" title="Baixar Material para Impressão">
                                 <Download className="w-4 h-4" />
                             </Button>
