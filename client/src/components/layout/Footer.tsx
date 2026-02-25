@@ -57,7 +57,7 @@ export function Footer() {
                         <ul className="space-y-3">
                             <li className="flex items-center gap-2 text-sm text-slate-400">
                                 <Mail className="w-4 h-4 text-slate-500" />
-                                contato@brincabytes.com.br
+                                brincabytes@gmail.com
                             </li>
                             <li className="flex items-center gap-2 text-sm text-slate-400">
                                 <MapPin className="w-4 h-4 text-slate-500" />
