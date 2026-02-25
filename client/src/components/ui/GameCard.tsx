@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play, Star, Crown, Download } from "lucide-react";
+import { Play, Star, Crown, Download, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./button";
@@ -15,9 +15,10 @@ interface GameCardProps {
     is_premium?: boolean;
     isNew?: boolean;
     printable_url?: string;
+    tutorial_url?: string;
 }
 
-export function GameCard({ id, title, thumbnail, category, is_premium, isNew, printable_url }: GameCardProps) {
+export function GameCard({ id, title, thumbnail, category, is_premium, isNew, printable_url, tutorial_url }: GameCardProps) {
     return (
         <motion.div
             whileHover={{ y: -8 }}
@@ -63,6 +64,13 @@ export function GameCard({ id, title, thumbnail, category, is_premium, isNew, pr
                             Jogar
                         </Button>
                     </Link>
+                    {tutorial_url && (
+                        <a href={tutorial_url} target="_blank" rel="noopener noreferrer" className="flex-none">
+                            <Button variant="outline" className="px-3 border-rose-500/30 text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 hover:border-rose-500/50" title="Como Jogar (Tutorial)">
+                                <Youtube className="w-4 h-4" />
+                            </Button>
+                        </a>
+                    )}
                     {printable_url && (
                         <a href={printable_url} download target="_blank" rel="noopener noreferrer" className="flex-none">
                             <Button variant="outline" className="px-3" title="Baixar Material para Impressão">

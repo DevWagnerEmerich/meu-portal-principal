@@ -185,7 +185,7 @@ router.get('/games/:id', async (req, res) => {
 // Admin: Criar novo jogo
 router.post('/games', isAdmin, async (req, res) => {
     try {
-        const { id, title, description, thumbnail, game_url, printable_url, category, is_premium, is_featured } = req.body;
+        const { id, title, description, thumbnail, game_url, printable_url, tutorial_url, category, is_premium, is_featured } = req.body;
 
         // Validação básica
         if (!id || !title || !game_url) {
@@ -204,6 +204,7 @@ router.post('/games', isAdmin, async (req, res) => {
             thumbnail,
             game_url,
             printable_url,
+            tutorial_url,
             category: category || 'Geral',
             is_premium: is_premium || false,
             is_featured: is_featured || false,

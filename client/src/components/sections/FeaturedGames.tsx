@@ -15,6 +15,7 @@ interface Game {
     category?: string;
     is_premium?: boolean;
     printable_url?: string;
+    tutorial_url?: string;
 }
 
 export function FeaturedGames() {
@@ -85,6 +86,7 @@ export function FeaturedGames() {
                                 category={game.is_premium || game.category?.toLowerCase().includes('vip') ? 'VIP Premium' : (game.category || 'Grátis')}
                                 isNew={index < 2} // Apenas um exemplo visual
                                 printable_url={game.printable_url}
+                                tutorial_url={game.tutorial_url}
                             />
                         </motion.div>
                     ))}

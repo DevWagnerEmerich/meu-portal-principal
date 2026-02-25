@@ -313,7 +313,8 @@ router.get('/plans', async (req, res) => {
     Object.keys(standardPrices).forEach(key => {
       discountedPrices[key] = {
         ...standardPrices[key],
-        price: parseFloat((prices[key] * discountMultiplier).toFixed(2))
+        price: parseFloat((prices[key] * discountMultiplier).toFixed(2)),
+        original_price: standardPrices[key].price
       };
     });
 

@@ -15,6 +15,7 @@ interface GameData {
     thumbnail: string;
     game_url: string;
     printable_url: string;
+    tutorial_url?: string;
     category: string;
     is_premium: boolean;
     is_featured: boolean;
@@ -37,6 +38,7 @@ export function GameForm({ initialData, isEditing = false }: GameFormProps) {
         thumbnail: "",
         game_url: "",
         printable_url: "",
+        tutorial_url: "",
         category: "Geral",
         is_premium: false,
         is_featured: false
@@ -172,6 +174,15 @@ export function GameForm({ initialData, isEditing = false }: GameFormProps) {
                         value={formData.printable_url || ""}
                         onChange={handleChange}
                         placeholder="/downloads/..."
+                    />
+                </div>
+                <div className="space-y-2">
+                    <label className="text-sm font-medium text-slate-300">URL do Tutorial (YouTube/Vídeo)</label>
+                    <Input
+                        name="tutorial_url"
+                        value={formData.tutorial_url || ""}
+                        onChange={handleChange}
+                        placeholder="https://youtube.com/watch?v=..."
                     />
                 </div>
 
