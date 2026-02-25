@@ -118,7 +118,7 @@ router.post('/create-checkout-session', [
           pending: `${config.domain}/subscription/checkout`
         },
         auto_return: 'approved',
-        notification_url: `${config.domain}/api/payment/webhook`
+        notification_url: config.domain ? `${config.domain}/api/payment/webhook` : 'https://portaleducacional.vercel.app/api/payment/webhook'
         // Em localhost, webhook não funciona sem túnel (ngrok).
         // Recomendo usar ngrok http 3001 e colocar a URL no .env DOMAIN
       }
@@ -178,7 +178,7 @@ router.post('/create-pix-payment', [
 
     // O id de idempotência previne duplicidade. (Opcional, mas boa prática). Usaremos um UUID ou timestamp
     const idempotencyKey = `pix_${req.session.userId}_${Date.now()}`;
-    const webhookUrl = config.domain ? `${config.domain}/api/payment/webhook` : 'https://meu-portal-jogos.vercel.app/api/payment/webhook';
+    const webhookUrl = config.domain ? `${config.domain}/api/payment/webhook` : 'https://portaleducacional.vercel.app/api/payment/webhook';
 
     const result = await payment.create({
       body: {
@@ -333,7 +333,7 @@ router.get('/plans', async (req, res) => {
     }
 
     const offerDurationInMillis = BusinessRules.WELCOME_OFFER.DURATION_DAYS * 24 * 60 * 60 * 1000;
-    const offerEndDate = user.created_at + offerDurationInMillis;
+    const offerEndDate = Number(user.created_at) + offerDurationInMillis;
     const isOfferActive = Date.now() < offerEndDate;
 
     const plans = isOfferActive ? discountedPrices : standardPrices;
