@@ -3061,3 +3061,51 @@
 {"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:56:52"}
 {"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:56:52"}
 {"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:56:52"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:31"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 21:57:32"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:13:25"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:27"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Servidor rodando em http://localhost:3001","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-02-24 23:15:56"}

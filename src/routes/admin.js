@@ -59,11 +59,9 @@ router.get('/stats', async (req, res) => {
 
         const [totalUsers, newUsersToday, activeSubscriptions, totalPlays, topGames] = await Promise.all(Object.values(queries));
 
-        // Mapear IDs dos jogos para nomes
-        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
-        const gamesData = await fs.readFile(gamesPath, 'utf8');
-        const games = JSON.parse(gamesData);
-        const gamesMap = new Map(games.map(game => [game.id, game.title]));
+        // Mapear IDs dos jogos para nomes pelo Banco de Dados
+        const gamesList = await db('games').select('id', 'title');
+        const gamesMap = new Map(gamesList.map(game => [game.id, game.title]));
 
         const topGamesWithNames = topGames.map(game => ({
             ...game,
@@ -178,11 +176,9 @@ router.get('/metrics/games/play-time', async (req, res) => {
             .sum('duration_seconds as total_duration')
             .groupBy('game_id');
 
-        // Mapear IDs dos jogos para nomes
-        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
-        const gamesData = await fs.readFile(gamesPath, 'utf8');
-        const games = JSON.parse(gamesData);
-        const gamesMap = new Map(games.map(game => [game.id, game.title]));
+        // Mapear IDs dos jogos para nomes pelo DB
+        const gamesList = await db('games').select('id', 'title');
+        const gamesMap = new Map(gamesList.map(game => [game.id, game.title]));
 
         const resultsWithNames = rows.map(row => ({
             title: gamesMap.get(row.game_id) || 'Jogo Desconhecido',

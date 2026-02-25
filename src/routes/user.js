@@ -224,10 +224,8 @@ router.get('/user/play-history', async (req, res) => {
     }
 
     try {
-        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
-        const gamesData = await fs.readFile(gamesPath, 'utf8');
-        const games = JSON.parse(gamesData);
-        const gamesMap = new Map(games.map(game => [game.id, game]));
+        const gamesList = await db('games').select('id', 'title', 'thumbnail');
+        const gamesMap = new Map(gamesList.map(game => [game.id, game]));
 
         const rows = await db('game_plays')
             .where('user_id', req.session.userId)

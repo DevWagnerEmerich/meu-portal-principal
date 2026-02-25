@@ -40,12 +40,11 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
             startedRef.current = true;
 
             try {
-                // 1. Buscar detalhes do jogo
-                const gamesRes = await fetch(`${API_URL}/games.json`);
-                const games: Game[] = await gamesRes.json();
-                const foundGame = games.find(g => g.id === gameId);
+                // 1. Buscar detalhes do jogo via API do backend
+                const gameRes = await fetch(`${API_URL}/api/games/${gameId}`);
 
-                if (foundGame) {
+                if (gameRes.ok) {
+                    const foundGame: Game = await gameRes.json();
                     setGame(foundGame);
 
                     // 2. Tentar iniciar o jogo (consumir energia)

@@ -6,19 +6,18 @@ const BusinessRules = require('../business-rules');
 
 const router = express.Router();
 
-// A rota para buscar os jogos mais acessados não usa o DB, então permanece igual.
+// A rota para buscar os jogos mais acessados usava JSON files locais.
+// Agora usa o DB fallback para prevenir problemas no Serverless (Vercel)
 router.get('/games/most-accessed', async (req, res) => {
     try {
         const statsPath = path.join(__dirname, '..', 'data', 'game_access_stats.json');
-        const gamesPath = path.join(__dirname, '..', '..', 'public', 'games.json');
 
-        const [statsData, gamesData] = await Promise.all([
+        const [statsData, games] = await Promise.all([
             fs.readFile(statsPath, 'utf8').catch(() => '{}'),
-            fs.readFile(gamesPath, 'utf8')
+            db('games').select('*')
         ]);
 
         const stats = JSON.parse(statsData);
-        const games = JSON.parse(gamesData);
 
         const sortedGameIds = Object.keys(stats).sort((a, b) => stats[b] - stats[a]);
         const top3GameIds = sortedGameIds.slice(0, 3);
@@ -161,6 +160,22 @@ router.get('/games', async (req, res) => {
     } catch (error) {
         console.error('Erro ao buscar jogos:', error);
         res.status(500).json({ message: 'Erro ao carregar jogos.' });
+    }
+});
+
+// Rota pública para buscar um jogo específico pelo ID
+router.get('/games/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const game = await db('games').where({ id }).first();
+
+        if (!game) {
+            return res.status(404).json({ message: 'Jogo não encontrado.' });
+        }
+        res.json(game);
+    } catch (error) {
+        console.error(`Erro ao buscar jogo ${req.params.id}:`, error);
+        res.status(500).json({ message: 'Erro ao carregar o jogo.' });
     }
 });
 
