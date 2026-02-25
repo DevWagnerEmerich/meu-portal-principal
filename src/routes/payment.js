@@ -178,6 +178,7 @@ router.post('/create-pix-payment', [
 
     // O id de idempotência previne duplicidade. (Opcional, mas boa prática). Usaremos um UUID ou timestamp
     const idempotencyKey = `pix_${req.session.userId}_${Date.now()}`;
+    const webhookUrl = config.domain ? `${config.domain}/api/payment/webhook` : 'https://meu-portal-jogos.vercel.app/api/payment/webhook';
 
     const result = await payment.create({
       body: {
@@ -193,7 +194,7 @@ router.post('/create-pix-payment', [
           planId: id,
           planTitle: title
         }),
-        notification_url: `${config.domain}/api/payment/webhook`
+        notification_url: webhookUrl
       },
       requestOptions: { idempotencyKey }
     });
@@ -207,7 +208,7 @@ router.post('/create-pix-payment', [
         payment_id: result.id
       });
     } else {
-      throw new Error("Dados do PIX não retornados pelo Mercado Pago");
+      throw new Error(`Mercado Pago não retornou os dados do PIX: ${JSON.stringify(result)}`);
     }
 
   } catch (error) {

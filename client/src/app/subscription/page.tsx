@@ -20,8 +20,8 @@ export default function SubscriptionPage() {
     const [offer, setOffer] = useState<{ active: boolean; expiresAt: number | null }>({ active: false, expiresAt: null });
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'teacher' | 'school'>('teacher');
-    
-    // Configurações e Planos Individuais (Teacher)
+
+    // ConfiguraÃ§Ãµes e Planos Individuais (Teacher)
     const [plans, setPlans] = useState<Record<string, Plan>>({});
 
     // B2B Lead Form State
@@ -37,14 +37,14 @@ export default function SubscriptionPage() {
 
     // Novo State B2B
     const [teacherCount, setTeacherCount] = useState(5);
-    const BASE_FEE = 149.90; // Taxa plataforma base (até 5 professores)
+    const BASE_FEE = 149.90; // Taxa plataforma base (atÃ© 5 professores)
     const COST_PER_ADDITIONAL_TEACHER = 19.90;
 
     useEffect(() => {
         // Fetch User Status (Offer) and Plans
         Promise.all([
-            fetch(${API_URL}/api/user-status, { credentials: "include" }).then(res => res.json()),
-            fetch(${API_URL}/api/payment/plans, { credentials: "include" }).then(res => res.json())
+            fetch(`${API_URL}/api/user-status`, { credentials: "include" }).then(res => res.json()),
+            fetch(`${API_URL}/api/payment/plans`, { credentials: "include" }).then(res => res.json())
         ])
             .then(([statusData, plansData]) => {
                 if (statusData.welcomeOffer) setOffer(statusData.welcomeOffer);
@@ -54,7 +54,7 @@ export default function SubscriptionPage() {
             .finally(() => setLoading(false));
     }, []);
 
-    // Calcula o preço final da escola
+    // Calcula o preÃ§o final da escola
     const calculateSchoolPrice = () => {
         let price = BASE_FEE;
         if (teacherCount > 5) {
@@ -88,7 +88,7 @@ export default function SubscriptionPage() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(${API_URL}/api/contact/school-quote, {
+            const response = await fetch(`${API_URL}/api/contact/school-quote`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -101,18 +101,18 @@ export default function SubscriptionPage() {
                 setIsSuccess(true);
             } else {
                 const data = await response.json();
-                alert(Erro: );
+                alert(`Erro: ${data.message || 'Falha ao enviar a solicitaÃ§Ã£o.'}`);
             }
         } catch (error) {
             console.error('Erro ao enviar form:', error);
-            alert('Erro de conexão ao tentar enviar a solicitação.');
+            alert('Erro de conexÃ£o ao tentar enviar a solicitaÃ§Ã£o.');
         } finally {
             setIsSubmitting(false);
         }
     };
 
     const handleSubscribeTeacher = (planId: string) => {
-        router.push(/subscription/checkout?plan=);
+        router.push(`/subscription/checkout?plan=${planId}`);
     };
 
     if (loading) {
@@ -148,7 +148,7 @@ export default function SubscriptionPage() {
                         transition={{ delay: 0.1 }}
                         className="text-4xl md:text-5xl font-bold text-white tracking-tight"
                     >
-                        Planos flexíveis que crescem com <span className="text-teal-400">{activeTab === 'school' ? 'sua Instituição' : 'Você'}</span>
+                        Planos flexÃ­veis que crescem com <span className="text-teal-400">{activeTab === 'school' ? 'sua InstituiÃ§Ã£o' : 'VocÃª'}</span>
                     </motion.h1>
 
                     <motion.p
@@ -158,7 +158,7 @@ export default function SubscriptionPage() {
                         className="text-xl text-slate-400"
                     >
                         Ferramentas exclusivas para professores engajarem alunos.
-                        Alunos são e sempre serão gratuitos.
+                        Alunos sÃ£o e sempre serÃ£o gratuitos.
                     </motion.p>
                 </div>
 
@@ -170,7 +170,7 @@ export default function SubscriptionPage() {
                     >
                         <p className="font-bold text-emerald-400 flex items-center justify-center gap-2 text-sm">
                             <Sparkles className="w-4 h-4 fill-current" />
-                            Oferta Exclusiva: 25% de desconto vitalício.
+                            Oferta Exclusiva: 25% de desconto vitalÃ­cio.
                         </p>
                     </motion.div>
                 )}
@@ -179,19 +179,19 @@ export default function SubscriptionPage() {
                 <div className="flex justify-center mb-16">
                     <div className="bg-slate-900 border border-slate-700 rounded-full p-2 flex items-center relative w-full max-w-md shadow-2xl">
                         {/* Tab Indicator */}
-                        <div 
-                            className={bsolute inset-y-2 left-2 w-[calc(50%-0.5rem)] rounded-full bg-indigo-600 transition-transform duration-300 ease-in-out }
+                        <div
+                            className={`absolute inset-y-2 left-2 w-[calc(50%-0.5rem)] rounded-full bg-indigo-600 transition-transform duration-300 ease-in-out ${activeTab === 'school' ? 'translate-x-full' : ''}`}
                         />
-                        
-                        <button 
+
+                        <button
                             onClick={() => setActiveTab('teacher')}
-                            className={lex-[1] relative z-10 py-3 text-sm font-bold flex items-center justify-center gap-2 rounded-full transition-colors }
+                            className={`flex-[1] relative z-10 py-3 text-sm font-bold flex items-center justify-center gap-2 rounded-full transition-colors ${activeTab === 'teacher' ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                         >
                             <GraduationCap className="w-4 h-4" /> Para Professores
                         </button>
-                        <button 
+                        <button
                             onClick={() => setActiveTab('school')}
-                            className={lex-[1] relative z-10 py-3 text-sm font-bold flex items-center justify-center gap-2 rounded-full transition-colors }
+                            className={`flex-[1] relative z-10 py-3 text-sm font-bold flex items-center justify-center gap-2 rounded-full transition-colors ${activeTab === 'school' ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                         >
                             <Building2 className="w-4 h-4" /> Para Escolas
                         </button>
@@ -213,9 +213,9 @@ export default function SubscriptionPage() {
                             {Object.entries(plans).map(([key, plan]) => {
                                 const isPopular = key === 'semiannual';
                                 return (
-                                    <div 
+                                    <div
                                         key={key}
-                                        className={elative bg-slate-900 border rounded-3xl p-8 shadow-xl flex flex-col transition-transform hover:-translate-y-2 }
+                                        className={`relative bg-slate-900 border rounded-3xl p-8 shadow-xl flex flex-col transition-transform hover:-translate-y-2 ${isPopular ? 'border-indigo-500 shadow-indigo-500/20' : 'border-slate-800'}`}
                                     >
                                         {isPopular && (
                                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
@@ -240,9 +240,9 @@ export default function SubscriptionPage() {
                                             ))}
                                         </div>
 
-                                        <Button 
+                                        <Button
                                             onClick={() => handleSubscribeTeacher(key)}
-                                            className={w-full h-12 text-base font-bold transition-all }
+                                            className={`w-full h-12 text-base font-bold transition-all ${isPopular ? 'bg-indigo-600 hover:bg-indigo-500 text-white' : 'bg-slate-800 hover:bg-slate-700 text-white'}`}
                                         >
                                             Assinar {plan.title}
                                         </Button>
@@ -265,7 +265,7 @@ export default function SubscriptionPage() {
                             {/* Left side: Calculator */}
                             <div className="bg-slate-900 border border-slate-800 rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none p-8 md:p-12 h-full flex flex-col justify-center relative z-10 shadow-2xl flex-1">
                                 <h3 className="text-2xl font-bold text-white mb-2">Tamanho da Equipe</h3>
-                                <p className="text-slate-400 mb-8">Quantos professores usarão a plataforma?</p>
+                                <p className="text-slate-400 mb-8">Quantos professores usarÃ£o a plataforma?</p>
 
                                 <div className="mb-12">
                                     <div className="flex justify-between text-sm font-medium text-slate-400 mb-4">
@@ -286,12 +286,12 @@ export default function SubscriptionPage() {
                                         />
                                         <div
                                             className="absolute h-full bg-gradient-to-r from-teal-500 to-indigo-500 rounded-full z-10 transition-all duration-150"
-                                            style={{ width: ${(teacherCount / 50) * 100}% }}
+                                            style={{ width: `${(teacherCount / 50) * 100}%` }}
                                         ></div>
                                         {/* Slider Thumb Visuals */}
                                         <div
                                             className="absolute top-1/2 -mt-3 w-6 h-6 bg-white rounded-full shadow-lg border-2 border-indigo-500 z-10 transition-all duration-150 transform -translate-x-1/2 pointer-events-none"
-                                            style={{ left: ${(teacherCount / 50) * 100}% }}
+                                            style={{ left: `${(teacherCount / 50) * 100}%` }}
                                         ></div>
                                     </div>
 
@@ -311,8 +311,8 @@ export default function SubscriptionPage() {
                                 </div>
 
                                 <div className="mb-8">
-                                    <h4 className="text-3xl font-black text-white tracking-tight leading-tight">Média R$ {(finalPrice / teacherCount).toFixed(2).replace('.', ',')} /prof</h4>
-                                    <p className="text-slate-400 mt-3 font-medium">Alunos ilimitados inclusos independente do número de professores.</p>
+                                    <h4 className="text-3xl font-black text-white tracking-tight leading-tight">MÃ©dia R$ {(finalPrice / teacherCount).toFixed(2).replace('.', ',')} /prof</h4>
+                                    <p className="text-slate-400 mt-3 font-medium">Alunos ilimitados inclusos independente do nÃºmero de professores.</p>
                                 </div>
 
                                 <div className="space-y-4 mb-8 flex-1">
@@ -326,11 +326,11 @@ export default function SubscriptionPage() {
                                     </div>
                                     <div className="flex items-start gap-3">
                                         <Check className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
-                                        <span className="text-slate-300"><span className="text-white font-bold">{teacherCount}</span> licenças de educador ativas</span>
+                                        <span className="text-slate-300"><span className="text-white font-bold">{teacherCount}</span> licenÃ§as de educador ativas</span>
                                     </div>
                                     <div className="flex items-start gap-3">
                                         <BookOpen className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
-                                        <span className="text-slate-300">Material de apoio pedagógico</span>
+                                        <span className="text-slate-300">Material de apoio pedagÃ³gico</span>
                                     </div>
                                 </div>
 
@@ -352,8 +352,8 @@ export default function SubscriptionPage() {
 
                 <div className="mt-20 text-center border-t border-slate-800 pt-10">
                     <p className="text-slate-400 text-sm max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
-                        <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-emerald-400" /> Transação segura</span>
-                        <span className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Relatórios (Em breve)</span>
+                        <span className="flex items-center gap-2"><Shield className="w-4 h-4 text-emerald-400" /> TransaÃ§Ã£o segura</span>
+                        <span className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> RelatÃ³rios (Em breve)</span>
                         <span className="flex items-center gap-2"><Users className="w-4 h-4 text-emerald-400" /> Treinamento incluso</span>
                     </p>
                 </div>
@@ -390,19 +390,19 @@ export default function SubscriptionPage() {
 
                                     <form onSubmit={handleFormSubmit} className="space-y-4">
                                         <div>
-                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome da Instituição</label>
+                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome da InstituiÃ§Ã£o</label>
                                             <div className="relative">
                                                 <Building2 className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                 <input
                                                     type="text" required name="schoolName" value={formData.schoolName} onChange={handleInputChange}
                                                     className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
-                                                    placeholder="Sua Escola ou Colégio"
+                                                    placeholder="Sua Escola ou ColÃ©gio"
                                                 />
                                             </div>
                                         </div>
 
                                         <div>
-                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome do Responsável</label>
+                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome do ResponsÃ¡vel</label>
                                             <div className="relative">
                                                 <User className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                 <input
@@ -453,9 +453,9 @@ export default function SubscriptionPage() {
                                     <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
                                         <CheckCircle2 className="w-8 h-8 text-emerald-400" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">Solicitação Enviada!</h3>
+                                    <h3 className="text-2xl font-bold text-white mb-2">SolicitaÃ§Ã£o Enviada!</h3>
                                     <p className="text-slate-400 text-sm mb-6 max-w-[280px] mx-auto">
-                                        Nossa equipe recebeu os dados de {formData.schoolName} e entrará em contato em breve no número fornecido.
+                                        Nossa equipe recebeu os dados de {formData.schoolName} e entrarÃ¡ em contato em breve no nÃºmero fornecido.
                                     </p>
                                     <Button onClick={handleCloseModal} className="w-full bg-slate-800 hover:bg-slate-700 text-white">
                                         Fechar Janela
