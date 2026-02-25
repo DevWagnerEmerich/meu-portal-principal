@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play, Star, Crown } from "lucide-react";
+import { Play, Star, Crown, Download } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./button";
@@ -14,9 +14,10 @@ interface GameCardProps {
     category?: string;
     is_premium?: boolean;
     isNew?: boolean;
+    printable_url?: string;
 }
 
-export function GameCard({ id, title, thumbnail, category, is_premium, isNew }: GameCardProps) {
+export function GameCard({ id, title, thumbnail, category, is_premium, isNew, printable_url }: GameCardProps) {
     return (
         <motion.div
             whileHover={{ y: -8 }}
@@ -55,13 +56,20 @@ export function GameCard({ id, title, thumbnail, category, is_premium, isNew }: 
                     </div>
                 </div>
 
-                <div className="flex gap-3 mt-4 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <Link href={`/play/${id}`} className="w-full">
+                <div className="flex gap-2 mt-4 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <Link href={`/play/${id}`} className="flex-1">
                         <Button variant="secondary" className="w-full">
                             <Play className="w-4 h-4 mr-2" fill="currentColor" />
                             Jogar
                         </Button>
                     </Link>
+                    {printable_url && (
+                        <a href={printable_url} target="_blank" rel="noopener noreferrer" className="flex-none">
+                            <Button variant="outline" className="px-3" title="Baixar Material para Impressão">
+                                <Download className="w-4 h-4" />
+                            </Button>
+                        </a>
+                    )}
                 </div>
             </div>
         </motion.div>

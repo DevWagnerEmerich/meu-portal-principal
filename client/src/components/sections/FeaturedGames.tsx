@@ -14,6 +14,7 @@ interface Game {
     thumbnail: string;
     category?: string;
     is_premium?: boolean;
+    printable_url?: string;
 }
 
 export function FeaturedGames() {
@@ -83,6 +84,7 @@ export function FeaturedGames() {
                                 thumbnail={game.thumbnail.startsWith('http') ? game.thumbnail : `${API_URL}${game.thumbnail}`} // Ajusta URL da imagem apenas se for relativa
                                 category={game.is_premium || game.category?.toLowerCase().includes('vip') ? 'VIP Premium' : (game.category || 'Grátis')}
                                 isNew={index < 2} // Apenas um exemplo visual
+                                printable_url={game.printable_url}
                             />
                         </motion.div>
                     ))}
