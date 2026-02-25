@@ -97,7 +97,7 @@ router.post('/game-start', async (req, res) => {
                 today.setHours(today.getHours() - 3);
             }
             today.setHours(0, 0, 0, 0);
-            const startOfDayTimestamp = today.getTime().toString();
+            const startOfDayTimestamp = today.getTime();
 
             const result = await db('game_plays')
                 .where('user_id', req.session.userId)

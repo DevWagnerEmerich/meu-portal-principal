@@ -21,6 +21,9 @@ router.get('/user-status', async (req, res) => {
                 const LIMIT = BusinessRules.FREE_PLAYS.LIMIT;
 
                 const today = new Date();
+                if (today.getTimezoneOffset() === 0) {
+                    today.setHours(today.getHours() - 3);
+                }
                 today.setHours(0, 0, 0, 0);
                 const startOfDayTimestamp = today.getTime();
 
