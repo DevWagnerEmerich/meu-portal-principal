@@ -431,10 +431,11 @@ export default function SubscriptionPage() {
 
                                     <form onSubmit={handleFormSubmit} className="space-y-4">
                                         <div>
-                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome da Instituição</label>
+                                            <label htmlFor="schoolName" className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome da Instituição</label>
                                             <div className="relative">
                                                 <Building2 className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                 <input
+                                                    id="schoolName"
                                                     type="text" required name="schoolName" value={formData.schoolName} onChange={handleInputChange}
                                                     className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                                     placeholder="Sua Escola ou Colégio"
@@ -443,10 +444,11 @@ export default function SubscriptionPage() {
                                         </div>
 
                                         <div>
-                                            <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome do Responsável</label>
+                                            <label htmlFor="contactName" className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Nome do Responsável</label>
                                             <div className="relative">
                                                 <User className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                 <input
+                                                    id="contactName"
                                                     type="text" required name="contactName" value={formData.contactName} onChange={handleInputChange}
                                                     className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                                     placeholder="Coordenador ou Diretor"
@@ -456,10 +458,11 @@ export default function SubscriptionPage() {
 
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">E-mail</label>
+                                                <label htmlFor="contactEmail" className="text-xs font-semibold text-slate-400 uppercase mb-1 block">E-mail</label>
                                                 <div className="relative">
                                                     <Mail className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                     <input
+                                                        id="contactEmail"
                                                         type="email" required name="contactEmail" value={formData.contactEmail} onChange={handleInputChange}
                                                         className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                                         placeholder="contato@..."
@@ -467,10 +470,11 @@ export default function SubscriptionPage() {
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Telefone / WhatsApp</label>
+                                                <label htmlFor="contactPhone" className="text-xs font-semibold text-slate-400 uppercase mb-1 block">Telefone / WhatsApp</label>
                                                 <div className="relative">
                                                     <Phone className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                                                     <input
+                                                        id="contactPhone"
                                                         type="tel" required name="contactPhone" value={formData.contactPhone} onChange={handleInputChange}
                                                         className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                                         placeholder="(00) 00000-0000"
