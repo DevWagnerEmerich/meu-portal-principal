@@ -11,6 +11,7 @@ interface Plan {
     id: string;
     title: string;
     price: number;
+    original_price?: number;
     duration_days: number;
     features: string[];
 }
@@ -19,7 +20,28 @@ export default function SubscriptionPage() {
     const router = useRouter();
     const [offer, setOffer] = useState<{ active: boolean; expiresAt: number | null }>({ active: false, expiresAt: null });
     const [loading, setLoading] = useState(true);
+    const [timeLeft, setTimeLeft] = useState("");
     const [activeTab, setActiveTab] = useState<'teacher' | 'school'>('teacher');
+
+    useEffect(() => {
+        if (offer.active && offer.expiresAt) {
+            const interval = setInterval(() => {
+                const now = Date.now();
+                const diff = (offer.expiresAt as number) - now;
+                if (diff <= 0) {
+                    setTimeLeft("Expirada");
+                    setOffer(prev => ({ ...prev, active: false }));
+                    clearInterval(interval);
+                } else {
+                    const h = Math.floor(diff / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    setTimeLeft(`${h}h ${m}m ${s}s`);
+                }
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [offer]);
 
     // Configurações e Planos Individuais (Teacher)
     const [plans, setPlans] = useState<Record<string, Plan>>({});
@@ -166,12 +188,19 @@ export default function SubscriptionPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="max-w-md mx-auto mb-10 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-full p-3 text-center"
+                        className="max-w-md mx-auto mb-10 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-2xl p-4 text-center shadow-[0_0_30px_rgba(16,185,129,0.15)] relative overflow-hidden"
                     >
-                        <p className="font-bold text-emerald-400 flex items-center justify-center gap-2 text-sm">
-                            <Sparkles className="w-4 h-4 fill-current" />
-                            Oferta Exclusiva: 25% de desconto vitalício.
-                        </p>
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-50"></div>
+                        <div className="flex flex-col items-center gap-1">
+                            <p className="font-bold text-emerald-400 flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                                <Sparkles className="w-4 h-4 fill-current animate-pulse" />
+                                Oferta de Boas-Vindas
+                            </p>
+                            <p className="text-white font-medium">Garanta 25% de desconto vitalício!</p>
+                            <div className="mt-2 text-emerald-300 text-xs font-bold flex items-center gap-2 bg-emerald-900/40 px-3 py-1.5 rounded-full border border-emerald-800/50">
+                                ⏳ Expira em: <span className="font-mono text-[14px] text-white tracking-widest">{timeLeft || "Calculando..."}</span>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
 
@@ -224,8 +253,20 @@ export default function SubscriptionPage() {
                                         )}
                                         <div className="text-center mb-6">
                                             <h3 className="text-xl font-bold text-white mb-2">{plan.title}</h3>
+
+                                            {plan.original_price && plan.original_price > plan.price ? (
+                                                <div className="mb-1 flex items-center justify-center gap-2">
+                                                    <span className="text-slate-500 line-through text-lg decoration-red-500/50">De R$ {plan.original_price.toFixed(2).replace('.', ',')}</span>
+                                                    <span className="text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">-25% OFF</span>
+                                                </div>
+                                            ) : (
+                                                <div className="h-[28px] mb-1"></div>
+                                            )}
+
                                             <div className="flex items-center justify-center gap-1">
-                                                <span className="text-slate-400 font-medium align-top mt-2">R$</span>
+                                                <span className="text-slate-400 font-medium align-top mt-2">
+                                                    {plan.original_price && plan.original_price > plan.price ? "Por R$" : "R$"}
+                                                </span>
                                                 <span className="text-5xl font-black text-white">{plan.price.toFixed(2).replace('.', ',')}</span>
                                             </div>
                                             <p className="text-slate-500 text-sm mt-2">cobrado a cada {plan.duration_days} dias</p>
