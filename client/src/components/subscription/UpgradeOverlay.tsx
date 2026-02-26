@@ -81,23 +81,13 @@ export function UpgradeOverlay({ reason = 'energy' }: UpgradeOverlayProps) {
                 )}
 
                 <div className="flex flex-col items-center mb-10 w-full max-w-2xl">
-                    {/* Timer Gigante Relâmpago (Apenas para energia) */}
-                    {reason === 'energy' && (
-                        <div className="mb-6 flex flex-col items-center animate-bounce">
-                            <span className="text-red-500 font-bold text-xs uppercase tracking-widest mb-1">Volta a jogar em</span>
-                            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-red-500 to-red-700 tabular-nums">
-                                {formatTime(timeLeft)}
-                            </div>
-                        </div>
-                    )}
-
                     {/* Icone Customizado */}
-                    <div className={`w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mb-6 border-2 ${reason === 'vip' ? 'border-amber-500' : 'border-indigo-500'} relative`}>
+                    <div className={`w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mb-6 border-2 ${reason === 'vip' ? 'border-amber-500' : 'border-red-500'} relative`}>
                         {reason === 'vip' ? (
                             <Crown className="w-10 h-10 text-amber-500" />
                         ) : (
                             <>
-                                <Zap className="w-10 h-10 text-slate-500" />
+                                <Zap className="w-10 h-10 text-red-500" />
                                 <div className="absolute -right-2 -top-2 bg-red-500 text-white text-xs font-bold w-8 h-8 flex items-center justify-center rounded-full border-2 border-slate-900 shadow-md">
                                     0
                                 </div>
@@ -106,15 +96,26 @@ export function UpgradeOverlay({ reason = 'energy' }: UpgradeOverlayProps) {
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                        {reason === 'vip' ? "Jogo Premium Exclusivo" : "Limite da Turma Atingido"}
+                        {reason === 'vip' ? "Jogo Premium Exclusivo" : "Energia Esgotada!"}
                     </h2>
                     <p className={`text-lg md:text-xl leading-relaxed ${reason === 'vip' ? 'text-amber-200/80' : 'text-slate-400'}`}>
                         {reason === 'vip'
-                            ? "Professor(a), este jogo faz parte da nossa coleção VIP."
-                            : "As jogadas gratuitas desta conta se esgotaram por precaução pedagógica."}
+                            ? "Professor(a), este jogo super engajador faz parte do nosso acervo VIP para assinantes."
+                            : "Você atingiu o limite seguro de testes gratuitos diários da sua conta."}
                         <br className="hidden md:block" />
-                        <span className="text-white mt-2 inline-block font-medium">Assine um Plano Inclusivo para liberar acesso total ilimitado para você ou sua escola.</span>
                     </p>
+
+                    <div className="mt-6 bg-slate-800/50 border border-slate-700 rounded-2xl p-6 w-full max-w-lg">
+                        <span className="text-teal-400 font-bold text-sm uppercase tracking-widest mb-2 block">Não pare a aula agora!</span>
+                        <span className="text-white text-base block mb-4">Assine o Plano Premium e libere todos os jogos ilimitados para você ou sua escola instantaneamente.</span>
+
+                        <div className="flex flex-col items-center bg-slate-900/80 rounded-xl py-3 border border-indigo-500/30">
+                            <span className="text-indigo-400 font-bold text-xs uppercase tracking-widest mb-1">🎁 Promoção de Boas-Vindas expira em:</span>
+                            <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-400 tabular-nums">
+                                {formatTime(timeLeft)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* SINGLE CALL TO ACTION FOR BOTH */}
