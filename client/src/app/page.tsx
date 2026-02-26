@@ -5,7 +5,7 @@ import { ShieldCheck, Users, Gamepad2, Award } from "lucide-react";
 
 export const metadata = {
   title: "BrincaBytes - Jogos Educativos que Desafiam e Ensinam",
-  description: "A BrincaBytes é a plataforma líder em jogos educativos interativos. Transforme a sala de aula ou o estudo em casa em uma aventura engajadora para alunos de todas as idades.",
+  description: "A BrincaBytes é um portal interativo de jogos educativos. Transforme a sala de aula ou o estudo em casa em uma aventura engajadora para alunos de todas as idades.",
   alternates: {
     canonical: 'https://brincabytes.com.br',
   }
@@ -19,7 +19,7 @@ const jsonLd = {
       "@id": "https://brincabytes.com.br/#website",
       "url": "https://brincabytes.com.br",
       "name": "BrincaBytes",
-      "description": "Plataforma líder em jogos educativos para escolas e alunos.",
+      "description": "Portal interativo de jogos educativos para escolas, professores e alunos.",
       "inLanguage": "pt-BR"
     },
     {
@@ -41,10 +41,10 @@ const jsonLd = {
 
 function TrustStats() {
   const stats = [
-    { id: 1, name: 'Jogos Interativos', value: '+50', icon: Gamepad2 },
-    { id: 2, name: 'Alunos Engajados', value: '10k+', icon: Users },
-    { id: 3, name: 'Ambiente Seguro', value: '100%', icon: ShieldCheck },
-    { id: 4, name: 'Aprovado por Professores', value: 'Nota 10', icon: Award },
+    { id: 1, name: 'Jogos em constante expansão', value: 'Catálogo', icon: Gamepad2 },
+    { id: 2, name: 'No aprendizado', value: 'Foco Total', icon: Users },
+    { id: 3, name: 'Livre de anúncios', value: '100% Seguro', icon: ShieldCheck },
+    { id: 4, name: 'Por professores', value: 'Validado', icon: Award },
   ];
 
   return (
