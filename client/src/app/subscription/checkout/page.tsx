@@ -15,7 +15,7 @@ function CheckoutContent() {
     const teachersParam = searchParams.get("teachers");
 
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<{ username?: string; email?: string } | null>(null);
+    const [user, setUser] = useState<{ username?: string; email?: string; subscriptionType?: string } | null>(null);
     const [offer, setOffer] = useState<{ active: boolean; expiresAt: number | null }>({ active: false, expiresAt: null });
     const [processing, setProcessing] = useState(false);
 
