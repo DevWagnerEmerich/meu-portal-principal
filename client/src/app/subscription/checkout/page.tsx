@@ -21,7 +21,7 @@ function CheckoutContent() {
 
     // Novas states para Checkout Transparente
     const [paymentMethod, setPaymentMethod] = useState<"pix" | "card">("pix");
-    const [pixData, setPixData] = useState<{ qr_code: string; qr_code_base64: string } | null>(null);
+    const [pixData, setPixData] = useState<{ qr_code: string; qr_code_base64: string; payment_id: string } | null>(null);
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
@@ -42,25 +42,30 @@ function CheckoutContent() {
             .finally(() => setLoading(false));
     }, [router]);
 
-    // Polling effect: Se o PIX foi gerado, checa o status do usuário a cada 5 segundos
+    // Polling effect: Se o PIX foi gerado, checa o status DO PAGAMENTO a cada 5 segundos
     useEffect(() => {
         let interval: NodeJS.Timeout;
-        if (pixData) {
+        if (pixData && pixData.payment_id) {
             interval = setInterval(async () => {
                 try {
-                    const res = await fetch(`${API_URL}/api/user-status?t=${Date.now()}`, { credentials: "include", cache: "no-store" });
-                    const data = await res.json();
-                    // Se o status retornado tiver subscription ativa diferente da anterior (ou se a data expira no futuro), redireciona
-                    if (data.subscriptionType && data.subscriptionType !== 'none') {
-                        router.push("/subscription/checkout/success");
+                    const res = await fetch(`${API_URL}/api/payment/status/${pixData.payment_id}`, { credentials: "include", cache: "no-store" });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.status === 'approved') {
+                            // Se for aprovado, verificamos a url de sucesso dependendo do status inicial do user
+                            const isRenewal = user?.subscriptionType && user.subscriptionType !== 'none';
+                            const url = isRenewal ? "/subscription/checkout/success?type=renewal" : "/subscription/checkout/success?type=new";
+                            router.push(url);
+                        }
                     }
                 } catch (err) {
-                    console.error("Erro no polling:", err);
+                    console.error("Erro no polling do PIX:", err);
                 }
-            }, 10000); // Check every 10 seconds to prevent DB connection limits
+            }, 5000); // Check every 5 seconds
         }
         return () => clearInterval(interval);
-    }, [pixData, router]);
+    }, [pixData, router, user]);
 
     // Checks for invalid plan and redirects correctly in a useEffect
     useEffect(() => {
@@ -127,8 +132,8 @@ function CheckoutContent() {
                 if (!response.ok) throw new Error((await response.json()).error || "Erro ao gerar PIX");
 
                 const data = await response.json();
-                if (data.success && data.qr_code_base64) {
-                    setPixData({ qr_code: data.qr_code, qr_code_base64: data.qr_code_base64 });
+                if (data.success && data.qr_code_base64 && data.payment_id) {
+                    setPixData({ qr_code: data.qr_code, qr_code_base64: data.qr_code_base64, payment_id: data.payment_id });
                     setProcessing(false);
                     // O polling começará automaticamente por causa do useEffect [pixData]
                 } else {

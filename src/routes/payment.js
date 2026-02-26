@@ -261,6 +261,33 @@ router.post('/webhook', async (req, res) => {
   }
 });
 
+// Nova Rota para Checar Status do Pagamento (Polling do PIX)
+router.get('/status/:id', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ error: 'Usuário não autenticado.' });
+  }
+
+  const paymentId = req.params.id;
+
+  if (!paymentId) {
+    return res.status(400).json({ error: 'ID do pagamento não fornecido.' });
+  }
+
+  try {
+    const paymentClient = new Payment(client);
+    const payment = await paymentClient.get({ id: paymentId });
+
+    if (payment) {
+      res.json({ status: payment.status });
+    } else {
+      res.status(404).json({ error: 'Pagamento não encontrado.' });
+    }
+  } catch (error) {
+    console.error(`Erro ao checar status do pagamento ${paymentId}:`, error);
+    res.status(500).json({ error: 'Erro ao conectar com Mercado Pago.' });
+  }
+});
+
 
 // Funções Auxiliares de Ativação (Reutilizada e simplificada)
 async function activateUserPlan(userId, planId, planTitle) {
