@@ -87,6 +87,7 @@ export default function AdminSettingsPage() {
                                         checked={setting.value === 'true'}
                                         onCheckedChange={(checked: boolean) => handleUpdate(setting.key, checked ? 'true' : 'false')}
                                         disabled={saving === setting.key}
+                                        aria-label={setting.description}
                                     />
                                     <span className="text-sm font-medium text-white">
                                         {setting.value === 'true' ? 'ATIVADO' : 'DESATIVADO'}
@@ -102,6 +103,7 @@ export default function AdminSettingsPage() {
                                             // Aqui vamos simplificar com botão de salvar ao lado
                                         }}
                                         id={`input-${setting.key}`}
+                                        aria-label={setting.description}
                                         className="bg-slate-950 border-slate-700 text-white"
                                     />
                                     <Button
