@@ -1,16 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle, Crown, ArrowRight, Sparkles } from "lucide-react";
+import { CheckCircle, Crown, ArrowRight, Sparkles, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function CheckoutSuccessPage() {
     const router = useRouter();
+    const [isRenewal, setIsRenewal] = useState(false);
 
-    // Podemos disparar uma animação de confetti se instalarmos a lib react-confetti depois,
-    // mas por hora a versão do framer motion com ícones é elegante.
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('type') === 'renewal') {
+            setIsRenewal(true);
+        }
+    }, []);
 
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
@@ -47,18 +52,24 @@ export default function CheckoutSuccessPage() {
                     transition={{ delay: 0.4 }}
                 >
                     <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        Pagamento Aprovado!
+                        {isRenewal ? "Renovação Aprovada!" : "Pagamento Aprovado!"}
                     </h1>
                     <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                        Sua assinatura premium foi ativada com sucesso. Agora você tem acesso ilimitado a todos os nossos jogos interativos e educativos.
+                        {isRenewal
+                            ? "Sua fidelidade é incrível! Seus novos dias de assinatura foram adicionados ao seu saldo VIP atual com sucesso."
+                            : "Sua assinatura premium foi ativada com sucesso. Agora você tem acesso ilimitado a todos os nossos jogos interativos e educativos."}
                     </p>
 
                     <div className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700/50">
                         <div className="flex items-center justify-center gap-3 mb-2">
-                            <Crown className="w-6 h-6 text-amber-400" />
-                            <h3 className="text-white font-bold text-lg">Status: VIP Ativo</h3>
+                            {isRenewal ? <Clock className="w-6 h-6 text-emerald-400" /> : <Crown className="w-6 h-6 text-amber-400" />}
+                            <h3 className="text-white font-bold text-lg">
+                                {isRenewal ? "Saldo de Dias Atualizado" : "Status: VIP Ativo"}
+                            </h3>
                         </div>
-                        <p className="text-sm text-slate-400">Plataforma desbloqueada em tempo real.</p>
+                        <p className="text-sm text-slate-400">
+                            {isRenewal ? "Continue aproveitando o portal sem interrupções." : "Plataforma desbloqueada em tempo real."}
+                        </p>
                     </div>
 
                     <Button

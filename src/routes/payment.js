@@ -90,6 +90,12 @@ router.post('/create-checkout-session', [
     // --- Criação da Preferência no Mercado Pago ---
     const preference = new Preference(client);
 
+    // Identificar se é uma renovação (tem assinatura válida no futuro)
+    const isRenewal = user.subscription_end_date && user.subscription_end_date > Date.now();
+    const successUrl = isRenewal
+      ? `${config.domain}/subscription/checkout/success?type=renewal`
+      : `${config.domain}/subscription/checkout/success?type=new`;
+
     const result = await preference.create({
       body: {
         items: [
@@ -113,7 +119,7 @@ router.post('/create-checkout-session', [
           planTitle: title
         }),
         back_urls: {
-          success: `${config.domain}/subscription/checkout/success`,
+          success: successUrl,
           failure: `${config.domain}/subscription/checkout`,
           pending: `${config.domain}/subscription/checkout`
         },
@@ -265,16 +271,27 @@ async function activateUserPlan(userId, planId, planTitle) {
     durationDays = BusinessRules.PLANS[planId].duration_days;
   }
 
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + durationDays);
-
   try {
+    // Busca o usuário atual para ver se ele já tem dias de saldo
+    const user = await db('users').where('id', userId).select('subscription_end_date').first();
+
+    let baseDate = new Date();
+
+    // Se o usuário tem uma assinatura ativa, adicionamos os novos dias à data de expiração existente (Empilhar)
+    if (user && user.subscription_end_date && user.subscription_end_date > Date.now()) {
+      baseDate = new Date(Number(user.subscription_end_date));
+    }
+
+    baseDate.setDate(baseDate.getDate() + durationDays);
+
     await db('users')
       .where('id', userId)
       .update({
         subscription_type: planTitle || planId,
-        subscription_end_date: expirationDate.getTime()
+        subscription_end_date: baseDate.getTime()
       });
+
+    console.log(`✅ Plano Ativado: User ${userId} ganhou +${durationDays} dias. Expira em: ${baseDate.toISOString()}`);
   } catch (err) {
     console.error('Erro ao salvar plano no banco:', err);
   }
