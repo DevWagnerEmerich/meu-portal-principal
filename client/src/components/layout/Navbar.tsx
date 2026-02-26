@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Gamepad2, User, LogOut, Zap, LayoutDashboard } from "lucide-react";
+import { User, LogOut, Zap, LayoutDashboard } from "lucide-react";
+import Image from "next/image";
 import { API_URL } from "@/lib/config";
 
 export function Navbar() {
@@ -50,10 +51,10 @@ export function Navbar() {
         <nav className="absolute top-0 w-full z-50 border-b border-border/10 bg-background/50 backdrop-blur-md">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
-                        <Gamepad2 className="text-white w-5 h-5" />
+                    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_15px_rgba(99,102,241,0.3)] bg-slate-900 flex items-center justify-center">
+                        <Image src="/logo.png" alt="BrincaBytes Logo" width={40} height={40} className="object-cover w-full h-full" />
                     </div>
-                    <span className="font-bold text-xl text-foreground tracking-tight">BrincaBytes</span>
+                    <span className="font-bold text-xl text-foreground tracking-tight hidden sm:block">BrincaBytes</span>
                 </Link>
 
                 <div className="flex items-center gap-4">

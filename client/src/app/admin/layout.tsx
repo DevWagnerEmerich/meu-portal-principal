@@ -6,6 +6,7 @@ import { Loader2, LayoutDashboard, Gamepad2, Users, Settings, LogOut } from "luc
 import Link from "next/link";
 import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
@@ -49,8 +50,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {/* Sidebar */}
             <aside className="w-64 bg-slate-900 border-r border-slate-800 hidden md:flex flex-col">
                 <div className="p-6 border-b border-slate-800">
-                    <h1 className="text-xl font-bold text-white flex items-center gap-2">
-                        <LayoutDashboard className="text-primary" />
+                    <h1 className="text-xl font-bold text-white flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full overflow-hidden border border-primary/50 bg-slate-900 flex items-center justify-center shrink-0">
+                            <Image src="/logo.png" alt="BrincaBytes Logo" width={32} height={32} className="object-cover w-full h-full" />
+                        </div>
                         Admin Panel
                     </h1>
                 </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Gamepad2, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
     return (
@@ -9,8 +10,8 @@ export function Footer() {
                     {/* Brand */}
                     <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="flex items-center gap-2 mb-6">
-                            <div className="bg-primary/20 p-2 rounded-xl">
-                                <Gamepad2 className="w-6 h-6 text-primary" />
+                            <div className="w-8 h-8 rounded-full overflow-hidden border border-primary/50 bg-slate-900 flex items-center justify-center shrink-0">
+                                <Image src="/logo.png" alt="BrincaBytes Logo" width={32} height={32} className="object-cover w-full h-full" />
                             </div>
                             <span className="font-bold text-2xl text-white tracking-tight">
                                 BrincaBytes
