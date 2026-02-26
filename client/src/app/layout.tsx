@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     default: "BrincaBytes - Portal de Jogos Educativos",
     template: "%s | BrincaBytes"
   },
-  description: "Plataforma líder em jogos educativos para escolas e alunos. Transforme o aprendizado em uma aventura interativa.",
+  description: "Portal interativo de jogos educativos para escolas, professores e alunos. Transforme o aprendizado em diversão!",
   keywords: ["jogos educativos", "educação infantil", "portal escolar", "jogos de matemática", "jogos de português", "inclusão digital", "aulas dinâmicas"],
   authors: [{ name: "BrincaBytes Team" }],
   creator: "BrincaBytes",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BrincaBytes - Portal de Jogos Educativos",
-    description: "Plataforma líder em jogos educativos para escolas e professores.",
+    description: "Portal interativo de jogos educativos para escolas, professores e alunos. Transforme o aprendizado em diversão!",
     url: "https://brincabytes.vercel.app",
     siteName: "BrincaBytes",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BrincaBytes - Portal de Jogos Educativos",
-    description: "Plataforma líder em jogos educativos para escolas e professores.",
+    description: "Portal interativo de jogos educativos para escolas, professores e alunos. Transforme o aprendizado em diversão!",
     creator: "@brincabytes", // Opcional
     images: ["https://brincabytes.vercel.app/logo.png"],
   },
