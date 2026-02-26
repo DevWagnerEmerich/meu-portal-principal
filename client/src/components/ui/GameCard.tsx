@@ -57,26 +57,33 @@ export function GameCard({ id, title, thumbnail, category, is_premium, isNew, pr
                     </div>
                 </div>
 
-                <div className="flex gap-2 mt-4 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <Link href={`/play/${id}`} className="flex-1">
+                <div className="flex flex-col gap-2 mt-4 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <Link href={`/play/${id}`} className="w-full">
                         <Button variant="secondary" className="w-full">
                             <Play className="w-4 h-4 mr-2" fill="currentColor" />
                             Jogar
                         </Button>
                     </Link>
-                    {tutorial_url && (
-                        <a href={tutorial_url} target="_blank" rel="noopener noreferrer" className="flex-none">
-                            <Button variant="outline" className="px-3 border-rose-500/30 text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 hover:border-rose-500/50" title="Como Jogar (Tutorial)">
-                                <Youtube className="w-4 h-4" />
-                            </Button>
-                        </a>
-                    )}
-                    {printable_url && (
-                        <a href={printable_url} download target="_blank" rel="noopener noreferrer" className="flex-none">
-                            <Button variant="outline" className="px-3" title="Baixar Material para Impressão">
-                                <Download className="w-4 h-4" />
-                            </Button>
-                        </a>
+
+                    {(tutorial_url || printable_url) && (
+                        <div className="flex gap-2 w-full">
+                            {tutorial_url && (
+                                <a href={tutorial_url} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0">
+                                    <Button variant="outline" className="w-full border-rose-500/30 text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 hover:border-rose-500/50" title="Como Jogar (Tutorial)">
+                                        <Youtube className="w-4 h-4 mr-2 shrink-0" />
+                                        <span className="truncate">Tutorial</span>
+                                    </Button>
+                                </a>
+                            )}
+                            {printable_url && (
+                                <a href={printable_url} download target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0">
+                                    <Button variant="outline" className="w-full border-slate-700 hover:bg-slate-800" title="Baixar Material para Impressão">
+                                        <Download className="w-4 h-4 mr-2 shrink-0" />
+                                        <span className="truncate">PDF</span>
+                                    </Button>
+                                </a>
+                            )}
+                        </div>
                     )}
                 </div>
             </div>
