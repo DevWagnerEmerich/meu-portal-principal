@@ -33,12 +33,12 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BrincaBytes - Portal de Jogos Educativos",
-    description: "Plataforma líder em jogos educativos para escolas e alunos.",
+    description: "Plataforma líder em jogos educativos para escolas e professores.",
     url: "https://brincabytes.vercel.app",
     siteName: "BrincaBytes",
     images: [
       {
-        url: "/og-image.webp", // Substitua por uma arte real depois (1200x630)
+        url: "https://brincabytes.vercel.app/logo.png",
         width: 1200,
         height: 630,
         alt: "BrincaBytes Capa",
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BrincaBytes - Portal de Jogos Educativos",
-    description: "Plataforma líder em jogos educativos para escolas e alunos.",
+    description: "Plataforma líder em jogos educativos para escolas e professores.",
     creator: "@brincabytes", // Opcional
-    images: ["/og-image.webp"],
+    images: ["https://brincabytes.vercel.app/logo.png"],
   },
   robots: {
     index: true,
