@@ -245,8 +245,24 @@ router.post('/webhook', async (req, res) => {
         const metadata = payment.external_reference ? JSON.parse(payment.external_reference) : null;
 
         if (metadata && metadata.userId) {
-          await activateUserPlan(metadata.userId, metadata.planId, metadata.planTitle);
-          console.log(`✅ Pagamento ${id} aprovado para User ${metadata.userId} (Plano: ${metadata.planId})`);
+          try {
+            await db('processed_payments').insert({
+              payment_id: id.toString(),
+              user_id: metadata.userId.toString(),
+              plan_id: metadata.planId,
+              processed_at: Date.now()
+            });
+            // O insert funcinou. Pagamento é inédito!
+            await activateUserPlan(metadata.userId, metadata.planId, metadata.planTitle);
+            console.log(`✅ Pagamento ${id} aprovado para User ${metadata.userId} (Plano: ${metadata.planId})`);
+          } catch (insertErr) {
+            // Se der erro de Unique Constraint (SQLITE_CONSTRAINT ou 23505 no Postgres) significa que o webhook bateu repetido
+            if (insertErr.code === 'SQLITE_CONSTRAINT' || insertErr.code === '23505') {
+              console.log(`❕ Webhook Duplicado Ignorado: O pagamento ${id} já foi processado anteriormente.`);
+            } else {
+              console.error(`Erro ao registrar idempotência do pagamento ${id}:`, insertErr);
+            }
+          }
         } else {
           console.warn(`⚠️ Pagamento aprovado sem external_reference válida: ${id}`);
         }
