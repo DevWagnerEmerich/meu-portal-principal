@@ -10,6 +10,7 @@ import { API_URL } from "@/lib/config";
 
 export function Navbar() {
     const [user, setUser] = useState<{ loggedIn: boolean; username?: string; energy?: number; maxEnergy?: number; subscriptionType?: string; role?: string } | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -21,9 +22,14 @@ export function Navbar() {
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data);
+                } else {
+                    setUser(null);
                 }
             } catch (err) {
                 console.error("Failed to fetch user status", err);
+                setUser(null);
+            } finally {
+                setIsLoading(false);
             }
         };
         checkAuth();
@@ -58,7 +64,12 @@ export function Navbar() {
                 </Link>
 
                 <div className="flex items-center gap-4">
-                    {user?.loggedIn ? (
+                    {isLoading ? (
+                        <div className="flex items-center gap-4 opacity-50">
+                            <div className="h-8 w-8 rounded-full bg-slate-800 animate-pulse"></div>
+                            <div className="h-8 w-24 rounded-md bg-slate-800 animate-pulse"></div>
+                        </div>
+                    ) : user?.loggedIn ? (
                         <>
                             <div className="hidden sm:flex items-center gap-4 text-muted-foreground">
                                 <Link href="/profile" className="hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring rounded-lg p-1">
