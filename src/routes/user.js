@@ -51,6 +51,7 @@ router.get('/user-status', async (req, res) => {
 
                 res.json({
                     loggedIn: true,
+                    userId: req.session.userId,
                     username: user.username,
                     subscriptionType: user.subscription_type,
                     role: user.role,

@@ -20,6 +20,7 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
     const [loading, setLoading] = useState(true);
     const [canPlay, setCanPlay] = useState(false);
     const [accessMessage, setAccessMessage] = useState("");
+    const [user, setUser] = useState<{ userId?: string; username?: string } | null>(null);
 
     const startedRef = useRef(false);
 
@@ -62,6 +63,16 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                         setAccessMessage("Bom jogo!");
                         // Avisa o Navbar para atualizar a energia
                         window.dispatchEvent(new Event("user-updated"));
+
+                        // Busca e guarda o UUID do usuário para o SSO postMessage (Code Chain)
+                        try {
+                            const userRes = await fetch(`${API_URL}/api/user-status`, { credentials: "include" });
+                            if (userRes.ok) {
+                                setUser(await userRes.json());
+                            }
+                        } catch (e) {
+                            console.error("SSO handshake auth fetch failed", e);
+                        }
                     } else {
                         setCanPlay(false);
                         setAccessMessage(data.message || "Acesso negado.");
@@ -178,6 +189,19 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
                     className="w-full h-full absolute inset-0 border-0"
                     allowFullScreen
                     allow="autoplay"
+                    onLoad={(e) => {
+                        // Sincronização Handshake SSO para o Code Chain
+                        if (user && user.userId) {
+                            (e.target as HTMLIFrameElement).contentWindow?.postMessage({
+                                type: 'BRINCABYTES_LOGIN',
+                                user: {
+                                    uid: user.userId,
+                                    nome: user.username || 'Aluno',
+                                    avatar: '👨‍💻'
+                                }
+                            }, '*');
+                        }
+                    }}
                 />
             </div>
         </main>
