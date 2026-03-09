@@ -21,8 +21,10 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
     const [canPlay, setCanPlay] = useState(false);
     const [accessMessage, setAccessMessage] = useState("");
     const [user, setUser] = useState<{ userId?: string; username?: string } | null>(null);
+    const [iframeLoaded, setIframeLoaded] = useState(false);
 
     const startedRef = useRef(false);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
     const toggleFullScreen = () => {
         const gameContainer = document.getElementById("game-container");
@@ -90,6 +92,20 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
             fetchGameAndAccess();
         }
     }, [gameId]);
+
+    // Hook disparador do SSO: Só envia a credencial se o iFrame E a API do usuário já tiverem carregado
+    useEffect(() => {
+        if (iframeLoaded && user && user.userId && iframeRef.current) {
+            iframeRef.current.contentWindow?.postMessage({
+                type: 'BRINCABYTES_LOGIN',
+                user: {
+                    uid: user.userId,
+                    nome: user.username || 'Aluno',
+                    avatar: '👨‍💻'
+                }
+            }, '*');
+        }
+    }, [iframeLoaded, user]);
 
 
     if (loading) {
@@ -185,23 +201,12 @@ export default function PlayGamePage({ params }: { params: Promise<{ gameId: str
 
             <div id="game-container" className="flex-1 w-full bg-black relative">
                 <iframe
+                    ref={iframeRef}
                     src={game.game_url.startsWith('http') ? game.game_url : `${API_URL}${game.game_url}`}
                     className="w-full h-full absolute inset-0 border-0"
                     allowFullScreen
                     allow="autoplay"
-                    onLoad={(e) => {
-                        // Sincronização Handshake SSO para o Code Chain
-                        if (user && user.userId) {
-                            (e.target as HTMLIFrameElement).contentWindow?.postMessage({
-                                type: 'BRINCABYTES_LOGIN',
-                                user: {
-                                    uid: user.userId,
-                                    nome: user.username || 'Aluno',
-                                    avatar: '👨‍💻'
-                                }
-                            }, '*');
-                        }
-                    }}
+                    onLoad={() => setIframeLoaded(true)}
                 />
             </div>
         </main>
