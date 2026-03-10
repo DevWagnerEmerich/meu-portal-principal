@@ -11,11 +11,15 @@ interface UserProfile {
     email: string;
     subscription_type: string;
     subscription_end_date: number | null;
+    subscription_status: string | null;
+    mp_preapproval_id: string | null;
+    grace_period_ends_at: number | null;
 }
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
+    const [cancelLoading, setCancelLoading] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -53,6 +57,33 @@ export default function ProfilePage() {
             window.location.href = "/";
         } catch (err) {
             console.error("Logout failed", err);
+        }
+    };
+
+    const handleCancelSubscription = async () => {
+        if (!confirm("Tem certeza que deseja cancelar sua assinatura? Seu acesso será mantido até o final do período atual.")) return;
+        setCancelLoading(true);
+        try {
+            const res = await fetch(`${API_URL}/api/payment/cancel-subscription`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Erro ao cancelar');
+            // Atualiza o estado local sem recarregar a página
+            setProfile(prev => prev ? {
+                ...prev,
+                subscription_type: 'none',
+                subscription_end_date: null,
+                subscription_status: 'canceled',
+                mp_preapproval_id: null,
+                grace_period_ends_at: null
+            } : prev);
+            alert('Assinatura cancelada com sucesso.');
+        } catch (err: any) {
+            alert(`Erro: ${err.message}`);
+        } finally {
+            setCancelLoading(false);
         }
     };
 
@@ -170,6 +201,18 @@ export default function ProfilePage() {
 
                             {isVip ? (
                                 <div className="space-y-4">
+                                    {/* Alerta de carência (past_due) */}
+                                    {profile.subscription_status === 'past_due' && profile.grace_period_ends_at && (
+                                        <div className="flex items-start gap-3 p-3 rounded-lg bg-red-950/50 border border-red-500/30">
+                                            <span className="text-red-400 text-lg">⚠️</span>
+                                            <div>
+                                                <p className="text-sm font-semibold text-red-400">Pagamento recusado</p>
+                                                <p className="text-xs text-red-400/70 mt-0.5">
+                                                    Seu acesso expira em {formatDate(profile.grace_period_ends_at)}. Atualize seu cartão para continuar.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
                                     <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-950/50 border border-slate-800">
                                         <Calendar className="w-8 h-8 text-slate-400" />
                                         <div>
@@ -192,7 +235,7 @@ export default function ProfilePage() {
                             )}
                         </div>
 
-                        <div className="relative z-10 pt-2">
+                        <div className="relative z-10 pt-2 space-y-3">
                             {!isVip ? (
                                 <Button
                                     className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold shadow-lg shadow-orange-500/20"
@@ -208,6 +251,17 @@ export default function ProfilePage() {
                                     onClick={() => router.push('/subscription')}
                                 >
                                     Gerenciar / Renovar
+                                </Button>
+                            )}
+                            {/* Botão cancelar assinatura recorrente */}
+                            {profile.mp_preapproval_id && (
+                                <Button
+                                    variant="ghost"
+                                    disabled={cancelLoading}
+                                    onClick={handleCancelSubscription}
+                                    className="w-full text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 text-sm"
+                                >
+                                    {cancelLoading ? 'Cancelando...' : '✕ Cancelar Assinatura'}
                                 </Button>
                             )}
                         </div>

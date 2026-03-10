@@ -5,7 +5,9 @@ const db = require('../database.js');
 const { body, validationResult } = require('express-validator');
 
 // Importando Mercado Pago SDK v2
-const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment, PreApproval } = require('mercadopago');
+const { sendPaymentFailedEmail } = require('../email');
+
 
 let client;
 try {
@@ -267,8 +269,64 @@ router.post('/webhook', async (req, res) => {
           console.warn(`⚠️ Pagamento aprovado sem external_reference válida: ${id}`);
         }
       }
+
+    } else if (topic === 'preapproval') {
+      // ===== NOVO HANDLER — Assinaturas Recorrentes =====
+      if (!id) return res.sendStatus(200);
+
+      const preapprovalClient = new PreApproval(client);
+      const preapproval = await preapprovalClient.get({ id: id });
+
+      if (!preapproval) return res.sendStatus(200);
+
+      const user = await db('users').where('mp_preapproval_id', id.toString()).first();
+      if (!user) {
+        console.warn(`⚠️ Webhook Preapproval: nenhum usuário encontrado para preapproval_id=${id}`);
+        return res.sendStatus(200);
+      }
+
+      console.log(`🔄 Preapproval ${id} status: ${preapproval.status} → User ${user.id}`);
+
+      if (preapproval.status === 'authorized') {
+        // Cobrança recorrente bem-sucedida: renova mais 30 dias
+        const newEndDate = new Date();
+        newEndDate.setDate(newEndDate.getDate() + 30);
+        await db('users').where('id', user.id).update({
+          subscription_type: 'monthly',
+          subscription_end_date: newEndDate.getTime(),
+          subscription_status: 'active',
+          grace_period_ends_at: null
+        });
+        console.log(`✅ Preapproval renovado para User ${user.id}. Expira: ${newEndDate.toISOString()}`);
+
+      } else if (preapproval.status === 'paused') {
+        // Falha de cobrança: carência de 3 dias + e-mail de alerta
+        const gracePeriodEndsAt = Date.now() + (3 * 24 * 60 * 60 * 1000);
+        await db('users').where('id', user.id).update({
+          subscription_status: 'past_due',
+          grace_period_ends_at: gracePeriodEndsAt
+        });
+        console.log(`⚠️ Preapproval pausado para User ${user.id}. Carência até: ${new Date(gracePeriodEndsAt).toISOString()}`);
+
+        // Email de aviso sem bloquear o response
+        sendPaymentFailedEmail(user.email, user.username, gracePeriodEndsAt).catch(err => {
+          console.error('Erro ao enviar e-mail de falha de pagamento:', err);
+        });
+
+      } else if (preapproval.status === 'cancelled') {
+        // Cancelada: reverte para gratuito
+        await db('users').where('id', user.id).update({
+          subscription_type: 'none',
+          subscription_end_date: null,
+          subscription_status: 'canceled',
+          mp_preapproval_id: null,
+          grace_period_ends_at: null
+        });
+        console.log(`❌ Preapproval cancelado para User ${user.id}.`);
+      }
     }
-    // Sempre responder 200/201 para o MP não ficar reenviando
+
+    // Sempre responder 200 para o MP não ficar reenviando
     res.sendStatus(200);
 
   } catch (error) {
@@ -402,6 +460,118 @@ router.get('/plans', async (req, res) => {
   } catch (err) {
     console.error('Erro ao buscar planos', err);
     return res.status(500).json({ error: 'Erro interno' });
+  }
+});
+
+// Rota para criar Assinatura Recorrente com 1 mês de Trial (Cartão de Crédito)
+router.post('/create-subscription', [
+  body('cardToken', 'Card token é obrigatório.').notEmpty(),
+  body('payerEmail', 'E-mail do pagador é obrigatório.').isEmail()
+], async (req, res) => {
+  if (!client) return res.status(500).json({ error: 'Mercado Pago não está configurado.' });
+  if (!req.session.userId) return res.status(401).json({ error: 'Usuário não autenticado.' });
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ error: 'Dados inválidos.', details: errors.array() });
+
+  const { cardToken, payerEmail, payerFirstName, payerLastName } = req.body;
+
+  try {
+    const user = await db('users').where('id', req.session.userId).first();
+    if (!user) return res.status(404).json({ error: 'Usuário não encontrado.' });
+
+    if (user.mp_preapproval_id) {
+      return res.status(409).json({ error: 'Usuário já possui uma assinatura recorrente ativa.' });
+    }
+
+    // Busca preço mensal do banco (respeita configuração do Admin)
+    const settings = await db('system_settings').whereIn('key', ['monthly_plan_price', 'welcome_discount_percent']);
+    const basePrice = parseFloat(settings.find(s => s.key === 'monthly_plan_price')?.value || BusinessRules.PLANS.monthly.price);
+    const discountPercent = parseFloat(settings.find(s => s.key === 'welcome_discount_percent')?.value || BusinessRules.WELCOME_OFFER.DISCOUNT_PERCENTAGE);
+
+    const offerDurationInMillis = BusinessRules.WELCOME_OFFER.DURATION_DAYS * 24 * 60 * 60 * 1000;
+    const isOfferActive = Date.now() < (Number(user.created_at) + offerDurationInMillis);
+    const finalPrice = isOfferActive
+      ? parseFloat((basePrice * (1 - discountPercent)).toFixed(2))
+      : basePrice;
+
+    const preapproval = new PreApproval(client);
+    const webhookUrl = config.isProduction
+      ? 'https://brincabytes.vercel.app/api/payment/webhook'
+      : `${config.domain}/api/payment/webhook`;
+
+    const result = await preapproval.create({
+      body: {
+        reason: 'BrincaBytes — Plano Mensal',
+        auto_recurring: {
+          frequency: 1,
+          frequency_type: 'months',
+          transaction_amount: finalPrice,
+          currency_id: 'BRL',
+          free_trial: {
+            frequency: 1,
+            frequency_type: 'months'
+          }
+        },
+        back_url: `${config.domain}/profile`,
+        payer_email: payerEmail,
+        card_token_id: cardToken,
+        status: 'authorized',
+        notification_url: webhookUrl
+      }
+    });
+
+    // Salva no banco: trial ativo por 30 dias
+    const trialEndsAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+    await db('users').where('id', req.session.userId).update({
+      mp_preapproval_id: result.id,
+      subscription_type: 'monthly',
+      subscription_status: 'trial',
+      subscription_end_date: trialEndsAt,
+      grace_period_ends_at: null
+    });
+
+    console.log(`✅ Preapproval criado: ${result.id} para User ${req.session.userId}. Trial até: ${new Date(trialEndsAt).toISOString()}`);
+    res.json({ success: true, preapproval_id: result.id });
+
+  } catch (error) {
+    console.error('Erro ao criar Preapproval:', error);
+    res.status(500).json({ error: error.message || 'Erro ao criar assinatura.' });
+  }
+});
+
+// Rota para Cancelar Assinatura Recorrente
+router.post('/cancel-subscription', async (req, res) => {
+  if (!req.session.userId) return res.status(401).json({ error: 'Usuário não autenticado.' });
+
+  try {
+    const user = await db('users').where('id', req.session.userId).select('mp_preapproval_id').first();
+
+    if (!user || !user.mp_preapproval_id) {
+      return res.status(400).json({ error: 'Nenhuma assinatura recorrente encontrada para este usuário.' });
+    }
+
+    const preapproval = new PreApproval(client);
+    await preapproval.update({
+      id: user.mp_preapproval_id,
+      body: { status: 'cancelled' }
+    });
+
+    // Reverte usuário para plano gratuito
+    await db('users').where('id', req.session.userId).update({
+      subscription_type: 'none',
+      subscription_end_date: null,
+      subscription_status: 'canceled',
+      mp_preapproval_id: null,
+      grace_period_ends_at: null
+    });
+
+    console.log(`❌ Assinatura cancelada pelo User ${req.session.userId}`);
+    res.json({ success: true, message: 'Assinatura cancelada com sucesso.' });
+
+  } catch (error) {
+    console.error('Erro ao cancelar assinatura:', error);
+    res.status(500).json({ error: error.message || 'Erro ao cancelar assinatura.' });
   }
 });
 

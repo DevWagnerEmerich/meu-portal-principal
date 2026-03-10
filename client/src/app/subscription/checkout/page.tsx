@@ -1,12 +1,16 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Lock, Loader2, Sparkles, CreditCard, Check, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { API_URL } from "@/lib/config";
+
+declare global {
+    interface Window { MercadoPago: any; }
+}
 
 function CheckoutContent() {
     const searchParams = useSearchParams();
@@ -19,10 +23,15 @@ function CheckoutContent() {
     const [offer, setOffer] = useState<{ active: boolean; expiresAt: number | null }>({ active: false, expiresAt: null });
     const [processing, setProcessing] = useState(false);
 
-    // Novas states para Checkout Transparente
+    // States para Checkout Transparente
     const [paymentMethod, setPaymentMethod] = useState<"pix" | "card">("pix");
     const [pixData, setPixData] = useState<{ qr_code: string; qr_code_base64: string; payment_id: string } | null>(null);
     const [copied, setCopied] = useState(false);
+    // States para Preapproval (Assinatura Mensal com Trial)
+    const [mpBricksReady, setMpBricksReady] = useState(false);
+    const [subscriptionSuccess, setSubscriptionSuccess] = useState(false);
+    const cardBrickRef = useRef<any>(null);
+    const brickControllersRef = useRef<any>(null);
 
     useEffect(() => {
         // Fetch user data & check bonus
@@ -78,6 +87,81 @@ function CheckoutContent() {
         }
     }, [planId, loading, router]);
 
+    // Carrega o SDK do Mercado Pago (MP Bricks) apenas para plano mensal + cartão
+    useEffect(() => {
+        if (planId !== 'monthly' || paymentMethod !== 'card' || mpBricksReady) return;
+        const mpPublicKey = process.env.NEXT_PUBLIC_MP_PUBLIC_KEY || '';
+        if (!mpPublicKey) return;
+
+        const existingScript = document.getElementById('mp-bricks-sdk');
+        if (existingScript) {
+            if (window.MercadoPago) setMpBricksReady(true);
+            return;
+        }
+        const script = document.createElement('script');
+        script.id = 'mp-bricks-sdk';
+        script.src = 'https://sdk.mercadopago.com/js/v2';
+        script.onload = () => setMpBricksReady(true);
+        document.body.appendChild(script);
+    }, [planId, paymentMethod, mpBricksReady]);
+
+    // Inicializa o CardPayment Brick quando o SDK estiver pronto
+    useEffect(() => {
+        if (!mpBricksReady || planId !== 'monthly' || paymentMethod !== 'card' || !cardBrickRef.current) return;
+        const mpPublicKey = process.env.NEXT_PUBLIC_MP_PUBLIC_KEY || '';
+        if (!mpPublicKey || !window.MercadoPago) return;
+
+        const mp = new window.MercadoPago(mpPublicKey, { locale: 'pt-BR' });
+        const bricksBuilder = mp.bricks();
+
+        // Destrói instância anterior se existir
+        if (brickControllersRef.current) {
+            brickControllersRef.current.unmount();
+        }
+
+        bricksBuilder.create('cardPayment', 'mp-card-brick', {
+            initialization: { amount: finalPrice },
+            customization: {
+                visual: { style: { theme: 'dark' } },
+                paymentMethods: { maxInstallments: 1 }
+            },
+            callbacks: {
+                onReady: () => { },
+                onError: (error: any) => console.error('MP Brick error:', error),
+                onSubmit: async (cardFormData: any) => {
+                    setProcessing(true);
+                    try {
+                        const response = await fetch(`${API_URL}/api/payment/create-subscription`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                cardToken: cardFormData.token,
+                                payerEmail: cardFormData.payer?.email || user?.email,
+                                payerFirstName: cardFormData.payer?.identification?.firstName || '',
+                                payerLastName: cardFormData.payer?.identification?.lastName || ''
+                            })
+                        });
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error || 'Erro ao criar assinatura');
+                        setSubscriptionSuccess(true);
+                    } catch (err: any) {
+                        alert(`Erro: ${err.message}`);
+                    } finally {
+                        setProcessing(false);
+                    }
+                }
+            }
+        }).then((controller: any) => {
+            brickControllersRef.current = controller;
+        });
+
+        return () => {
+            if (brickControllersRef.current) brickControllersRef.current.unmount();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mpBricksReady, planId, paymentMethod]);
+
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-slate-950"><Loader2 className="animate-spin text-white" /></div>;
     }
@@ -107,7 +191,13 @@ function CheckoutContent() {
 
         try {
             if (paymentMethod === "card") {
-                // FLUXO 1: Cartão -> Redireciona para o Checkout Pro
+                if (planId === 'monthly') {
+                    // FLUXO MENSAL: O CardPayment Brick gerencia o submit via onSubmit callback.
+                    // O botão "Pagar" não é exibido para este caso, o Brick tem o botão próprio.
+                    setProcessing(false);
+                    return;
+                }
+                // FLUXO SEMESTRAL/ANUAL: Redireciona para o Checkout Pro (inalterado)
                 const response = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -306,7 +396,7 @@ function CheckoutContent() {
                                         </button>
                                     </div>
 
-                                    {paymentMethod === "card" && (
+                                    {paymentMethod === "card" && planId !== 'monthly' && (
                                         <div className="p-4 bg-sky-50 border border-sky-100 rounded-xl animate-in fade-in slide-in-from-top-2">
                                             <div className="flex items-center gap-4 mb-3">
                                                 <div className="flex -space-x-2">
@@ -317,6 +407,36 @@ function CheckoutContent() {
                                                 <span className="text-xs font-bold text-sky-900">Checkout Seguro</span>
                                             </div>
                                             <p className="text-xs text-sky-700/80 leading-relaxed">Você será redirecionado para o ambiente seguro do Mercado Pago para inserir os dados do cartão.</p>
+                                        </div>
+                                    )}
+
+                                    {/* CardPayment Brick — exclusivo para Plano Mensal + Cartão */}
+                                    {paymentMethod === "card" && planId === 'monthly' && (
+                                        <div className="animate-in fade-in slide-in-from-top-2">
+                                            {subscriptionSuccess ? (
+                                                <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-3">
+                                                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mx-auto">
+                                                        <Check className="w-6 h-6 text-white" />
+                                                    </div>
+                                                    <p className="font-bold text-emerald-800">🎉 Trial Ativado!</p>
+                                                    <p className="text-sm text-emerald-700">Seu primeiro mês é gratuito. A cobrança automática de R$ {finalPrice.toFixed(2).replace('.', ',')} começa em 30 dias.</p>
+                                                    <Button onClick={() => router.push('/play')} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold mt-2">Começar a Jogar →</Button>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl mb-3">
+                                                        <p className="text-xs text-amber-800 font-semibold text-center">🎁 1 mês GRÁTIS · Cartão cobrado apenas após 30 dias</p>
+                                                    </div>
+                                                    {!mpBricksReady ? (
+                                                        <div className="flex items-center justify-center py-8 gap-2 text-slate-500">
+                                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                                            <span className="text-sm">Carregando formulário seguro...</span>
+                                                        </div>
+                                                    ) : (
+                                                        <div id="mp-card-brick" ref={cardBrickRef} />
+                                                    )}
+                                                </>
+                                            )}
                                         </div>
                                     )}
 
@@ -363,7 +483,7 @@ function CheckoutContent() {
                                 </div>
                             </div>
 
-                            {(!pixData || paymentMethod === "card") && (
+                            {(!pixData || paymentMethod === "card") && !(planId === 'monthly' && paymentMethod === 'card') && !subscriptionSuccess && (
                                 <div className="mt-8 pt-6 border-t border-slate-200">
                                     <Button
                                         onClick={handlePayment}

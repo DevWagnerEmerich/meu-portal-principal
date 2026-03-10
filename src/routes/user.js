@@ -85,8 +85,10 @@ router.get('/profile', async (req, res) => {
     try {
         const user = await db('users')
             .where('id', req.session.userId)
-            .select('username', 'email', 'subscription_type', 'subscription_end_date')
+            .select('username', 'email', 'subscription_type', 'subscription_end_date',
+                'subscription_status', 'mp_preapproval_id', 'grace_period_ends_at')
             .first();
+
 
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado.' });

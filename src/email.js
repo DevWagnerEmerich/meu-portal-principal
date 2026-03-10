@@ -62,7 +62,7 @@ async function sendEmail({ to, subject, text, html }) {
         });
 
         console.log('E-mail enviado: %s', info.messageId);
-        
+
         // Se estiver usando Ethereal, mostre o link de visualização
         const previewUrl = nodemailer.getTestMessageUrl(info);
         if (previewUrl) {
@@ -78,7 +78,51 @@ async function sendEmail({ to, subject, text, html }) {
     }
 }
 
+async function sendPaymentFailedEmail(to, username, gracePeriodDate) {
+    const graceDateStr = new Date(gracePeriodDate).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    return sendEmail({
+        to,
+        subject: '⚠️ BrincaBytes — Problema com o pagamento da sua assinatura',
+        text: `Olá, ${username}!\n\nHouve uma falha ao cobrar sua assinatura mensal do BrincaBytes.\n\nSeu acesso continuará ativo até ${graceDateStr} (período de carência de 3 dias). Após essa data, se o pagamento não for regularizado, sua conta voltará ao plano gratuito.\n\nAtualize seus dados de pagamento em: https://brincabytes.vercel.app/profile\n\nEquipe BrincaBytes`,
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #e2e8f0; padding: 40px; border-radius: 12px;">
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h1 style="color: #f59e0b; font-size: 28px; margin: 0;">⚠️ Problema no Pagamento</h1>
+                </div>
+                <p style="font-size: 16px;">Olá, <strong>${username}</strong>!</p>
+                <p style="font-size: 15px; line-height: 1.6; color: #94a3b8;">
+                    Houve uma falha ao processar o pagamento da sua assinatura mensal do <strong style="color: #fff;">BrincaBytes</strong>.
+                </p>
+                <div style="background: #1e293b; border: 1px solid #f59e0b44; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 20px; margin: 24px 0;">
+                    <p style="margin: 0; font-size: 15px;">
+                        🕐 Seu acesso premium permanece ativo até <strong style="color: #f59e0b;">${graceDateStr}</strong>.
+                    </p>
+                    <p style="margin: 8px 0 0; font-size: 13px; color: #64748b;">
+                        Após essa data, sua conta retornará automaticamente ao plano gratuito.
+                    </p>
+                </div>
+                <div style="text-align: center; margin: 32px 0;">
+                    <a href="https://brincabytes.vercel.app/profile"
+                       style="background: #f59e0b; color: #000; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; font-size: 15px; display: inline-block;">
+                        Atualizar Dados de Pagamento
+                    </a>
+                </div>
+                <hr style="border: none; border-top: 1px solid #1e293b; margin: 32px 0;" />
+                <p style="font-size: 12px; color: #475569; text-align: center; margin: 0;">
+                    Equipe BrincaBytes • Este é um e-mail automático, não responda a esta mensagem.
+                </p>
+            </div>
+        `
+    });
+}
+
 module.exports = {
     setupEmail,
     sendEmail,
+    sendPaymentFailedEmail,
 };
