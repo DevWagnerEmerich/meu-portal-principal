@@ -9,9 +9,17 @@ import { API_URL } from "@/lib/config";
 
 export function TrialFloatingBanner() {
     const [isVisible, setIsVisible] = useState(false);
-    const [isDismissed, setIsDismissed] = useState(false);
+    const [isDismissed, setIsDismissed] = useState(true); // Default to true until checked
     const [user, setUser] = useState<{ loggedIn: boolean; subscriptionType?: string } | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        // Hydrate dismissal state from sessionStorage
+        const saved = sessionStorage.getItem("trial-banner-dismissed");
+        if (saved !== "true") {
+            setIsDismissed(false);
+        }
+    }, []);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -47,7 +55,10 @@ export function TrialFloatingBanner() {
 
     const handleDismiss = () => {
         setIsVisible(false);
-        setTimeout(() => setIsDismissed(true), 500);
+        setTimeout(() => {
+            setIsDismissed(true);
+            sessionStorage.setItem("trial-banner-dismissed", "true");
+        }, 500);
     };
 
     const handleAction = () => {
