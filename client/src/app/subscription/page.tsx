@@ -3,7 +3,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Check, Sparkles, Shield, Users, ArrowRight, Building2, BookOpen, Mail, Phone, Loader2, CheckCircle2, User, GraduationCap, Crown } from "lucide-react";
+import { Check, Sparkles, Shield, Users, ArrowRight, Building2, BookOpen, Mail, Phone, Loader2, CheckCircle2, User, GraduationCap, Crown, CreditCard } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -236,60 +236,90 @@ export default function SubscriptionPage() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"
+                            className="max-w-6xl mx-auto space-y-12"
                         >
-                            {/* Rendendo dinamicamente os 3 planos caso a API tenha retornado */}
-                            {Object.entries(plans).map(([key, plan]) => {
-                                const isPopular = key === 'semiannual';
-                                return (
-                                    <div
-                                        key={key}
-                                        className={`relative bg-slate-900 border rounded-3xl p-8 shadow-xl flex flex-col transition-transform hover:-translate-y-2 ${isPopular ? 'border-indigo-500 shadow-indigo-500/20' : 'border-slate-800'}`}
-                                    >
-                                        {isPopular && (
-                                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
-                                                Mais Popular
-                                            </div>
-                                        )}
-                                        <div className="text-center mb-6">
-                                            <h3 className="text-xl font-bold text-white mb-2">{plan.title}</h3>
+                            {/* Trial Reinforcement Banner */}
+                            <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-600/20 via-indigo-500/10 to-transparent border border-indigo-500/30 rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-[0_0_20px_rgba(79,70,229,0.1)]">
+                                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg transform -rotate-3">
+                                    <CreditCard className="w-8 h-8 text-indigo-600" />
+                                </div>
+                                <div className="text-center md:text-left space-y-1">
+                                    <h3 className="text-xl font-bold text-white flex items-center gap-2 justify-center md:justify-start">
+                                        <Sparkles className="w-5 h-5 text-amber-400 fill-amber-400" />
+                                        1 Mês Inteiramente Grátis
+                                    </h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">
+                                        Cadastre seu cartão agora e aproveite os primeiros 30 dias de acesso <span className="text-indigo-400 font-bold">VIP Premium</span> sem pagar nada. Cancele quando quiser diretamente no seu perfil.
+                                    </p>
+                                </div>
+                                <Button
+                                    onClick={() => handleSubscribeTeacher('monthly')}
+                                    className="md:ml-auto bg-white hover:bg-slate-100 text-indigo-600 font-bold px-6 h-12 rounded-xl whitespace-nowrap shadow-xl"
+                                >
+                                    Aproveitar 30 Dias Grátis
+                                </Button>
+                            </div>
 
-                                            {plan.original_price && plan.original_price > plan.price ? (
-                                                <div className="mb-1 flex items-center justify-center gap-2">
-                                                    <span className="text-slate-500 line-through text-lg decoration-red-500/50">De R$ {plan.original_price.toFixed(2).replace('.', ',')}</span>
-                                                    <span className="text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">-25% OFF</span>
-                                                </div>
-                                            ) : (
-                                                <div className="h-[28px] mb-1"></div>
-                                            )}
-
-                                            <div className="flex items-center justify-center gap-1">
-                                                <span className="text-slate-400 font-medium align-top mt-2">
-                                                    {plan.original_price && plan.original_price > plan.price ? "Por R$" : "R$"}
-                                                </span>
-                                                <span className="text-5xl font-black text-white">{plan.price.toFixed(2).replace('.', ',')}</span>
-                                            </div>
-                                            <p className="text-slate-500 text-sm mt-2">cobrado a cada {plan.duration_days} dias</p>
-                                        </div>
-
-                                        <div className="space-y-4 flex-1 mb-8">
-                                            {plan.features.map((feature, i) => (
-                                                <div key={i} className="flex items-start gap-3">
-                                                    <Check className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
-                                                    <span className="text-slate-300 text-sm">{feature}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        <Button
-                                            onClick={() => handleSubscribeTeacher(key)}
-                                            className={`w-full h-12 text-base font-bold transition-all ${isPopular ? 'bg-indigo-600 hover:bg-indigo-500 text-white' : 'bg-slate-800 hover:bg-slate-700 text-white'}`}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {/* Rendendo dinamicamente os 3 planos caso a API tenha retornado */}
+                                {Object.entries(plans).map(([key, plan]) => {
+                                    const isPopular = key === 'semiannual';
+                                    const isTrialPlan = key === 'monthly';
+                                    return (
+                                        <div
+                                            key={key}
+                                            className={`relative bg-slate-900 border rounded-3xl p-8 shadow-xl flex flex-col transition-transform hover:-translate-y-2 ${isPopular ? 'border-indigo-500 shadow-indigo-500/20' : isTrialPlan ? 'border-emerald-500/50 shadow-emerald-500/10' : 'border-slate-800'}`}
                                         >
-                                            Assinar {plan.title}
-                                        </Button>
-                                    </div>
-                                );
-                            })}
+                                            {isPopular && (
+                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                                                    Mais Popular
+                                                </div>
+                                            )}
+                                            {isTrialPlan && (
+                                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-lg shadow-emerald-500/20">
+                                                    <Sparkles className="w-3 h-3 fill-current" /> 1 Mês Grátis
+                                                </div>
+                                            )}
+                                            <div className="text-center mb-6">
+                                                <h3 className="text-xl font-bold text-white mb-2">{plan.title}</h3>
+
+                                                {plan.original_price && plan.original_price > plan.price ? (
+                                                    <div className="mb-1 flex items-center justify-center gap-2">
+                                                        <span className="text-slate-500 line-through text-lg decoration-red-500/50">De R$ {plan.original_price.toFixed(2).replace('.', ',')}</span>
+                                                        <span className="text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">-25% OFF</span>
+                                                    </div>
+                                                ) : (
+                                                    <div className="h-[28px] mb-1"></div>
+                                                )}
+
+                                                <div className="flex items-center justify-center gap-1">
+                                                    <span className="text-slate-400 font-medium align-top mt-2">
+                                                        {plan.original_price && plan.original_price > plan.price ? "Por R$" : "R$"}
+                                                    </span>
+                                                    <span className="text-5xl font-black text-white">{plan.price.toFixed(2).replace('.', ',')}</span>
+                                                </div>
+                                                <p className="text-slate-500 text-sm mt-2">cobrado a cada {plan.duration_days} dias</p>
+                                            </div>
+
+                                            <div className="space-y-4 flex-1 mb-8">
+                                                {plan.features.map((feature, i) => (
+                                                    <div key={i} className="flex items-start gap-3">
+                                                        <Check className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
+                                                        <span className="text-slate-300 text-sm">{feature}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <Button
+                                                onClick={() => handleSubscribeTeacher(key)}
+                                                className={`w-full h-12 text-base font-bold transition-all ${isPopular ? 'bg-indigo-600 hover:bg-indigo-500 text-white' : 'bg-slate-800 hover:bg-slate-700 text-white'}`}
+                                            >
+                                                Assinar {plan.title}
+                                            </Button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </motion.div>
                     )}
 
