@@ -236,30 +236,8 @@ export default function SubscriptionPage() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3 }}
-                            className="max-w-6xl mx-auto space-y-12"
+                            className="max-w-6xl mx-auto space-y-12 pt-8"
                         >
-                            {/* Trial Reinforcement Banner */}
-                            <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-600/20 via-indigo-500/10 to-transparent border border-indigo-500/30 rounded-3xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-[0_0_20px_rgba(79,70,229,0.1)]">
-                                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg transform -rotate-3">
-                                    <CreditCard className="w-8 h-8 text-indigo-600" />
-                                </div>
-                                <div className="text-center md:text-left space-y-1">
-                                    <h3 className="text-xl font-bold text-white flex items-center gap-2 justify-center md:justify-start">
-                                        <Sparkles className="w-5 h-5 text-amber-400 fill-amber-400" />
-                                        1 Mês Inteiramente Grátis
-                                    </h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">
-                                        Cadastre seu cartão agora e aproveite os primeiros 30 dias de acesso <span className="text-indigo-400 font-bold">VIP Premium</span> sem pagar nada. Cancele quando quiser diretamente no seu perfil.
-                                    </p>
-                                </div>
-                                <Button
-                                    onClick={() => handleSubscribeTeacher('monthly')}
-                                    className="md:ml-auto bg-white hover:bg-slate-100 text-indigo-600 font-bold px-6 h-12 rounded-xl whitespace-nowrap shadow-xl"
-                                >
-                                    Aproveitar 30 Dias Grátis
-                                </Button>
-                            </div>
-
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 {/* Rendendo dinamicamente os 3 planos caso a API tenha retornado */}
                                 {Object.entries(plans).map(([key, plan]) => {
