@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 
 export default function CheckoutSuccessPage() {
     const router = useRouter();
-    const [isRenewal, setIsRenewal] = useState(false);
+    const [successType, setSuccessType] = useState<'new' | 'renewal' | 'trial'>('new');
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('type') === 'renewal') {
-            setIsRenewal(true);
+        const type = params.get('type') as any;
+        if (type && ['new', 'renewal', 'trial'].includes(type)) {
+            setSuccessType(type);
         }
     }, []);
 
@@ -52,23 +53,30 @@ export default function CheckoutSuccessPage() {
                     transition={{ delay: 0.4 }}
                 >
                     <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        {isRenewal ? "Renovação Aprovada!" : "Pagamento Aprovado!"}
+                        {successType === 'renewal' ? "Renovação Aprovada!" :
+                            successType === 'trial' ? "Trial Ativado!" : "Pagamento Aprovado!"}
                     </h1>
                     <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                        {isRenewal
+                        {successType === 'renewal'
                             ? "Sua fidelidade é incrível! Seus novos dias de assinatura foram adicionados ao seu saldo VIP atual com sucesso."
-                            : "Sua assinatura premium foi ativada com sucesso. Agora você tem acesso ilimitado a todos os nossos jogos interativos e educativos."}
+                            : successType === 'trial'
+                                ? "Seu período de teste de 30 dias foi ativado com sucesso. Aproveite todas as funcionalidades premium do portal grátis por um mês."
+                                : "Sua assinatura premium foi ativado com sucesso. Agora você tem acesso ilimitado a todos os nossos jogos interativos e educativos."}
                     </p>
 
                     <div className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700/50">
                         <div className="flex items-center justify-center gap-3 mb-2">
-                            {isRenewal ? <Clock className="w-6 h-6 text-emerald-400" /> : <Crown className="w-6 h-6 text-amber-400" />}
+                            {successType === 'renewal' ? <Clock className="w-6 h-6 text-emerald-400" /> :
+                                successType === 'trial' ? <Sparkles className="w-6 h-6 text-amber-400" /> :
+                                    <Crown className="w-6 h-6 text-amber-400" />}
                             <h3 className="text-white font-bold text-lg">
-                                {isRenewal ? "Saldo de Dias Atualizado" : "Status: VIP Ativo"}
+                                {successType === 'renewal' ? "Saldo de Dias Atualizado" :
+                                    successType === 'trial' ? "Status: VIP Premium (Trial)" : "Status: VIP Ativo"}
                             </h3>
                         </div>
                         <p className="text-sm text-slate-400">
-                            {isRenewal ? "Continue aproveitando o portal sem interrupções." : "Plataforma desbloqueada em tempo real."}
+                            {successType === 'renewal' ? "Continue aproveitando o portal sem interrupções." :
+                                successType === 'trial' ? "Cobrança automática somente após os 30 dias." : "Plataforma desbloqueada em tempo real."}
                         </p>
                     </div>
 

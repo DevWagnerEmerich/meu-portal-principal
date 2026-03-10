@@ -29,7 +29,6 @@ function CheckoutContent() {
     const [copied, setCopied] = useState(false);
     // States para Preapproval (Assinatura Mensal com Trial)
     const [mpBricksReady, setMpBricksReady] = useState(false);
-    const [subscriptionSuccess, setSubscriptionSuccess] = useState(false);
     const cardBrickRef = useRef<any>(null);
     const brickControllersRef = useRef<any>(null);
 
@@ -144,7 +143,7 @@ function CheckoutContent() {
                         });
                         const data = await response.json();
                         if (!response.ok) throw new Error(data.error || 'Erro ao criar assinatura');
-                        setSubscriptionSuccess(true);
+                        router.push('/subscription/checkout/success?type=trial');
                     } catch (err: any) {
                         alert(`Erro: ${err.message}`);
                     } finally {
@@ -413,29 +412,16 @@ function CheckoutContent() {
                                     {/* CardPayment Brick — exclusivo para Plano Mensal + Cartão */}
                                     {paymentMethod === "card" && planId === 'monthly' && (
                                         <div className="animate-in fade-in slide-in-from-top-2">
-                                            {subscriptionSuccess ? (
-                                                <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-3">
-                                                    <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mx-auto">
-                                                        <Check className="w-6 h-6 text-white" />
-                                                    </div>
-                                                    <p className="font-bold text-emerald-800">🎉 Trial Ativado!</p>
-                                                    <p className="text-sm text-emerald-700">Seu primeiro mês é gratuito. A cobrança automática de R$ {finalPrice.toFixed(2).replace('.', ',')} começa em 30 dias.</p>
-                                                    <Button onClick={() => router.push('/play')} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold mt-2">Começar a Jogar →</Button>
+                                            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl mb-3">
+                                                <p className="text-xs text-amber-800 font-semibold text-center">🎁 1 mês GRÁTIS · Cartão cobrado apenas após 30 dias</p>
+                                            </div>
+                                            {!mpBricksReady ? (
+                                                <div className="flex items-center justify-center py-8 gap-2 text-slate-500">
+                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                    <span className="text-sm">Carregando formulário seguro...</span>
                                                 </div>
                                             ) : (
-                                                <>
-                                                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl mb-3">
-                                                        <p className="text-xs text-amber-800 font-semibold text-center">🎁 1 mês GRÁTIS · Cartão cobrado apenas após 30 dias</p>
-                                                    </div>
-                                                    {!mpBricksReady ? (
-                                                        <div className="flex items-center justify-center py-8 gap-2 text-slate-500">
-                                                            <Loader2 className="w-4 h-4 animate-spin" />
-                                                            <span className="text-sm">Carregando formulário seguro...</span>
-                                                        </div>
-                                                    ) : (
-                                                        <div id="mp-card-brick" ref={cardBrickRef} />
-                                                    )}
-                                                </>
+                                                <div id="mp-card-brick" ref={cardBrickRef} />
                                             )}
                                         </div>
                                     )}
@@ -483,7 +469,7 @@ function CheckoutContent() {
                                 </div>
                             </div>
 
-                            {(!pixData || paymentMethod === "card") && !(planId === 'monthly' && paymentMethod === 'card') && !subscriptionSuccess && (
+                            {(!pixData || paymentMethod === "card") && !(planId === 'monthly' && paymentMethod === 'card') && (
                                 <div className="mt-8 pt-6 border-t border-slate-200">
                                     <Button
                                         onClick={handlePayment}
