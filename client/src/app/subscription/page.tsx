@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Sparkles, Shield, Users, ArrowRight, Building2, BookOpen, Mail, Phone, Loader2, CheckCircle2, User, GraduationCap, Crown, CreditCard } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { motion, AnimatePresence } from "framer-motion";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 
 interface Plan {
     id: string;
@@ -55,6 +56,18 @@ export default function SubscriptionPage() {
         contactName: "",
         contactEmail: "",
         contactPhone: ""
+    });
+
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
     });
 
     // Novo State B2B
@@ -123,11 +136,21 @@ export default function SubscriptionPage() {
                 setIsSuccess(true);
             } else {
                 const data = await response.json();
-                alert(`Erro: ${data.message || 'Falha ao enviar a solicitação.'}`);
+                setModalConfig({
+                    isOpen: true,
+                    title: "Erro na Solicitação",
+                    description: data.message || 'Falha ao enviar a solicitação. Por favor, tente novamente.',
+                    type: "error"
+                });
             }
         } catch (error) {
             console.error('Erro ao enviar form:', error);
-            alert('Erro de conexão ao tentar enviar a solicitação.');
+            setModalConfig({
+                isOpen: true,
+                title: "Erro de Conexão",
+                description: 'Não foi possível conectar ao servidor. Verifique sua internet.',
+                type: "error"
+            });
         } finally {
             setIsSubmitting(false);
         }
@@ -519,6 +542,14 @@ export default function SubscriptionPage() {
                     </div>
                 )}
             </AnimatePresence>
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+            />
         </div>
     );
 }

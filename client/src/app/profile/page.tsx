@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { API_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Loader2, User, Calendar, Shield, Clock, LogOut, CreditCard } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 
 interface UserProfile {
     username: string;
@@ -20,6 +21,18 @@ export default function ProfilePage() {
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [cancelLoading, setCancelLoading] = useState(false);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+        onConfirm?: () => void;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
     const router = useRouter();
 
     useEffect(() => {
@@ -61,30 +74,49 @@ export default function ProfilePage() {
     };
 
     const handleCancelSubscription = async () => {
-        if (!confirm("Tem certeza que deseja cancelar sua assinatura? Seu acesso será mantido até o final do período atual.")) return;
-        setCancelLoading(true);
-        try {
-            const res = await fetch(`${API_URL}/api/payment/cancel-subscription`, {
-                method: 'POST',
-                credentials: 'include'
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Erro ao cancelar');
-            // Atualiza o estado local sem recarregar a página
-            setProfile(prev => prev ? {
-                ...prev,
-                subscription_type: 'none',
-                subscription_end_date: null,
-                subscription_status: 'canceled',
-                mp_preapproval_id: null,
-                grace_period_ends_at: null
-            } : prev);
-            alert('Assinatura cancelada com sucesso.');
-        } catch (err: any) {
-            alert(`Erro: ${err.message}`);
-        } finally {
-            setCancelLoading(false);
-        }
+        setModalConfig({
+            isOpen: true,
+            title: "Cancelar Assinatura?",
+            description: "Tem certeza que deseja cancelar sua assinatura recorrente? Seu acesso VIP será mantido até o final do período que você já pagou.",
+            type: "confirm",
+            onConfirm: async () => {
+                setModalConfig(prev => ({ ...prev, isOpen: false }));
+                setCancelLoading(true);
+                try {
+                    const res = await fetch(`${API_URL}/api/payment/cancel-subscription`, {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || 'Erro ao cancelar');
+
+                    setProfile(prev => prev ? {
+                        ...prev,
+                        subscription_type: 'none',
+                        subscription_end_date: null,
+                        subscription_status: 'canceled',
+                        mp_preapproval_id: null,
+                        grace_period_ends_at: null
+                    } : prev);
+
+                    setModalConfig({
+                        isOpen: true,
+                        title: "Cancelado!",
+                        description: "Sua assinatura foi cancelada com sucesso. Você não receberá novas cobranças.",
+                        type: "success"
+                    });
+                } catch (err: any) {
+                    setModalConfig({
+                        isOpen: true,
+                        title: "Erro no Cancelamento",
+                        description: `Não foi possível processar o cancelamento: ${err.message}`,
+                        type: "error"
+                    });
+                } finally {
+                    setCancelLoading(false);
+                }
+            }
+        });
     };
 
     if (loading) {
@@ -269,6 +301,18 @@ export default function ProfilePage() {
 
                 </div>
             </div>
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                onConfirm={modalConfig.onConfirm}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+                loading={cancelLoading}
+                confirmText="Sim, Cancelar"
+                cancelText="Voltar"
+            />
         </div>
     );
 }

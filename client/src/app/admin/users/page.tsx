@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Search, User as UserIcon, Shield, AlertTriangle } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 import { API_URL } from "@/lib/config";
 
 interface User {
@@ -25,6 +26,18 @@ export default function AdminUsersPage() {
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [editForm, setEditForm] = useState({ role: '', subscription_type: '', months: '1' });
     const [saving, setSaving] = useState(false);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+        onConfirm?: () => void;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
 
     const fetchUsers = async () => {
         setLoading(true);
@@ -52,18 +65,38 @@ export default function AdminUsersPage() {
     }, [page, search]);
 
     const handleDelete = async (id: number) => {
-        if (!confirm("Tem certeza? Esta ação removerá o usuário e todo o histórico dele.")) return;
-        try {
-            const res = await fetch(`${API_URL}/api/admin/users/${id}`, { method: 'DELETE', credentials: "include" });
-            if (res.ok) {
-                setUsers(users.filter(u => u.id !== id));
-            } else {
-                alert("Erro ao remover usuário.");
+        const user = users.find(u => u.id === id);
+        setModalConfig({
+            isOpen: true,
+            title: "Excluir Usuário?",
+            description: `Tem certeza que deseja remover ${user?.username}? Esta ação apagará todo o histórico e não pode ser desfeita.`,
+            type: "confirm",
+            onConfirm: async () => {
+                setModalConfig(prev => ({ ...prev, isOpen: false }));
+                try {
+                    const res = await fetch(`${API_URL}/api/admin/users/${id}`, { method: 'DELETE', credentials: "include" });
+                    if (res.ok) {
+                        setUsers(users.filter(u => u.id !== id));
+                        setModalConfig({
+                            isOpen: true,
+                            title: "Removido!",
+                            description: "O usuário foi excluído do sistema permanentemente.",
+                            type: "success"
+                        });
+                    } else {
+                        throw new Error("Falha no servidor");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    setModalConfig({
+                        isOpen: true,
+                        title: "Erro na Exclusão",
+                        description: "Houve um problema ao tentar remover este usuário.",
+                        type: "error"
+                    });
+                }
             }
-        } catch (error) {
-            console.error(error);
-            alert("Erro ao remover usuário.");
-        }
+        });
     };
 
     const handleEditClick = (user: User) => {
@@ -92,13 +125,24 @@ export default function AdminUsersPage() {
 
             if (res.ok) {
                 setEditingUser(null);
-                fetchUsers(); // Refresh to show updates
+                fetchUsers();
+                setModalConfig({
+                    isOpen: true,
+                    title: "Atualizado!",
+                    description: "Os dados do usuário foram salvos com sucesso.",
+                    type: "success"
+                });
             } else {
-                alert("Erro ao atualizar usuário.");
+                throw new Error("Erro na API");
             }
         } catch (error) {
             console.error(error);
-            alert("Erro ao atualizar.");
+            setModalConfig({
+                isOpen: true,
+                title: "Erro ao Salvar",
+                description: "Não foi possível atualizar as informações do usuário.",
+                type: "error"
+            });
         } finally {
             setSaving(false);
         }
@@ -272,6 +316,17 @@ export default function AdminUsersPage() {
                     </div>
                 </div>
             )}
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                onConfirm={modalConfig.onConfirm}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+                confirmText="Sim, Confirmar"
+                cancelText="Cancelar"
+            />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Lock, Loader2, Sparkles, CreditCard, Check, ArrowRight, User } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { API_URL } from "@/lib/config";
@@ -29,6 +30,17 @@ function CheckoutContent() {
     const [copied, setCopied] = useState(false);
     // States para Preapproval (Assinatura Mensal com Trial)
     const [mpBricksReady, setMpBricksReady] = useState(false);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
     const cardBrickRef = useRef<any>(null);
     const brickControllersRef = useRef<any>(null);
 
@@ -145,7 +157,12 @@ function CheckoutContent() {
                         if (!response.ok) throw new Error(data.error || 'Erro ao criar assinatura');
                         router.push('/subscription/checkout/success?type=trial');
                     } catch (err: any) {
-                        alert(`Erro: ${err.message}`);
+                        setModalConfig({
+                            isOpen: true,
+                            title: "Erro no Checkout",
+                            description: err.message || 'Não foi possível processar seu cartão. Verifique os dados e tente novamente.',
+                            type: "error"
+                        });
                     } finally {
                         setProcessing(false);
                     }
@@ -232,7 +249,12 @@ function CheckoutContent() {
         } catch (error: unknown) {
             console.error("Erro ao processar pagamento:", error);
             const errorMessage = error instanceof Error ? error.message : "Não foi possível processar o pagamento.";
-            alert(`Erro: ${errorMessage}`);
+            setModalConfig({
+                isOpen: true,
+                title: "Falha no Pagamento",
+                description: errorMessage,
+                type: "error"
+            });
             setProcessing(false);
         }
     };
@@ -504,6 +526,14 @@ function CheckoutContent() {
                     </div>
                 </motion.div>
             </main>
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+            />
         </div>
     );
 }

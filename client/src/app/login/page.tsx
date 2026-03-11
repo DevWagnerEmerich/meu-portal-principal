@@ -1,19 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Chrome } from "lucide-react";
+import { Loader2, Chrome, CheckCircle2, AlertCircle } from "lucide-react";
 import { API_URL } from "@/lib/config";
 
 
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const status = searchParams.get("status");
+
+    useEffect(() => {
+        if (status === "confirmed") {
+            setSuccessMessage("E-mail confirmado com sucesso! Você já pode entrar.");
+        }
+    }, [status]);
 
     // Estados do formulário
     const [username, setUsername] = useState("");
@@ -43,11 +53,11 @@ export default function LoginPage() {
             // Força um refresh para atualizar o estado de login na home (simples por enquanto)
             router.refresh();
 
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
+        } catch (err: any) {
+            if (err.message === 'E-mail não confirmado.') {
+                setError("Seu e-mail ainda não foi confirmado. Por favor, verifique sua caixa de entrada.");
             } else {
-                setError("Ocorreu um erro desconhecido");
+                setError(err.message || "Ocorreu um erro desconhecido");
             }
         } finally {
             setLoading(false);
@@ -67,8 +77,16 @@ export default function LoginPage() {
                     <p className="text-slate-400">Entre para continuar sua jornada.</p>
                 </div>
 
+                {successMessage && (
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl mb-6 text-sm flex items-center gap-3">
+                        <CheckCircle2 className="w-5 h-5" />
+                        {successMessage}
+                    </div>
+                )}
+
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-md mb-6 text-sm text-center">
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl mb-6 text-sm flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 shrink-0" />
                         {error}
                     </div>
                 )}
@@ -141,5 +159,17 @@ export default function LoginPage() {
                 </div>
             </div>
         </main>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <main className="min-h-screen bg-slate-950 flex items-center justify-center">
+                <Loader2 className="animate-spin text-teal-500 w-10 h-10" />
+            </main>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }

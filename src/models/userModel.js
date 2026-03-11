@@ -5,7 +5,7 @@ const db = require('../database');
 
 const findUserByUsername = async (username) => {
     return await db('users')
-        .select('id', 'username', 'password', 'role', 'show_welcome_modal')
+        .select('id', 'username', 'password', 'role', 'show_welcome_modal', 'is_confirmed')
         .where('username', username)
         .first();
 };

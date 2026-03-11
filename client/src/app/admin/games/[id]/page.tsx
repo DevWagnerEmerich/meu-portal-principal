@@ -4,6 +4,7 @@ import { useEffect, useState, use } from "react";
 import { GameForm } from "@/components/admin/GameForm";
 import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 import { API_URL } from "@/lib/config";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +12,17 @@ export default function EditGamePage({ params }: { params: Promise<{ id: string 
     const { id } = use(params);
     const [game, setGame] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
     const router = useRouter();
 
     useEffect(() => {
@@ -31,8 +43,12 @@ export default function EditGamePage({ params }: { params: Promise<{ id: string 
                     if (found) {
                         setGame(found);
                     } else {
-                        alert("Jogo não encontrado");
-                        router.push("/admin/games");
+                        setModalConfig({
+                            isOpen: true,
+                            title: "Jogo não encontrado",
+                            description: "Não conseguimos localizar este jogo no banco de dados. Ele pode ter sido removido.",
+                            type: "error"
+                        });
                     }
                 }
             } catch (error) {
@@ -61,6 +77,17 @@ export default function EditGamePage({ params }: { params: Promise<{ id: string 
             </div>
 
             <GameForm initialData={game} isEditing={true} />
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => {
+                    setModalConfig(prev => ({ ...prev, isOpen: false }));
+                    router.push("/admin/games");
+                }}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+            />
         </div>
     );
 }

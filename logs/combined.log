@@ -3145,3 +3145,14 @@
 {"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-02-25 02:14:14"}
 {"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-02-25 02:14:14"}
 {"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-02-25 02:14:14"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:08"}
+{"level":"info","message":"Attempting to set up email service...","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:08"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:08"}
+{"level":"info","message":"Usando Postgres Session Store.","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:08"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"Conectado ao banco de dados (production). Pool configurado.","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"GET /api/games/most-accessed","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"GET /api/route-that-does-not-exist","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"POST /api/login","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}
+{"level":"info","message":"POST /api/register","service":"portal-jogos-service","timestamp":"2026-03-10 21:38:09"}

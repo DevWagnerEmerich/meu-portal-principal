@@ -52,7 +52,7 @@ router.post('/register', [
 
         await userModel.createEmailConfirmationToken({ userId, token: confirmationToken, expiresAt });
 
-        const confirmationLink = `${config.domain}/api/confirm-email?token=${confirmationToken}`;
+        const confirmationLink = `${config.domain}/verify-email?token=${confirmationToken}`;
         try {
             await sendEmail({
                 to: email,
@@ -103,6 +103,14 @@ router.post('/login', sensitiveApiLimiter, [
             return res.status(401).json({ message: 'Usuário ou senha inválidos.' });
         }
 
+        if (user.is_confirmed !== 1) {
+            return res.status(403).json({
+                message: 'E-mail não confirmado.',
+                needsConfirmation: true,
+                email: user.email
+            });
+        }
+
         req.session.userId = user.id;
         req.session.username = user.username;
 
@@ -143,7 +151,7 @@ router.post('/forgot-password', sensitiveApiLimiter, [
 
             await userModel.createPasswordResetToken({ userId: user.id, token: resetToken, expiresAt });
 
-            const resetLink = `${config.domain}/reset_password.html?token=${resetToken}`;
+            const resetLink = `${config.domain}/reset-password?token=${resetToken}`;
             try {
                 await sendEmail({
                     to: email,
@@ -222,7 +230,7 @@ router.get('/confirm-email', async (req, res) => {
         await userModel.confirmUserEmail(confirmationEntry.user_id);
         await userModel.deleteEmailConfirmationToken(token);
 
-        res.redirect('/login.html?status=email_confirmed');
+        res.redirect('/login?status=confirmed');
 
     } catch (error) {
         console.error('Erro ao confirmar e-mail:', error.message);
@@ -234,7 +242,7 @@ router.get('/confirm-email', async (req, res) => {
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login.html?status=google_auth_failed' }),
+    passport.authenticate('google', { failureRedirect: '/login?status=google_auth_failed' }),
     (req, res) => {
         if (req.user) {
             req.session.userId = req.user.id;

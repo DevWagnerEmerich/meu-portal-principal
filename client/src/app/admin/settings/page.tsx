@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Save, Settings as SettingsIcon } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 import { API_URL } from "@/lib/config";
 import { Switch } from "../../../components/ui/switch"; // Assuming you have a switch, or use checkbox
 
@@ -18,6 +19,17 @@ export default function AdminSettingsPage() {
     const [settings, setSettings] = useState<Setting[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState<string | null>(null);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
 
     const fetchSettings = async () => {
         try {
@@ -49,12 +61,23 @@ export default function AdminSettingsPage() {
 
             if (res.ok) {
                 setSettings(prev => prev.map(s => s.key === key ? { ...s, value: String(value) } : s));
+                setModalConfig({
+                    isOpen: true,
+                    title: "Salvo!",
+                    description: `A configuração "${key.replace(/_/g, ' ')}" foi atualizada com sucesso.`,
+                    type: "success"
+                });
             } else {
-                alert("Erro ao salvar.");
+                throw new Error("Erro na API");
             }
         } catch (error) {
             console.error("Erro ao salvar:", error);
-            alert("Erro ao salvar.");
+            setModalConfig({
+                isOpen: true,
+                title: "Falha ao Salvar",
+                description: "Não foi possível atualizar esta configuração. Tente novamente.",
+                type: "error"
+            });
         } finally {
             setSaving(null);
         }
@@ -121,6 +144,14 @@ export default function AdminSettingsPage() {
                     </div>
                 ))}
             </div>
+
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+            />
         </div>
     );
 }

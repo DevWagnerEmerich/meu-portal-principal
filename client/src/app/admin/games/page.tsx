@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Loader2, Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
+import { ActionModal, ModalType } from "@/components/ui/ActionModal";
 import { API_URL } from "@/lib/config";
 import Image from "next/image";
 
@@ -20,6 +21,18 @@ export default function AdminGamesPage() {
     const [games, setGames] = useState<Game[]>([]);
     const [loading, setLoading] = useState(true);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [modalConfig, setModalConfig] = useState<{
+        isOpen: boolean;
+        title: string;
+        description: string;
+        type: ModalType;
+        onConfirm?: () => void;
+    }>({
+        isOpen: false,
+        title: "",
+        description: "",
+        type: "info"
+    });
 
     const fetchGames = async () => {
         try {
@@ -40,25 +53,44 @@ export default function AdminGamesPage() {
     }, []);
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Tem certeza que deseja excluir este jogo?")) return;
-
-        setDeletingId(id);
-        try {
-            const res = await fetch(`${API_URL}/api/games/${id}`, {
-                method: "DELETE",
-                credentials: "include"
-            });
-            if (res.ok) {
-                setGames(games.filter(g => g.id !== id));
-            } else {
-                alert("Erro ao excluir jogo.");
+        const game = games.find(g => g.id === id);
+        setModalConfig({
+            isOpen: true,
+            title: "Excluir Jogo?",
+            description: `Tem certeza que deseja remover "${game?.title}"? Esta ação não pode ser desfeita.`,
+            type: "confirm",
+            onConfirm: async () => {
+                setModalConfig(prev => ({ ...prev, isOpen: false }));
+                setDeletingId(id);
+                try {
+                    const res = await fetch(`${API_URL}/api/games/${id}`, {
+                        method: "DELETE",
+                        credentials: "include"
+                    });
+                    if (res.ok) {
+                        setGames(games.filter(g => g.id !== id));
+                        setModalConfig({
+                            isOpen: true,
+                            title: "Excluído!",
+                            description: "O jogo foi removido do portal com sucesso.",
+                            type: "success"
+                        });
+                    } else {
+                        throw new Error("Falha no servidor");
+                    }
+                } catch (error) {
+                    console.error("Erro ao excluir:", error);
+                    setModalConfig({
+                        isOpen: true,
+                        title: "Erro ao Excluir",
+                        description: "Não foi possível remover o jogo agora. Tente novamente em alguns instantes.",
+                        type: "error"
+                    });
+                } finally {
+                    setDeletingId(null);
+                }
             }
-        } catch (error) {
-            console.error("Erro ao excluir:", error);
-            alert("Erro ao excluir jogo.");
-        } finally {
-            setDeletingId(null);
-        }
+        });
     };
 
     if (loading) {
@@ -148,6 +180,17 @@ export default function AdminGamesPage() {
                     </table>
                 </div>
             </div>
+            <ActionModal
+                isOpen={modalConfig.isOpen}
+                onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
+                onConfirm={modalConfig.onConfirm}
+                title={modalConfig.title}
+                description={modalConfig.description}
+                type={modalConfig.type}
+                loading={deletingId !== null}
+                confirmText="Sim, Excluir"
+                cancelText="Cancelar"
+            />
         </div>
     );
 }

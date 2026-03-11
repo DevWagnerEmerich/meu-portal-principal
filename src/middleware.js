@@ -13,7 +13,7 @@ const checkGameAccess = (req, res, next) => {
 
     // Apenas verifica se o usuário está logado. A contagem de jogadas será feita no game-start.
     if (!req.session.userId) {
-        return res.redirect('/login.html?reason=login_required');
+        return res.redirect('/login?reason=login_required');
     }
 
     // Se estiver logado, permite o carregamento da página do jogo.
