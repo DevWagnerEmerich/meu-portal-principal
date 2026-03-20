@@ -49,12 +49,15 @@ router.get('/user-status', async (req, res) => {
                     }
                 }
 
+                // Forçar no-cache para evitar que o navegador use respostas 304 sem cookies/CORS
+                res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+                
                 res.json({
                     loggedIn: true,
-                    userId: req.session.userId,
+                    userId: String(req.session.userId), // Força string para compatibilidade (o briefing espera UUID)
                     username: user.username,
                     subscriptionType: user.subscription_type,
-                    role: user.role,
+                    role: user.role === 'admin' ? 'admin' : (user.role === 'teacher' ? 'teacher' : 'student'), // Mapeamento: admin=admin, teacher=teacher, outros=student
                     energy: energy,
                     maxEnergy: LIMIT,
                     welcomeOffer: {
