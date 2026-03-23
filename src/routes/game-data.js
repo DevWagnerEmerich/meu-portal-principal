@@ -63,13 +63,27 @@ router.get('/game-data/community/:gameId', async (req, res) => {
             try {
                 const data = JSON.parse(row.data_value);
                 if (Array.isArray(data)) {
-                    const publicItems = data
-                        .filter(item => item.isPublic === true)
-                        .map(item => ({
-                            ...item,
-                            authorName: row.username || 'Explorador'
-                        }));
-                    allPublicItems = allPublicItems.concat(publicItems);
+                    data.forEach(item => {
+                        if (item.isPublic === true) {
+                            // Resolve o aninhamento se o conteúdo estiver dentro de 'value' ou 'data'
+                            // mas evita recursividade simples.
+                            const content = item.value || item.data_value || item;
+                            
+                            allPublicItems.push({
+                                // Espalha as propriedades do item (incluindo isPublic, titulo, etc)
+                                ...item,
+                                // Garante que campos essenciais estejam no topo, sem chaves extras 'value'
+                                authorName: row.username || 'Explorador',
+                                // Se o conteúdo real das palavras estiver em item.data (string), mantém
+                                // Caso contrário, garante que 'data' seja o objeto de conteúdo
+                                data: item.data || content, 
+                                // Para compatibilidade com a frase "objetos da tabela game_user_data"
+                                data_value: row.data_value,
+                                // Remove chaves de aninhamento se elas existirem para limpar o objeto
+                                value: undefined 
+                            });
+                        }
+                    });
                 }
             } catch (e) {
                 // Ignora erros de parse para dados individuais
