@@ -3,45 +3,6 @@ const db = require('../database.js');
 const router = express.Router();
 
 /**
- * GET /api/game-data/:gameId/:key
- * Retrieves persisted data for a specific game and key for the logged-in user.
- */
-router.get('/game-data/:gameId/:key', async (req, res) => {
-    if (!req.session.userId) {
-        return res.status(401).json({ message: 'Não autenticado.' });
-    }
-
-    const { gameId, key } = req.params;
-
-    try {
-        const row = await db('game_user_data')
-            .where({
-                user_id: req.session.userId,
-                game_id: gameId,
-                data_key: key
-            })
-            .first();
-
-        if (!row) {
-            return res.json({ value: null });
-        }
-
-        // Tenta parsear como JSON se possível
-        let value = row.data_value;
-        try {
-            value = JSON.parse(value);
-        } catch (e) {
-            // Se não for JSON válido, retorna como string mesmo
-        }
-
-        res.json({ value });
-    } catch (err) {
-        console.error('Erro ao buscar game-data:', err);
-        res.status(500).json({ message: 'Erro interno no servidor.' });
-    }
-});
-
-/**
  * GET /api/game-data/community/:gameId
  * Retrieves all public data (isPublic: true) for a specific game from all users.
  */
@@ -96,6 +57,46 @@ router.get('/game-data/community/:gameId', async (req, res) => {
         res.status(500).json({ message: 'Erro interno no servidor.' });
     }
 });
+
+/**
+ * GET /api/game-data/:gameId/:key
+ * Retrieves persisted data for a specific game and key for the logged-in user.
+ */
+router.get('/game-data/:gameId/:key', async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Não autenticado.' });
+    }
+
+    const { gameId, key } = req.params;
+
+    try {
+        const row = await db('game_user_data')
+            .where({
+                user_id: req.session.userId,
+                game_id: gameId,
+                data_key: key
+            })
+            .first();
+
+        if (!row) {
+            return res.json({ value: null });
+        }
+
+        // Tenta parsear como JSON se possível
+        let value = row.data_value;
+        try {
+            value = JSON.parse(value);
+        } catch (e) {
+            // Se não for JSON válido, retorna como string mesmo
+        }
+
+        res.json({ value });
+    } catch (err) {
+        console.error('Erro ao buscar game-data:', err);
+        res.status(500).json({ message: 'Erro interno no servidor.' });
+    }
+});
+
 
 /**
  * POST /api/game-data
