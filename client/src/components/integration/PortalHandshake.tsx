@@ -55,6 +55,20 @@ export function PortalHandshake() {
             source.postMessage({ type: 'BRINCABYTES_LOAD_RESULT', success: res.ok, key, value: loadData.value }, event.origin);
             break;
           }
+
+          case 'BRINCABYTES_LOAD_COMMUNITY_DATA': {
+            const { gameId } = data;
+            console.log(`[PortalHandshake] Carregando dados da comunidade para ${gameId}...`);
+            const res = await fetch(`/api/game-data/community/${gameId}`);
+            const communityData = await res.json();
+            console.log(`[PortalHandshake] Resultado Comunidade:`, res.status, communityData.length, 'itens');
+            
+            source.postMessage({ 
+              type: 'BRINCABYTES_LOAD_COMMUNITY_RESULT', 
+              value: communityData 
+            }, event.origin);
+            break;
+          }
         }
       } catch (error) {
         console.error('[PortalHandshake] Erro Crítico:', error);

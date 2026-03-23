@@ -42,6 +42,48 @@ router.get('/game-data/:gameId/:key', async (req, res) => {
 });
 
 /**
+ * GET /api/game-data/community/:gameId
+ * Retrieves all public data (isPublic: true) for a specific game from all users.
+ */
+router.get('/game-data/community/:gameId', async (req, res) => {
+    const { gameId } = req.params;
+
+    try {
+        const rows = await db('game_user_data')
+            .join('users', 'game_user_data.user_id', 'users.id')
+            .where({
+                'game_user_data.game_id': gameId,
+                'game_user_data.data_key': 'biblioteca'
+            })
+            .select('game_user_data.data_value', 'users.username');
+
+        let allPublicItems = [];
+
+        rows.forEach(row => {
+            try {
+                const data = JSON.parse(row.data_value);
+                if (Array.isArray(data)) {
+                    const publicItems = data
+                        .filter(item => item.isPublic === true)
+                        .map(item => ({
+                            ...item,
+                            authorName: row.username || 'Explorador'
+                        }));
+                    allPublicItems = allPublicItems.concat(publicItems);
+                }
+            } catch (e) {
+                // Ignora erros de parse para dados individuais
+            }
+        });
+
+        res.json(allPublicItems);
+    } catch (err) {
+        console.error('Erro ao buscar dados da comunidade:', err);
+        res.status(500).json({ message: 'Erro interno no servidor.' });
+    }
+});
+
+/**
  * POST /api/game-data
  * Saves or updates persisted data for the logged-in user.
  */
